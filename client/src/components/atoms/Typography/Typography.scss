@@ -1,0 +1,55 @@
+@import "../../../sass/sass-utils/colors";
+
+.typography__variant-h1 {
+	font-size: 4rem;
+	font-weight: 500;
+}
+
+.typography__variant-h2 {
+	font-size: 2.75rem;
+	font-weight: 500;
+}
+
+.typography__variant-h3 {
+	font-size: 2rem;
+	font-weight: 500;
+}
+
+.typography__variant-h4 {
+	font-size: 1.85rem;
+	font-weight: 500;
+}
+
+.typography__variant-h5 {
+	font-size: 1.5rem;
+	font-weight: 500;
+}
+
+.typography__variant-h6 {
+	font-size: 1.25rem;
+	font-weight: 500;
+}
+
+.typography__variant-body {
+	font-size: 1rem;
+}
+.typography__variant-small {
+	font-size: 0.875rem;
+}
+.typography__color-primary {
+	color: $black_main;
+	font-weight: 300;
+}
+
+.typography__color-error {
+	color: $red_main;
+	font-weight: 300;
+}
+
+.typography__color-success {
+	color: $green;
+	font-weight: 300;
+}
+.typography__color-paragraph {
+	color: $gray_text;
+}

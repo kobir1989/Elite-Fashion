@@ -1,9 +1,8 @@
-import Input from "./components/atoms/Input/Input";
+import Typography from "./components/atoms/Typography/Typography";
 const App = () => {
   return (
     <div>
-      <h1>Hello</h1>
-      <Input placeHolder={"TExt"} />
+      <Typography variant={"small"} color={"success"}>Hello</Typography>
     </div>
   );
 }

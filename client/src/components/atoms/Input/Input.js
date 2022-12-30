@@ -4,7 +4,7 @@ import "./Input.scss";
 const Input = (props) => {
    const {
       name = "name",
-      varient = "password",
+      variant = "password",
       size = "md",
       placeHolder = "Name",
       label = "Name",
@@ -13,8 +13,7 @@ const Input = (props) => {
    return (
       <div className='input-wrapper'>
          <label htmlFor={name}>{label}</label>
-         <input type={varient} className={`input ${size}`} placeholder={placeHolder}  {...otherProps} />
-
+         <input type={variant} className={`input ${size}`} placeholder={placeHolder}  {...otherProps} />
       </div>
    )
 }
