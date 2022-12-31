@@ -1,19 +1,30 @@
 import React from 'react';
-import "./Input.scss";
+import TextField from '@mui/material/TextField';
 
-const Input = (props) => {
-   const {
-      name = "name",
-      variant = "password",
-      size = "md",
-      placeHolder = "Name",
-      label = "Name",
-      ...otherProps
-   } = props;
+const Input = ({
+   width,
+   error,
+   type,
+   label,
+   color,
+   errorMessage,
+   ...otherProps
+}) => {
+
    return (
-      <div className='input-wrapper'>
-         <label htmlFor={name}>{label}</label>
-         <input type={variant} className={`input ${size}`} placeholder={placeHolder}  {...otherProps} />
+      <div>
+         <TextField
+            color={color || "secondary"}
+            error={error || false}
+            sx={{ m: "1rem 0" }}
+            id="outlined-error"
+            type={type || "text"}
+            label={label || "Required"}
+            fullWidth={width || false}
+            required
+            helperText={errorMessage || ""}
+            {...otherProps}
+         />
       </div>
    )
 }

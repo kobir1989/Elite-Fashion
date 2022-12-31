@@ -2,8 +2,9 @@
 @import "../../../sass/sass-utils/mixins";
 
 .button {
-	padding: 0.8rem 1.5rem;
+	padding: 0.6rem 2rem;
 	letter-spacing: 0.5px;
+	font-size: 1rem;
 	cursor: pointer;
 	&:hover {
 		@include box-shadow-diffuse;
@@ -13,18 +14,23 @@
 .primary {
 	background-color: $white;
 	border: 1px solid $black_main;
-	font-size: 1.2rem;
 	font-weight: 500;
 	border-radius: 8px;
 	&:hover {
 		border: 1px solid $blue;
 	}
 }
+.rounded {
+	background-color: $black_main;
+	color: $white;
+	border: unset;
+	border-radius: 2.2rem;
+	font-weight: 300;
+}
 .danger {
 	background-color: $white;
 	border: 1px solid $red_main;
 	border-radius: 8px;
-	font-size: 1.1rem;
 	font-weight: 300;
 	color: $red_main;
 	&:hover {
@@ -37,7 +43,6 @@
 	background-color: $green;
 	border: unset;
 	border-radius: 8px;
-	font-size: 1.1rem;
 	font-weight: 300;
 	color: $white;
 	&:hover {
@@ -51,7 +56,6 @@
 	color: $white;
 	border: unset;
 	border-radius: 4px;
-	font-size: 1.1rem;
 	font-weight: 300;
 }
 
@@ -59,7 +63,6 @@
 	background-color: $black_main;
 	color: $white;
 	border-radius: 4rem;
-	font-size: 1.1rem;
 	font-weight: 300;
 	padding: 0.1rem 0.5rem;
 	&:hover {
@@ -71,7 +74,6 @@
 	color: $black_main;
 	border-radius: 4rem;
 	border: 1px solid $black_main;
-	font-size: 1.1rem;
 	font-weight: 300;
 	padding: 0.1rem 0.5rem;
 	&:hover {
