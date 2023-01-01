@@ -71,26 +71,29 @@ const Navbar = () => {
                </Button>
             </div>
             {openMenu &&
-               <div className={styles.nav_menu_mobile_dropdown}>
-                  <div className={styles.close_icon}>
-                     <Button variant={"icon-btn-normal"} onClick={() => { setOpenMenu(false) }}>
-                        <CloseIcon sx={{ color: "#cc2121", fontSize: "1.8rem" }} />
-                     </Button>
+               <div className={styles.nav_backdrop}>
+                  <div className={styles.nav_menu_mobile_dropdown}>
+                     <div className={styles.close_icon}>
+                        <Button variant={"icon-btn-normal"} onClick={() => { setOpenMenu(false) }}>
+                           <CloseIcon sx={{ color: "#cc2121", fontSize: "1.8rem" }} />
+                        </Button>
+                     </div>
+                     <div className={styles.nav_menu_mobile_dropdown_search}>
+                        <span className={styles.input}><Input size={"small"} label={"Search"} /></span>
+                        <span className={styles.icon}><SearchIcon sx={{ color: "#727272" }} /></span>
+                     </div>
+                     <ul className={styles.nav_menu_mobile_dropdown_links}>
+                        <li>Man</li>
+                        <li>Women</li>
+                        <li>Lifestyles</li>
+                        <li>Account</li>
+                        <li>login</li>
+                        <li>signup</li>
+                        <li>logout</li>
+                     </ul>
                   </div>
-                  <div className={styles.nav_menu_mobile_dropdown_search}>
-                     <span className={styles.input}><Input size={"small"} label={"Search"} /></span>
-                     <span className={styles.icon}><SearchIcon sx={{ color: "#727272" }} /></span>
-                  </div>
-                  <ul className={styles.nav_menu_mobile_dropdown_links}>
-                     <li>Man</li>
-                     <li>Women</li>
-                     <li>Lifestyles</li>
-                     <li>Account</li>
-                     <li>login</li>
-                     <li>signup</li>
-                     <li>logout</li>
-                  </ul>
-               </div>}
+               </div>
+            }
          </div>
          {/*********************************/}
       </nav>

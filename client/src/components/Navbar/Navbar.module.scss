@@ -84,7 +84,16 @@
 			}
 		}
 	}
+	.nav_backdrop {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100vh;
+		background-color: $back_drop;
+	}
 	.nav_menu_mobile {
+		z-index: 40;
 		@include screens-lg {
 			display: none;
 		}
@@ -105,15 +114,13 @@
 		}
 		&_dropdown {
 			padding: 2rem;
-			position: absolute;
+			position: fixed;
 			top: 0;
 			left: 0;
 			background-color: $white;
 			width: 55%;
-			height: 98vh;
-			z-index: 10;
+			height: 100vh;
 			animation: toggle 0.3s linear;
-			// background-color: red;
 			.close_icon {
 				position: absolute;
 				right: 6%;
