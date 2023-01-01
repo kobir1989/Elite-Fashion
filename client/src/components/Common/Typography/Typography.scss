@@ -1,4 +1,5 @@
 @import "../../../sass/sass-utils/colors";
+@import "../../../sass/sass-utils/mixins";
 
 .typography__variant-h1 {
 	font-size: 4rem;
@@ -16,17 +17,21 @@
 }
 
 .typography__variant-h4 {
-	font-size: 1.85rem;
+	font-size: 1.1rem;
 	font-weight: 500;
+	letter-spacing: 0.5px;
+	@include screens-lg {
+		font-size: 1.3rem;
+	}
 }
 
 .typography__variant-h5 {
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 	font-weight: 500;
 }
 
 .typography__variant-h6 {
-	font-size: 1.25rem;
+	font-size: 1.1rem;
 	font-weight: 500;
 }
 
@@ -34,13 +39,19 @@
 	font-size: 1rem;
 }
 .typography__variant-small {
-	font-size: 0.875rem;
+	font-size: 0.7rem;
+	letter-spacing: 0.5px;
+	@include screens-lg {
+		font-size: 0.85rem;
+	}
 }
 .typography__color-primary {
 	color: $black_main;
 	font-weight: 300;
 }
-
+.typography__color-white {
+	color: $white;
+}
 .typography__color-error {
 	color: $red_main;
 	font-weight: 300;
