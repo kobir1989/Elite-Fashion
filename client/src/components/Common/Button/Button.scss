@@ -2,22 +2,33 @@
 @import "../../../sass/sass-utils/mixins";
 
 .button {
-	padding: 0.6rem 2rem;
+	padding: 0.8rem 2rem;
 	letter-spacing: 0.5px;
-	font-size: 1rem;
+	font-size: 1.1rem;
 	cursor: pointer;
 	&:hover {
 		@include box-shadow-diffuse;
 	}
 }
-
 .primary {
-	background-color: $white;
+	background-color: unset;
 	border: 1px solid $black_main;
+	color: $black_main;
 	font-weight: 500;
 	border-radius: 8px;
 	&:hover {
-		border: 1px solid $blue;
+		background-color: $black_main;
+		color: $white;
+	}
+}
+.white {
+	background-color: $white;
+	border: 1px solid $black_main;
+	color: $black_main;
+	font-weight: 500;
+	border-radius: 8px;
+	&:hover {
+		border: 1px solid $red_deep;
 	}
 }
 .rounded {

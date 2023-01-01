@@ -8,6 +8,7 @@ const variantMap = {
    h4: "h4",
    h5: "h5",
    h6: "h6",
+   subtitle: "h2",
    body: "p",
    small: "p"
 }

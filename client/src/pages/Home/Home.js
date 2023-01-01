@@ -1,12 +1,15 @@
 import React from 'react';
 import PageLayout from '../../layouts/PageLayout';
+import Hero from './Components/Hero';
 
 const Home = () => {
    return (
       <PageLayout>
-         <div>Home Page</div>
+         <section>
+            <Hero />
+         </section>
       </PageLayout>
    )
 }
 
-export default Home
+export default Home;
