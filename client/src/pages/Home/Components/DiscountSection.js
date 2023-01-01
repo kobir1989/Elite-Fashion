@@ -1,21 +1,27 @@
 import React from 'react';
-import styles from "../styles/CategoriesSection.module.scss";
-import Typography from "../../../components/Common/Typography/Typography";
 import CategoryCard from './CategoryCard';
+import styles from "../styles/CategoriesSection.module.scss"
 
-//TODO: Category data willbe fetch from database 
-
-const CategoriesSection = () => {
+const DiscountSection = () => {
    return (
       <div className={styles.category_wrapper}>
          <div className={styles.row_one}>
             <CategoryCard
-               title={"Men"}
+               title={"Winter Story"}
+               variant={"h2"}
                imgSize={"big"}
                imgUrl={"/assets/lifestyles.webp"}
             />
             <CategoryCard
-               title={"Women"}
+               title={"Up to 50% off"}
+               variant={"h2"}
+               color={"red"}
+               imgSize={"big"}
+               imgUrl={"/assets/lifestyles.webp"}
+            />
+            <CategoryCard
+               title={"New Arrival"}
+               variant={"h2"}
                color={"pink"}
                imgSize={"big"}
                imgUrl={"/assets/lifestyles.webp"}
@@ -23,7 +29,8 @@ const CategoriesSection = () => {
          </div>
          <div className={styles.row_two}>
             <CategoryCard
-               title={"Lifestyle"}
+               title={"Deals made especially for you!"}
+               variant={"h2"}
                imgSize={"md"}
                imgUrl={"/assets/lifestyles.webp"}
             />
@@ -32,4 +39,4 @@ const CategoriesSection = () => {
    )
 }
 
-export default CategoriesSection;
+export default DiscountSection;

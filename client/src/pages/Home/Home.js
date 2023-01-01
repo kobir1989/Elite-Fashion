@@ -3,6 +3,7 @@ import PageLayout from '../../layouts/PageLayout';
 import Hero from './Components/Hero';
 import CategoriesSection from './Components/CategoriesSection';
 import styles from "./styles/Home.module.scss";
+import DiscountSection from './Components/DiscountSection';
 
 const Home = () => {
    return (
@@ -12,6 +13,9 @@ const Home = () => {
          </section>
          <section>
             <CategoriesSection />
+         </section>
+         <section>
+            <DiscountSection />
          </section>
       </PageLayout>
    )
