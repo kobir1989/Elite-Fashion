@@ -80,3 +80,10 @@
 		border: 1px solid $blue;
 	}
 }
+.icon-btn-normal {
+	background-color: unset;
+	color: $gray_text;
+	border: unset;
+	font-weight: 300;
+	padding: 0.1rem 0.5rem;
+}

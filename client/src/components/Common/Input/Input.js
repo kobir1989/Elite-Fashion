@@ -2,12 +2,14 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 
 const Input = ({
-   width,
+   full,
    error,
    type,
    label,
    color,
    errorMessage,
+   size,
+   required,
    ...otherProps
 }) => {
 
@@ -20,8 +22,8 @@ const Input = ({
             id="outlined-error"
             type={type || "text"}
             label={label || "Required"}
-            fullWidth={width || false}
-            required
+            fullWidth={full || false}
+            size={size || "normal"}
             helperText={errorMessage || ""}
             {...otherProps}
          />
