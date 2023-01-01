@@ -26,7 +26,7 @@ const Hero = () => {
       <div>
          <Slider {...settings}>
             <div className={`${styles.slider_cover_wrapper} ${styles.cover_1}`}>
-               <img src="assets/lifestyles.webp" alt="cover" />
+               <img src="assets/shoe-cover.webp" alt="cover" />
                <div className={styles.cover_text}>
                   <Typography variant={"h1"}>
                      Everything you <br /> need, on a

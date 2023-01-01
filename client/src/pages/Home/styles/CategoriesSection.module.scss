@@ -1,0 +1,82 @@
+@import "../../../sass/sass-utils/mixins";
+@import "../../../sass/sass-utils/colors";
+
+.category_wrapper {
+	width: 100%;
+	@include flex-col;
+	gap: 1rem;
+	.row_one {
+		@include flex-col;
+		cursor: pointer;
+		gap: 1rem;
+		@include screens-md {
+			@include flex-row;
+		}
+		img {
+			width: 100%;
+			height: 30vh;
+			@include screens-md {
+				width: 100%;
+				height: 60vh;
+			}
+		}
+		.category_man_wrapper {
+			position: relative;
+			.category_title_men {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				background-color: $glass_white;
+				color: $navy;
+				border-radius: 8px;
+				padding: 1rem 2rem;
+				border: 1px solid $gray;
+				transform: translate(-50%, -50%);
+			}
+		}
+		.category_women_wrapper {
+			position: relative;
+			.category_title_women {
+				position: absolute;
+				color: $pink_main;
+				background-color: $glass_pink;
+				padding: 1rem 2rem;
+				border: 1px solid $pink_main;
+				border-radius: 8px;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+		}
+	}
+	.row_two {
+		position: relative;
+		cursor: pointer;
+		img {
+			width: 100%;
+			height: 30vh;
+			background-size: cover;
+			background-position: center;
+			object-fit: cover;
+			@include screens-md {
+				width: 100%;
+				height: 50vh;
+			}
+		}
+		&:hover {
+			cursor: pointer;
+			opacity: 0.9;
+		}
+		.category_title_lifestyle {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: $glass_white;
+			color: $navy;
+			padding: 1rem 2rem;
+			border: 1px solid $gray;
+			border-radius: 8px;
+		}
+	}
+}
