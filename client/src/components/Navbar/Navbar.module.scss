@@ -36,7 +36,7 @@
 				text-transform: uppercase;
 				color: $gray_text;
 				@include flex-row;
-				gap: 2rem;
+				gap: 2.2rem;
 			}
 		}
 		&_buttons {
@@ -44,7 +44,7 @@
 			position: relative;
 			@include screens-lg {
 				@include flex-row;
-				gap: 0.9rem;
+				gap: 1.5rem;
 				position: relative;
 				span {
 					position: absolute;
@@ -55,6 +55,7 @@
 					background-color: $red_main;
 					padding: 0.2rem 0.4rem;
 					border-radius: 12px;
+					@include box-shadow-diffuse;
 				}
 			}
 			.bgscreen_dropdown {
@@ -66,8 +67,9 @@
 				left: 0.8rem;
 				top: 2.2rem;
 				@include box-shadow-diffuse;
-				animation: popup 0.3s linear;
+				animation: popup 0.1s linear;
 				padding: 1.5rem;
+				border-radius: 4px;
 				li {
 					font-size: 0.7rem;
 					letter-spacing: 0.5px;
@@ -118,7 +120,7 @@
 			top: 0;
 			left: 0;
 			background-color: $white;
-			width: 55%;
+			max-width: 18rem;
 			height: 100vh;
 			animation: toggle 0.3s linear;
 			.close_icon {
@@ -129,6 +131,7 @@
 			&_search {
 				position: relative;
 				margin: 2rem 0;
+				max-width: 13rem;
 				.icon {
 					position: absolute;
 					top: 1.5rem;

@@ -7,7 +7,6 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import EmailIcon from '@mui/icons-material/Email';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import Divider from '@mui/material/Divider';
 
 const Footer = () => {
    return (
@@ -44,8 +43,8 @@ const Footer = () => {
             <div className={styles.footer_contract_wrapper}>
                <Typography color={"white"} variant={"h4"}>Contract</Typography>
                <ul>
-                  <li><EmailIcon /> Kobir.h.ritu@gmail.com</li>
-                  <li><LocalPhoneIcon /> +8801746668064</li>
+                  <li><EmailIcon sx={{ fontSize: "1.1rem" }} /> Kobir.h.ritu@gmail.com</li>
+                  <li><LocalPhoneIcon sx={{ fontSize: "1.1rem" }} /> +88017XXXXXX</li>
                </ul>
             </div>
          </div>

@@ -12,6 +12,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 const Navbar = () => {
    const [openMenu, setOpenMenu] = useState(false)
@@ -33,12 +34,13 @@ const Navbar = () => {
                <Button variant={"icon-btn-normal"}>
                   <SearchIcon />
                </Button>
-               <Button variant={"icon-btn-normal"} onClick={() => { setOpenDropdown(!openDropdown) }}>
+               <Button variant={"icon-btn-normal"} onMouseEnter={() => { setOpenDropdown(true) }} onMouseLeave={() => { setOpenDropdown(false) }}>
                   <PermIdentityIcon />
                   {openDropdown &&
                      <ul className={styles.bgscreen_dropdown}>
                         <li><LoginIcon sx={{ fontSize: "1.2rem" }} /> Login</li>
                         <li> <AppRegistrationIcon sx={{ fontSize: "1.2rem" }} /> Signup</li>
+                        <li> <ManageAccountsIcon sx={{ fontSize: "1.2rem" }} /> Account</li>
                         <li><LogoutIcon sx={{ fontSize: "1.2rem" }} /> Logout</li>
                      </ul>
                   }
