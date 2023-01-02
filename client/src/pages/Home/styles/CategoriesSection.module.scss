@@ -4,17 +4,39 @@
 .category_wrapper {
 	width: 100%;
 	@include flex-col;
-	gap: 1rem;
+	gap: 1.4rem;
 	.row_one {
 		@include flex-col;
-		gap: 1rem;
+		gap: 1.4rem;
+		padding: 0 1rem;
 		@include screens-md {
 			@include flex-row;
 		}
+		.card_wrapper {
+			width: 100%;
+			@include screens-md {
+				width: 50%;
+			}
+		}
 	}
 	.row_two {
+		padding: 0 1rem;
 		@include screens-md {
 			width: 100%;
+		}
+	}
+	.row_three {
+		padding: 0 1rem;
+		@include flex-col;
+		@include screens-md {
+			@include flex-row;
+		}
+		gap: 1.34rem;
+		.card_wrapper {
+			width: 100%;
+			@include screens-md {
+				width: calc(100% / 3);
+			}
 		}
 	}
 }

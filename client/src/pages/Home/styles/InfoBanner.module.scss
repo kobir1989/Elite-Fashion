@@ -1,0 +1,31 @@
+@import "../../../sass/sass-utils/mixins";
+@import "../../../sass/sass-utils/colors";
+.banner_wrapper {
+	margin: 3rem 0;
+	@include flex-col;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	gap: 1rem;
+	@include screens-md {
+		@include flex-row-space-between;
+	}
+	.banner_tag {
+		@include flex-row;
+		align-items: center;
+		max-width: 18rem;
+		gap: 1rem;
+		svg {
+			font-size: 4rem;
+			@include screens-md {
+				font-size: 6rem;
+			}
+		}
+		@include screens-md {
+			max-width: 22rem;
+		}
+		h4 {
+			margin-bottom: 0.5rem;
+		}
+	}
+}

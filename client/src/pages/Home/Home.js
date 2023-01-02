@@ -3,7 +3,8 @@ import PageLayout from '../../layouts/PageLayout';
 import Hero from './Components/Hero';
 import CategoriesSection from './Components/CategoriesSection';
 import styles from "./styles/Home.module.scss";
-import DiscountSection from './Components/DiscountSection';
+import InfoBanner from './Components/InfoBanner';
+import Banner from './Components/Banner';
 
 const Home = () => {
    return (
@@ -12,10 +13,13 @@ const Home = () => {
             <Hero />
          </section>
          <section>
+            <InfoBanner />
+         </section>
+         <section>
             <CategoriesSection />
          </section>
          <section>
-            <DiscountSection />
+            <Banner />
          </section>
       </PageLayout>
    )

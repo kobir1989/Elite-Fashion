@@ -28,11 +28,11 @@ const Hero = () => {
             <div className={`${styles.slider_cover_wrapper} ${styles.cover_1}`}>
                <img src="assets/shoe-cover.webp" alt="cover" />
                <div className={styles.cover_text}>
-                  <Typography variant={"h1"}>
+                  <Typography color={"white"} variant={"h1"}>
                      Everything you <br /> need, on a
                      <span className={styles.span_text}> budget</span>
                   </Typography>
-                  <Typography variant={"subtitle"}>
+                  <Typography color={"white"} variant={"subtitle"}>
                      Buy More, Spend Less
                   </Typography>
                   <span className={styles.discount}>Up to 50% off!</span>
@@ -42,12 +42,12 @@ const Hero = () => {
             <div className={`${styles.slider_cover_wrapper} ${styles.cover_2}`}>
                <img src="assets/model 2.webp" alt="cover" />
                <div className={styles.cover_text}>
-                  <Typography variant={"h1"}>
+                  <Typography color={"white"} variant={"h1"}>
                      There is
                      <span className={styles.span_text}> Luxury</span>
                      <br /> in Simplicity
                   </Typography>
-                  <Typography variant={"subtitle"}>
+                  <Typography color={"white"} variant={"subtitle"}>
                      Fall In Love with the best Things in This Season
                   </Typography>
                   <span className={styles.discount}>Up to 35% off!</span>
@@ -57,11 +57,11 @@ const Hero = () => {
             <div className={`${styles.slider_cover_wrapper} ${styles.cover_3}`}>
                <img src="assets/model1.webp" alt="cover" />
                <div className={styles.cover_text}>
-                  <Typography variant={"h1"}>
+                  <Typography color={"white"} variant={"h1"}>
                      Get the <span className={styles.span_text}>celebrity </span> <br />look you have been craving
 
                   </Typography>
-                  <Typography variant={"subtitle"}>
+                  <Typography color={"white"} variant={"subtitle"}>
                      Your favorite products made affordable for you
                   </Typography>
                   <span className={styles.discount}>Up to 25% off!</span>
