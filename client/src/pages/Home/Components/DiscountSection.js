@@ -6,33 +6,37 @@ const DiscountSection = () => {
    return (
       <div className={styles.category_wrapper}>
          <div className={styles.row_one}>
-            <CategoryCard
-               title={"Winter Story"}
-               variant={"h2"}
-               imgSize={"big"}
-               imgUrl={"/assets/lifestyles.webp"}
-            />
-            <CategoryCard
-               title={"Up to 50% off"}
-               variant={"h2"}
-               color={"red"}
-               imgSize={"big"}
-               imgUrl={"/assets/lifestyles.webp"}
-            />
-            <CategoryCard
-               title={"New Arrival"}
-               variant={"h2"}
-               color={"pink"}
-               imgSize={"big"}
-               imgUrl={"/assets/lifestyles.webp"}
-            />
+            <div style={{ width: "calc(100% / 3)" }}>
+               <CategoryCard
+                  title={"Winter Story"}
+                  variant={"h2"}
+                  imgSize={"big"}
+                  imgUrl={"/assets/category-img/winter1.webp"}
+               />
+            </div>
+            <div style={{ width: "calc(100% / 3)" }}>
+               <CategoryCard
+                  title={"Up to 50% off"}
+                  variant={"h2"}
+                  imgSize={"big"}
+                  imgUrl={"/assets/category-img/sale1.jpg"}
+               />
+            </div>
+            <div style={{ width: "calc(100% / 3)" }}>
+               <CategoryCard
+                  title={"New Arrival"}
+                  variant={"h2"}
+                  imgSize={"big"}
+                  imgUrl={"/assets/category-img/new-arrival.jpg"}
+               />
+            </div>
          </div>
          <div className={styles.row_two}>
             <CategoryCard
-               title={"Deals made especially for you!"}
+               title={"Shop now"}
                variant={"h2"}
                imgSize={"md"}
-               imgUrl={"/assets/lifestyles.webp"}
+               imgUrl={"/assets/category-img/offer.webp"}
             />
          </div>
       </div>

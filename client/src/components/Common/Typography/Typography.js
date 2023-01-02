@@ -13,7 +13,7 @@ const variantMap = {
    small: "p"
 }
 
-const Typography = ({ variant, color, children, ...otherProps }) => {
+const Typography = ({ variant, color = "primary", children, ...otherProps }) => {
    const Component = variant ? variantMap[variant] : "p";
    return (
       <Component

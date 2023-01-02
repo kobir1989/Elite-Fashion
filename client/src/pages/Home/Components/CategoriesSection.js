@@ -9,23 +9,28 @@ const CategoriesSection = () => {
    return (
       <div className={styles.category_wrapper}>
          <div className={styles.row_one}>
-            <CategoryCard
-               title={"Men"}
-               imgSize={"big"}
-               imgUrl={"/assets/lifestyles.webp"}
-            />
-            <CategoryCard
-               title={"Women"}
-               color={"pink"}
-               imgSize={"big"}
-               imgUrl={"/assets/lifestyles.webp"}
-            />
+            <div style={{ width: "50%" }}>
+               <CategoryCard
+                  title={"Men"}
+                  imgSize={"big"}
+                  imgUrl={"/assets/category-img/category-men.png"}
+               />
+            </div>
+            <div style={{ width: "50%" }}>
+               <CategoryCard
+                  title={"Women"}
+                  background={"gray"}
+                  color={"pink"}
+                  imgSize={"big"}
+                  imgUrl={"/assets/category-img/women-category.jpg"}
+               />
+            </div>
          </div>
          <div className={styles.row_two}>
             <CategoryCard
                title={"Lifestyle"}
                imgSize={"md"}
-               imgUrl={"/assets/lifestyles.webp"}
+               imgUrl={"/assets/category-img/lifestyle-category.jpg"}
             />
          </div>
       </div>
