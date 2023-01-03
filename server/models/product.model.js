@@ -42,9 +42,11 @@ const productSchema = new Schema({
       default: 0,
    }
 
-}, {
-   timestamps: true
-})
+},
+   {
+      timestamps: true
+   }
+);
 
 const Product = model("Product", productSchema);
 module.exports = Product;

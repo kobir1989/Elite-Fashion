@@ -32,9 +32,11 @@ const userSchema = new Schema({
    forgetPasswordToken: String,
    forgetPasswordExpiry: Date
 
-}, {
-   timestamps: true
-})
+},
+   {
+      timestamps: true
+   }
+);
 
 // encrypt password before saving to DB.
 userSchema.pre("save", async function (next) {
