@@ -33,9 +33,12 @@ const userSchema = new Schema({
       enum: Object.values(authRoles),
       default: authRoles.USER
    },
+   purchases: {
+      type: Array,
+      default: [],
+   },
    forgetPasswordToken: String,
    forgetPasswordExpiry: Date
-
 },
    {
       timestamps: true
@@ -52,21 +55,20 @@ userSchema.pre("save", async function (next) {
 })
 
 //Methods to add more featuers in the Schema
-userSchema.method = {
+userSchema.methods = {
    //Compare Password 
    comparePassword: async function (enteredPassword) {
       return await bcrypt.compare(enteredPassword, this.password)
    },
 
    //Generate JWT token
-   generateJwtToken: async function () {
+   generateJwtToken: function () {
       return jwt.sign(
          {
             _id: this._id,
             role: this.role
          },
-
-         config.JW_SECRET,
+         config.JWT_SECRET,
          {
             expiresIn: config.JWT_EXPIRE
          }

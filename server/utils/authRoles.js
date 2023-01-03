@@ -1,4 +1,5 @@
-module.exports.authRoles = {
-   user: "USER",
+const authRoles = {
+   USER: "USER",
    ADMIN: "ADMIN"
 }
+module.exports = authRoles;
