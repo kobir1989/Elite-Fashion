@@ -73,3 +73,49 @@ module.exports.signUp = async (req, res) => {
    }
 
 }
+
+/********************************************************
+ * @Login
+ * @Route http://localhost:5000/api/v1/auth/login
+ * @Description User login controller.
+ * @Parameters email, password
+ * @Return user object
+ *********************************************************/
+
+module.exports.login = async (req, res) => {
+   try {
+      const { email, password } = req.body;
+
+      if (!email || !password) {
+         throw new CustomError(400, "All the input fields are mandatory");
+      }
+
+      const user = await User.findOne({ email });
+      if (!user) {
+         throw new CustomError(401, "Invalid Credentials");
+      }
+
+      const isPasswordMatch = await user.comparePassword(password);
+      if (!isPasswordMatch) {
+         throw new CustomError(401, "Invalid Credentials");
+      }
+      user.password = undefined;
+      const token = user.generateJwtToken();
+      const userPayload = {
+         _id: user._id,
+         name: user.name,
+         role: user.role
+      }
+      res.cookie("token", token, cookieOptions);
+      res.status(200).json({ success: true, userPayload })
+
+   } catch (err) {
+      res.status(err.code || 500).json(
+         {
+            success: false,
+            message: err.message
+         }
+      );
+      console.log(err.message, "ERROR FROM LOGIN CONTROLLER")
+   }
+}
