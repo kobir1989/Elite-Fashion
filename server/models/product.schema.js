@@ -18,7 +18,7 @@ const productSchema = new Schema({
       maxlength: [10, "Max length should be less then 10 digits"],
       required: true
    },
-   imageUrl: {
+   image: {
       type: String,
       required: [true, "Image URL is Required"]
    },

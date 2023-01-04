@@ -154,7 +154,7 @@ module.exports.getSingleSubCategory = async (req, res) => {
 module.exports.getAllSubCategory = async (_req, res) => {
    try {
       const subCategories = await SubCategory.find();
-      return res.status(200).json({ success: true, subCategories })
+      return res.status(200).json({ success: true, subCategories });
 
    } catch (err) {
       console.log(err.message, "ERROR FROM SUB-CATEGORY (GET ALL) CONTROLLER");
