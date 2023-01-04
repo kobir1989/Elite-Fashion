@@ -1,5 +1,4 @@
 const CustomError = require("../helper/customError");
-const { findOne } = require("../models/category.schema");
 const Category = require("../models/category.schema");
 
 //TODO: Still needs test here
@@ -90,11 +89,18 @@ module.exports.getAllCategories = async (_req, res) => {
 module.exports.getSingleCategory = async (req, res) => {
 	try {
 		const { categoryId } = req.params;
-		const singleCategory = await Category.findOne({ _id: categoryId }).exec();
-		// if (!singleCategory) {
-		// 	throw new CustomError(400, "Category does not exists")
-		// }
+		const singleCategory = await Category.findById(
+			{
+				_id: categoryId
+			}).exec();
+
+		console.log(singleCategory)
+		//TODO: comeback here, there is a issue here "singleCategory does not throw error"
+		if (!singleCategory) {
+			throw new CustomError(404, "Category not found")
+		}
 		res.status(200).json({ success: true, singleCategory });
+
 	} catch (err) {
 		res.status(err.code || 500).json({
 			success: false,

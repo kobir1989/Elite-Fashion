@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const authRoute = require("./routes/auth.route");
 const categoriesRoute = require("./routes/category.route");
+const subCategoryRoute = require("./routes/subCategory.route")
 
 app.use(morgan("tiny"));
 app.use(cors());
@@ -15,5 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 //Routes
 app.use("/api/v1", authRoute);
 app.use("/api/v1", categoriesRoute);
+app.use("/api/v1", subCategoryRoute)
 
 module.exports = app;

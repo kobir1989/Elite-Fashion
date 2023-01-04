@@ -15,7 +15,7 @@ route.get(
 );
 
 route.get(
-   "/categories/single/:categoryId",
+   "/category/single/:categoryId",
    getSingleCategory
 );
 

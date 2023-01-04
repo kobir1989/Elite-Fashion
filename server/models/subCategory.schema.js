@@ -4,7 +4,12 @@ const subCategorySchema = new Schema({
    name: {
       type: String,
       trim: true,
-      required: [true, "Sub-category is Required"]
+      required: [true, "Sub-category is Required"],
+      unique: true,
+   },
+   imageUrl: {
+      type: String,
+      required: [true, "Image URL is Required"]
    },
    category: {
       type: Schema.Types.ObjectId,
