@@ -29,3 +29,13 @@ module.exports.isAdmin = (req, res, next) => {
    }
    next();
 };
+
+module.exports.isUser = (req, res, next) => {
+   if (req.rol !== "USER") {
+      return res.status(401).json({
+         success: false,
+         message: "You are not authorized",
+      });
+   }
+   next()
+}
