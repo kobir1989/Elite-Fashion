@@ -1,7 +1,13 @@
 const CustomError = require("../helper/customError");
 const Category = require("../models/category.schema");
 
-//TODO: Still needs test here
+/********************************************************
+ * @createCategory
+ * @Route POST http://localhost:5000/api/v1/category/create/:userId,
+ * @Description Create new Category, Only Admin are Authorized to create Category
+ * @Parameters name, imageUrl
+ * @Return success message
+ *********************************************************/
 module.exports.createCategory = async (req, res) => {
 	try {
 		const { name, imageUrl } = req.body;
@@ -17,12 +23,13 @@ module.exports.createCategory = async (req, res) => {
 			name,
 			imageUrl,
 		});
-		res.status(200).json({
+		return res.status(200).json({
 			success: true,
 			message: "New Category added"
 		});
 
 	} catch (err) {
+		console.log(err.message, "ERROR FROM CREATE CATEGORY CONTROLLER");
 		return res.status(err.code || 500).json({
 			success: false,
 			message: err?.message || "Something went wrong"
@@ -30,82 +37,120 @@ module.exports.createCategory = async (req, res) => {
 	}
 };
 
+/********************************************************
+ * @editCategory
+ * @Route PUT http://localhost:5000/api/v1/category/sub-category/edit/:userId/:subCategoryId,
+ * @Description Edit existing Sub-Category, Only Admin are Authorized to Edit.
+ * @Parameters categoryId, name, imageUrl 
+ * @Return success message
+ *********************************************************/
 module.exports.editCategory = async (req, res) => {
 	try {
 		const { categoryId } = req.params;
+		const { name, imageUrl } = req.body;
 
-		const isCategory = await Category.findById({ _id: categoryId }).exec();
-		if (!isCategory) {
+		if (!name || !imageUrl) {
+			throw new CustomError(400, "All the fields are mandatory")
+		};
+
+		const updateCategory = await Category.findByIdAndUpdate(
+			{
+				_id: categoryId
+			},
+			{
+				name, imageUrl
+			},
+			{
+				new: true,
+				runValidators: true
+			});
+
+		if (!updateCategory) {
 			throw new CustomError(400, "Category does not exists");
 		}
 
-		isCategory.name = req.body?.name;
-		isCategory.imageUrl = req.body?.imageUrl;
-		await isCategory.save();
-
-		res.status(200).json({
+		return res.status(200).json({
 			success: true,
 			message: "Category updated successfully",
 		});
+
 	} catch (err) {
-		res.status(err.code || 500).json({
+		console.log(err.message, "ERROR FROM EDIT CATEGORY CONTROLLER");
+		return res.status(err.code || 500).json({
 			success: false,
 			message: err.message,
 		});
-		console.log(err.message, "ERROR FROM EDIT CATEGORY CONTROLLER");
 	}
 };
 
+/********************************************************
+ * @removeCategory
+ * @Route DELETE http://localhost:5000/api/v1/category/remove/:userId/:categoryId
+ * @Description Remove existing Category, Only Admin are Authorized to Remove Category
+ * @Parameters categoryId
+ * @Return success message
+ *********************************************************/
 module.exports.removeCategory = async (req, res) => {
 	try {
 		const { categoryId } = req.params;
 		await Category.findByIdAndRemove({ _id: categoryId });
-		res.status(200).json({
+		return res.status(200).json({
 			success: true,
 			message: "Category Removed Successfully",
 		});
 	} catch (err) {
-		res.status(err.code || 500).json({
+		console.log(err.message, "ERROR FROM REMOVE CATEGORY CONTROLLER");
+		return res.status(err.code || 500).json({
 			success: false,
 			message: err.message,
 		});
-		console.log(err.message, "ERROR FROM REMOVE CATEGORY CONTROLLER");
 	}
 };
 
+/********************************************************
+ * @getAllCategories
+ * @Route GET http://localhost:5000/api/v1/categories/all
+ * @Description  Retrieve all categories, and then sends the resulting data back to the client as a JSON response.
+ * @Parameters none
+ * @Return category Array
+ *********************************************************/
 module.exports.getAllCategories = async (_req, res) => {
 	try {
 		const allCategories = await Category.find();
-		res.status(200).json({ success: true, allCategories });
+		return res.status(200).json({ success: true, allCategories });
 	} catch (err) {
-		res.status(err.code || 500).json({
+		console.log(err.message, "ERROR FROM GET-ALL CATEGORY CONTROLLER");
+		return res.status(err.code || 500).json({
 			success: false,
 			message: err.message
 		});
-		console.log(err.message, "ERROR FROM GET-ALL CATEGORY CONTROLLER");
+
 	}
 };
 
+/********************************************************
+ * @getSingleCategory
+ * @Route GET http://localhost:5000/api/v1/category/single/:categoryId
+ * @Description Retrieve single category, and then sends the resulting data back to the client as a JSON response.
+ * @Parameters categoryId
+ * @Return single category Object
+ *********************************************************/
 module.exports.getSingleCategory = async (req, res) => {
 	try {
 		const { categoryId } = req.params;
 		const singleCategory = await Category.findById(
 			{
 				_id: categoryId
-			}).exec();
+			});
 
-		console.log(singleCategory)
-		//TODO: comeback here, there is a issue here "singleCategory does not throw error"
-		if (!singleCategory) {
-			throw new CustomError(404, "Category not found")
-		}
-		res.status(200).json({ success: true, singleCategory });
+		return res.status(200).json({ success: true, singleCategory });
 
 	} catch (err) {
-		res.status(err.code || 500).json({
+		console.log(err.message, "ERROR FROM GET-SINGLE CATEGORY CONTROLLER");
+		return res.status(err.code || 500).json({
 			success: false,
 			message: err.message,
 		});
-		console.log(err.message, "ERROR FROM GET-SINGLE CATEGORY CONTROLLER");
+
 	}
 };

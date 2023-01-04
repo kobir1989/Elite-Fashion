@@ -1,6 +1,13 @@
 const SubCategory = require("../models/subCategory.schema");
 const CustomError = require("../helper/customError");
 
+/********************************************************
+ * @getSingleCategory
+ * @Route GET http://localhost:5000/api/v1/sub-category/create/:userId
+ * @Description Create new Sub-Category, Only Admin are Authorized to create Category
+ * @Parameters name, imageUrl, categoryId 
+ * @Return success message
+ *********************************************************/
 module.exports.createSubCategory = async (req, res) => {
    try {
       const { name, imageUrl, categoryId } = req.body;
@@ -33,6 +40,13 @@ module.exports.createSubCategory = async (req, res) => {
    };
 };
 
+/********************************************************
+ * @editCategory
+ * @Route PUT http://localhost:5000/api/v1/category/edit/:userId/:categoryId,
+ * @Description Edit existing Category, Only Admin are Authorized to Edit Category
+ * @Parameters subCategoryId, name, imageUrl, categoryId 
+ * @Return success message
+ *********************************************************/
 module.exports.editSubCategory = async (req, res) => {
    try {
       const { subCategoryId } = req.params;
@@ -73,6 +87,13 @@ module.exports.editSubCategory = async (req, res) => {
    };
 };
 
+/********************************************************
+ * @removeCategory
+ * @Route DELETE http://localhost:5000/api/v1/sub-category/remove/:userId/:subCategoryId:categoryId
+ * @Description Remove existing Sub-Category, Only Admin are Authorized to Remove.
+ * @Parameters subCategoryId
+ * @Return success message
+ *********************************************************/
 module.exports.removeSubCategory = async (req, res) => {
    try {
       const { subCategoryId } = req.params;
@@ -98,12 +119,19 @@ module.exports.removeSubCategory = async (req, res) => {
    };
 };
 
+/********************************************************
+ * @getSingleCategory
+ * @Route GET http://localhost:5000/api/v1/sub-category/single/:subCategoryId
+ * @Description Retrieve single sub-category, and then sends the resulting data back to the client as a JSON response.
+ * @Parameters subCategoryId
+ * @Return single sub-category Object
+ *********************************************************/
 module.exports.getSingleSubCategory = async (req, res) => {
    try {
       const { subCategoryId } = req.params;
       const singleSubCategory = await SubCategory.findOne({
          _id: subCategoryId
-      });
+      }).exec();
 
       res.status(200).json({ success: true, singleSubCategory });
 
@@ -116,6 +144,13 @@ module.exports.getSingleSubCategory = async (req, res) => {
    };
 };
 
+/********************************************************
+ * @getAllCategories
+ * @Route GET http://localhost:5000/api/v1/sub-categories/all
+ * @Description  Retrieve all Sub-Categories, and then sends the resulting data back to the client as a JSON response.
+ * @Parameters none
+ * @Return category Array
+ *********************************************************/
 module.exports.getAllSubCategory = async (_req, res) => {
    try {
       const subCategories = await SubCategory.find();
