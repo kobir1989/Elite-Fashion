@@ -17,7 +17,7 @@ const {
 const { updateStock } = require("../middlewares/updateStock.middleware")
 
 route.get(
-   "/order/all/",
+   "/order/all/:userId",
    isAuthenticated,
    getAllOrders
 );
@@ -32,7 +32,7 @@ route.post(
 );
 
 route.post(
-   "/order/update-status/:orderId/:userId",
+   "/order/update/status/:userId/:orderId",
    isAuthenticated,
    isAdmin,
    updateOrderStatus

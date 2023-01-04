@@ -21,7 +21,7 @@ app.use("/api/v1", authRoute);
 app.use("/api/v1", categoriesRoute);
 app.use("/api/v1", subCategoryRoute);
 app.use("/api/v1", productRoute);
-app.use("api/v1", orderRoute);
-app.use("api/v1/", userRoute);
+app.use("/api/v1", orderRoute);
+app.use("/api/v1", userRoute);
 
 module.exports = app;

@@ -9,7 +9,7 @@ const CustomError = require("../helper/customError");
  * @Parameters  product, transactionId, totalAmount, shippingAddress, phoneNumber,
  * @Return order object
  *********************************************************/
-module.exports.createNewOrder = async (req, res, next) => {
+module.exports.createNewOrder = async (req, res) => {
    try {
       const { userId } = req.params;
       const {
@@ -31,11 +31,13 @@ module.exports.createNewOrder = async (req, res, next) => {
          user: userId,
          phoneNumber,
       })
-      transactionId = undefined;
-      userId = undefined;
+      console.log(order)
+      order.transactionId = undefined;
+      order.user = undefined;
       return res.status(200).json({ success: true, order })
 
    } catch (err) {
+      console.log(err, "ERR")
       return res.status(err.code || 500).json({
          success: false,
          message: err.message
@@ -50,7 +52,7 @@ module.exports.createNewOrder = async (req, res, next) => {
  * @Parameters  none
  * @Return order object
  *********************************************************/
-module.exports.getAllOrders = async (req, res) => {
+module.exports.getAllOrders = async (_req, res) => {
    try {
       const order = await Order.find().populate("user", "_id name");
       if (!order) {
@@ -73,7 +75,7 @@ module.exports.getAllOrders = async (req, res) => {
  * @Parameters  none
  * @Return status
  *********************************************************/
-module.exports.getOrderStatus = async (req, res) => {
+module.exports.getOrderStatus = async (_req, res) => {
    try {
       return res.json(Order.schema.path("status").enumValues)
    } catch (err) {
@@ -93,15 +95,22 @@ module.exports.getOrderStatus = async (req, res) => {
  * @Return success message
  *********************************************************/
 module.exports.updateOrderStatus = async (req, res) => {
+   console.log(req.body)
    try {
-      const { orderId, status } = req.body;
-      const order = await Order.findById({ _id: orderId });
-      if (!order) {
-         throw new CustomError("No order found with this id", 400)
-      }
-      order.status = status;
-      await order.save()
-      res.status(200).json({ success: true, message: "Order status updated successfully" })
+      const { orderId } = req.params;
+      const { orderStatus } = req.body;
+      const order = await Order.findByIdAndUpdate(
+         { _id: orderId },
+         {
+            orderStatus
+         },
+         { new: true, runValidators: true }
+      );
+
+      res.status(200).json({
+         success: true,
+         message: "Order status updated successfully"
+      })
    } catch (err) {
       return res.status(err.code || 500).json({
          success: false,

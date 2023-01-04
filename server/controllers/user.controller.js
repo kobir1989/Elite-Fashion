@@ -12,6 +12,7 @@ module.exports.userProfile = async (req, res) => {
    try {
       const { userId } = req.params;
       const user = await User.findById({ _id: userId })
+      user.password = undefined;
       if (!user) {
          throw new CustomError(400, "User not found")
       }

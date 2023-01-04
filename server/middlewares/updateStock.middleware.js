@@ -1,6 +1,10 @@
+const CustomError = require("../helper/customError");
+const Product = require("../models/product.schema");
+
 module.exports.updateStock = (req, res, next) => {
+   // console.log(req.body.product)
    try {
-      const updateOperations = req.body.products.map((product) => {
+      const updateOperations = req.body.product.map((product) => {
          return {
             updateOne: {
                filter: { _id: product._id },

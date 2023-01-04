@@ -31,10 +31,10 @@ module.exports.isAdmin = (req, res, next) => {
 };
 
 module.exports.isUser = (req, res, next) => {
-   if (req.rol !== "USER") {
+   if (req.role !== "USER") {
       return res.status(401).json({
          success: false,
-         message: "You are not authorized",
+         message: "You are not authorized token",
       });
    }
    next()
