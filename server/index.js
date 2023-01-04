@@ -7,7 +7,8 @@ const authRoute = require("./routes/auth.route");
 const categoriesRoute = require("./routes/category.route");
 const subCategoryRoute = require("./routes/subCategory.route");
 const productRoute = require("./routes/product.route");
-const orderRoute = require("./routes/order.route")
+const orderRoute = require("./routes/order.route");
+const userRoute = require("./routes/user.route")
 
 app.use(morgan("tiny"));
 app.use(cors());
@@ -21,5 +22,6 @@ app.use("/api/v1", categoriesRoute);
 app.use("/api/v1", subCategoryRoute);
 app.use("/api/v1", productRoute);
 app.use("api/v1", orderRoute);
+app.use("api/v1/", userRoute);
 
 module.exports = app;

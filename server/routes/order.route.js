@@ -12,7 +12,7 @@ const {
    isAuthenticated,
    isAdmin,
    isUser
-} = requier("../middlewares/authMiddleware");
+} = require("../middlewares/authMiddleware");
 
 const { updateStock } = require("../middlewares/updateStock.middleware")
 
