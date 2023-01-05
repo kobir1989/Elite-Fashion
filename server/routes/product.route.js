@@ -1,5 +1,6 @@
 const route = require("express").Router();
-const { isAuthenticated, isAdmin } = require("../middlewares/authMiddleware")
+const { isAuthenticated, isAdmin } = require("../middlewares/authMiddleware");
+const { fileUploader } = require("../middlewares/imgUpload.middleware")
 const {
    getAllProducts,
    deleteProduct,
@@ -13,6 +14,7 @@ route.post(
    "/create/product/:userId",
    isAuthenticated,
    isAdmin,
+   fileUploader,
    createNewProduct
 );
 
