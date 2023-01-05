@@ -1,5 +1,6 @@
 const Order = require("../models/order.schema");
 const CustomError = require("../helper/customError");
+const errorResponse = require("../helper/errorResponse");
 
 
 /********************************************************
@@ -37,11 +38,7 @@ module.exports.createNewOrder = async (req, res) => {
       return res.status(200).json({ success: true, order })
 
    } catch (err) {
-      console.log(err, "ERR")
-      return res.status(err.code || 500).json({
-         success: false,
-         message: err.message
-      });
+      errorResponse(res, err, "CREATE-ORDER");
    };
 };
 
@@ -61,10 +58,7 @@ module.exports.getAllOrders = async (_req, res) => {
       return res.status(200).json({ success: true, order })
 
    } catch (err) {
-      return res.status(err.code || 500).json({
-         success: false,
-         message: err.message
-      });
+      errorResponse(res, err, "GET-ALL-ORDER");
    }
 }
 
@@ -77,14 +71,10 @@ module.exports.getAllOrders = async (_req, res) => {
  *********************************************************/
 module.exports.getOrderStatus = async (_req, res) => {
    try {
-      return res.json(Order.schema.path("status").enumValues)
+      return res.json(Order.schema.path("orderStatus").enumValues);
    } catch (err) {
-      return res.status(err.code || 500).json({
-         success: false,
-         message: err.message
-      });
-   }
-
+      errorResponse(res, err, "ORDER-STATUS");
+   };
 }
 
 /********************************************************
@@ -99,7 +89,7 @@ module.exports.updateOrderStatus = async (req, res) => {
    try {
       const { orderId } = req.params;
       const { orderStatus } = req.body;
-      const order = await Order.findByIdAndUpdate(
+      await Order.findByIdAndUpdate(
          { _id: orderId },
          {
             orderStatus
@@ -107,15 +97,11 @@ module.exports.updateOrderStatus = async (req, res) => {
          { new: true, runValidators: true }
       );
 
-      res.status(200).json({
+      return res.status(200).json({
          success: true,
          message: "Order status updated successfully"
       })
    } catch (err) {
-      return res.status(err.code || 500).json({
-         success: false,
-         message: err.message
-      });
+      errorResponse(res, err, "UPDATE-ORDER-STATUS")
    };
-
 };

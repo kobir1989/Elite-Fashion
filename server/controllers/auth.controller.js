@@ -1,9 +1,8 @@
 const CustomError = require("../helper/customError");
 const User = require("../models/user.schema");
-const jwt = require("jsonwebtoken");
-const config = require("../config/index");
 const isValidEmail = require("../helper/emailValidator");
 const cookieOptions = require("../utils/cookieOptions");
+const errorResponse = require("../helper/errorResponse")
 
 /********************************************************
  * @Signup
@@ -53,13 +52,9 @@ module.exports.signUp = async (req, res) => {
 		};
 
 		res.cookie("token", token, cookieOptions);
-		res.status(200).json({ success: true, userPayload });
+		return res.status(200).json({ success: true, userPayload });
 	} catch (err) {
-		res.status(err.code || 500).json({
-			success: false,
-			message: err.message,
-		});
-		console.log(err.message, "ERROR FROM SIGNUP CONTROLLER");
+		errorResponse(res, err, "SIGNUP")
 	}
 };
 
@@ -98,12 +93,8 @@ module.exports.login = async (req, res) => {
 		res.cookie("token", token, cookieOptions);
 		res.status(200).json({ success: true, userPayload });
 	} catch (err) {
-		res.status(err.code || 500).json({
-			success: false,
-			message: err.message,
-		});
-		console.log(err.message, "ERROR FROM LOGIN CONTROLLER");
-	}
+		errorResponse(res, err, "LOGIN");
+	};
 };
 
 /********************************************************
@@ -125,9 +116,6 @@ module.exports.logout = (_req, res) => {
 			message: "Logged out Successfull",
 		});
 	} catch (err) {
-		res.status(err.code || 500).json({
-			success: false,
-			message: err.message,
-		});
+		errorResponse(res, err, "Logged");
 	}
 };

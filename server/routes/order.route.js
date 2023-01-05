@@ -39,8 +39,9 @@ route.post(
 );
 
 route.get(
-   "/order/status",
+   "/order/status/:userId",
    isAuthenticated,
+   isAdmin,
    getOrderStatus
 );
 

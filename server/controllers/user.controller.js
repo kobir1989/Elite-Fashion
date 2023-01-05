@@ -1,5 +1,6 @@
 const CustomError = require("../helper/customError");
 const User = require("../models/user.schema");
+const errorResponse = require("../helper/errorResponse");
 
 /********************************************************
  * @userProfile
@@ -11,16 +12,13 @@ const User = require("../models/user.schema");
 module.exports.userProfile = async (req, res) => {
    try {
       const { userId } = req.params;
-      const user = await User.findById({ _id: userId })
+      const user = await User.findById({ _id: userId });
       user.password = undefined;
       if (!user) {
-         throw new CustomError(400, "User not found")
+         throw new CustomError(400, "User not found");
       }
-      return res.status(200).json({ success: true, user })
+      return res.status(200).json({ success: true, user });
    } catch (err) {
-      return res.status(err.code || 500).json({
-         success: false,
-         message: err.message
-      });
-   }
-}
+      errorResponse(res, err, "USER-PROFILE");
+   };
+};

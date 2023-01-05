@@ -1,5 +1,6 @@
 const SubCategory = require("../models/subCategory.schema");
 const CustomError = require("../helper/customError");
+const errorResponse = require("../helper/errorResponse");
 
 /********************************************************
  * @getSingleCategory
@@ -32,11 +33,7 @@ module.exports.createSubCategory = async (req, res) => {
       });
 
    } catch (err) {
-      console.log(err.message, "ERROR FROM SUB-CATEGORY (CREATE) CONTROLLER");
-      return res.status(err.code || 500).json({
-         success: false,
-         message: err.message
-      });
+      errorResponse(res, err, "CREATE-SUB-CATEGORY");
    };
 };
 
@@ -73,17 +70,13 @@ module.exports.editSubCategory = async (req, res) => {
          throw new CustomError(400, "Requested Sub-Category does not exists")
       };
 
-      res.status(200).json({
+      return res.status(200).json({
          success: true,
          message: "Sub-Category updated successfully"
       });
 
    } catch (err) {
-      console.log(err.message, "ERROR FROM SUB-CATEGORY (EDIT) CONTROLLER");
-      return res.status(err.code || 500).json({
-         success: false,
-         message: err.message
-      });
+      errorResponse(res, err, "EDIT-SUB-CATEGORY");
    };
 };
 
@@ -105,17 +98,13 @@ module.exports.removeSubCategory = async (req, res) => {
       if (!deleteSubCategory) {
          throw new CustomError(400, "Requested Sub-Category does not exists")
       }
-      res.status(200).json({
+      return res.status(200).json({
          success: true,
          message: "Sub-Category Removed Successfully"
       });
 
    } catch (err) {
-      console.log(err.message, "ERROR FROM SUB-CATEGORY (REMOVE) CONTROLLER");
-      return res.status(err.code || 500).json({
-         success: false,
-         message: err.message
-      });
+      errorResponse(res, err, "DELETE-SUB-CATEGORY");
    };
 };
 
@@ -133,14 +122,10 @@ module.exports.getSingleSubCategory = async (req, res) => {
          _id: subCategoryId
       }).exec();
 
-      res.status(200).json({ success: true, singleSubCategory });
+      return res.status(200).json({ success: true, singleSubCategory });
 
    } catch (err) {
-      console.log(err.message, "ERROR FROM SUB-CATEGORY (REMOVE) CONTROLLER");
-      return res.status(err.code || 500).json({
-         success: false,
-         message: err.message
-      });
+      errorResponse(res, err, "GET-SINGLE-SUB-CATEGORY");
    };
 };
 
@@ -157,10 +142,6 @@ module.exports.getAllSubCategory = async (_req, res) => {
       return res.status(200).json({ success: true, subCategories });
 
    } catch (err) {
-      console.log(err.message, "ERROR FROM SUB-CATEGORY (GET ALL) CONTROLLER");
-      return res.status(err.code || 500).json({
-         success: false,
-         message: err.message
-      });
+      errorResponse(res, err, "GET-ALL-SUB-CATEGORY");
    };
 };

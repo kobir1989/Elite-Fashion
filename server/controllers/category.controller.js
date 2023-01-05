@@ -1,5 +1,6 @@
 const CustomError = require("../helper/customError");
 const Category = require("../models/category.schema");
+const errorResponse = require("../helper/errorResponse");
 
 /********************************************************
  * @createCategory
@@ -29,11 +30,7 @@ module.exports.createCategory = async (req, res) => {
 		});
 
 	} catch (err) {
-		console.log(err.message, "ERROR FROM CREATE CATEGORY CONTROLLER");
-		return res.status(err.code || 500).json({
-			success: false,
-			message: err?.message || "Something went wrong"
-		})
+		errorResponse(res, err, "CREATE-CATEGORY");
 	}
 };
 
@@ -75,11 +72,7 @@ module.exports.editCategory = async (req, res) => {
 		});
 
 	} catch (err) {
-		console.log(err.message, "ERROR FROM EDIT CATEGORY CONTROLLER");
-		return res.status(err.code || 500).json({
-			success: false,
-			message: err.message,
-		});
+		errorResponse(res, err, " EDIT-CATEGORY ");
 	}
 };
 
@@ -99,11 +92,7 @@ module.exports.removeCategory = async (req, res) => {
 			message: "Category Removed Successfully",
 		});
 	} catch (err) {
-		console.log(err.message, "ERROR FROM REMOVE CATEGORY CONTROLLER");
-		return res.status(err.code || 500).json({
-			success: false,
-			message: err.message,
-		});
+		errorResponse(res, err, "REMOVE-CATEGORY")
 	}
 };
 
@@ -119,12 +108,7 @@ module.exports.getAllCategories = async (_req, res) => {
 		const allCategories = await Category.find();
 		return res.status(200).json({ success: true, allCategories });
 	} catch (err) {
-		console.log(err.message, "ERROR FROM GET-ALL CATEGORY CONTROLLER");
-		return res.status(err.code || 500).json({
-			success: false,
-			message: err.message
-		});
-
+		errorResponse(res, err, "GET-ALL CATEGORY");
 	}
 };
 
@@ -146,11 +130,6 @@ module.exports.getSingleCategory = async (req, res) => {
 		return res.status(200).json({ success: true, singleCategory });
 
 	} catch (err) {
-		console.log(err.message, "ERROR FROM GET-SINGLE CATEGORY CONTROLLER");
-		return res.status(err.code || 500).json({
-			success: false,
-			message: err.message,
-		});
-
+		errorResponse(res, err, "GET-SINGLE CATEGORY")
 	}
 };

@@ -1,5 +1,6 @@
 const Product = require("../models/product.schema");
-const CustomError = require("../helper/customError")
+const CustomError = require("../helper/customError");
+const errorResponse = require("../helper/errorResponse");
 
 
 /********************************************************
@@ -43,10 +44,7 @@ module.exports.createNewProduct = async (req, res) => {
       })
 
    } catch (err) {
-      return res.status(err.code || 500).json({
-         success: false,
-         message: err.message
-      })
+      errorResponse(res, err, "CREATE-NEW-PRODUCT");
    }
 }
 
@@ -102,10 +100,7 @@ module.exports.editProduct = async (req, res) => {
       })
 
    } catch (err) {
-      return res.status(err.code || 500).json({
-         success: false,
-         message: err.message
-      })
+      errorResponse(res, err, "EDIT-PRODUCT");
    }
 }
 
@@ -129,10 +124,7 @@ module.exports.deleteProduct = async (req, res) => {
       })
 
    } catch (err) {
-      return res.status(err.code || 500).json({
-         success: false,
-         message: err.message
-      })
+      errorResponse(res, err, "DELETE-PRODUCT");
    }
 }
 
@@ -149,6 +141,6 @@ module.exports.getAllProducts = async (_req, res) => {
       return res.status(200).json({ success: true, products })
 
    } catch (err) {
-      return res.status(err.code || 500).json({ success: false, message: err.message })
+      errorResponse(res, err, "GET-ALL-PRODUCTS");
    }
 }
