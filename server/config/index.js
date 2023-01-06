@@ -9,7 +9,8 @@ const config = {
    SALT_ROUND: parseInt(process.env.SALT_ROUND),
    CLOUD_NAME: process.env.CLOUD_NAME,
    CLOUD_API_KEY: process.env.CLOUD_API_KEY,
-   CLOUD_SECRET: process.env.CLOUD_SECRET
+   CLOUD_SECRET: process.env.CLOUD_SECRET,
+   SEND_GRID_EMIL_API: process.env.SEND_GRID_EMIL_API
 }
 
 module.exports = config;

@@ -2,7 +2,6 @@ const Order = require("../models/order.schema");
 const CustomError = require("../helper/customError");
 const errorResponse = require("../helper/errorResponse");
 
-
 /********************************************************
  * @createNewOrder
  * @Route POST http://localhost:5000/api/v1/order/create/:userId
