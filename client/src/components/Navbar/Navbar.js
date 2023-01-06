@@ -22,13 +22,15 @@ const Navbar = () => {
 
          {/*Big screen nav*/}
          <div className={styles.nav}>
-            <div className={styles.nav_logo}>
+            <div className={styles.nav_logo}><Link to="/">
                <img src="/assets/logo.png" alt="" />
+            </Link>
+
             </div>
             <ul className={styles.nav_links}>
-               <li>Man</li>
-               <li>Women</li>
-               <li>Lifestyle</li>
+               <li><Link to="/category?name=men">Man</Link></li>
+               <li><Link to="/category?name=women">Women</Link></li>
+               <li><Link to="/category?name=lifestyle">Lifestyle</Link></li>
             </ul>
             <div className={styles.nav_buttons}>
                <Button variant={"icon-btn-normal"}>

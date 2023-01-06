@@ -1,5 +1,6 @@
 const CustomError = require("../helper/customError");
 const Product = require("../models/product.schema");
+const errorResponse = require("../helper/errorResponse");
 
 module.exports.updateStock = (req, res, next) => {
    // console.log(req.body.product)
@@ -20,9 +21,6 @@ module.exports.updateStock = (req, res, next) => {
       });
 
    } catch (err) {
-      return res.status(err.code || 500).json({
-         success: false,
-         message: err.messaage
-      });
+      errorResponse(err, res, "UPDATE-STOCk MIDDLEWARE")
    };
 };
