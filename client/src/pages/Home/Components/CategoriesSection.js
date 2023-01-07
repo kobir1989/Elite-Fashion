@@ -1,28 +1,20 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
 import styles from "../styles/CategoriesSection.module.scss";
-import Typography from "../../../components/Common/Typography/Typography";
 import CategoryCard from './CategoryCard';
 import Error500 from '../../../components/Common/Error/Error500';
-import { useHttpHook } from "../../../hooks/useHttpHook";
+import { fetchCategory } from "../../../redux/slices/categorySlice";
 
 const CategoriesSection = () => {
-   const [apiData, setApiData] = useState([]);
-   const {
-      isLoading,
-      error,
-      sendRequest
-   } = useHttpHook();
-
+   const category = useSelector(state => state.category)
+   const dispatch = useDispatch()
    useEffect(() => {
-      const getData = (data) => {
-         setApiData(data.allCategories)
-      };
-      sendRequest({ url: "categories/all", method: "get" }, getData)
-   }, [sendRequest])
-
+      dispatch(fetchCategory())
+   }, [])
+   console.log(category)
    return (
       <div className={styles.category_wrapper}>
-         {apiData.map((category) => (
+         {category.categories.map((category) => (
             <div className={styles.card_wrapper} key={category?._id}>
                <CategoryCard
                   title={category?.name}
@@ -30,7 +22,7 @@ const CategoriesSection = () => {
                />
             </div>
          ))}
-         {error && <Error500 />}
+         {category.error && <Error500 />}
       </div>
    )
 }
