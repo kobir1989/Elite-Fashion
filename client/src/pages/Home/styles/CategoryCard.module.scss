@@ -5,38 +5,20 @@
 	cursor: pointer;
 	.img_wrapper {
 		width: 100%;
+		height: 40vh;
 		overflow: hidden;
+		@include screens-md {
+			height: 60vh;
+		}
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
 		&:hover img {
 			transform: scale(1.5);
 			transition: transform 4s cubic-bezier(0.25, 0.45, 0.45, 0.95);
 			filter: brightness(70%);
-		}
-		.img_small {
-			width: 100%;
-			height: 20vh;
-			object-fit: cover;
-			@include screens-md {
-				width: 100%;
-				height: 35vh;
-			}
-		}
-		.img_md {
-			width: 100%;
-			height: 30vh;
-			object-fit: cover;
-			@include screens-md {
-				width: 100%;
-				height: 50vh;
-			}
-		}
-		.img_big {
-			width: 100%;
-			height: 30vh;
-			object-fit: cover;
-			@include screens-md {
-				width: 100%;
-				height: 55vh;
-			}
 		}
 	}
 	.category_title_wrapper {
@@ -48,17 +30,7 @@
 		padding: 1rem 2rem;
 		border: 1px solid $gray;
 		transform: translate(-50%, -50%);
-	}
-	.color_gray {
 		background-color: $glass_white;
 		color: black_main;
-	}
-	.color_pink {
-		background-color: $glass_pink;
-		color: $pink_main;
-	}
-	.color_red {
-		background-color: $glass_white;
-		color: $red_main;
 	}
 }

@@ -3,39 +3,31 @@
 
 .category_wrapper {
 	width: 100%;
+	margin-bottom: 3rem;
+	justify-content: center;
+	align-items: center;
 	@include flex-col;
 	gap: 1.4rem;
-	.row_one {
-		@include flex-col;
-		gap: 1.4rem;
-		padding: 0 1rem;
+	padding: 1rem;
+	@include screens-md {
+		@include flex-row;
+		flex-wrap: wrap;
+		padding: 0;
+	}
+	.card_wrapper {
+		width: 100%;
 		@include screens-md {
-			@include flex-row;
+			width: calc(98.5% / 2);
 		}
-		.card_wrapper {
+		&:nth-child(3) {
+			width: 100%;
+		}
+		&:nth-child(4),
+		&:nth-child(5),
+		&:nth-child(6) {
 			width: 100%;
 			@include screens-md {
-				width: 50%;
-			}
-		}
-	}
-	.row_two {
-		padding: 0 1rem;
-		@include screens-md {
-			width: 100%;
-		}
-	}
-	.row_three {
-		padding: 0 1rem;
-		@include flex-col;
-		@include screens-md {
-			@include flex-row;
-		}
-		gap: 1.34rem;
-		.card_wrapper {
-			width: 100%;
-			@include screens-md {
-				width: calc(100% / 3);
+				width: calc(97% / 3);
 			}
 		}
 	}

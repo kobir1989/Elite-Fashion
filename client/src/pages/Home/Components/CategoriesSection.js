@@ -1,64 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from "../styles/CategoriesSection.module.scss";
 import Typography from "../../../components/Common/Typography/Typography";
 import CategoryCard from './CategoryCard';
+import Error500 from '../../../components/Common/Error/Error500';
+// import { useFetch } from "../../../hooks/useFetch";
+import axios from "axios";
+
 
 //TODO: Category data willbe fetch from database 
-
+// const BASE_URL = process.env.REACT_APP_BASE_URL;
 const CategoriesSection = () => {
+   // const [data, setData] = useState([])
+   // const [error, setError] = useState(null)
+   // const [loading, setLoading] = useState(false)
+   // const getData = async () => {
+   //    try {
+   //       setLoading(true)
+   //       const response = await axios.get(`${BASE_URL}/categories/all`)
+   //       setData(response.data.allCategories)
+   //    } catch (err) {
+   //       setError(err)
+   //    } finally {
+   //       setLoading(false)
+   //    }
+   // }
+   // useEffect(() => {
+   //    getData();
+   // }, [])
+   // console.log(data)
    return (
       <div className={styles.category_wrapper}>
-         <div className={styles.row_one}>
-            <div className={styles.card_wrapper}>
+         {/* {data.map((category) => (
+            <div className={styles.card_wrapper} key={category?._id}>
                <CategoryCard
-                  title={"Men"}
+                  title={category?.name}
                   imgSize={"big"}
-                  imgUrl={"/assets/category-img/men-model.png"}
+                  imgUrl={category?.image}
                />
             </div>
-            <div className={styles.card_wrapper}>
-               <CategoryCard
-                  title={"Women"}
-                  background={"gray"}
-                  color={"pink"}
-                  imgSize={"big"}
-                  imgUrl={"/assets/category-img/women-category.jpg"}
-               />
-            </div>
-         </div>
-         <div className={styles.row_two}>
-            <CategoryCard
-               title={"Lifestyle"}
-               imgSize={"md"}
-               imgUrl={"/assets/category-img/lifestyle-category.jpg"}
-            />
-         </div>
-         <div className={styles.row_three}>
-            <div className={styles.card_wrapper}>
-               <CategoryCard
-                  title={"Winter Story"}
-                  variant={"h2"}
-                  imgSize={"big"}
-                  imgUrl={"/assets/category-img/winter.png"}
-               />
-            </div>
-            <div className={styles.card_wrapper}>
-               <CategoryCard
-                  title={"Up to 50% off"}
-                  variant={"h2"}
-                  imgSize={"big"}
-                  imgUrl={"/assets/category-img/off.png"}
-               />
-            </div>
-            <div className={styles.card_wrapper}>
-               <CategoryCard
-                  title={"New Arrival"}
-                  variant={"h2"}
-                  imgSize={"big"}
-                  imgUrl={"/assets/category-img/new-arrival.png"}
-               />
-            </div>
-         </div>
+         ))}
+         {error && <Error500 />} */}
       </div>
    )
 }
