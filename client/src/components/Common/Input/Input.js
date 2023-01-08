@@ -14,20 +14,17 @@ const Input = ({
 }) => {
 
    return (
-      <div>
-         <TextField
-            color={color || "secondary"}
-            error={error || false}
-            sx={{ m: "1rem 0" }}
-            id="outlined-error"
-            type={type || "text"}
-            label={label || "Required"}
-            fullWidth={full || false}
-            size={size || "normal"}
-            helperText={errorMessage || ""}
-            {...otherProps}
-         />
-      </div>
+      <TextField
+         color={color || "secondary"}
+         error={error || false}
+         sx={{ m: ".7rem 0" }}
+         type={type || "text"}
+         label={label || "Required"}
+         fullWidth={full || false}
+         size={size || "normal"}
+         helperText={errorMessage || ""}
+         {...otherProps}
+      />
    )
 }
 

@@ -4,7 +4,7 @@
 .button {
 	padding: 0.8rem 2rem;
 	letter-spacing: 0.5px;
-	font-size: 1.1rem;
+	font-size: 1rem;
 	cursor: pointer;
 	&:hover {
 		@include box-shadow-diffuse;
@@ -64,10 +64,13 @@
 }
 .btn-black {
 	background-color: $black_main;
-	color: $white;
+	color: $light_gray;
 	border: unset;
 	border-radius: 4px;
 	font-weight: 300;
+	&:hover {
+		color: $white;
+	}
 }
 
 .icon-btn-black {

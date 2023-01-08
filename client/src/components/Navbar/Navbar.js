@@ -41,7 +41,8 @@ const Navbar = () => {
                   {openDropdown &&
                      <ul className={styles.bgscreen_dropdown}>
                         <li><LoginIcon sx={{ fontSize: "1.2rem" }} /> Login</li>
-                        <li> <AppRegistrationIcon sx={{ fontSize: "1.2rem" }} /> Signup</li>
+                        <li> <Link to="/signup"> <AppRegistrationIcon sx={{ fontSize: "1.2rem" }} />  signup</Link>
+                        </li>
                         <li> <ManageAccountsIcon sx={{ fontSize: "1.2rem" }} /> Account</li>
                         <li><LogoutIcon sx={{ fontSize: "1.2rem" }} /> Logout</li>
                      </ul>
@@ -98,7 +99,9 @@ const Navbar = () => {
                         </li>
                         <li>Account</li>
                         <li>login</li>
-                        <li>signup</li>
+                        <li>
+                           <Link to="/signup">signup</Link>
+                        </li>
                         <li>logout</li>
                      </ul>
                   </div>

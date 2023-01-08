@@ -12,7 +12,7 @@ const CategoriesSection = () => {
    const dispatch = useDispatch()
    useEffect(() => {
       dispatch(fetchCategory())
-   }, [])
+   }, [dispatch])
    console.log(category)
    return (
       <GridViewLayout page="category">
@@ -20,7 +20,7 @@ const CategoriesSection = () => {
             <Link to={`/sub-category/${category?._id}`} key={category?._id}>
                <div className={styles.category_card_wrapper}>
                   <div className={styles.img_wrapper}>
-                     <img src={category?.image} alt="image" />
+                     <img src={category?.image} alt={category?.name} />
                   </div>
                   <div className={styles.category_title_wrapper}>
                      <Typography variant={"h2"} color={"primary"}>

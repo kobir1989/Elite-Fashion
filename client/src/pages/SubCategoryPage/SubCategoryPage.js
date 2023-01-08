@@ -16,7 +16,7 @@ const SubCategoryPage = () => {
    const { id } = useParams();
    useEffect(() => {
       dispatch(fetchSubCategory(id))
-   }, [id])
+   }, [id, dispatch])
    return (
       <PageLayout>
          <GridViewLayout page={"sub_category"}>
