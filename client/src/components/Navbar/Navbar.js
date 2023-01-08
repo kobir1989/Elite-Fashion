@@ -28,9 +28,9 @@ const Navbar = () => {
 
             </div>
             <ul className={styles.nav_links}>
-               <li><Link to="/category?name=men">Man</Link></li>
-               <li><Link to="/category?name=women">Women</Link></li>
-               <li><Link to="/category?name=lifestyle">Lifestyle</Link></li>
+               <li><Link to="/sub-category/63b848501e0644fd041c8ee0">Man</Link></li>
+               <li><Link to="/sub-category/63b848e91e0644fd041c8ee3">Women</Link></li>
+               <li><Link to="/sub-category/63b8490f1e0644fd041c8ee6">Lifestyle</Link></li>
             </ul>
             <div className={styles.nav_buttons}>
                <Button variant={"icon-btn-normal"}>
@@ -87,9 +87,15 @@ const Navbar = () => {
                         <span className={styles.icon}><SearchIcon sx={{ color: "#727272" }} /></span>
                      </div>
                      <ul className={styles.nav_menu_mobile_dropdown_links}>
-                        <li>Man</li>
-                        <li>Women</li>
-                        <li>Lifestyles</li>
+                        <li>
+                           <Link to="/sub-category/63b848501e0644fd041c8ee0">Man</Link>
+                        </li>
+                        <li>
+                           <Link to="/sub-category/63b848e91e0644fd041c8ee3">Women</Link>
+                        </li>
+                        <li>
+                           <Link to="/sub-category/63b8490f1e0644fd041c8ee6">Lifestyle</Link>
+                        </li>
                         <li>Account</li>
                         <li>login</li>
                         <li>signup</li>

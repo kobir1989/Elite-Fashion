@@ -11,8 +11,8 @@ const errorResponse = require("../helper/errorResponse");
  *********************************************************/
 module.exports.createSubCategory = async (req, res) => {
    try {
-      const { name, imageUrl, categoryId } = req.body;
-      if (!name || !imageUrl || !categoryId) {
+      const { name, categoryId } = req.body;
+      if (!name || !categoryId) {
          throw new CustomError(400, "All the fields are mandatory");
       };
 
@@ -23,7 +23,7 @@ module.exports.createSubCategory = async (req, res) => {
 
       await SubCategory.create({
          name,
-         imageUrl,
+         image: req.imageUrl,
          category: categoryId
       });
 
@@ -136,9 +136,10 @@ module.exports.getSingleSubCategory = async (req, res) => {
  * @Parameters none
  * @Return category Array
  *********************************************************/
-module.exports.getAllSubCategory = async (_req, res) => {
+module.exports.getAllSubCategory = async (req, res) => {
    try {
-      const subCategories = await SubCategory.find();
+      const { categoryId } = req.params;
+      const subCategories = await SubCategory.find({ "category": categoryId });
       return res.status(200).json({ success: true, subCategories });
 
    } catch (err) {

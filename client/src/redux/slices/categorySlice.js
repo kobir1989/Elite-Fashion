@@ -8,14 +8,14 @@ const initialState = {
    categories: []
 }
 
-export const fetchCategory = createAsyncThunk("subCategory/fetchCategory",
+export const fetchCategory = createAsyncThunk("category/fetchCategory",
    async () => {
       const response = await axios.get(`${BASE_URL}/categories/all`);
       return response.data.allCategories;
    })
 
 const categorySlice = createSlice({
-   name: "subCategory",
+   name: "category",
    initialState,
    extraReducers: (builder) => {
       builder.addCase(fetchCategory.pending, (state) => {

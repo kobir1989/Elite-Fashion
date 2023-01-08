@@ -1,29 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PageLayout from "../../layouts/PageLayout";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styles from "./SubCategoryPage.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchSubCategory } from "../../redux/slices/subCategorySlice";
+import Error from "../../components/Common/Error/Error500";
+import Typography from '../../components/Common/Typography/Typography';
+import Button from '../../components/Common/Button/Button';
+import GridViewLayout from '../../layouts/GridViewLayout';
 
 const SubCategoryPage = () => {
-   const [searchParams, setSearchParams] = useSearchParams();
-   // setSearchParams();
-   const query = searchParams.get("name")
-   console.log(query);
-   const ar = [0, 1, 2, 3, 4, 5, 6];
+   const data = useSelector(state => state.subCategory);
+   console.log(data)
+   const dispatch = useDispatch()
+   const { id } = useParams();
+   useEffect(() => {
+      dispatch(fetchSubCategory(id))
+   }, [id])
    return (
       <PageLayout>
-         {/* <div>Categoy</div>
-         {query === "men" && <p>Men</p>}
-         {query === "women" && <p>women</p>}
-         {query === "lifestyle" && <p>lifestyle</p>} */}
-
-         <section className={styles.sub_category_wrapper}>
-            {ar.map((item) => (
-               <div className={styles.sub_category_card}>
-
+         <GridViewLayout page={"sub_category"}>
+            {data.subCategories.map((subCategory) => (
+               <div className={styles.sub_category_card} key={subCategory._id}>
+                  <div className={styles.image_wrapper}>
+                     <img src={subCategory?.image} alt={subCategory?.name} />
+                  </div>
+                  <div className={styles.card_text_wrapper}>
+                     <Typography variant={"h4"} color={"white"}>{subCategory?.name}</Typography>
+                     <Button variant={"white"}>Shop now</Button>
+                  </div>
                </div>
             ))}
-
-         </section>
+            {data.error && <Error />}
+         </GridViewLayout>
       </PageLayout>
    )
 }

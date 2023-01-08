@@ -7,7 +7,7 @@ const subCategorySchema = new Schema({
       required: [true, "Sub-category is Required"],
       unique: true,
    },
-   imageUrl: {
+   image: {
       type: String,
       required: [true, "Image URL is Required"]
    },

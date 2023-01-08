@@ -7,9 +7,10 @@ const {
    getSingleSubCategory,
    getAllSubCategory
 } = require("../controllers/subCategory.controller");
+const { fileUploader } = require("../middlewares/imgUpload.middleware")
 
 route.get(
-   "/sub-categories/all",
+   "/sub-category/:categoryId",
    getAllSubCategory
 );
 
@@ -22,6 +23,7 @@ route.post(
    "/sub-category/create/:userId",
    isAuthenticated,
    isAdmin,
+   fileUploader,
    createSubCategory
 );
 

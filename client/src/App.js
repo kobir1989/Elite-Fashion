@@ -6,7 +6,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/category/*" element={<SubCategoryPage />} />
+      <Route path="/sub-category/:id" element={<SubCategoryPage />} />
     </Routes>
   );
 }

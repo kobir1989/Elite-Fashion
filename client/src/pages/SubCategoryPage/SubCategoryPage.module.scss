@@ -1,41 +1,43 @@
 @import "../../sass/sass-utils/colors";
 @import "../../sass/sass-utils/mixins";
 
-.sub_category_wrapper {
-	margin-top: 1.5rem;
+.sub_category_card {
 	width: 100%;
-	padding: 1rem;
-	@include flex-col-space-between;
-	gap: 1rem;
-	@include screens-md {
-		padding: 1rem;
-		margin-top: 3rem;
-		@include flex-row-space-between;
-		flex-wrap: wrap;
-		gap: 1.1rem;
-	}
-	.sub_category_card {
+	height: 100%;
+	position: relative;
+	&:hover::before {
+		content: "";
+		position: absolute;
 		width: 100%;
-		height: 14rem;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.514);
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		transition: 6s linear;
+		z-index: 5;
+	}
+	.image_wrapper {
+		width: 100%;
+		height: 100%;
 		position: relative;
-		background-color: rgb(230, 229, 229);
-		@include screens-md {
-			width: calc(96.9% / 3);
-			height: 18rem;
-		}
-		&:nth-child(4) {
-			width: 100%;
-		}
-		&:hover::before {
-			content: "";
-			position: absolute;
+		img {
 			width: 100%;
 			height: 100%;
-			background-color: rgba(0, 0, 0, 0.514);
-			left: 0;
-			right: 0;
-			bottom: 0;
-			top: 0;
+			object-fit: cover;
+			filter: brightness(0.8);
 		}
+	}
+	.card_text_wrapper {
+		position: absolute;
+		z-index: 10;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+		text-transform: uppercase;
+		@include flex-col;
+		gap: 1.5rem;
 	}
 }
