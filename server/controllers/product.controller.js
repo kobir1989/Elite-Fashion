@@ -2,7 +2,6 @@ const Product = require("../models/product.schema");
 const CustomError = require("../helper/customError");
 const errorResponse = require("../helper/errorResponse");
 
-
 /********************************************************
  * @createNewProduct
  * @Route GET http://localhost:5000/api/v1/create/product/:userId
@@ -16,15 +15,12 @@ module.exports.createNewProduct = async (req, res) => {
          title,
          description,
          price,
-         image,
          stock,
          categoryId,
          subCategoryId,
       } = req.body;
-
-      if (
-         !title || !description || !price || !image || !stock || !categoryId ||
-         !subCategoryId) {
+      console.log(req.body)
+      if (!title || !description || !price || !stock || !categoryId || !subCategoryId) {
          throw new CustomError(400, "All the fields are mandatory");
       };
 
@@ -32,7 +28,7 @@ module.exports.createNewProduct = async (req, res) => {
          title,
          description,
          price,
-         image,
+         image: req.imageUrl,
          stock,
          category: categoryId,
          subCategory: subCategoryId,
@@ -137,7 +133,7 @@ module.exports.deleteProduct = async (req, res) => {
  *********************************************************/
 module.exports.getAllProducts = async (_req, res) => {
    try {
-      const products = await Product.find()
+      const products = await Product.find().populate("category subCategory")
       return res.status(200).json({ success: true, products })
 
    } catch (err) {

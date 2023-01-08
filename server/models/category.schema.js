@@ -8,7 +8,7 @@ const categorySchema = new Schema(
 			trim: true,
 			unique: true,
 		},
-		imageUrl: {
+		image: {
 			type: String,
 			required: [true, "Image Url is Required"],
 		},

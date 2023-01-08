@@ -8,13 +8,22 @@ const categoriesRoute = require("./routes/category.route");
 const subCategoryRoute = require("./routes/subCategory.route");
 const productRoute = require("./routes/product.route");
 const orderRoute = require("./routes/order.route");
-const userRoute = require("./routes/user.route")
+const userRoute = require("./routes/user.route");
+const fileUpload = require("express-fileupload");
+
+
 
 app.use(morgan("tiny"));
 app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true, limit: "5mb" }));
+app.use(
+   fileUpload({
+      useTempFiles: true,
+      tempFileDir: "/tmp/",
+   })
+);
 
 //Routes
 app.use("/api/v1", authRoute);

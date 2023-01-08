@@ -1,65 +1,38 @@
-import React from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
 import styles from "../styles/CategoriesSection.module.scss";
+import Error500 from '../../../components/Common/Error/Error500';
+import { fetchCategory } from "../../../redux/slices/categorySlice";
 import Typography from "../../../components/Common/Typography/Typography";
-import CategoryCard from './CategoryCard';
-
-//TODO: Category data willbe fetch from database 
+import GridViewLayout from "../../../layouts/GridViewLayout";
+import { Link } from "react-router-dom";
 
 const CategoriesSection = () => {
+   const category = useSelector(state => state.category)
+   const dispatch = useDispatch()
+   useEffect(() => {
+      dispatch(fetchCategory())
+   }, [])
+   console.log(category)
    return (
-      <div className={styles.category_wrapper}>
-         <div className={styles.row_one}>
-            <div className={styles.card_wrapper}>
-               <CategoryCard
-                  title={"Men"}
-                  imgSize={"big"}
-                  imgUrl={"/assets/category-img/men-model.png"}
-               />
-            </div>
-            <div className={styles.card_wrapper}>
-               <CategoryCard
-                  title={"Women"}
-                  background={"gray"}
-                  color={"pink"}
-                  imgSize={"big"}
-                  imgUrl={"/assets/category-img/women-category.jpg"}
-               />
-            </div>
-         </div>
-         <div className={styles.row_two}>
-            <CategoryCard
-               title={"Lifestyle"}
-               imgSize={"md"}
-               imgUrl={"/assets/category-img/lifestyle-category.jpg"}
-            />
-         </div>
-         <div className={styles.row_three}>
-            <div className={styles.card_wrapper}>
-               <CategoryCard
-                  title={"Winter Story"}
-                  variant={"h2"}
-                  imgSize={"big"}
-                  imgUrl={"/assets/category-img/winter.png"}
-               />
-            </div>
-            <div className={styles.card_wrapper}>
-               <CategoryCard
-                  title={"Up to 50% off"}
-                  variant={"h2"}
-                  imgSize={"big"}
-                  imgUrl={"/assets/category-img/off.png"}
-               />
-            </div>
-            <div className={styles.card_wrapper}>
-               <CategoryCard
-                  title={"New Arrival"}
-                  variant={"h2"}
-                  imgSize={"big"}
-                  imgUrl={"/assets/category-img/new-arrival.png"}
-               />
-            </div>
-         </div>
-      </div>
+      <GridViewLayout page="category">
+         {category.categories.map((category) => (
+            <Link to={`/sub-category/${category?._id}`} key={category?._id}>
+               <div className={styles.category_card_wrapper}>
+                  <div className={styles.img_wrapper}>
+                     <img src={category?.image} alt="image" />
+                  </div>
+                  <div className={styles.category_title_wrapper}>
+                     <Typography variant={"h2"} color={"primary"}>
+                        {category?.name}
+                     </Typography>
+                  </div>
+               </div>
+            </Link>
+         ))}
+         {category.isLoading && <p>Loading...</p>}
+         {category.error && <Error500 />}
+      </GridViewLayout>
    )
 }
 

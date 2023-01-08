@@ -2,7 +2,7 @@ const CustomError = require("../helper/customError");
 const User = require("../models/user.schema");
 const isValidEmail = require("../helper/emailValidator");
 const cookieOptions = require("../utils/cookieOptions");
-const errorResponse = require("../helper/errorResponse")
+const errorResponse = require("../helper/errorResponse");
 
 /********************************************************
  * @Signup
@@ -50,7 +50,6 @@ module.exports.signUp = async (req, res) => {
 			name: user.name,
 			role: user.role,
 		};
-
 		res.cookie("token", token, cookieOptions);
 		return res.status(200).json({ success: true, userPayload });
 	} catch (err) {
@@ -119,3 +118,5 @@ module.exports.logout = (_req, res) => {
 		errorResponse(res, err, "Logged");
 	}
 };
+
+//TODO: Forget password Controller

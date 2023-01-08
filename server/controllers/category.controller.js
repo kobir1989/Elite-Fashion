@@ -11,9 +11,9 @@ const errorResponse = require("../helper/errorResponse");
  *********************************************************/
 module.exports.createCategory = async (req, res) => {
 	try {
-		const { name, imageUrl } = req.body;
+		const { name } = req.body;
 
-		if (!name || !imageUrl) {
+		if (!name) {
 			throw new CustomError(400, "All the fields are mandatory");
 		}
 		const category = await Category.findOne({ name }).exec();
@@ -22,7 +22,7 @@ module.exports.createCategory = async (req, res) => {
 		}
 		await Category.create({
 			name,
-			imageUrl,
+			image: req.imageUrl,
 		});
 		return res.status(200).json({
 			success: true,
@@ -44,9 +44,8 @@ module.exports.createCategory = async (req, res) => {
 module.exports.editCategory = async (req, res) => {
 	try {
 		const { categoryId } = req.params;
-		const { name, imageUrl } = req.body;
-
-		if (!name || !imageUrl) {
+		const { name } = req.body;
+		if (!name) {
 			throw new CustomError(400, "All the fields are mandatory")
 		};
 
@@ -55,7 +54,7 @@ module.exports.editCategory = async (req, res) => {
 				_id: categoryId
 			},
 			{
-				name, imageUrl
+				name, image: imageUrl
 			},
 			{
 				new: true,

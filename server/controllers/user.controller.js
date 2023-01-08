@@ -22,3 +22,5 @@ module.exports.userProfile = async (req, res) => {
       errorResponse(res, err, "USER-PROFILE");
    };
 };
+
+//TODO: USer profile update controller

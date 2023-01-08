@@ -8,6 +8,7 @@ const {
 } = require("../controllers/category.controller");
 
 const { isAuthenticated, isAdmin } = require("../middlewares/authMiddleware");
+const { fileUploader } = require("../middlewares/imgUpload.middleware");
 
 route.get(
    "/categories/all",
@@ -23,6 +24,7 @@ route.post(
    "/category/create/:userId",
    isAuthenticated,
    isAdmin,
+   fileUploader,
    createCategory
 );
 
@@ -30,6 +32,7 @@ route.put(
    "/category/edit/:userId/:categoryId",
    isAuthenticated,
    isAdmin,
+   fileUploader,
    editCategory
 );
 
