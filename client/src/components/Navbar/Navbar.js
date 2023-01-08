@@ -40,7 +40,12 @@ const Navbar = () => {
                   <PermIdentityIcon />
                   {openDropdown &&
                      <ul className={styles.bgscreen_dropdown}>
-                        <li><LoginIcon sx={{ fontSize: "1.2rem" }} /> Login</li>
+                        <li>
+                           <Link to="/login">
+                              <LoginIcon sx={{ fontSize: "1.2rem" }} />
+                              Login
+                           </Link>
+                        </li>
                         <li> <Link to="/signup"> <AppRegistrationIcon sx={{ fontSize: "1.2rem" }} />  signup</Link>
                         </li>
                         <li> <ManageAccountsIcon sx={{ fontSize: "1.2rem" }} /> Account</li>

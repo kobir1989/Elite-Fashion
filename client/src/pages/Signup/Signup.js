@@ -3,8 +3,7 @@ import PageLaout from "../../layouts/PageLayout";
 import styles from "./Signup.module.scss";
 import Button from '../../components/Common/Button/Button';
 import Input from '../../components/Common/Input/Input';
-import Typography from '../../components/Common/Typography/Typography';
-import { Link } from "react-router-dom";
+import AuthFormLayout from '../../layouts/AuthFormLayout';
 
 const Signup = () => {
    const [] = useState({});
@@ -13,78 +12,61 @@ const Signup = () => {
    }
    return (
       <PageLaout>
-         <div className={styles.signup_wrapper}>
-            <div className={styles.signup_img}>
-               <img src="/assets/signup.jpg" alt="women.png" />
-               <div className={styles.signup_slogan}>
-                  <Typography variant={"h2"} color={"white"}>
-                     Elite Fashion
-                  </Typography>
-                  <Typography variant={"h4"} color={"white"}>
-                     A store that sells not just outfits but a trend.
-                  </Typography>
+         <AuthFormLayout
+            to={"login"}
+            title={"Create Your Account"}
+            link={"Login"}
+            linkText={"Already"}>
+            <form onSubmit={submitHandler} className={styles.signup_form}>
+               <div>
+                  <Input
+                     // error
+                     type={"text"}
+                     label={"Last Name"}
+                     full
+                  />
                </div>
-            </div>
-            <div className={styles.form_wrapper}>
-               <div className={styles.form_title}>
-                  <Typography variant={"h3"} color={"paragraph"}>Create Your Account</Typography>
+               <div>
+                  <Input
+                     // error
+                     type={"text"}
+                     label={"First Name"}
+                     full
+                  />
                </div>
-               <form onSubmit={submitHandler}>
-                  <div>
-                     <Input
-                        // error
-                        type={"text"}
-                        label={"Last Name"}
-                        full
-                     />
-                  </div>
-                  <div>
-                     <Input
-                        // error
-                        type={"text"}
-                        label={"First Name"}
-                        full
-                     />
-                  </div>
-                  <div>
-                     <Input
-                        // error
-                        type={"text"}
-                        label={"Email"}
-                        full
-                     />
-                  </div>
-                  <div>
-                     <Input
-                        // error
-                        type={"password"}
-                        label={"Password"}
-                        full
-                     />
+               <div>
+                  <Input
+                     // error
+                     type={"email"}
+                     label={"Email"}
+                     full
+                  />
+               </div>
+               <div>
+                  <Input
+                     // error
+                     type={"password"}
+                     label={"Password"}
+                     full
+                  />
 
-                  </div>
-                  <div>
-                     <Input
-                        // error
-                        type={"password"}
-                        label={"Confirm Password"}
-                        full
-                     />
-                  </div>
-                  <Button variant={"btn-black"} type={"submit"}>
-                     Create Account
-                  </Button>
-                  <Button variant={"primary"} type={"button"}>
-                     <img src="/assets/icons8-google.svg" alt="" /> Signup with Google
-                  </Button>
-               </form>
-               <div className={styles.form_link}>
-                  <Typography variant={"body"}>Already have an Account?
-                     <Link to="/login"> Login </Link>
-                  </Typography>
                </div>
-            </div>
-         </div>
+               <div>
+                  <Input
+                     // error
+                     type={"password"}
+                     label={"Confirm Password"}
+                     full
+                  />
+               </div>
+               <Button variant={"btn-black"} type={"submit"}>
+                  Create Account
+               </Button>
+               <Button variant={"primary"} type={"button"}>
+                  <img src="/assets/icons8-google.svg" alt="google.svg" /> Continue with Google
+               </Button>
+            </form>
+         </AuthFormLayout>
       </PageLaout>
 
    )
