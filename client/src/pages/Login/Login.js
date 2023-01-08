@@ -5,6 +5,7 @@ import Button from '../../components/Common/Button/Button';
 import Input from '../../components/Common/Input/Input';
 import styles from "./Login.module.scss";
 import { Link } from "react-router-dom";
+import { Typography } from '@mui/material';
 
 const Login = () => {
    return (
@@ -41,7 +42,7 @@ const Login = () => {
                </Button>
             </form>
             <div class={styles.forget_password_link}>
-               <Link to="/">Forgot Your Password?</Link>
+               <Typography variant={"body"}> <Link to="/">Forgot Your Password?</Link></Typography>
             </div>
          </AuthFormLayout>
       </PageLayout >

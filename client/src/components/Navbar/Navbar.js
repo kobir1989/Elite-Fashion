@@ -103,7 +103,7 @@ const Navbar = () => {
                            <Link to="/sub-category/63b8490f1e0644fd041c8ee6">Lifestyle</Link>
                         </li>
                         <li>Account</li>
-                        <li>login</li>
+                        <li><Link to="/login">login</Link></li>
                         <li>
                            <Link to="/signup">signup</Link>
                         </li>

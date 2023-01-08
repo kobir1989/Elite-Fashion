@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Button from '../../../components/Common/Button/Button';
 import Typography from '../../../components/Common/Typography/Typography';
 import styles from "../styles/Banner.module.scss";
@@ -11,7 +12,7 @@ const Banner = () => {
             <Typography variant={"small"}>We always offer free standard delivery and Click & Collect for orders over $20 for Members. Returns are free and flexible.</Typography>
          </div>
          <div className={styles.banner_btn}>
-            <Button variant={"small-white"}>Become a Member</Button>
+            <Button variant={"small-white"}><Link to="/signup">Become a Member</Link></Button>
          </div>
       </div>
    )
