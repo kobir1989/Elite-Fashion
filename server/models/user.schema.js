@@ -24,10 +24,6 @@ const userSchema = new Schema({
       required: [true, "Password is Required"],
       minlength: [8, "Password should be more then 8 Characters"]
    },
-   gender: {
-      type: String,
-      required: [true, "Gender is Required"]
-   },
    role: {
       type: String,
       enum: Object.values(authRoles),

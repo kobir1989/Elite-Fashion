@@ -8,8 +8,20 @@ export const theme = createTheme({
       },
       secondary: {
          main: '#727272',
-         light: "e5e5e5"
+         light: "#e5e5e5"
       },
+      error: {
+         main: "#FF8E9E"
+      }
 
    },
+   inputLabel: {
+      MuiInputLabel: {
+         root: {
+            color: '#212529',
+            fontSize: "0.9rem",
+         },
+
+      },
+   }
 });

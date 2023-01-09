@@ -27,6 +27,7 @@ const subCategorySlice = createSlice({
       });
       builder.addCase(fetchSubCategory.rejected, (state, action) => {
          state.error = action.error.message;
+         state.isLoading = false;
       });
    }
 });

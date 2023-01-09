@@ -32,4 +32,4 @@ const AuthFormLayout = ({ children, title, link, to, linkText, img }) => {
    )
 }
 
-export default AuthFormLayout
+export default AuthFormLayout;

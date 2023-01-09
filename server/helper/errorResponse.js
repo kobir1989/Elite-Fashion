@@ -11,7 +11,8 @@ const errorResponse = (res, error, controller) => {
    console.log(`ERROR FROM ${controller} CONTROLLER`);
    return res.status(error.code || 500).json({
       success: false,
-      message: error.message || "Something went wrong"
+      message: error.message || "Something went wrong",
+      name: error.name
    })
 }
 
