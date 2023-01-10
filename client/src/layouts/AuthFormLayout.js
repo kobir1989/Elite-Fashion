@@ -2,8 +2,17 @@ import React from 'react';
 import Typography from '../components/Common/Typography/Typography';
 import { Link } from "react-router-dom";
 import styles from "./styles/AuthFormLayout.module.scss";
+import LinearProgress from '@mui/material/LinearProgress';
 
-const AuthFormLayout = ({ children, title, link, to, linkText, img }) => {
+const AuthFormLayout = ({
+   children,
+   title,
+   link,
+   to,
+   linkText,
+   img,
+   loading
+}) => {
    return (
       <div className={styles.signup_wrapper}>
          <div className={styles.signup_img}>
@@ -18,6 +27,10 @@ const AuthFormLayout = ({ children, title, link, to, linkText, img }) => {
             </div>
          </div>
          <div className={styles.form_wrapper}>
+            {loading && <div className={styles.loading_line}>
+               <LinearProgress color="secondary" />
+            </div>
+            }
             <div className={styles.form_title}>
                <Typography variant={"h3"} color={"paragraph"}>{title || "Create Your Account"}</Typography>
             </div>

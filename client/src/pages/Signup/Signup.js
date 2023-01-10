@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PageLaout from "../../layouts/PageLayout";
 import styles from "./Signup.module.scss";
 import Button from '../../components/Common/Button/Button';
 import Input from '../../components/Common/Input/Input';
 import AuthFormLayout from '../../layouts/AuthFormLayout';
-import { useHttpHook } from "../../hooks/useHttpHook";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { userSignup } from "../../redux/actions/authAction";
+import toast from 'react-hot-toast';
 
 const defaulInputFeald = {
    firstName: "",
@@ -19,8 +21,11 @@ const Signup = () => {
    const [inputData, setInputData] = useState(defaulInputFeald);
    const [hasError, setHasError] = useState(null)
    const { firstName, lastName, email, password, confirmPassword } = inputData;
-   const { isLoading, errorFromServer, sendRequest } = useHttpHook();
+   const { error, loading, success } = useSelector(state => state.auth);
+   console.log(success, "SIGNUP PAGE")
+   const dispatch = useDispatch();
    const navigate = useNavigate()
+
    const onChangeHandler = (e) => {
       const { name, value } = e.target;
       setInputData({ ...inputData, [name]: value });
@@ -35,14 +40,17 @@ const Signup = () => {
          if (password !== confirmPassword) {
             return setHasError({ name: "confirmPassword", message: "Password Did not match!" })
          }
-      }
-      sendRequest({ method: "post", url: "auth/signup", postData: inputData });
-      setHasError(null)
-      if (errorFromServer) {
-         setInputData(defaulInputFeald);
-      }
-      navigate("/login")
+      };
+      dispatch(userSignup(inputData));
    };
+
+   useEffect(() => {
+      if (success) {
+         navigate("/");
+         setInputData(defaulInputFeald);
+         toast.success("Signup Successfull")
+      }
+   }, [success])
 
    return (
       <PageLaout>
@@ -50,11 +58,12 @@ const Signup = () => {
             to={"login"}
             title={"Create Your Account"}
             link={"Login"}
-            linkText={"Already"}>
+            linkText={"Already"}
+            loading={loading}>
             <form onSubmit={submitHandler} className={styles.signup_form}>
                <div>
                   <Input
-                     error={errorFromServer?.name === "firstName" ? true : false}
+                     error={error?.name === "firstName" ? true : false}
                      required={true}
                      type={"text"}
                      label={"First Name"}
@@ -64,13 +73,13 @@ const Signup = () => {
                      value={firstName}
                      size={"small"}
                      helperText={
-                        errorFromServer?.name === "firstName" ? errorFromServer.message : ""
+                        error?.name === "firstName" ? error.message : ""
                      }
                   />
                </div>
                <div>
                   <Input
-                     error={errorFromServer?.name === "lastName" ? true : false}
+                     error={error?.name === "lastName" ? true : false}
                      required={true}
                      type={"text"}
                      label={"Last Name"}
@@ -80,13 +89,13 @@ const Signup = () => {
                      value={lastName}
                      size={"small"}
                      helperText={
-                        errorFromServer?.name === "lastName" ? errorFromServer.message : ""
+                        error?.name === "lastName" ? error.message : ""
                      }
                   />
                </div>
                <div>
                   <Input
-                     error={errorFromServer?.name === "email" ? true : false}
+                     error={error?.name === "email" ? true : false}
                      required={true}
                      type={"email"}
                      label={"Email"}
@@ -95,12 +104,12 @@ const Signup = () => {
                      onChange={onChangeHandler}
                      value={email}
                      size={"small"}
-                     helperText={errorFromServer?.name === "email" ? errorFromServer.message : ""}
+                     helperText={error?.name === "email" ? error.message : ""}
                   />
                </div>
                <div>
                   <Input
-                     error={hasError?.name || errorFromServer?.name === "password" ? true : false}
+                     error={hasError?.name || error?.name === "password" ? true : false}
                      required={true}
                      type={"password"}
                      label={"Password"}
@@ -110,14 +119,14 @@ const Signup = () => {
                      value={password}
                      size={"small"}
                      helperText={
-                        hasError?.name || errorFromServer?.name === "password" ? hasError?.message || errorFromServer.message : ""
+                        hasError?.name || error?.name === "password" ? hasError?.message || error.message : ""
                      }
                   />
 
                </div>
                <div>
                   <Input
-                     error={hasError?.name || errorFromServer?.name === "confirmPassword" ? true : false}
+                     error={hasError?.name || error?.name === "confirmPassword" ? true : false}
                      required={true}
                      type={"password"}
                      label={"Confirm Password"}
@@ -127,7 +136,7 @@ const Signup = () => {
                      value={confirmPassword}
                      size={"small"}
                      helperText={
-                        hasError?.name || errorFromServer?.name === "confirmPassword" ? hasError.message || errorFromServer.message : ""
+                        hasError?.name || error?.name === "confirmPassword" ? hasError.message || error.message : ""
                      }
                   />
                </div>

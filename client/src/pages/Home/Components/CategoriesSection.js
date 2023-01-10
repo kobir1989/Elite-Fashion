@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect } from "react";
 import styles from "../styles/CategoriesSection.module.scss";
 import Error500 from '../../../components/Common/Error/Error500';
-import { fetchCategory } from "../../../redux/slices/categorySlice";
+import { fetchCategory } from "../../../redux/features/categorySlice";
 import Typography from "../../../components/Common/Typography/Typography";
 import GridViewLayout from "../../../layouts/GridViewLayout";
 import { Link } from "react-router-dom";
@@ -13,7 +13,6 @@ const CategoriesSection = () => {
    useEffect(() => {
       dispatch(fetchCategory())
    }, [dispatch])
-   console.log(category)
    return (
       <GridViewLayout page="category">
          {category.categories.map((category) => (

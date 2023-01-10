@@ -1,12 +1,13 @@
-import React from 'react';
 import { configureStore } from "@reduxjs/toolkit";
-import categoryReducer from "../slices/categorySlice";
-import subCategoryReducer from '../slices/subCategorySlice';
+import categoryReducer from "../features/categorySlice";
+import subCategoryReducer from '../features/subCategorySlice';
+import authReducer from "../features/authSlice";
 
 const store = configureStore({
    reducer: {
       category: categoryReducer,
-      subCategory: subCategoryReducer
+      subCategory: subCategoryReducer,
+      auth: authReducer,
    }
 })
 

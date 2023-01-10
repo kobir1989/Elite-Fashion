@@ -1,14 +1,14 @@
 import React, { useState, useCallback } from 'react';
 import axios from "axios";
+
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export const useHttpHook = () => {
    const [errorFromServer, setErrorFromServer] = useState(null)
-   const [isLoading, setIsLoading] = useState(null)
+   const [isLoading, setIsLoading] = useState(null);
 
    const sendRequest = useCallback(async (reqConfig, getResponseData) => {
       setIsLoading(true);
-      setErrorFromServer(null);
       try {
          const response = await axios({
             method: reqConfig.method ? reqConfig.method : "get",
@@ -17,12 +17,13 @@ export const useHttpHook = () => {
          });
          console.log(response.data, "FROM USEHTTP HOOK")
          getResponseData(response.data);
+         setIsLoading(false);
 
       } catch (err) {
-         setErrorFromServer(err.response.data);
-         console.log(err, "ERROR FROM USEHTTP HOOK")
+         setErrorFromServer(err?.response?.data);
+         console.log(err?.response?.data, "ERROR FROM USEHTTP HOOK");
+         setIsLoading(false);
       }
-      setIsLoading(false);
    }, []);
 
    return {

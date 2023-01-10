@@ -13,10 +13,16 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-   const [openMenu, setOpenMenu] = useState(false)
-   const [openDropdown, setOpenDropdown] = useState(false)
+   const [openMenu, setOpenMenu] = useState(false);
+   const [openDropdown, setOpenDropdown] = useState(false);
+   const { isAuth } = useSelector(state => state.auth);
+   console.log(isAuth)
+
+
+
    return (
       <nav className={styles.nav_wrapper}>
 
@@ -36,20 +42,32 @@ const Navbar = () => {
                <Button variant={"icon-btn-normal"}>
                   <SearchIcon />
                </Button>
-               <Button variant={"icon-btn-normal"} onMouseEnter={() => { setOpenDropdown(true) }} onMouseLeave={() => { setOpenDropdown(false) }}>
+               <Button variant={"icon-btn-normal"} onClick={() => { setOpenDropdown(!openDropdown) }}>
                   <PermIdentityIcon />
                   {openDropdown &&
                      <ul className={styles.bgscreen_dropdown}>
-                        <li>
-                           <Link to="/login">
-                              <LoginIcon sx={{ fontSize: "1.2rem" }} />
-                              Login
-                           </Link>
-                        </li>
-                        <li> <Link to="/signup"> <AppRegistrationIcon sx={{ fontSize: "1.2rem" }} />  signup</Link>
-                        </li>
-                        <li> <ManageAccountsIcon sx={{ fontSize: "1.2rem" }} /> Account</li>
-                        <li><LogoutIcon sx={{ fontSize: "1.2rem" }} /> Logout</li>
+                        {!isAuth &&
+                           <>
+                              <li>
+                                 <Link to="/login">
+                                    <LoginIcon sx={{ fontSize: "1.2rem" }} />
+                                    Login
+                                 </Link>
+                              </li>
+                              <li> <Link to="/signup"> <AppRegistrationIcon sx={{ fontSize: "1.2rem" }} />  signup</Link>
+                              </li>
+                           </>
+                        }
+                        {isAuth &&
+                           <>
+                              <li>
+                                 <ManageAccountsIcon sx={{ fontSize: "1.2rem" }} /> Account
+                              </li>
+                              <li>
+                                 <LogoutIcon sx={{ fontSize: "1.2rem" }} /> Logout
+                              </li>
+                           </>
+                        }
                      </ul>
                   }
                </Button>

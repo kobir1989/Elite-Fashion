@@ -11,7 +11,8 @@ export const theme = createTheme({
          light: "#e5e5e5"
       },
       error: {
-         main: "#FF8E9E"
+         main: "#cc2121",
+         light: "#ff7979"
       }
 
    },
