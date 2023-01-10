@@ -10,8 +10,6 @@ class CustomError extends Error {
       super(message);
       this.code = code;
       this.name = name
-      console.log(this)
-
    }
 }
 module.exports = CustomError;

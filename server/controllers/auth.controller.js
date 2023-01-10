@@ -13,7 +13,6 @@ const errorResponse = require("../helper/errorResponse");
  *********************************************************/
 
 module.exports.signUp = async (req, res) => {
-	console.log(req.body)
 	try {
 		const { firstName, lastName, email, password, confirmPassword } = req.body;
 
@@ -66,6 +65,7 @@ module.exports.signUp = async (req, res) => {
  *********************************************************/
 
 module.exports.login = async (req, res) => {
+	console.log(req.body)
 	try {
 		const { email, password } = req.body;
 

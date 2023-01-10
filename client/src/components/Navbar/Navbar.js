@@ -19,9 +19,6 @@ const Navbar = () => {
    const [openMenu, setOpenMenu] = useState(false);
    const [openDropdown, setOpenDropdown] = useState(false);
    const { isAuth } = useSelector(state => state.auth);
-   console.log(isAuth)
-
-
 
    return (
       <nav className={styles.nav_wrapper}>
@@ -120,12 +117,21 @@ const Navbar = () => {
                         <li>
                            <Link to="/sub-category/63b8490f1e0644fd041c8ee6">Lifestyle</Link>
                         </li>
-                        <li>Account</li>
-                        <li><Link to="/login">login</Link></li>
-                        <li>
-                           <Link to="/signup">signup</Link>
-                        </li>
-                        <li>logout</li>
+                        {isAuth &&
+                           <>
+                              <li>Account</li>
+                              <li>logout</li>
+                           </>
+                        }
+                        {!isAuth && <>
+                           <li>
+                              <Link to="/login">login</Link>
+                           </li>
+                           <li>
+                              <Link to="/signup">signup</Link>
+                           </li>
+                        </>
+                        }
                      </ul>
                   </div>
                </div>
