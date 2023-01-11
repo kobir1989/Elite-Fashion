@@ -8,7 +8,7 @@ const {
    createNewProduct
 } = require("../controllers/product.controller")
 
-route.get("/products/all", getAllProducts);
+route.get("/:subCategoryId/products", getAllProducts);
 
 route.post(
    "/create/product/:userId",

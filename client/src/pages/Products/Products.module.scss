@@ -1,0 +1,22 @@
+@import "../../sass/sass-utils/colors";
+@import "../../sass/sass-utils/mixins";
+
+.card_wrapper {
+	width: 100%;
+	height: 100%;
+	background-color: gray;
+}
+
+.pagination_buttons {
+	@include flex-row-center;
+	justify-content: center;
+	background-color: $body;
+	padding: 1.8rem 0;
+	gap: 0.6rem;
+	button {
+		@include flex-row-center;
+		justify-content: center;
+		width: 2.5rem;
+		height: 2.2rem;
+	}
+}

@@ -1,0 +1,32 @@
+@import "../../sass/sass-utils/mixins";
+
+.Products_layout_wrapper {
+	display: grid;
+	padding: 3rem 2rem;
+	grid-template-columns: 1;
+	grid-auto-rows: 33rem;
+	gap: 1.8rem;
+	@include screens-sm {
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: 30rem;
+	}
+	@include screens-md {
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: 30rem;
+		padding: 3rem 2.5rem;
+	}
+	@include screens-lg {
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: 29rem;
+		padding: 3rem 2.5rem;
+	}
+	@include screens-xl {
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: 29rem;
+	}
+	@include screens-2xl {
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: 34rem;
+		padding: 3rem 0rem;
+	}
+}

@@ -4,6 +4,7 @@ import SubCategoryPage from "./pages/SubCategoryPage/SubCategoryPage";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import axios from "axios";
+import Products from "./pages/Products/Products";
 const App = () => {
   axios.defaults.withCredentials = true;
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <Route path="/sub-category/:id" element={<SubCategoryPage />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/products/:id" element={<Products />} />
     </Routes>
   );
 }

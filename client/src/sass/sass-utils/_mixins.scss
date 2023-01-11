@@ -1,8 +1,8 @@
 /* Breakpoints mobile first approach */
 $bp-xs: 412px;
-$bp-sm: 640px;
+$bp-sm: 575px;
 $bp-md: 768px;
-$bp-lg: 1024px;
+$bp-lg: 1022px;
 $bp-xl: 1280px;
 $bp-2xl: 1536px;
 
@@ -73,7 +73,7 @@ $bp-2xl: 1536px;
 /*-------------------------------*/
 
 @mixin box-shadow-strong {
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08), 0 2px 2px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.16), 0 8px 8px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12), 0 2px 2px rgba(0, 0, 0, 0.12), 0 4px 4px rgba(0, 0, 0, 0.05), 0 8px 8px rgba(0, 0, 0, 0.12);
 	transition: box-shadow 0.3s ease-in-out;
 }
 @mixin box-shadow-diffuse {

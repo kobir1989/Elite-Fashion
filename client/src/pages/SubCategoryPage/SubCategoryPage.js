@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PageLayout from "../../layouts/PageLayout";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "./SubCategoryPage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSubCategory } from "../../redux/actions/subCategoryAction";
@@ -25,15 +25,17 @@ const SubCategoryPage = () => {
       <PageLayout>
          <GridViewLayout page={"sub_category"}>
             {subCategories.map((subCategory) => (
-               <div className={styles.sub_category_card} key={subCategory._id}>
-                  <div className={styles.image_wrapper}>
-                     <img src={subCategory?.image} alt={subCategory?.name} />
+               <Link to={`/products/${subCategory?._id}`}>
+                  <div className={styles.sub_category_card} key={subCategory._id}>
+                     <div className={styles.image_wrapper}>
+                        <img src={subCategory?.image} alt={subCategory?.name} />
+                     </div>
+                     <div className={styles.card_text_wrapper}>
+                        <Typography variant={"h4"} color={"white"}>{subCategory?.name}</Typography>
+                        <Button variant={"white"}>Shop now</Button>
+                     </div>
                   </div>
-                  <div className={styles.card_text_wrapper}>
-                     <Typography variant={"h4"} color={"white"}>{subCategory?.name}</Typography>
-                     <Button variant={"white"}>Shop now</Button>
-                  </div>
-               </div>
+               </Link>
             ))}
             {isLoading &&
                <CardSkeleton

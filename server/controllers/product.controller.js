@@ -131,12 +131,45 @@ module.exports.deleteProduct = async (req, res) => {
  * @Parameters none
  * @Return Products Array
  *********************************************************/
-module.exports.getAllProducts = async (_req, res) => {
+module.exports.getAllProducts = async (req, res) => {
    try {
-      const products = await Product.find().populate("category subCategory")
-      return res.status(200).json({ success: true, products })
+      const { page, limit } = req.query;
+      const { subCategoryId } = req.params;
+      const startsIndexAt = (page - 1) * limit;
+      const endsIndexAt = page * limit;
+      const products = {};
+      if (!page || !limit) {
+         throw new CustomError(400, "Page and Limit are required")
+      }
 
+      const docLength = await Product.find({ "subCategory": subCategoryId }).countDocuments().exec();
+
+      if (endsIndexAt < docLength) {
+         products.next = {
+            page: parseInt(page) + 1,
+            limit: limit
+         }
+      };
+
+      if (startsIndexAt > 0) {
+         products.previous = {
+            page: page - 1,
+            limit: limit
+         }
+      };
+
+      if (docLength) {
+         products.totalPage = Math.floor(docLength / parseInt(limit) + 1);
+      };
+
+      products.result = await Product.find({ "subCategory": subCategoryId })
+         .select("-sold")
+         .limit(limit)
+         .skip(startsIndexAt)
+         .exec();
+
+      return res.status(200).json({ success: true, products })
    } catch (err) {
       errorResponse(res, err, "GET-ALL-PRODUCTS");
    }
-}
+};
