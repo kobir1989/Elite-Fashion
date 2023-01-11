@@ -9,26 +9,48 @@ import { Typography } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../redux/actions/authAction";
 import toast from 'react-hot-toast';
+import { setError } from "../../redux/features/authSlice"
+
+const defaultLoginValue = {
+   email: "",
+   password: ""
+};
 
 const Login = () => {
-   const [email, setEmail] = useState("");
-   const [password, setPassword] = useState("");
+   const [loginValue, setLoginValue] = useState(defaultLoginValue);
+   const { email, password } = loginValue;
    const navigate = useNavigate();
-   const { loading, error, success } = useSelector(state => state.auth);
-   console.log(success)
    const dispatch = useDispatch();
+   const {
+      loading,
+      error,
+      success,
+   } = useSelector(state => state.auth);
+   console.log(error)
+
+   const onChangeHandler = (e) => {
+      const { name, value } = e.target;
+      setLoginValue({ ...loginValue, [name]: value });
+      if (e.target.value !== "") {
+         dispatch(setError(null))
+      }
+   }
 
    const submitHandler = (e) => {
       e.preventDefault();
-      dispatch(userLogin({ email, password }));
+      if (password.length < 8) {
+         return dispatch(setError({ message: "Incorrect Email or Password" }))
+      }
+      dispatch(userLogin(loginValue));
    };
 
    useEffect(() => {
       if (success) {
          navigate("/");
-         toast.success("Login Successfull")
+         toast.success("Login Successfull");
+         setLoginValue(defaultLoginValue);
       }
-   }, [success])
+   }, [success, navigate])
 
    return (
       <PageLayout>
@@ -47,8 +69,9 @@ const Login = () => {
                      type={"email"}
                      label={"Email"}
                      full
+                     name="email"
                      value={email}
-                     onChange={(e) => { setEmail(e.target.value) }}
+                     onChange={onChangeHandler}
                      helperText={
                         error ? error.message : ""
                      }
@@ -61,8 +84,9 @@ const Login = () => {
                      type={"password"}
                      label={"Password"}
                      full
+                     name="password"
                      value={password}
-                     onChange={(e) => { setPassword(e.target.value) }}
+                     onChange={onChangeHandler}
                      helperText={
                         error ? error.message : ""
                      }

@@ -8,8 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { userSignup } from "../../redux/actions/authAction";
 import toast from 'react-hot-toast';
+import { setError } from '../../redux/features/authSlice';
 
-const defaulInputFeald = {
+const defaulSignupValue = {
    firstName: "",
    lastName: "",
    email: "",
@@ -18,27 +19,28 @@ const defaulInputFeald = {
 }
 
 const Signup = () => {
-   const [inputData, setInputData] = useState(defaulInputFeald);
-   const [hasError, setHasError] = useState(null)
+   const [inputData, setInputData] = useState(defaulSignupValue);
    const { firstName, lastName, email, password, confirmPassword } = inputData;
    const { error, loading, success } = useSelector(state => state.auth);
-   console.log(success, "SIGNUP PAGE")
    const dispatch = useDispatch();
    const navigate = useNavigate()
 
    const onChangeHandler = (e) => {
       const { name, value } = e.target;
       setInputData({ ...inputData, [name]: value });
+      if (e.target.value !== "") {
+         dispatch(setError(null))
+      }
    }
 
    const submitHandler = (e) => {
       e.preventDefault()
       if (password && confirmPassword) {
          if (password.length < 8) {
-            return setHasError({ name: "password", message: "Password should not be less then 8 Characters!" })
+            return dispatch(setError({ name: "password", message: "Password should not be less then 8 Characters!" }));
          }
          if (password !== confirmPassword) {
-            return setHasError({ name: "confirmPassword", message: "Password Did not match!" })
+            return dispatch(setError({ name: "confirmPassword", message: "Password Did not match!" }));
          }
       };
       dispatch(userSignup(inputData));
@@ -47,10 +49,10 @@ const Signup = () => {
    useEffect(() => {
       if (success) {
          navigate("/");
-         setInputData(defaulInputFeald);
+         setInputData(defaulSignupValue);
          toast.success("Signup Successfull")
       }
-   }, [success])
+   }, [success, navigate])
 
    return (
       <PageLaout>
@@ -109,7 +111,7 @@ const Signup = () => {
                </div>
                <div>
                   <Input
-                     error={hasError?.name || error?.name === "password" ? true : false}
+                     error={error?.name === "password" ? true : false}
                      required={true}
                      type={"password"}
                      label={"Password"}
@@ -118,15 +120,13 @@ const Signup = () => {
                      onChange={onChangeHandler}
                      value={password}
                      size={"small"}
-                     helperText={
-                        hasError?.name || error?.name === "password" ? hasError?.message || error.message : ""
-                     }
+                     helperText={error?.name === "password" ? error.message : ""}
                   />
 
                </div>
                <div>
                   <Input
-                     error={hasError?.name || error?.name === "confirmPassword" ? true : false}
+                     error={error?.name === "confirmPassword" ? true : false}
                      required={true}
                      type={"password"}
                      label={"Confirm Password"}
@@ -135,9 +135,7 @@ const Signup = () => {
                      onChange={onChangeHandler}
                      value={confirmPassword}
                      size={"small"}
-                     helperText={
-                        hasError?.name || error?.name === "confirmPassword" ? hasError.message || error.message : ""
-                     }
+                     helperText={error?.name === "confirmPassword" ? error.message : ""}
                   />
                </div>
                <Button variant={"btn-black"} type={"submit"}>
