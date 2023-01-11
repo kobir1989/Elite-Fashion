@@ -3,7 +3,7 @@ import PageLayout from "../../layouts/PageLayout";
 import { useParams } from "react-router-dom";
 import styles from "./SubCategoryPage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSubCategory } from "../../redux/features/subCategorySlice";
+import { fetchSubCategory } from "../../redux/actions/subCategoryAction";
 import Error from "../../components/Common/Error/Error500";
 import Typography from '../../components/Common/Typography/Typography';
 import Button from '../../components/Common/Button/Button';

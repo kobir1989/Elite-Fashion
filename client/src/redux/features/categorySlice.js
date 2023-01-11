@@ -1,18 +1,11 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchCategory } from "../actions/categoryAction"
 
 const initialState = {
    isLoading: false,
+   categories: [],
    error: null,
-   categories: []
 }
-
-export const fetchCategory = createAsyncThunk("category/fetchCategory",
-   async () => {
-      const response = await axios.get(`${BASE_URL}/categories/all`);
-      return response.data.allCategories;
-   })
 
 const categorySlice = createSlice({
    name: "category",

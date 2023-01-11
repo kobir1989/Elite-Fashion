@@ -1,24 +1,17 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchSubCategory } from "../actions/subCategoryAction";
+
 const initialState = {
    isLoading: false,
+   subCategories: [],
    error: null,
-   subCategories: []
 };
-
-export const fetchSubCategory = createAsyncThunk("subcategory/fetchSubCategory",
-   async (id) => {
-      console.log(id, "SLICE")
-      const response = await axios.get(`${BASE_URL}/sub-category/${id}`);
-      return response.data.subCategories;
-   })
 
 const subCategorySlice = createSlice({
    name: "subCategory",
    initialState,
    extraReducers: (builder) => {
-      builder.addCase(fetchSubCategory.pending, (state) => {
+      builder.addCase(fetchSubCategory.pending, (state, _action) => {
          state.isLoading = true;
       });
       builder.addCase(fetchSubCategory.fulfilled, (state, action) => {
