@@ -8,9 +8,14 @@ import Error from "../../components/Common/Error/Error500";
 import Typography from '../../components/Common/Typography/Typography';
 import Button from '../../components/Common/Button/Button';
 import GridViewLayout from '../../layouts/GridViewLayout';
+import CardSkeleton from '../../components/Common/Skeleton/CardSkeleton';
 
 const SubCategoryPage = () => {
-   const data = useSelector(state => state.subCategory);
+   const {
+      isLoading,
+      subCategories,
+      error
+   } = useSelector(state => state.subCategory);
    const dispatch = useDispatch()
    const { id } = useParams();
    useEffect(() => {
@@ -19,7 +24,7 @@ const SubCategoryPage = () => {
    return (
       <PageLayout>
          <GridViewLayout page={"sub_category"}>
-            {data.subCategories.map((subCategory) => (
+            {subCategories.map((subCategory) => (
                <div className={styles.sub_category_card} key={subCategory._id}>
                   <div className={styles.image_wrapper}>
                      <img src={subCategory?.image} alt={subCategory?.name} />
@@ -30,7 +35,14 @@ const SubCategoryPage = () => {
                   </div>
                </div>
             ))}
-            {data.error && <Error />}
+            {isLoading &&
+               <CardSkeleton
+                  col={7}
+                  width={"100%"}
+                  height={"100%"}
+               />
+            }
+            {error && <Error />}
          </GridViewLayout>
       </PageLayout>
    )

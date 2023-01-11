@@ -6,16 +6,21 @@ import { fetchCategory } from "../../../redux/actions/categoryAction";
 import Typography from "../../../components/Common/Typography/Typography";
 import GridViewLayout from "../../../layouts/GridViewLayout";
 import { Link } from "react-router-dom";
+import CardSkeleton from "../../../components/Common/Skeleton/CardSkeleton";
 
 const CategoriesSection = () => {
-   const category = useSelector(state => state.category)
+   const {
+      isLoading,
+      categories,
+      error
+   } = useSelector(state => state.category)
    const dispatch = useDispatch()
    useEffect(() => {
       dispatch(fetchCategory())
    }, [dispatch])
    return (
       <GridViewLayout page="category">
-         {category.categories.map((category) => (
+         {categories.map((category) => (
             <Link to={`/sub-category/${category?._id}`} key={category?._id}>
                <div className={styles.category_card_wrapper}>
                   <div className={styles.img_wrapper}>
@@ -29,8 +34,10 @@ const CategoriesSection = () => {
                </div>
             </Link>
          ))}
-         {category.isLoading && <p>Loading...</p>}
-         {category.error && <Error500 />}
+         {isLoading &&
+            <CardSkeleton col={6} width={"100%"} height={"100%"} />
+         }
+         {error && <Error500 />}
       </GridViewLayout>
    )
 }
