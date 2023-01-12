@@ -33,7 +33,11 @@
 		}
 		@include flex-col;
 		gap: 2rem;
-		.size {
+		.options {
+			width: 100%;
+			@include screens-xl {
+				width: 80%;
+			}
 			@include flex-row-center;
 			gap: 2rem;
 		}

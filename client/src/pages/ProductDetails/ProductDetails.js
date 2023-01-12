@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PageLayout from "../../layouts/PageLayout";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./ProductDetails.module.scss";
@@ -11,31 +11,49 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SelectOptions from '../../components/Common/SelectOptions/SelectOptions';
 import CancelIcon from '@mui/icons-material/Cancel';
+import CardSkeleton from "../../components/Common/Skeleton/CardSkeleton";
+import TextSkeleton from '../../components/Common/Skeleton/TextSkeleton';
+import Error500 from "../../components/Common/Error/Error500";
 
 const ProductDetails = () => {
+   const [color, setColor] = useState("")
+   const [size, setSize] = useState("")
    const { id } = useParams()
    const dispatch = useDispatch();
    const { error, isLoading, products } = useSelector(state => state.product);
-   console.log(products)
-
    useEffect(() => {
       dispatch(fetchProducts(`/product/single/${id}`))
    }, [id])
    return (
       <PageLayout>
          <div className={styles.product_page_details_wrapper}>
+            {error && <Error500 />}
             <div className={styles.img_wrapper}>
                <img src={products?.image} alt="" />
+               {isLoading &&
+                  <CardSkeleton
+                     width={"100%"}
+                     height={"36rem"}
+                     col={1} />
+               }
             </div>
             <div className={styles.product_info}>
+               {isLoading &&
+                  <TextSkeleton
+                     row={8}
+                     width={"100%"}
+                     height={"100%"} />
+               }
                <div className={styles.text_wrapper}>
                   <Typography variant={"h3"}>{products?.title}</Typography>
                   <Typography variant={"h3"}>&#2547; {products?.price}</Typography>
                   <Typography variant={"body"}>{products?.description}</Typography>
                </div>
-               <div className={styles.size}>
+               <div className={styles.options}>
                   <SelectOptions
                      label={"SIZE"}
+                     onChange={(e) => { setSize(e.target.value) }}
+                     value={size}
                      options={[
                         "SMALL",
                         "MEDIUM",
@@ -44,7 +62,9 @@ const ProductDetails = () => {
                         "XXL"
                      ]} />
                   <SelectOptions
+                     onChange={(e) => { setColor(e.target.value) }}
                      label={"COLOR"}
+                     value={color}
                      options={["BLUE", "RED"]} />
                </div>
                <div className={styles.stock}>

@@ -54,7 +54,7 @@ const Products = () => {
                   col={12}
                   text={true}
                   width={"100%"}
-                  height={"80%"}
+                  height={"28rem"}
                />
             }
             {error && <Error500 />}

@@ -1,20 +1,28 @@
 import React from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 
-const SelectOptions = ({ handleChange, size, label, options = [] }) => {
+const SelectOptions = (
+   {
+      value,
+      label,
+      error = false,
+      options = [],
+      ...otherProps
+   }) => {
+
    return (
-      <FormControl fullWidth>
+      <FormControl
+         fullWidth
+         required
+         error={error}>
          <InputLabel>{label}</InputLabel>
          <Select
-            // value={size}
+            value={value}
             label="Age"
-         // onChange={handleChange}
+            {...otherProps}
          >
             {options.map((option) => (
-               <MenuItem >{option}</MenuItem>
+               <MenuItem value={option}>{option}</MenuItem>
             ))}
          </Select>
       </FormControl>
