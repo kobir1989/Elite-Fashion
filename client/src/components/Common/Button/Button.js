@@ -4,7 +4,7 @@ import "./Button.scss";
 const Button = (props) => {
    const { type = "button", variant = "primary", children, ...otherProps } = props;
    return (
-      <button className={`button ${variant}`} type={type} {...otherProps}> {children}
+      <button className={`button ${variant} `} type={type} {...otherProps}> {children}
       </button >
    )
 }

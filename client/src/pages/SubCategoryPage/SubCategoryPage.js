@@ -25,8 +25,10 @@ const SubCategoryPage = () => {
       <PageLayout>
          <GridViewLayout page={"sub_category"}>
             {subCategories.map((subCategory) => (
-               <Link to={`/products/${subCategory?._id}`}>
-                  <div className={styles.sub_category_card} key={subCategory._id}>
+               <Link
+                  to={`/products/${subCategory?._id}`}
+                  key={subCategory?._id}>
+                  <div className={styles.sub_category_card}>
                      <div className={styles.image_wrapper}>
                         <img src={subCategory?.image} alt={subCategory?.name} />
                      </div>

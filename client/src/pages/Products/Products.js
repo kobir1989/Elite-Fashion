@@ -8,20 +8,34 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../redux/actions/productsAction";
-import { nextPage, prevPage } from "../../redux/features/productsSlice";
+import { loadPage } from "../../redux/features/productsSlice";
 import CardSkeleton from '../../components/Common/Skeleton/CardSkeleton';
-import TextSkeleton from "../../components/Common/Skeleton/TextSkeleton";
 import ProductCard from '../../components/Common/Card/ProductCard';
 import Error500 from "../../components/Common/Error/Error500";
 
 const Products = () => {
-   const { id } = useParams()
+   const { id } = useParams();
    const dispatch = useDispatch();
-   const { isLoading, error, products, page } = useSelector(state => state.product);
-   console.log(page)
+   const {
+      isLoading,
+      error,
+      products,
+      page
+   } = useSelector(state => state.product);
+   // console.log(page)
    useEffect(() => {
       dispatch(fetchProducts({ page, id }))
-   }, [id, page])
+   }, [id, page]);
+
+   const numberOfPages = Array(products?.totalPage)
+      .fill().map((_, index) => index + 1);
+
+   const firstPage = () => {
+      dispatch(loadPage(1))
+   };
+   const lastPage = () => {
+      dispatch(loadPage(numberOfPages.length))
+   };
    return (
       <PageLayout>
          <ProductsLayout>
@@ -35,23 +49,32 @@ const Products = () => {
                </div>
             ))}
             {isLoading &&
-               <div>
-                  <CardSkeleton />
-                  <TextSkeleton />
-               </div>
+               <CardSkeleton
+                  col={12}
+                  text={true}
+                  width={"100%"}
+                  height={"80%"}
+               />
             }
             {error && <Error500 />}
          </ProductsLayout>
          <div className={styles.pagination_buttons}>
-            <Button variant={"icon-btn-white"} onClick={() => { dispatch(prevPage()) }}>
-               <ArrowBackIosIcon sx={{ fontSize: "1rem" }} />
-            </Button>
-            <Button variant={"icon-btn-black"}>
-               1
-            </Button>
-            <Button variant={"icon-btn-white"} onClick={() => { dispatch(nextPage()) }}>
-               <ArrowForwardIosIcon sx={{ fontSize: "1rem" }} />
-            </Button>
+            {products?.previous &&
+               <Button variant={"icon-btn-white"} onClick={firstPage}>
+                  <ArrowBackIosIcon sx={{ fontSize: "1rem" }} />
+               </Button>}
+            {numberOfPages.map((pg, index) => (
+               <div key={index}>
+                  <Button variant={page === pg ? "icon-btn-black" : "icon-btn-white"} onClick={() => { dispatch(loadPage(pg)) }} >
+                     {pg}
+                  </Button>
+               </div>
+            ))}
+            {products?.next &&
+               <Button variant={"icon-btn-white"} onClick={lastPage}>
+                  <ArrowForwardIosIcon sx={{ fontSize: "1rem" }} />
+               </Button>
+            }
          </div>
       </PageLayout>
    )

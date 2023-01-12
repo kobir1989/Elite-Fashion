@@ -8,13 +8,11 @@ const TextSkeleton = (
       ...otherProps }
 ) => {
 
-   const rowArr = [];
-   for (let i = 0; i < row; i++) {
-      rowArr.push(i)
-   }
+   const rowArr = Array(row).fill().map((_, index) => index);
+
    return (
       <div {...otherProps}>
-         {rowArr.map((row, i) => (
+         {rowArr.map((_row, i) => (
             <div key={i} style={{ marginBottom: "0.8rem" }}>
                <Skeleton
                   variant={"rectangular"}

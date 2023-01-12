@@ -5,18 +5,15 @@ const initialState = {
    isLoading: false,
    products: [],
    page: 1,
-   error: null
+   error: null,
 };
 
 const productsSlice = createSlice({
    name: "product",
    initialState,
    reducers: {
-      nextPage: (state, _action) => {
-         state.page = state.page + 1
-      },
-      prevPage: (state, _action) => {
-         state.page = state.page - 1;
+      loadPage: (state, action) => {
+         state.page = action.payload;
       }
    },
    extraReducers: (builder) => {
@@ -33,5 +30,5 @@ const productsSlice = createSlice({
       });
    }
 });
-export const { prevPage, nextPage } = productsSlice.actions;
+export const { loadPage } = productsSlice.actions;
 export default productsSlice.reducer;

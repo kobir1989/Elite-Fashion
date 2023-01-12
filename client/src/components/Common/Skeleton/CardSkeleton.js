@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Skeleton from '@mui/material/Skeleton';
+import TextSkeleton from './TextSkeleton';
 
 const CardSkeleton = (
    {
@@ -8,17 +9,16 @@ const CardSkeleton = (
       variant,
       col = 1,
       animation,
+      text = false,
       ...otherProps
    }
 ) => {
-   const colArr = [];
-   for (let i = 0; i < col; i++) {
-      colArr.push(i)
-   }
-   // console.log(rowArr)
+
+   const colArr = Array(col).fill().map((_, index) => index);
+   // console.log(colArr)
    return (
       <>
-         {colArr.map((col, i) => (
+         {colArr.map((_col, i) => (
             <div key={i} {...otherProps}>
                <Skeleton
                   variant={variant || "rectangular"}
@@ -26,6 +26,24 @@ const CardSkeleton = (
                   height={height || 60}
                   animation={animation || "pulse"}
                />
+               {text &&
+                  <>
+                     <Skeleton
+                        variant={"rectangular"}
+                        width={"95%"}
+                        height={16}
+                        animation={"wave"}
+                        sx={{ mt: "0.8rem" }}
+                     />
+                     <Skeleton
+                        variant={"rectangular"}
+                        width={"70%"}
+                        height={12}
+                        animation={"wave"}
+                        sx={{ mt: "0.8rem" }}
+                     />
+                  </>
+               }
             </div>
          ))}
       </>
