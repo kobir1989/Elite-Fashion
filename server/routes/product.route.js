@@ -3,12 +3,14 @@ const { isAuthenticated, isAdmin } = require("../middlewares/authMiddleware");
 const { fileUploader } = require("../middlewares/imgUpload.middleware")
 const {
    getAllProducts,
+   getSingleProducts,
    deleteProduct,
    editProduct,
    createNewProduct
 } = require("../controllers/product.controller")
 
 route.get("/:subCategoryId/products", getAllProducts);
+route.get("/product/single/:productId", getSingleProducts);
 
 route.post(
    "/create/product/:userId",

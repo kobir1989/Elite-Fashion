@@ -1,12 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+import { axiosBaseUrl } from "../../utils/axios.config";
 
 export const fetchSubCategory = createAsyncThunk("subcategory/fetchSubCategory",
    async (id, { rejectWithValue }) => {
       try {
          console.log(id, "SLICE")
-         const response = await axios.get(`${BASE_URL}/sub-category/${id}`);
+         const response = await axiosBaseUrl.get(`/sub-category/${id}`);
          return response.data.subCategories;
       } catch (err) {
          return rejectWithValue(err?.response?.data);

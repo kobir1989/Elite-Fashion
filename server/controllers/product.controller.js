@@ -126,8 +126,9 @@ module.exports.deleteProduct = async (req, res) => {
 
 /********************************************************
  * @getAllProducts
- * @Route GET http://localhost:5000/api/v1/products/all
- * @Description Retrieve All products, and then sends the resulting data back to the client as a JSON response.
+ * @Route GET http://localhost:5000/api/v1/:subCategoryId/product?page=1&limit=12
+ * @Description Retrieve All products, based on page number and limit, and then 
+ * @Description sends the resulting data back to the client as a JSON response.
  * @Parameters none
  * @Return Products Array
  *********************************************************/
@@ -173,3 +174,22 @@ module.exports.getAllProducts = async (req, res) => {
       errorResponse(res, err, "GET-ALL-PRODUCTS");
    }
 };
+
+/********************************************************
+ * @getSingleProducts
+ * @Route GET http://localhost:5000/api/v1/product/single/:productId
+ * @Description Retrieve single product, and then sends the resulting data back to the client as a JSON response.
+ * @Parameters none
+ * @Return Products Array
+ *********************************************************/
+module.exports.getSingleProducts = async (req, res) => {
+   try {
+      const { productId } = req.params;
+      const products = await Product.findById({ _id: productId }).select("-sold").exec();
+      console.log(products)
+      return res.status(200).json({ success: true, products })
+   } catch (err) {
+      errorResponse(res, err, "GET-SINGLE_PRODUCT");
+   }
+
+}

@@ -1,0 +1,77 @@
+@import "../../sass/sass-utils/colors";
+@import "../../sass/sass-utils/mixins";
+
+.product_page_details_wrapper {
+	@include flex-col-center;
+	// justify-content: center;
+	gap: 2rem;
+	margin: 2rem;
+	@include screens-md {
+		@include flex-row-space-between;
+		align-items: flex-start;
+		margin: 3rem;
+	}
+	.img_wrapper {
+		width: 100%;
+		@include screens-md {
+			width: 40%;
+		}
+		img {
+			width: 100%;
+			max-height: 44rem;
+		}
+	}
+	.text_wrapper {
+		@include flex-col;
+		gap: 1rem;
+	}
+	.product_info {
+		width: 100%;
+		@include screens-md {
+			width: 50%;
+			height: 100%;
+		}
+		@include flex-col;
+		gap: 2rem;
+		.size {
+			@include flex-row-center;
+			gap: 2rem;
+		}
+		.stock {
+			@include flex-row-center;
+			gap: 1rem;
+		}
+		.buttons_wrapper {
+			@include flex-row-center;
+			gap: 1rem;
+			button {
+				width: 60%;
+				@include screens-md {
+					width: 50%;
+				}
+			}
+			.item_count_buttons {
+				padding: 0.4rem 0;
+				width: 50%;
+				border-radius: 4px;
+				border: 1px solid $light_gray;
+				font-size: 1rem;
+				@include flex-row-center;
+				justify-content: center;
+				gap: 1rem;
+				@include screens-md {
+					max-width: 12rem;
+				}
+			}
+		}
+	}
+}
+
+.related_products {
+	border-top: 3px solid $light_gray;
+	margin-top: 6rem;
+	text-align: center;
+	h3 {
+		margin-top: 1rem;
+	}
+}

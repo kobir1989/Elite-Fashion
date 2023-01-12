@@ -12,6 +12,7 @@ import { loadPage } from "../../redux/features/productsSlice";
 import CardSkeleton from '../../components/Common/Skeleton/CardSkeleton';
 import ProductCard from '../../components/Common/Card/ProductCard';
 import Error500 from "../../components/Common/Error/Error500";
+import { Link } from 'react-router-dom';
 
 const Products = () => {
    const { id } = useParams();
@@ -24,7 +25,7 @@ const Products = () => {
    } = useSelector(state => state.product);
    // console.log(page)
    useEffect(() => {
-      dispatch(fetchProducts({ page, id }))
+      dispatch(fetchProducts(`/${id}/products?page=${page}&limit=12`))
    }, [id, page]);
 
    const numberOfPages = Array(products?.totalPage)
@@ -40,13 +41,13 @@ const Products = () => {
       <PageLayout>
          <ProductsLayout>
             {products?.result?.map((product) => (
-               <div key={product?._id}>
+               <Link to={`/product-details/${product._id}`} key={product?._id}>
                   <ProductCard
                      title={product?.title}
                      price={product?.price}
                      imageUrl={product?.image}
                   />
-               </div>
+               </Link>
             ))}
             {isLoading &&
                <CardSkeleton

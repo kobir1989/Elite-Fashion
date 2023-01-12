@@ -1,13 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+import { axiosBaseUrl } from "../../utils/axios.config";
 
 export const fetchProducts = createAsyncThunk("product/fetchProducts",
-   async ({ page, id, }, { rejectWithValue }) => {
-      console.log(page, id)
+   async (url, { rejectWithValue }) => {
       try {
-         const response = await axios.get(`${BASE_URL}/${id}/products?page=${page}&limit=12`);
+         const response = await axiosBaseUrl.get(url);
          console.log(response?.data?.products)
          return response?.data?.products;
       } catch (err) {
@@ -15,5 +12,4 @@ export const fetchProducts = createAsyncThunk("product/fetchProducts",
          return rejectWithValue(err?.response?.data)
       }
    }
-
-)
+);

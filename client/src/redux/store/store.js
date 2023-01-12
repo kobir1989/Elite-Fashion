@@ -9,7 +9,7 @@ const store = configureStore({
       category: categoryReducer,
       subCategory: subCategoryReducer,
       auth: authReducer,
-      product: productReducer
+      product: productReducer,
    }
 })
 

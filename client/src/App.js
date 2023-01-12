@@ -5,6 +5,7 @@ import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import axios from "axios";
 import Products from "./pages/Products/Products";
+import ProductDetails from "./pages/ProductDetails/ProductDetails";
 const App = () => {
   axios.defaults.withCredentials = true;
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       <Route path="/products/:id" element={<Products />} />
+      <Route path="/product-details/:id" element={<ProductDetails />} />
     </Routes>
   );
 }
