@@ -22,7 +22,7 @@ const ProductDetails = () => {
    const dispatch = useDispatch();
    const { error, isLoading, products } = useSelector(state => state.product);
    useEffect(() => {
-      dispatch(fetchProducts(`/product/single/${id}`))
+      dispatch(fetchProducts(`/product/single/${id}`));
    }, [id])
    return (
       <PageLayout>
@@ -68,10 +68,10 @@ const ProductDetails = () => {
                      options={["BLUE", "RED"]} />
                </div>
                <div className={styles.stock}>
-                  <Typography variant={"h5"} color={products?.stock > 0 ? "success" : "danger"}>
+                  <Typography variant={"h5"} color={products?.stock > 0 ? "success" : "red"}>
                      Availability:
                   </Typography>
-                  <Typography variant={"h5"} color={products?.stock > 0 ? "success" : "danger"}>
+                  <Typography variant={"h5"} color={products?.stock > 0 ? "success" : "red"}>
                      {products?.stock > 0 ? "In Stock" : "Out of Stock"}
                   </Typography>
                   {

@@ -13,16 +13,18 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setToggleWishList } from "../../redux/features/wishLishSlice";
 
 const Navbar = () => {
    const [openMenu, setOpenMenu] = useState(false);
    const [openDropdown, setOpenDropdown] = useState(false);
    const { isAuth } = useSelector(state => state.auth);
+   const { item, toggleWishList } = useSelector(state => state.wishList);
+   const dispatch = useDispatch();
 
    return (
       <nav className={styles.nav_wrapper}>
-
          {/*Big screen nav*/}
          <div className={styles.nav}>
             <div className={styles.nav_logo}><Link to="/">
@@ -31,9 +33,20 @@ const Navbar = () => {
 
             </div>
             <ul className={styles.nav_links}>
-               <li><Link to="/sub-category/63b848501e0644fd041c8ee0">Man</Link></li>
-               <li><Link to="/sub-category/63b848e91e0644fd041c8ee3">Women</Link></li>
-               <li><Link to="/sub-category/63b8490f1e0644fd041c8ee6">Lifestyle</Link></li>
+               <li><Link to="/sub-category/63b848501e0644fd041c8ee0">
+                  Man
+               </Link>
+               </li>
+               <li>
+                  <Link to="/sub-category/63b848e91e0644fd041c8ee3">
+                     Women
+                  </Link>
+               </li>
+               <li>
+                  <Link to="/sub-category/63b8490f1e0644fd041c8ee6">
+                     Lifestyle
+                  </Link>
+               </li>
             </ul>
             <div className={styles.nav_buttons}>
                <Button variant={"icon-btn-normal"}>
@@ -68,9 +81,9 @@ const Navbar = () => {
                      </ul>
                   }
                </Button>
-               <Button variant={"icon-btn-normal"}>
+               <Button variant={"icon-btn-normal"} onClick={() => { dispatch(setToggleWishList(!toggleWishList)) }}>
                   <FavoriteBorderIcon />
-                  <span>0</span>
+                  <span>{item ? item.length : 0}</span>
                </Button>
                <Button variant={"icon-btn-normal"}>
                   <AddShoppingCartIcon />
@@ -85,7 +98,7 @@ const Navbar = () => {
             <div className={styles.nav_menu_mobile_btn}>
                <Button variant={"icon-btn-normal"}>
                   <FavoriteBorderIcon />
-                  <span>0</span>
+                  <span>{item ? item.length : 0}</span>
                </Button>
                <Button variant={"icon-btn-normal"}>
                   <AddShoppingCartIcon />

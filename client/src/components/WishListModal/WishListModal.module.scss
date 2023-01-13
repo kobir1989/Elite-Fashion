@@ -1,0 +1,36 @@
+@import "../../sass/sass-utils/colors";
+@import "../../sass/sass-utils/mixins";
+
+.wish_list_popup_wrapper {
+	position: relative;
+
+	.modal_content_wrapper {
+		margin-top: 2rem;
+		@include flex-row-space-between;
+		align-items: center;
+		gap: 1rem;
+		padding: 1rem;
+		border-radius: 4px;
+		border: 1px solid $body;
+		.img_wrapper {
+			img {
+				width: 6rem;
+				height: 6rem;
+				object-fit: cover;
+				border-radius: 4px;
+			}
+		}
+		&:hover {
+			background-color: $body;
+		}
+		.details_wrapper {
+			@include flex-col;
+			gap: 0.5rem;
+		}
+	}
+	.close_icon {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+}

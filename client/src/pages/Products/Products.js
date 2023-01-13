@@ -12,7 +12,6 @@ import { loadPage } from "../../redux/features/productsSlice";
 import CardSkeleton from '../../components/Common/Skeleton/CardSkeleton';
 import ProductCard from '../../components/Common/Card/ProductCard';
 import Error500 from "../../components/Common/Error/Error500";
-import { Link } from 'react-router-dom';
 
 const Products = () => {
    const { id } = useParams();
@@ -31,23 +30,18 @@ const Products = () => {
    const numberOfPages = Array(products?.totalPage)
       .fill().map((_, index) => index + 1);
 
-   const firstPage = () => {
-      dispatch(loadPage(1))
-   };
-   const lastPage = () => {
-      dispatch(loadPage(numberOfPages.length))
-   };
    return (
       <PageLayout>
          <ProductsLayout>
             {products?.result?.map((product) => (
-               <Link to={`/product-details/${product._id}`} key={product?._id}>
-                  <ProductCard
-                     title={product?.title}
-                     price={product?.price}
-                     imageUrl={product?.image}
-                  />
-               </Link>
+               <ProductCard
+                  title={product?.title}
+                  price={product?.price}
+                  imageUrl={product?.image}
+                  linkTo={`/product-details/${product?._id}`}
+                  key={product?._id}
+                  id={product?._id}
+               />
             ))}
             {isLoading &&
                <CardSkeleton
@@ -61,7 +55,7 @@ const Products = () => {
          </ProductsLayout>
          <div className={styles.pagination_buttons}>
             {products?.previous &&
-               <Button variant={"icon-btn-white"} onClick={firstPage}>
+               <Button variant={"icon-btn-white"} onClick={() => { dispatch(loadPage(1)) }}>
                   <ArrowBackIosIcon sx={{ fontSize: "1rem" }} />
                </Button>}
             {numberOfPages.map((pg, index) => (
@@ -72,7 +66,7 @@ const Products = () => {
                </div>
             ))}
             {products?.next &&
-               <Button variant={"icon-btn-white"} onClick={lastPage}>
+               <Button variant={"icon-btn-white"} onClick={() => { dispatch(loadPage(numberOfPages.length)) }}>
                   <ArrowForwardIosIcon sx={{ fontSize: "1rem" }} />
                </Button>
             }
