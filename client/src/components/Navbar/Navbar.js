@@ -20,7 +20,7 @@ const Navbar = () => {
    const [openMenu, setOpenMenu] = useState(false);
    const [openDropdown, setOpenDropdown] = useState(false);
    const { isAuth } = useSelector(state => state.auth);
-   const { item, toggleWishList } = useSelector(state => state.wishList);
+   const { wishListItem, toggleWishList } = useSelector(state => state.wishList);
    const dispatch = useDispatch();
 
    return (
@@ -83,7 +83,7 @@ const Navbar = () => {
                </Button>
                <Button variant={"icon-btn-normal"} onClick={() => { dispatch(setToggleWishList(!toggleWishList)) }}>
                   <FavoriteBorderIcon />
-                  <span>{item ? item.length : 0}</span>
+                  <span>{wishListItem ? wishListItem.length : 0}</span>
                </Button>
                <Button variant={"icon-btn-normal"}>
                   <AddShoppingCartIcon />
@@ -98,7 +98,7 @@ const Navbar = () => {
             <div className={styles.nav_menu_mobile_btn}>
                <Button variant={"icon-btn-normal"}>
                   <FavoriteBorderIcon />
-                  <span>{item ? item.length : 0}</span>
+                  <span>{wishListItem ? wishListItem.length : 0}</span>
                </Button>
                <Button variant={"icon-btn-normal"}>
                   <AddShoppingCartIcon />

@@ -7,11 +7,17 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import CloseIcon from '@mui/icons-material/Close';
 import { useSelector, useDispatch } from "react-redux";
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { setToggleWishList } from "../../redux/features/wishLishSlice";
+import { setToggleWishList, removeFromWishList } from "../../redux/features/wishLishSlice";
+import { deleteFromLocalStorage } from "../../helpers/localStorage";
 
 const WishListModal = () => {
-   const { item } = useSelector(state => state.wishList);
+   const { wishListItem } = useSelector(state => state.wishList);
    const dispatch = useDispatch();
+
+   const removeHandler = (id) => {
+      deleteFromLocalStorage(id)
+      dispatch(removeFromWishList(id));
+   };
 
    return (
       <Modal onClose={() => { dispatch(setToggleWishList(false)) }}>
@@ -24,7 +30,7 @@ const WishListModal = () => {
                   <CloseIcon sx={{ color: "#cc2121" }} />
                </Button>
             </div>
-            {item.map((list) => (
+            {wishListItem.map((list) => (
                <div className={styles.modal_content_wrapper}
                   key={list?.id}>
                   <div className={styles.img_wrapper}>
@@ -34,11 +40,9 @@ const WishListModal = () => {
                      <Typography variant={"h5"}>{list?.title}</Typography>
                      <Typography variant={"h5"}>&#2547; {list?.price}</Typography>
                   </div>
-                  <div className={styles.delete_btn}>
-                     <Button variant={"icon-btn-normal"}>
-                        <DeleteForeverIcon sx={{ color: "#cc2121" }} />
-                     </Button>
-                  </div>
+                  <Button variant={"icon-btn-normal"} onClick={() => removeHandler(list?.id)}>
+                     <DeleteForeverIcon sx={{ color: "#cc2121" }} />
+                  </Button>
                </div>
             ))}
          </div>

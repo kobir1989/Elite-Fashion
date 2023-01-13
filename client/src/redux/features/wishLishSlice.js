@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const getLocalStorage = localStorage.getItem("wishList") !== null ? JSON.parse(localStorage.getItem("wishList")) : [];
 
 const initialState = {
-   item: getLocalStorage,
+   wishListItem: getLocalStorage,
    toggleWishList: false,
 }
 
@@ -13,9 +13,9 @@ const wishListSlice = createSlice({
    reducers: {
       addToWishList: (state, action) => {
          const newList = action.payload;
-         const existingList = state.item.find((list) => list.id === newList.id);
+         const existingList = state.wishListItem.find((list) => list.id === newList.id);
          if (!existingList) {
-            state.item.push({
+            state.wishListItem.push({
                title: newList.title,
                imageUrl: newList.imageUrl,
                id: newList.id,
@@ -29,7 +29,8 @@ const wishListSlice = createSlice({
 
       },
       removeFromWishList: (state, action) => {
-
+         const findById = state.wishListItem.filter((item) => item.id !== action.payload);
+         state.wishListItem = findById;
       },
       setToggleWishList: (state, action) => {
          state.toggleWishList = action.payload

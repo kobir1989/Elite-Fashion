@@ -1,8 +1,8 @@
-const dataArray = [];
+const wishListArr = [];
 export const saveWishListToLocalStorage = (data) => {
-   const existingData = dataArray.find((item) => item.id === data.id);
+   const existingData = wishListArr.find((item) => item.id === data.id);
    if (!existingData) {
-      dataArray.push({
+      wishListArr.push({
          title: data.title,
          price: data.price,
          imageUrl: data.imageUrl,
@@ -13,6 +13,12 @@ export const saveWishListToLocalStorage = (data) => {
       return
    };
    if (window !== "undefined") {
-      localStorage.setItem("wishList", JSON.stringify(dataArray))
+      localStorage.setItem("wishList", JSON.stringify(wishListArr))
    };
 };
+
+export const deleteFromLocalStorage = (id) => {
+   const getWishList = JSON.parse(localStorage.getItem("wishList"));
+   const updateWishListArr = getWishList.filter((item) => item.id !== id);
+   localStorage.setItem("wishList", JSON.stringify(updateWishListArr))
+}
