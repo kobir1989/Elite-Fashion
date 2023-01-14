@@ -21,17 +21,29 @@ const cartSlice = createSlice({
                imageUrl: newItem.imageUrl,
                id: newItem.id,
                price: newItem.price,
-               quantity: newItem.quantity
+               quantity: newItem.quantity,
+               size: newItem.size,
+               color: newItem.color
             });
             state.quantity++
             state.totalAmount = state.totalAmount + newItem.price
          } else {
+            findExistingItem.quantity++
             state.quantity++
             state.totalAmount = state.totalAmount + newItem.price
          }
       },
       removeFromCart: (state, action) => {
-
+         const findById = state.cartItem.find(item => item.id === action.payload);
+         if (findById) {
+            findById.quantity--;
+            state.totalAmount = state.totalAmount - findById.price;
+            state.quantity--;
+            if (findById.quantity <= 0) {
+               const updatedCart = state.cartItem.filter(item => item.id !== action.payload);
+               state.cartItem = updatedCart;
+            }
+         }
       }
    },
 

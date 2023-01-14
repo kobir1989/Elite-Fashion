@@ -8,6 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useSelector, useDispatch } from "react-redux";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { setToggleWishList, removeFromWishList } from "../../redux/features/wishLishSlice";
+import { Link } from "react-router-dom";
 import { deleteFromLocalStorage } from "../../helpers/localStorage";
 
 const WishListModal = () => {
@@ -31,19 +32,23 @@ const WishListModal = () => {
                </Button>
             </div>
             {wishListItem.map((list) => (
-               <div className={styles.modal_content_wrapper}
-                  key={list?.id}>
-                  <div className={styles.img_wrapper}>
-                     <img src={list?.imageUrl} alt="" />
+               <Link
+                  key={list?.id}
+                  to={`/product-details/${list?.id}`}
+                  onClick={() => { dispatch(setToggleWishList(false)) }}>
+                  <div className={styles.modal_content_wrapper}>
+                     <div className={styles.img_wrapper}>
+                        <img src={list?.imageUrl} alt="" />
+                     </div>
+                     <div className={styles.details_wrapper}>
+                        <Typography variant={"h5"}>{list?.title}</Typography>
+                        <Typography variant={"h5"}>&#2547; {list?.price}</Typography>
+                     </div>
+                     <Button variant={"icon-btn-normal"} onClick={() => removeHandler(list?.id)}>
+                        <DeleteForeverIcon sx={{ color: "#cc2121" }} />
+                     </Button>
                   </div>
-                  <div className={styles.details_wrapper}>
-                     <Typography variant={"h5"}>{list?.title}</Typography>
-                     <Typography variant={"h5"}>&#2547; {list?.price}</Typography>
-                  </div>
-                  <Button variant={"icon-btn-normal"} onClick={() => removeHandler(list?.id)}>
-                     <DeleteForeverIcon sx={{ color: "#cc2121" }} />
-                  </Button>
-               </div>
+               </Link>
             ))}
             <div className={styles.message}>
                {wishListItem.length <= 0 &&

@@ -86,10 +86,12 @@ const Navbar = () => {
                   <FavoriteBorderIcon />
                   <span>{wishListItem ? wishListItem.length : 0}</span>
                </Button>
-               <Button variant={"icon-btn-normal"}>
-                  <AddShoppingCartIcon />
-                  <span>{quantity}</span>
-               </Button>
+               <Link to={"/cart"}>
+                  <Button variant={"icon-btn-normal"}>
+                     <AddShoppingCartIcon />
+                     <span>{quantity}</span>
+                  </Button>
+               </Link>
             </div>
          </div>
          {/******************************/}

@@ -38,6 +38,7 @@ export const saveCartToLocalStorage = (cart) => {
       getCartItem.quantity++;
       getCartItem.totalAmount = getCartItem.totalAmount + cart.price
    } else {
+      findExistingItem.quantity++
       getCartItem.quantity++;
       getCartItem.totalAmount = getCartItem.totalAmount + cart.price
    }

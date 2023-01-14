@@ -6,15 +6,25 @@ import PageLayout from '../../layouts/PageLayout';
 import styles from "./Cart.styles.module.scss";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { addToCart, removeFromCart } from "../../redux/features/cartSlice";
 
 const Cart = () => {
-   const { cartItem, totalAmount, quantity } = useSelector(state => state.cart)
+   const { cartItem, totalAmount } = useSelector(state => state.cart);
+   const dispatch = useDispatch()
    return (
       <PageLayout>
          <div className={styles.cart_content_wrapper}>
             <div className={styles.cart_product_wrapper}>
+               {cartItem.length <= 0 &&
+                  <Typography
+                     variant={"body"}
+                     color={"red"}
+                     style={{ textAlign: "center" }}>
+                     Your Cart is Empty!
+                  </Typography>
+               }
                {cartItem.map((item) => (
-                  <div className={styles.cart_items}>
+                  <div className={styles.cart_items} key={item?.id}>
                      <div className={styles.product_img_wrapper}>
                         <img src={item?.imageUrl} alt="" />
                      </div>
@@ -23,19 +33,31 @@ const Cart = () => {
                            {item?.title}
                         </Typography>
                         <Typography variant={"body"}>
-                           Size:  M{item?.size}
+                           Size: {item?.size}
+                        </Typography>
+                        <Typography variant={"body"}>
+                           Color: {item?.color}
+                        </Typography>
+                        <Typography variant={"body"}>
+                           Quantity: {item?.quantity}
                         </Typography>
                      </div>
 
                      <div className={styles.price_details}>
                         <div className={styles.product_quantity_count}>
-                           <Button variant={"icon-btn-normal"}>
+                           <Button
+                              variant={"icon-btn-normal"}
+                              onClick={() => {
+                                 dispatch(removeFromCart(item?.id))
+                              }}>
                               <RemoveIcon sx={{ fontSize: "1rem", color: "#cc2121" }} />
                            </Button>
                            <Typography variant={"body"}>
                               {item?.quantity}
                            </Typography>
-                           <Button variant={"icon-btn-normal"}>
+                           <Button
+                              variant={"icon-btn-normal"}
+                              onClick={() => { dispatch(addToCart(item)) }}>
                               <AddIcon sx={{ fontSize: "1rem", color: "#116954" }} />
                            </Button>
                         </div>
@@ -64,13 +86,13 @@ const Cart = () => {
                   <Typography variant={"body"}>
                      Shipping Charge:
                      <span>
-                        TK. 50
+                        TK. 0
                      </span>
                   </Typography>
                   <Typography variant={"body"} color={"red"}>
                      Total Amount:
                      <span className={styles.text_red}>
-                        TK. {totalAmount + 50}
+                        TK. {totalAmount + 0}
                      </span>
                   </Typography>
                </div>

@@ -5,10 +5,10 @@ export const fetchProducts = createAsyncThunk("product/fetchProducts",
    async (url, { rejectWithValue }) => {
       try {
          const response = await axiosBaseUrl.get(url);
-         console.log(response?.data?.products)
+         // console.log(response?.data?.products)
          return response?.data?.products;
       } catch (err) {
-         console.log(err?.response, "PRODUCT")
+         // console.log(err?.response, "PRODUCT")
          return rejectWithValue(err?.response?.data)
       }
    }

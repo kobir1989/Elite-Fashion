@@ -2,12 +2,14 @@ import React from 'react';
 import styles from "./styles/ProductCard.module.scss";
 import Typography from '../Typography/Typography';
 import Button from '../Button/Button';
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToWishList } from "../../../redux/features/wishLishSlice";
-import { saveWishListToLocalStorage, saveCartToLocalStorage } from "../../../helpers/localStorage";
+import {
+   saveWishListToLocalStorage,
+   saveCartToLocalStorage
+} from "../../../helpers/localStorage";
 import { addToCart } from "../../../redux/features/cartSlice";
 
 const ProductCard = ({ title, imageUrl, linkTo, price, id, ...otherProps }) => {
@@ -16,11 +18,6 @@ const ProductCard = ({ title, imageUrl, linkTo, price, id, ...otherProps }) => {
    const wishListHandler = (data) => {
       saveWishListToLocalStorage(data)
       dispatch(addToWishList(data))
-   }
-
-   const cartHandler = (item) => {
-      saveCartToLocalStorage(item)
-      dispatch(addToCart(item));
    }
 
    return (
@@ -36,17 +33,6 @@ const ProductCard = ({ title, imageUrl, linkTo, price, id, ...otherProps }) => {
                <Typography variant={"h5"}>${price.toFixed(2)}</Typography>
             </div>
             <div className={styles.card_buttons}>
-               <Button
-                  variant={"icon-btn-white"}
-                  onClick={() => cartHandler({
-                     title,
-                     imageUrl,
-                     price,
-                     id,
-                     quantity: 1
-                  })}>
-                  <ShoppingBagOutlinedIcon />
-               </Button>
                <Button
                   variant={"icon-btn-white"}
                   onClick={() => {
