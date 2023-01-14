@@ -1,0 +1,58 @@
+@import "../../../../sass/sass-utils/colors";
+@import "../../../../sass/sass-utils/mixins";
+
+.card_wrapper {
+	@include flex-row-space-between;
+	align-items: flex-start;
+	gap: 0.5rem;
+	background-color: $body;
+	padding: 1rem 0.5rem;
+	border-radius: 6px;
+	width: 100%;
+	margin-bottom: 0.3rem;
+	@include screens-md {
+		padding: 1rem 2rem;
+		align-items: center;
+	}
+	p {
+		font-weight: 500;
+		font-size: 0.7rem;
+		@include screens-md {
+			font-size: 0.9rem;
+		}
+	}
+	.product_img_wrapper {
+		img {
+			width: 4rem;
+			height: 5.6rem;
+			border: 1px solid $body;
+			@include screens-md {
+				width: 6rem;
+				height: 8rem;
+				border-radius: 4px;
+			}
+			@include screens-lg {
+				width: 10rem;
+				height: 10rem;
+				border-radius: 4px;
+			}
+		}
+	}
+	.price_details {
+		@include flex-col-center;
+		gap: 0.5rem;
+		@include screens-md {
+			@include flex-row-center;
+			gap: 2rem;
+		}
+	}
+	.product_price_count {
+		@include flex-col-center;
+	}
+}
+.color_white {
+	background-color: $white;
+}
+.color_gray {
+	background-color: $body;
+}

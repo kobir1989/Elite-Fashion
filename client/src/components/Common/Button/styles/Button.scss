@@ -1,5 +1,5 @@
-@import "../../../sass/sass-utils/colors";
-@import "../../../sass/sass-utils/mixins";
+@import "../../../../sass/sass-utils/colors";
+@import "../../../../sass/sass-utils/mixins";
 
 .button {
 	padding: 0.8rem 2rem;
@@ -38,14 +38,16 @@
 	border-radius: 2.2rem;
 	font-weight: 300;
 }
-.danger {
-	background-color: $white;
-	border: 1px solid $red_main;
-	border-radius: 8px;
-	font-weight: 300;
-	color: $red_main;
+.red {
+	background-color: $red_main;
+	border: unset;
+	border-radius: 4px;
+	font-weight: 400;
+	color: $white;
+	padding: 0.7rem 1.5rem;
+	font-size: 0.9rem;
 	&:hover {
-		background-color: $red_main;
+		background-color: $tomato_hover;
 		color: $white;
 		border: unset;
 	}
