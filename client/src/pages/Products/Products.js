@@ -22,7 +22,8 @@ const Products = () => {
       products,
       page
    } = useSelector(state => state.product);
-   // console.log(page)
+   const { cartItem, quantity, totalAmount } = useSelector(state => state.cart);
+   console.log(cartItem, quantity, totalAmount, "CART CHECK")
    useEffect(() => {
       dispatch(fetchProducts(`/${id}/products?page=${page}&limit=12`))
    }, [id, page]);

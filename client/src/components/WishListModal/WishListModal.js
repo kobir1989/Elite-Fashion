@@ -15,7 +15,7 @@ const WishListModal = () => {
    const dispatch = useDispatch();
 
    const removeHandler = (id) => {
-      deleteFromLocalStorage(id)
+      deleteFromLocalStorage(id, "wishList")
       dispatch(removeFromWishList(id));
    };
 
@@ -45,8 +45,17 @@ const WishListModal = () => {
                   </Button>
                </div>
             ))}
+            <div className={styles.message}>
+               {wishListItem.length <= 0 &&
+                  < Typography
+                     color={"red"}
+                     variant={"body"}>
+                     You don't have any wishlists yet!
+                  </Typography>
+               }
+            </div>
          </div>
-      </Modal>
+      </Modal >
    )
 }
 export default WishListModal;

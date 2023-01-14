@@ -7,14 +7,22 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { addToWishList } from "../../../redux/features/wishLishSlice";
-import { saveWishListToLocalStorage } from "../../../helpers/localStorage";
+import { saveWishListToLocalStorage, saveCartToLocalStorage } from "../../../helpers/localStorage";
+import { addToCart } from "../../../redux/features/cartSlice";
 
 const ProductCard = ({ title, imageUrl, linkTo, price, id, ...otherProps }) => {
    const dispatch = useDispatch();
+
    const wishListHandler = (data) => {
       saveWishListToLocalStorage(data)
       dispatch(addToWishList(data))
    }
+
+   const cartHandler = (item) => {
+      saveCartToLocalStorage(item)
+      dispatch(addToCart(item));
+   }
+
    return (
       <div className={styles.card_wrapper} {...otherProps}>
          <Link to={linkTo}>
@@ -28,17 +36,27 @@ const ProductCard = ({ title, imageUrl, linkTo, price, id, ...otherProps }) => {
                <Typography variant={"h5"}>${price.toFixed(2)}</Typography>
             </div>
             <div className={styles.card_buttons}>
-               <Button variant={"icon-btn-white"}>
+               <Button
+                  variant={"icon-btn-white"}
+                  onClick={() => cartHandler({
+                     title,
+                     imageUrl,
+                     price,
+                     id,
+                     quantity: 1
+                  })}>
                   <ShoppingBagOutlinedIcon />
                </Button>
                <Button
                   variant={"icon-btn-white"}
-                  onClick={() => wishListHandler({
-                     title,
-                     imageUrl,
-                     price,
-                     id
-                  })}>
+                  onClick={() => {
+                     wishListHandler({
+                        title,
+                        imageUrl,
+                        price,
+                        id
+                     })
+                  }}>
                   <FavoriteBorderIcon />
                </Button>
             </div>

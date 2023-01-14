@@ -22,6 +22,7 @@ const Navbar = () => {
    const { isAuth } = useSelector(state => state.auth);
    const { wishListItem, toggleWishList } = useSelector(state => state.wishList);
    const dispatch = useDispatch();
+   const { quantity } = useSelector(state => state.cart);
 
    return (
       <nav className={styles.nav_wrapper}>
@@ -87,7 +88,7 @@ const Navbar = () => {
                </Button>
                <Button variant={"icon-btn-normal"}>
                   <AddShoppingCartIcon />
-                  <span>0</span>
+                  <span>{quantity}</span>
                </Button>
             </div>
          </div>
@@ -102,7 +103,7 @@ const Navbar = () => {
                </Button>
                <Button variant={"icon-btn-normal"}>
                   <AddShoppingCartIcon />
-                  <span>0</span>
+                  <span>{quantity}</span>
                </Button>
                <Button variant={"icon-btn-normal"} onClick={() => { setOpenMenu(!openMenu) }}>
                   <MenuIcon sx={{ fontSize: "2rem" }} />

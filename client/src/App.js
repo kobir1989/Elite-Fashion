@@ -6,6 +6,7 @@ import Login from "./pages/Login/Login";
 import axios from "axios";
 import Products from "./pages/Products/Products";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
+import Cart from "./pages/Cart/Cart";
 const App = () => {
   axios.defaults.withCredentials = true;
   return (
@@ -16,6 +17,7 @@ const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/products/:id" element={<Products />} />
       <Route path="/product-details/:id" element={<ProductDetails />} />
+      <Route path="/cart" element={<Cart />} />
     </Routes>
   );
 }
