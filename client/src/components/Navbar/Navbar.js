@@ -4,7 +4,7 @@ import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import Button from "../Common/Button/Button";
-import styles from "./Navbar.module.scss";
+import styles from "./styles/Navbar.module.scss";
 import { Link } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
 import Input from "../Common/Input/Input";

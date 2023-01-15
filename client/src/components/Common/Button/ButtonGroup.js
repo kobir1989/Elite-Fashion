@@ -15,7 +15,7 @@ const ButtonGroup = ({ variant = "normal", item }) => {
             variant={"icon-btn-normal"}
             onClick={() => {
                dispatch(removeFromCart(item?.id))
-            }}>
+            }} >
             <RemoveIcon sx={{ fontSize: "1rem", color: "#cc2121" }} />
          </Button>
          <Typography variant={"body"}>

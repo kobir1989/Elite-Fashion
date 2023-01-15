@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Typography.scss";
+import "./styles/Typography.scss";
 
 const variantMap = {
    h1: "h1",

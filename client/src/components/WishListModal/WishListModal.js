@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from "../Common/Modal/Modal";
-import styles from "./WishListModal.module.scss";
+import styles from "./styles/WishListModal.module.scss";
 import Button from '../Common/Button/Button';
 import Typography from '../Common/Typography/Typography';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';

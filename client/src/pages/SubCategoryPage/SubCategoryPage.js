@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PageLayout from "../../layouts/PageLayout";
 import { Link, useParams } from "react-router-dom";
-import styles from "./SubCategoryPage.module.scss";
+import styles from "./styles/SubCategoryPage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSubCategory } from "../../redux/actions/subCategoryAction";
 import Error from "../../components/Common/Error/Error500";

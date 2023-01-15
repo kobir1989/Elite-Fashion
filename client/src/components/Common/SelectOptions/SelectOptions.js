@@ -1,6 +1,6 @@
 import React from 'react';
 import { InputLabel, MenuItem, FormControl, Select, FormHelperText } from '@mui/material';
-import { v4 as uuidv4, v4 } from 'uuid';
+import { v4 } from 'uuid';
 
 const SelectOptions = (
    {
@@ -16,6 +16,8 @@ const SelectOptions = (
       <FormControl
          fullWidth
          required
+         sx={{ height: "4rem" }}
+         size='small'
          error={value === "" && error}>
          <InputLabel>{label}</InputLabel>
          <Select

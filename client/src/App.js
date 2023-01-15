@@ -1,25 +1,27 @@
-import Home from "./pages/Home/Home";
 import { Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage/HomePage";
 import SubCategoryPage from "./pages/SubCategoryPage/SubCategoryPage";
-import Signup from "./pages/Signup/Signup";
-import Login from "./pages/Login/Login";
+import SignupPage from "./pages/SignupPage/SignupPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
 import axios from "axios";
-import Products from "./pages/Products/Products";
-import ProductDetails from "./pages/ProductDetails/ProductDetails";
-import Cart from "./pages/Cart/Cart";
-import Checkout from "./pages/Checkout/Checkout";
+import ProductsPage from "./pages/ProductsPage/ProductsPage";
+import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
+import CartPage from "./pages/CartPage/CartPage";
+import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
+import PaymentPage from "./pages/PaymentPage/PaymentPage";
 const App = () => {
   axios.defaults.withCredentials = true;
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<HomePage />} />
       <Route path="/sub-category/:id" element={<SubCategoryPage />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/products/:id" element={<Products />} />
-      <Route path="/product-details/:id" element={<ProductDetails />} />
-      <Route path="/cart" element={<Cart />} />
-      <Route path="/checkout" element={<Checkout />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/products/:id" element={<ProductsPage />} />
+      <Route path="/product-details/:id" element={<ProductDetailsPage />} />
+      <Route path="/cart" element={<CartPage />} />
+      <Route path="/checkout" element={<CheckoutPage />} />
+      <Route path="/payment" element={<PaymentPage />} />
     </Routes>
   );
 }

@@ -1,0 +1,57 @@
+@import "../../../sass/sass-utils/colors";
+@import "../../../sass/sass-utils/mixins";
+
+footer {
+	background-color: $black_main;
+	padding: 4rem 2rem;
+	@include flex-col;
+	justify-content: center;
+	align-items: center;
+	gap: 2.5rem;
+}
+.footer {
+	@include flex-row-space-between;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	gap: 2rem;
+	max-width: 1500px;
+	margin: auto;
+	width: 100%;
+	.divider {
+		display: none;
+		@include screens-lg {
+			display: block;
+			border-left: 1px solid $gray_text;
+			width: 1px;
+			height: 11rem;
+		}
+	}
+
+	&_service_wrapper,
+	&_company_wrapper,
+	&_help_wrapper,
+	&_contract_wrapper {
+		@include flex-col;
+		gap: 1.8rem;
+		width: 12rem;
+		ul {
+			@include flex-col;
+			gap: 1rem;
+			li {
+				letter-spacing: 0.3px;
+				color: $light_gray;
+				@include flex-row-center;
+				font-size: 0.75rem;
+				gap: 0.5rem;
+				@include screens-lg {
+					font-size: 0.9rem;
+				}
+			}
+		}
+	}
+	&_social_icons {
+		color: $white;
+		@include flex-row;
+		gap: 3rem;
+	}
+}
