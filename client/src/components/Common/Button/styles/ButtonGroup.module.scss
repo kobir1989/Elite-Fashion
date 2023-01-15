@@ -5,6 +5,9 @@
 	justify-content: center;
 	gap: 1rem;
 	border: 1px solid $light_gray;
+	@include screens-md {
+		width: 9rem;
+	}
 }
 .btn_rounded {
 	border-radius: 4rem;

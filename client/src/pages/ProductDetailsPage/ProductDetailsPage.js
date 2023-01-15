@@ -14,7 +14,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import CardSkeleton from "../../components/Common/Skeleton/CardSkeleton";
 import TextSkeleton from '../../components/Common/Skeleton/TextSkeleton';
 import Error500 from "../../components/Common/Error/Error500";
-import { addToCart, removeFromCart } from "../../redux/features/cartSlice";
+import { addToCart, removeOneFromCart } from "../../redux/features/cartSlice";
 import { saveCartToLocalStorage, deleteCartFromLocalStorage } from "../../helpers/localStorage"
 
 const ProductDetailsPage = () => {
@@ -40,7 +40,7 @@ const ProductDetailsPage = () => {
    }
    const removeHandler = (id) => {
       // deleteCartFromLocalStorage(id)
-      dispatch(removeFromCart(id))
+      dispatch(removeOneFromCart(id))
    }
    return (
       <PageLayout>

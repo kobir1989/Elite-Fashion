@@ -19,6 +19,7 @@ const Checkout = () => {
                      showBtn={false}
                      item={item}
                      color={"white"}
+                     disabled={true}
                   />
                ))}
                <div>

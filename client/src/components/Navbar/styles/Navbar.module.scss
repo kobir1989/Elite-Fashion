@@ -5,7 +5,8 @@
 	position: relative;
 	@include flex-row-space-between;
 	align-items: center;
-	margin: 0.8rem 0.5rem;
+	margin: 1.5rem 0.5rem;
+	height: 3.5rem;
 	@include screens-lg {
 		display: block;
 	}
@@ -37,6 +38,11 @@
 				color: $gray_text;
 				@include flex-row;
 				gap: 2.2rem;
+				a {
+					&:hover {
+						color: $red_main;
+					}
+				}
 			}
 		}
 		&_buttons {
