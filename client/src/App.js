@@ -9,6 +9,7 @@ import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
 import CartPage from "./pages/CartPage/CartPage";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 import PaymentPage from "./pages/PaymentPage/PaymentPage";
+import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 const App = () => {
   axios.defaults.withCredentials = true;
   return (
@@ -19,9 +20,11 @@ const App = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/products/:id" element={<ProductsPage />} />
       <Route path="/product-details/:id" element={<ProductDetailsPage />} />
-      <Route path="/cart" element={<CartPage />} />
-      <Route path="/checkout" element={<CheckoutPage />} />
-      <Route path="/payment" element={<PaymentPage />} />
+      <Route element={<ProtectedRoute role={"USER"} />}>
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/payment" element={<PaymentPage />} />
+      </Route>
     </Routes>
   );
 }

@@ -9,7 +9,8 @@ import { Typography } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../redux/actions/authAction";
 import toast from 'react-hot-toast';
-import { setError } from "../../redux/features/authSlice"
+import { setError } from "../../redux/features/authSlice";
+import { isAuth } from "../../helpers/isAuth.helper";
 
 const defaultLoginValue = {
    email: "",
@@ -24,8 +25,9 @@ const LoginPage = () => {
    const {
       loading,
       error,
-      success,
+      userInfo
    } = useSelector(state => state.auth);
+   const isLoggedIn = isAuth(userInfo)
    console.log(error)
 
    const onChangeHandler = (e) => {
@@ -45,12 +47,12 @@ const LoginPage = () => {
    };
 
    useEffect(() => {
-      if (success) {
+      if (isLoggedIn) {
          navigate("/");
          toast.success("Login Successfull");
          setLoginValue(defaultLoginValue);
       }
-   }, [success, navigate])
+   }, [isLoggedIn, navigate])
 
    return (
       <PageLayout>
@@ -101,7 +103,11 @@ const LoginPage = () => {
                </Button>
             </form>
             <div className={styles.forget_password_link}>
-               <Typography variant={"body"}> <Link to="/">Forgot Your Password?</Link></Typography>
+               <Typography variant={"body"}>
+                  <Link to="/">
+                     Forgot Your Password?
+                  </Link>
+               </Typography>
             </div>
          </AuthFormLayout>
       </PageLayout >

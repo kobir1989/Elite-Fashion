@@ -64,6 +64,16 @@
 					@include box-shadow-diffuse;
 				}
 			}
+			.user_name {
+				background-color: $orange;
+				padding: 0.3rem 0.5rem;
+				border-radius: 2rem;
+				p {
+					color: $white;
+					text-transform: uppercase;
+					font-weight: 700;
+				}
+			}
 			.bgscreen_dropdown {
 				position: absolute;
 				background-color: $white;

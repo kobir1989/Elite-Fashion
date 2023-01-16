@@ -15,15 +15,18 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { useSelector, useDispatch } from "react-redux";
 import { setToggleWishList } from "../../redux/features/wishLishSlice";
+import { isAuth } from "../../helpers/isAuth.helper";
+import Typography from '../Common/Typography/Typography';
 
 const Navbar = () => {
    const [openMenu, setOpenMenu] = useState(false);
    const [openDropdown, setOpenDropdown] = useState(false);
-   const { isAuth } = useSelector(state => state.auth);
+   const { userInfo } = useSelector(state => state.auth);
+   console.log(userInfo)
    const { wishListItem, toggleWishList } = useSelector(state => state.wishList);
    const dispatch = useDispatch();
    const { quantity } = useSelector(state => state.cart);
-
+   const isLoggedIn = isAuth(userInfo);
    return (
       <nav className={styles.nav_wrapper}>
          {/*Big screen nav*/}
@@ -31,7 +34,6 @@ const Navbar = () => {
             <div className={styles.nav_logo}><Link to="/">
                <img src="/assets/logo.png" alt="" />
             </Link>
-
             </div>
             <ul className={styles.nav_links}>
                <li><Link to="/sub-category/63b848501e0644fd041c8ee0">
@@ -54,10 +56,17 @@ const Navbar = () => {
                   <SearchIcon />
                </Button>
                <Button variant={"icon-btn-normal"} onClick={() => { setOpenDropdown(!openDropdown) }}>
-                  <PermIdentityIcon />
+                  {isLoggedIn ?
+                     <div className={styles.user_name}>
+                        <Typography variant={"small"}>
+                           {userInfo?.name.slice(0, 1)}
+                        </Typography>
+                     </div>
+                     : <PermIdentityIcon />
+                  }
                   {openDropdown &&
                      <ul className={styles.bgscreen_dropdown}>
-                        {!isAuth &&
+                        {!isLoggedIn &&
                            <>
                               <li>
                                  <Link to="/login">
@@ -69,7 +78,7 @@ const Navbar = () => {
                               </li>
                            </>
                         }
-                        {isAuth &&
+                        {isLoggedIn &&
                            <>
                               <li>
                                  <ManageAccountsIcon sx={{ fontSize: "1.2rem" }} /> Account
@@ -133,13 +142,13 @@ const Navbar = () => {
                         <li>
                            <Link to="/sub-category/63b8490f1e0644fd041c8ee6">Lifestyle</Link>
                         </li>
-                        {isAuth &&
+                        {isLoggedIn &&
                            <>
                               <li>Account</li>
                               <li>logout</li>
                            </>
                         }
-                        {!isAuth && <>
+                        {!isLoggedIn && <>
                            <li>
                               <Link to="/login">login</Link>
                            </li>

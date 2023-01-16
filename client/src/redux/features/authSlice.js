@@ -2,12 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { userLogin, userSignup } from "../actions/authAction";
 
 //Get user info from local storeage.
-const getAuthData = localStorage.getItem("jwt") !== null ? JSON.parse(localStorage.getItem("jwt")) : null
+const getAuthData = localStorage.getItem("jwt") !== null ? JSON.parse(localStorage.getItem("jwt")) : null;
 
 const initialState = {
-   success: false,
    loading: false,
-   isAuth: getAuthData,
+   userInfo: getAuthData,
    error: null
 };
 
@@ -27,12 +26,11 @@ const authSlice = createSlice({
       })
       builder.addCase(userLogin.fulfilled, (state, action) => {
          state.loading = false;
-         state.isAuth = action.payload;
-         state.success = true
+         state.userInfo = action.payload;
       });
       builder.addCase(userLogin.rejected, (state, action) => {
          state.loading = false;
-         state.success = false
+         state.isAuth = false;
          state.error = action.payload;
       });
 

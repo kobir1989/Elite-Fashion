@@ -10,7 +10,7 @@ export const userLogin = createAsyncThunk(
          if (window !== "undefined") {
             localStorage.setItem("jwt", JSON.stringify(response.data.userPayload))
          }
-         return response?.data;
+         return response?.data.userPayload;
       } catch (err) {
          console.log(err?.response)
          return rejectWithValue(err?.response?.data)

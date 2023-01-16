@@ -15,22 +15,31 @@ import CardSkeleton from "../../components/Common/Skeleton/CardSkeleton";
 import TextSkeleton from '../../components/Common/Skeleton/TextSkeleton';
 import Error500 from "../../components/Common/Error/Error500";
 import { addToCart, removeOneFromCart } from "../../redux/features/cartSlice";
-import { saveCartToLocalStorage, deleteCartFromLocalStorage } from "../../helpers/localStorage"
+import { saveCartToLocalStorage, deleteCartFromLocalStorage } from "../../helpers/localStorage";
+import { isAuth } from "../../helpers/isAuth.helper";
+import { useNavigate } from "react-router-dom";
 
 const ProductDetailsPage = () => {
    const [color, setColor] = useState("")
    const [size, setSize] = useState("")
    const [isEmpty, setIsEmpty] = useState(false)
-   const { id } = useParams()
-   const dispatch = useDispatch();
    const { error, isLoading, products } = useSelector(state => state.product);
+   const { userInfo } = useSelector(state => state.auth);
    const { cartItem } = useSelector(state => state.cart);
    const qntt = cartItem.find(qntt => qntt.id === products._id);
+   const { id } = useParams()
+   const navigate = useNavigate()
+   const dispatch = useDispatch();
+   const isLoggedIn = isAuth(userInfo);
+
    useEffect(() => {
       dispatch(fetchProducts(`/product/single/${id}`));
    }, [id, dispatch]);
 
    const cartHandler = (item) => {
+      if (!isLoggedIn) {
+         navigate("/login")
+      }
       if (!color || !size) {
          setIsEmpty(true)
          return
@@ -38,6 +47,7 @@ const ProductDetailsPage = () => {
       saveCartToLocalStorage(item)
       dispatch(addToCart(item));
    }
+
    const removeHandler = (id) => {
       // deleteCartFromLocalStorage(id)
       dispatch(removeOneFromCart(id))
