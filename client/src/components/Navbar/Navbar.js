@@ -1,25 +1,16 @@
 import React, { useState } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import Icons from '../Common/Icons/Icons';
 import Button from "../Common/Button/Button";
 import styles from "./styles/Navbar.module.scss";
 import { Link } from "react-router-dom";
-import MenuIcon from '@mui/icons-material/Menu';
-import Input from "../Common/Input/Input";
-import CloseIcon from '@mui/icons-material/Close';
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { useSelector, useDispatch } from "react-redux";
 import { setToggleWishList } from "../../redux/features/wishLishSlice";
 import { isAuth } from "../../helpers/isAuth.helper";
 import Typography from '../Common/Typography/Typography';
+import MobileNav from './MobileNav';
 
 const Navbar = () => {
-   const [openMenu, setOpenMenu] = useState(false);
+
    const [openDropdown, setOpenDropdown] = useState(false);
    const { userInfo } = useSelector(state => state.auth);
    const { categories } = useSelector(state => state.category)
@@ -46,16 +37,16 @@ const Navbar = () => {
             </ul>
             <div className={styles.nav_buttons}>
                <Button variant={"icon-btn-normal"}>
-                  <SearchIcon sx={{ fontSize: "2rem" }} />
+                  <Icons name={"search"} size={"1.5rem"} />
                </Button>
                <Button variant={"icon-btn-normal"} onClick={() => { setOpenDropdown(!openDropdown) }}>
                   {isLoggedIn ?
                      <div className={styles.user_name}>
                         <Typography variant={"small"}>
-                           {userInfo?.name.slice(0, 2)}
+                           {userInfo?.name.slice(0, 1)}
                         </Typography>
                      </div>
-                     : <PermIdentityIcon sx={{ fontSize: "2rem" }} />
+                     : <Icons name={"person"} size={"1.5rem"} />
                   }
                   {openDropdown &&
                      <ul className={styles.bgscreen_dropdown}>
@@ -63,21 +54,27 @@ const Navbar = () => {
                            <>
                               <li>
                                  <Link to="/login">
-                                    <LoginIcon sx={{ fontSize: "1.2rem" }} />
+                                    <Icons name={"login"} size={"1.5rem"} />
                                     Login
                                  </Link>
                               </li>
-                              <li> <Link to="/signup"> <AppRegistrationIcon sx={{ fontSize: "1.2rem" }} />  signup</Link>
+                              <li>
+                                 <Link to="/signup">
+                                    <Icons name={"signup"} size={"1.5rem"} />
+                                    signup
+                                 </Link>
                               </li>
                            </>
                         }
                         {isLoggedIn &&
                            <>
                               <li>
-                                 <ManageAccountsIcon sx={{ fontSize: "1.2rem" }} /> Account
+                                 <Icons name={"person"} size={"1.5rem"} />
+                                 Account
                               </li>
                               <li>
-                                 <LogoutIcon sx={{ fontSize: "1.2rem" }} /> Logout
+                                 <Icons name={"logout"} size={"1.5rem"} />
+                                 Logout
                               </li>
                            </>
                         }
@@ -86,12 +83,12 @@ const Navbar = () => {
                </Button>
                <Button variant={"icon-btn-normal"}
                   onClick={() => { dispatch(setToggleWishList(!toggleWishList)) }}>
-                  <FavoriteBorderIcon sx={{ fontSize: "2rem" }} />
+                  <Icons name={"love"} size={"1.5rem"} />
                   <span>{wishListItem ? wishListItem.length : 0}</span>
                </Button>
                <Link to={"/cart"}>
                   <Button variant={"icon-btn-normal"}>
-                     <AddShoppingCartIcon sx={{ fontSize: "2rem" }} />
+                     <Icons name={"shopingCart"} size={"1.5rem"} />
                      <span>{quantity}</span>
                   </Button>
                </Link>
@@ -100,62 +97,12 @@ const Navbar = () => {
          {/******************************/}
 
          {/* Mobile Nav */}
-         <div className={styles.nav_menu_mobile}>
-            <div className={styles.nav_menu_mobile_btn}>
-               <Button variant={"icon-btn-normal"} onClick={() => { dispatch(setToggleWishList(!toggleWishList)) }}>
-                  <FavoriteBorderIcon />
-                  <span>{wishListItem ? wishListItem.length : 0}</span>
-               </Button>
-               <Button variant={"icon-btn-normal"}>
-                  <AddShoppingCartIcon />
-                  <span>{quantity}</span>
-               </Button>
-               <Button variant={"icon-btn-normal"} onClick={() => { setOpenMenu(!openMenu) }}>
-                  <MenuIcon sx={{ fontSize: "2rem" }} />
-               </Button>
-            </div>
-            {openMenu &&
-               <div className={styles.nav_backdrop}>
-                  <div className={styles.nav_menu_mobile_dropdown}>
-                     <div className={styles.close_icon}>
-                        <Button variant={"icon-btn-normal"} onClick={() => { setOpenMenu(false) }}>
-                           <CloseIcon sx={{ color: "#cc2121", fontSize: "1.8rem" }} />
-                        </Button>
-                     </div>
-                     <div className={styles.nav_menu_mobile_dropdown_search}>
-                        <span className={styles.input}><Input size={"small"} label={"Search"} /></span>
-                        <span className={styles.icon}><SearchIcon sx={{ color: "#727272" }} /></span>
-                     </div>
-                     <ul className={styles.nav_menu_mobile_dropdown_links}>
-                        <li>
-                           <Link to="/sub-category/63b848501e0644fd041c8ee0">Man</Link>
-                        </li>
-                        <li>
-                           <Link to="/sub-category/63b848e91e0644fd041c8ee3">Women</Link>
-                        </li>
-                        <li>
-                           <Link to="/sub-category/63b8490f1e0644fd041c8ee6">Lifestyle</Link>
-                        </li>
-                        {isLoggedIn &&
-                           <>
-                              <li>Account</li>
-                              <li>logout</li>
-                           </>
-                        }
-                        {!isLoggedIn && <>
-                           <li>
-                              <Link to="/login">login</Link>
-                           </li>
-                           <li>
-                              <Link to="/signup">signup</Link>
-                           </li>
-                        </>
-                        }
-                     </ul>
-                  </div>
-               </div>
-            }
-         </div>
+         <MobileNav
+            wishListItem={wishListItem}
+            toggleWishList={toggleWishList}
+            categories={categories}
+            isLoggedIn={isLoggedIn}
+            quantity={quantity} />
          {/*********************************/}
       </nav>
    )

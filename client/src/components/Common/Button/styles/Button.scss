@@ -104,8 +104,8 @@
 	font-weight: 300;
 	padding: 0.2rem 0.5rem;
 	&:hover {
-		background-color: $body;
-		border-radius: 4px;
+		background-color: unset;
+		box-shadow: unset;
 	}
 }
 .small-white {
