@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userLogin, userSignup } from "../actions/authAction";
+import { userLogin, userSignup, userLogout } from "../actions/authAction";
 
 const initialState = {
    loading: false,
@@ -13,7 +13,7 @@ const authSlice = createSlice({
    reducers: {
       setError: (state, action) => {
          state.error = action.payload
-         console.log(action.payload)
+         // console.log(action.payload)
       }
    },
    extraReducers: (builder) => {
@@ -27,7 +27,7 @@ const authSlice = createSlice({
       });
       builder.addCase(userLogin.rejected, (state, action) => {
          state.loading = false;
-         state.isAuth = false;
+         state.userInfo = null;
          state.error = action.payload;
       });
 
@@ -36,13 +36,26 @@ const authSlice = createSlice({
          state.loading = true;
       });
       builder.addCase(userSignup.fulfilled, (state, action) => {
-         state.success = true
          state.loading = false;
-         state.isAuth = action.payload
+         state.userInfo = action.payload;
       });
       builder.addCase(userSignup.rejected, (state, action) => {
          state.loading = false;
-         state.success = false
+         state.userInfo = null;
+         state.error = action.payload;
+         // console.log(action.payload)
+      });
+
+      //user loguout
+      builder.addCase(userLogout.pending, (state, _action) => {
+         state.loading = true;
+      });
+      builder.addCase(userLogout.fulfilled, (state, action) => {
+         state.loading = false;
+         state.userInfo = null;
+      });
+      builder.addCase(userLogout.rejected, (state, action) => {
+         state.loading = false;
          state.error = action.payload;
          // console.log(action.payload)
       });

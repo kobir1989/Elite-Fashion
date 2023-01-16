@@ -28,7 +28,6 @@ const LoginPage = () => {
       userInfo
    } = useSelector(state => state.auth);
    const isLoggedIn = isAuth(userInfo)
-   console.log(error)
 
    const onChangeHandler = (e) => {
       const { name, value } = e.target;

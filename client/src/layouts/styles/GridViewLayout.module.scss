@@ -10,6 +10,9 @@
 	@include screens-md {
 		grid-auto-rows: 36rem;
 	}
+	@include screens-2xl {
+		padding: 0;
+	}
 }
 
 .grid_view_wrapper_category > *:nth-child(2),

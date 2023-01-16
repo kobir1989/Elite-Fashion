@@ -11,7 +11,6 @@ const MobileNav = (
    {
       toggleWishList,
       wishListItem,
-      categories,
       isLoggedIn,
       quantity
    }) => {
@@ -55,13 +54,21 @@ const MobileNav = (
                      </span>
                   </div>
                   <ul className={styles.nav_menu_mobile_dropdown_links}>
-                     {categories.slice(0, 2).map((category) => (
-                        <li key={category?._id}>
-                           <Link to={`/sub-category/${category?._id}`}>
-                              {category?.name}
-                           </Link>
-                        </li>
-                     ))}
+                     <li>
+                        <Link to={`/sub-category/63b848501e0644fd041c8ee0`}>
+                           MEN
+                        </Link>
+                     </li>
+                     <li>
+                        <Link to={`/sub-category/63b848e91e0644fd041c8ee3`}>
+                           WOMEN
+                        </Link>
+                     </li>
+                     <li>
+                        <Link to={`/sub-category/63b848e91e0644fd041c8ee3`}>
+                           LIFESTYLE
+                        </Link>
+                     </li>
                      {isLoggedIn &&
                         <>
                            <li>Account</li>

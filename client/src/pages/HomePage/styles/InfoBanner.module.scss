@@ -2,6 +2,7 @@
 @import "../../../sass/sass-utils/colors";
 .banner_wrapper {
 	margin: 3rem 0;
+	padding: 0 1rem;
 	@include flex-col;
 	justify-content: center;
 	align-items: center;
@@ -9,6 +10,9 @@
 	gap: 1rem;
 	@include screens-md {
 		@include flex-row-space-between;
+	}
+	@include screens-2xl {
+		padding: 0;
 	}
 	.banner_tag {
 		@include flex-row;

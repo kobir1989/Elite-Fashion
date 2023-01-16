@@ -8,12 +8,11 @@ import { setToggleWishList } from "../../redux/features/wishLishSlice";
 import { isAuth } from "../../helpers/isAuth.helper";
 import Typography from '../Common/Typography/Typography';
 import MobileNav from './MobileNav';
+import { userLogout } from "../../redux/actions/authAction";
 
 const Navbar = () => {
-
    const [openDropdown, setOpenDropdown] = useState(false);
    const { userInfo } = useSelector(state => state.auth);
-   const { categories } = useSelector(state => state.category)
    const { wishListItem, toggleWishList } = useSelector(state => state.wishList);
    const dispatch = useDispatch();
    const { quantity } = useSelector(state => state.cart);
@@ -27,13 +26,21 @@ const Navbar = () => {
             </Link>
             </div>
             <ul className={styles.nav_links}>
-               {categories.slice(0, 3).map((category) => (
-                  <li key={category?._id}>
-                     <Link to={`/sub-category/${category?._id}`}>
-                        {category?.name}
-                     </Link>
-                  </li>
-               ))}
+               <li>
+                  <Link to={`/sub-category/63b848501e0644fd041c8ee0`}>
+                     MEN
+                  </Link>
+               </li>
+               <li>
+                  <Link to={`/sub-category/63b848e91e0644fd041c8ee3`}>
+                     WOMEN
+                  </Link>
+               </li>
+               <li>
+                  <Link to={`/sub-category/63b8490f1e0644fd041c8ee6`}>
+                     LIFESTYLE
+                  </Link>
+               </li>
             </ul>
             <div className={styles.nav_buttons}>
                <Button variant={"icon-btn-normal"}>
@@ -72,7 +79,7 @@ const Navbar = () => {
                                  <Icons name={"person"} size={"1.5rem"} />
                                  Account
                               </li>
-                              <li>
+                              <li onClick={() => dispatch(userLogout())}>
                                  <Icons name={"logout"} size={"1.5rem"} />
                                  Logout
                               </li>
@@ -100,7 +107,6 @@ const Navbar = () => {
          <MobileNav
             wishListItem={wishListItem}
             toggleWishList={toggleWishList}
-            categories={categories}
             isLoggedIn={isLoggedIn}
             quantity={quantity} />
          {/*********************************/}
