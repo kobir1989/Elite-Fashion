@@ -1,12 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { userLogin, userSignup } from "../actions/authAction";
 
-//Get user info from local storeage.
-const getAuthData = localStorage.getItem("jwt") !== null ? JSON.parse(localStorage.getItem("jwt")) : null;
-
 const initialState = {
    loading: false,
-   userInfo: getAuthData,
+   userInfo: null,
    error: null
 };
 

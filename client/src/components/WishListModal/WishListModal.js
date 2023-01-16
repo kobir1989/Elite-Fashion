@@ -9,14 +9,12 @@ import { useSelector, useDispatch } from "react-redux";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { setToggleWishList, removeFromWishList } from "../../redux/features/wishLishSlice";
 import { Link } from "react-router-dom";
-import { deleteFromLocalStorage } from "../../helpers/localStorage";
 
 const WishListModal = () => {
    const { wishListItem } = useSelector(state => state.wishList);
    const dispatch = useDispatch();
 
    const removeHandler = (id) => {
-      deleteFromLocalStorage(id, "wishList")
       dispatch(removeFromWishList(id));
    };
 

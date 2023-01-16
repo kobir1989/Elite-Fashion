@@ -22,7 +22,7 @@ const Navbar = () => {
    const [openMenu, setOpenMenu] = useState(false);
    const [openDropdown, setOpenDropdown] = useState(false);
    const { userInfo } = useSelector(state => state.auth);
-   console.log(userInfo)
+   const { categories } = useSelector(state => state.category)
    const { wishListItem, toggleWishList } = useSelector(state => state.wishList);
    const dispatch = useDispatch();
    const { quantity } = useSelector(state => state.cart);
@@ -36,33 +36,26 @@ const Navbar = () => {
             </Link>
             </div>
             <ul className={styles.nav_links}>
-               <li><Link to="/sub-category/63b848501e0644fd041c8ee0">
-                  Man
-               </Link>
-               </li>
-               <li>
-                  <Link to="/sub-category/63b848e91e0644fd041c8ee3">
-                     Women
-                  </Link>
-               </li>
-               <li>
-                  <Link to="/sub-category/63b8490f1e0644fd041c8ee6">
-                     Lifestyle
-                  </Link>
-               </li>
+               {categories.slice(0, 3).map((category) => (
+                  <li key={category?._id}>
+                     <Link to={`/sub-category/${category?._id}`}>
+                        {category?.name}
+                     </Link>
+                  </li>
+               ))}
             </ul>
             <div className={styles.nav_buttons}>
                <Button variant={"icon-btn-normal"}>
-                  <SearchIcon />
+                  <SearchIcon sx={{ fontSize: "2rem" }} />
                </Button>
                <Button variant={"icon-btn-normal"} onClick={() => { setOpenDropdown(!openDropdown) }}>
                   {isLoggedIn ?
                      <div className={styles.user_name}>
                         <Typography variant={"small"}>
-                           {userInfo?.name.slice(0, 1)}
+                           {userInfo?.name.slice(0, 2)}
                         </Typography>
                      </div>
-                     : <PermIdentityIcon />
+                     : <PermIdentityIcon sx={{ fontSize: "2rem" }} />
                   }
                   {openDropdown &&
                      <ul className={styles.bgscreen_dropdown}>
@@ -91,13 +84,14 @@ const Navbar = () => {
                      </ul>
                   }
                </Button>
-               <Button variant={"icon-btn-normal"} onClick={() => { dispatch(setToggleWishList(!toggleWishList)) }}>
-                  <FavoriteBorderIcon />
+               <Button variant={"icon-btn-normal"}
+                  onClick={() => { dispatch(setToggleWishList(!toggleWishList)) }}>
+                  <FavoriteBorderIcon sx={{ fontSize: "2rem" }} />
                   <span>{wishListItem ? wishListItem.length : 0}</span>
                </Button>
                <Link to={"/cart"}>
                   <Button variant={"icon-btn-normal"}>
-                     <AddShoppingCartIcon />
+                     <AddShoppingCartIcon sx={{ fontSize: "2rem" }} />
                      <span>{quantity}</span>
                   </Button>
                </Link>
@@ -108,7 +102,7 @@ const Navbar = () => {
          {/* Mobile Nav */}
          <div className={styles.nav_menu_mobile}>
             <div className={styles.nav_menu_mobile_btn}>
-               <Button variant={"icon-btn-normal"}>
+               <Button variant={"icon-btn-normal"} onClick={() => { dispatch(setToggleWishList(!toggleWishList)) }}>
                   <FavoriteBorderIcon />
                   <span>{wishListItem ? wishListItem.length : 0}</span>
                </Button>

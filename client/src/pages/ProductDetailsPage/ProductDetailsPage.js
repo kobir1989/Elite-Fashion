@@ -15,7 +15,6 @@ import CardSkeleton from "../../components/Common/Skeleton/CardSkeleton";
 import TextSkeleton from '../../components/Common/Skeleton/TextSkeleton';
 import Error500 from "../../components/Common/Error/Error500";
 import { addToCart, removeOneFromCart } from "../../redux/features/cartSlice";
-import { saveCartToLocalStorage, deleteCartFromLocalStorage } from "../../helpers/localStorage";
 import { isAuth } from "../../helpers/isAuth.helper";
 import { useNavigate } from "react-router-dom";
 
@@ -44,12 +43,10 @@ const ProductDetailsPage = () => {
          setIsEmpty(true)
          return
       }
-      saveCartToLocalStorage(item)
       dispatch(addToCart(item));
    }
 
    const removeHandler = (id) => {
-      // deleteCartFromLocalStorage(id)
       dispatch(removeOneFromCart(id))
    }
    return (

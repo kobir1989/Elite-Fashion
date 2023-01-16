@@ -6,13 +6,11 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { addToWishList } from "../../../redux/features/wishLishSlice";
-import { saveWishListToLocalStorage } from "../../../helpers/localStorage";
 
 const ProductCard = ({ title, imageUrl, linkTo, price, id, ...otherProps }) => {
    const dispatch = useDispatch();
 
    const wishListHandler = (data) => {
-      saveWishListToLocalStorage(data)
       dispatch(addToWishList(data))
    }
 
