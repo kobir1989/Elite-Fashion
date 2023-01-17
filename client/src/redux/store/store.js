@@ -9,6 +9,8 @@ import authReducer from "../features/authSlice";
 import productReducer from "../features/productsSlice";
 import cartReducer from "../features/cartSlice";
 import wishListReducer from "../features/wishLishSlice";
+import stepsReducer from "../features/stepsSlice";
+import orderReducer from "../features/orderSlice";
 
 const reducers = combineReducers({
    category: categoryReducer,
@@ -17,13 +19,15 @@ const reducers = combineReducers({
    product: productReducer,
    cart: cartReducer,
    wishList: wishListReducer,
+   steps: stepsReducer,
+   order: orderReducer
 
 });
 
 const persistConfig = {
    key: "root",
    storage,
-   blacklist: ["category", "subCategory", "product",]
+   blacklist: ["category", "subCategory", "product", "steps", "order"]
 }
 const persistedReducer = persistReducer(persistConfig, reducers)
 const store = configureStore({

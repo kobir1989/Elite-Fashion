@@ -1,0 +1,12 @@
+@import "../../../sass/sass-utils/colors";
+@import "../../../sass/sass-utils/mixins";
+
+.payment_card {
+	height: 3rem;
+}
+.payment_btn_wrapper {
+	// @include flex-row-space-between;
+	margin-top: 1.5rem;
+	display: flex;
+	justify-content: space-between;
+}

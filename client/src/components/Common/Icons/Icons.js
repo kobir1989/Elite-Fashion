@@ -9,6 +9,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const icons = {
    search: SearchIcon,
@@ -21,6 +22,7 @@ const icons = {
    logout: LogoutIcon,
    signup: AppRegistrationIcon,
    account: ManageAccountsIcon,
+   check: CheckCircleOutlineIcon
 
 
 }

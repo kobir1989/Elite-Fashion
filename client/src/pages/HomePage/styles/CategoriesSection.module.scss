@@ -16,12 +16,13 @@
 			object-fit: cover;
 			filter: brightness(90%);
 		}
+		&:hover img {
+			transform: scale(1.2);
+			transition: transform 1s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+			filter: brightness(70%);
+		}
 	}
-	&:hover img {
-		transform: scale(1.2);
-		transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
-		filter: brightness(70%);
-	}
+
 	.category_title_wrapper {
 		position: absolute;
 		width: 22rem;

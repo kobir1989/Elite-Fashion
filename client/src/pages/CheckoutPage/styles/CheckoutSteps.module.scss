@@ -1,0 +1,23 @@
+@import "../../../sass/sass-utils/mixins";
+@import "../../../sass/sass-utils/colors";
+
+.steps_wrapper {
+	width: 100%;
+	@include screens-xs {
+		max-width: 95%;
+	}
+	@include screens-lg {
+		max-width: 850px;
+	}
+	.steps_components {
+		margin-top: 3rem;
+		width: 100%;
+	}
+	.btn_wrapper {
+		margin-top: 2rem;
+		@include flex-row-space-between;
+		button {
+			width: 8rem;
+		}
+	}
+}

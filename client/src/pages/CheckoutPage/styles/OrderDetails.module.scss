@@ -1,0 +1,19 @@
+@import "../../../sass/sass-utils/colors";
+@import "../../../sass/sass-utils/mixins";
+
+.order_details {
+	width: 100%;
+	background-color: $body;
+	padding: 0.3rem;
+	border-radius: 6px;
+	@include screens-md {
+		padding: 1rem;
+	}
+	h4 {
+		margin-bottom: 2rem;
+		border-radius: 6px;
+	}
+}
+.btn_wrapper {
+	@include flex-row-space-between;
+}
