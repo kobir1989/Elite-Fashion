@@ -2,6 +2,13 @@ const CustomError = require("../helper/customError");
 const Product = require("../models/product.schema");
 const errorResponse = require("../helper/errorResponse");
 
+/********************************************************
+ * @updateStock Middleware
+ * @Description This middleware is used to reduce product stock quantity, so that client can validate if the product is in stock or not.
+ * @Parameters
+ *   -checkout object from req.body
+ 
+ *********************************************************/
 module.exports.updateStock = (req, res, next) => {
    // console.log(req.body.product)
    const { checkout } = req.body;

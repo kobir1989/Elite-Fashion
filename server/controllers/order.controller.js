@@ -1,6 +1,7 @@
 const Order = require("../models/order.schema");
 const CustomError = require("../helper/customError");
 const errorResponse = require("../helper/errorResponse");
+const User = require("../models/user.schema");
 
 /********************************************************
  * @createNewOrder
@@ -25,7 +26,19 @@ module.exports.createNewOrder = async (req, res) => {
          user: userId,
          phoneNumber: checkout.phone,
          paymentId: checkout.paymentId,
-      })
+      });
+
+      //User purchases Array will be updated after create new order.
+      const orders = [];
+      checkout.order.forEach((item) => {
+         orders.push(item)
+      });
+      await User.findByIdAndUpdate({
+         _id: userId,
+      },
+         { $push: { purchases: orders } },
+         { new: true })
+
       console.log(order)
       return res.status(200).json({ success: true, message: "Order created successfully" })
 
@@ -63,6 +76,7 @@ module.exports.getAllOrders = async (_req, res) => {
  *********************************************************/
 module.exports.getOrderStatus = async (_req, res) => {
    try {
+
       return res.json(Order.schema.path("orderStatus").enumValues);
    } catch (err) {
       errorResponse(res, err, "ORDER-STATUS");
@@ -79,6 +93,10 @@ module.exports.getOrderStatus = async (_req, res) => {
 module.exports.updateOrderStatus = async (req, res) => {
    console.log(req.body)
    try {
+      //only ADMIN has access.
+      if (req.role !== "ADMIN") {
+         throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
+      };
       const { orderId } = req.params;
       const { orderStatus } = req.body;
       await Order.findByIdAndUpdate(

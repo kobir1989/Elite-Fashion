@@ -11,6 +11,10 @@ const errorResponse = require("../helper/errorResponse");
  *********************************************************/
 module.exports.createSubCategory = async (req, res) => {
    try {
+      //only ADMIN has access.
+      if (req.role !== "ADMIN") {
+         throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
+      };
       const { name, categoryId } = req.body;
       if (!name || !categoryId) {
          throw new CustomError(400, "All the fields are mandatory");
@@ -46,6 +50,10 @@ module.exports.createSubCategory = async (req, res) => {
  *********************************************************/
 module.exports.editSubCategory = async (req, res) => {
    try {
+      //only ADMIN has access.
+      if (req.role !== "ADMIN") {
+         throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
+      };
       const { subCategoryId } = req.params;
       const { name, imageUrl, categoryId } = req.bdoy;
 
@@ -89,6 +97,10 @@ module.exports.editSubCategory = async (req, res) => {
  *********************************************************/
 module.exports.removeSubCategory = async (req, res) => {
    try {
+      //only ADMIN has access.
+      if (req.role !== "ADMIN") {
+         throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
+      };
       const { subCategoryId } = req.params;
 
       const deleteSubCategory = await SubCategory.findByIdAndRemove({
