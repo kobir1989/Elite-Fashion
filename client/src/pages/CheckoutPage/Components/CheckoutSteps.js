@@ -9,6 +9,7 @@ import { increaseStep, decreaseStep } from "../../../redux/features/stepsSlice";
 import Icons from "../../../components/Common/Icons/Icons";
 import Typography from "../../../components/Common/Typography/Typography";
 import Button from "../../../components/Common/Button/Button";
+import { Link } from "react-router-dom";
 
 const steps = ["Shipping Address", "Confirm Order", "Payment"];
 
@@ -42,7 +43,7 @@ const CheckoutSteps = () => {
                <Icons name={"truck"} size={"6rem"} color={"#3b3841"} />
                <Typography variant={"h4"}>Thank you for your purchase!<br /> Your stylish new clothes will be on their way soon. Shop again for more fashion inspiration!
                </Typography>
-               <Button variant={"btn-black"}>Ok</Button>
+               <Link to="/"> <Button variant={"btn-black"}>Ok</Button> </Link>
             </div> :
             <div className={styles.steps_components}>
                {activeStep === 0 &&

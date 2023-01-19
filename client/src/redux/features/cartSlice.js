@@ -49,10 +49,17 @@ const cartSlice = createSlice({
          state.totalAmount = state.totalAmount - (findById.price * findById.quantity)
          const updatedCart = state.cartItem.filter((item) => item.id !== action.payload);
          state.cartItem = updatedCart;
+      },
+      //Cart State will be back to initial state when user submit payment.
+      resetCartState: (state, _action) => {
+         state.cartItem = [];
+         state.quantity = 0;
+         state.totalAmount = 0;
       }
+
    },
 
 });
 
-export const { addToCart, removeOneFromCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeOneFromCart, removeFromCart, resetCartState } = cartSlice.actions;
 export default cartSlice.reducer;

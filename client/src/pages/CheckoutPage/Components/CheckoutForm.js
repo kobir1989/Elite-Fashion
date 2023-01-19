@@ -5,6 +5,7 @@ import { PaymentElement } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
 import { postCheckoutData } from "../../../redux/actions/checkoutAction";
 import { increaseStep } from "../../../redux/features/stepsSlice";
+import { resetCartState } from "../../../redux/features/cartSlice";
 
 const CheckoutForm = () => {
    const stripe = useStripe();
@@ -38,8 +39,8 @@ const CheckoutForm = () => {
       console.log(result, "RESULT")
       if (result.paymentIntent.status === "succeeded") {
          dispatch(postCheckoutData({ phone, address, city, userId, order, paymentId: result.paymentIntent.id }));
-         dispatch(increaseStep())
-
+         dispatch(increaseStep());
+         dispatch(resetCartState());
       }
       if (result.paymentIntent.error === "card_error" || result.paymentIntent.error === "validation_error") {
          setMessage(result.paymentIntent.error.message);
