@@ -1,92 +1,65 @@
-import React, { useState } from 'react';
-import Input from '../../../components/Common/Input/Input';
-import Button from '../../../components/Common/Button/Button';
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/CheckoutForm.module.scss";
-import Typography from '../../../components/Common/Typography/Typography';
+import { useStripe, useElements } from "@stripe/react-stripe-js";
+import { PaymentElement } from "@stripe/react-stripe-js";
+import { useDispatch, useSelector } from "react-redux";
+import { postCheckoutData } from "../../../redux/actions/checkoutAction";
 import { increaseStep } from "../../../redux/features/stepsSlice";
-import { setShipmentDetails } from "../../../redux/features/orderSlice";
 
 const CheckoutForm = () => {
-   const { userInfo } = useSelector(state => state.auth);
-   const [phone, setPhone] = useState("");
-   const [city, setCity] = useState("");
-   const [address, setAddress] = useState("");
-   const [hasError, setHasError] = useState(false);
-   const dispatch = useDispatch();
+   const stripe = useStripe();
+   const elements = useElements();
+   const [message, setMessage] = useState(null);
+   const [isProcessing, setIsProcessing] = useState(false);
+   const dispatch = useDispatch()
+   const {
+      phone,
+      address,
+      city,
+      userId,
+      order,
+   } = useSelector(state => state.checkout);
 
-   const submitFormHandler = (e) => {
-      e.preventDefault()
-      if (phone.length < 10) {
-         setHasError(true);
+   const handleSubmit = async (e) => {
+      e.preventDefault();
+      if (!stripe || !elements) {
          return;
       }
-      dispatch(setShipmentDetails({ phone, city, address, userId: userInfo?._id }));
-      dispatch(increaseStep())
-      setAddress("");
-      setCity("");
-      setPhone("");
-   }
+      setIsProcessing(true);
+
+      const result = await stripe.confirmPayment({
+         elements,
+         redirect: 'if_required',
+         // confirmParams: {
+         //    return_url: window.location.href = `${window.location.origin}/payment-success`
+         // }
+      });
+
+      console.log(result, "RESULT")
+      if (result.paymentIntent.status === "succeeded") {
+         dispatch(postCheckoutData({ phone, address, city, userId, order, paymentId: result.paymentIntent.id }));
+         dispatch(increaseStep())
+
+      }
+      if (result.paymentIntent.error === "card_error" || result.paymentIntent.error === "validation_error") {
+         setMessage(result.paymentIntent.error.message);
+      }
+      setIsProcessing(false);
+   };
+
    return (
-      <div className={styles.shipping_details}>
-         <Typography variant={"h4"}>Shipping Details</Typography>
-         <form onSubmit={submitFormHandler}>
-            <Input
-               color={"primary"}
-               label={userInfo?.name || "Name"}
-               disabled
-               fullWidth={true}
-               size={"small"}
-               value={userInfo?.name}
-            />
-            <Input color={"primary"}
-               label={userInfo?.email || "Email"}
-               fullWidth={true}
-               disabled
-               size={"small"}
-               name={"email"}
-               value={userInfo?.email}
-            />
-            <Input color={"primary"}
-               error={hasError === true && phone.length < 10 ? true : false}
-               type={"number"}
-               label={"Phone Number"}
-               fullWidth={true}
-               size={"small"}
-               name={"phone"}
-               value={phone}
-               onChange={(e) => { setPhone(e.target.value) }}
-               required={true}
-               helperText={hasError === true ? "Invalid Phone Number" : ""}
-            />
-            <Input color={"primary"}
-               type={"text"}
-               label={"City"}
-               fullWidth={true}
-               size={"small"}
-               name={"city"}
-               value={city}
-               onChange={(e) => { setCity(e.target.value) }}
-               required={true}
-            />
-            <Input color={"primary"}
-               type={"text"}
-               label={"Full Address"}
-               fullWidth={true}
-               size={"small"}
-               name={"address"}
-               value={address}
-               onChange={(e) => setAddress(e.target.value)}
-               required={true}
-            />
-            <Link to="/payment">
-            </Link>
-            <Button type="submit" variant={"btn-black"}>Submit</Button>
+      <div className={styles.checkout_wrapper}>
+         <form id="payment-form" onSubmit={handleSubmit}>
+            <PaymentElement id="payment-element" />
+            <button disabled={isProcessing || !stripe || !elements} id="submit">
+               <span id="button-text">
+                  {isProcessing ? "Processing ... " : "Pay Now"}
+               </span>
+            </button>
+            {message && <div id="payment-message">{message}</div>}
          </form>
       </div>
-
-   )
-}
+   );
+};
 
 export default CheckoutForm;

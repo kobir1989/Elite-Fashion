@@ -11,6 +11,7 @@ import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import { isAuth } from "./helpers/isAuth.helper";
 import { useSelector } from "react-redux";
+
 const App = () => {
   axios.defaults.withCredentials = true;
   const { userInfo } = useSelector(state => state.auth);

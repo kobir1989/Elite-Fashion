@@ -1,30 +1,26 @@
-import React from 'react';
+import React from "react";
 import { Stepper, Step, StepLabel } from '@mui/material';
-import Button from '../../../components/Common/Button/Button';
-import Typography from '../../../components/Common/Typography/Typography';
-import CheckoutForm from './CheckoutForm';
+import ShippingForm from './ShippingForm';
 import OrderDetails from './OrderDetails';
-import PaymentForm from './PaymentForm';
+import Payment from "./Payment";
 import styles from "../styles/CheckoutSteps.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { increaseStep, decreaseStep } from "../../../redux/features/stepsSlice";
-
+import Icons from "../../../components/Common/Icons/Icons";
+import Typography from "../../../components/Common/Typography/Typography";
+import Button from "../../../components/Common/Button/Button";
 
 const steps = ["Shipping Address", "Confirm Order", "Payment"];
 
 const CheckoutSteps = () => {
    const dispatch = useDispatch();
    const { activeStep } = useSelector(state => state.steps);
-   console.log(activeStep)
-
    const isCompliteSteps = () => {
       return steps.length === activeStep ? true : false
    }
    const nextStepHandler = () => {
       dispatch(increaseStep())
    }
-   console.log(isCompliteSteps())
-
    const backHandler = () => {
       if (activeStep <= 0) {
          return
@@ -42,20 +38,22 @@ const CheckoutSteps = () => {
             ))}
          </Stepper>
          {isCompliteSteps() ?
-            <div>
-               <Typography>Thanks</Typography>
-            </div>
-            :
+            <div className={styles.success_message}>
+               <Icons name={"truck"} size={"6rem"} color={"#3b3841"} />
+               <Typography variant={"h4"}>Thank you for your purchase!<br /> Your stylish new clothes will be on their way soon. Shop again for more fashion inspiration!
+               </Typography>
+               <Button variant={"btn-black"}>Ok</Button>
+            </div> :
             <div className={styles.steps_components}>
-               {activeStep === 0 && <CheckoutForm />}
+               {activeStep === 0 &&
+                  <ShippingForm />}
                {activeStep === 1 &&
                   <OrderDetails
                      onBack={backHandler}
                      onNext={nextStepHandler} />}
                {activeStep === 2 &&
-                  <PaymentForm
-                     onBack={backHandler}
-                     onNext={nextStepHandler} />}
+                  <Payment />
+               }
             </div>
          }
       </div>

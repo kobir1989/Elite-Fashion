@@ -20,4 +20,19 @@
 			width: 8rem;
 		}
 	}
+	.success_message {
+		max-width: 600px;
+		@include flex-col-center;
+		justify-content: center;
+		margin: auto;
+		text-align: center;
+		height: 60vh;
+		h4 {
+			line-height: 2.5rem;
+			color: $dark_gray;
+		}
+		button {
+			margin-top: 1.5rem;
+		}
+	}
 }

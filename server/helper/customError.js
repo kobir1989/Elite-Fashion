@@ -6,7 +6,7 @@
  *********************************************************/
 
 class CustomError extends Error {
-   constructor(code, message, name = "") {
+   constructor(code, message, name = "name") {
       super(message);
       this.code = code;
       this.name = name

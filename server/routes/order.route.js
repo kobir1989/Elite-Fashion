@@ -25,8 +25,8 @@ route.get(
 route.post(
    "/order/create/:userId",
    isAuthenticated,
-   isUser,
-   pushOrderToPurchaseList,
+   // isUser,
+   // pushOrderToPurchaseList,
    updateStock,
    createNewOrder
 );

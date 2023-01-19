@@ -10,6 +10,7 @@ module.exports.isAuthenticated = (req, res, next) => {
          message: "You are not authorized",
       });
    }
+
    const isValidUser = jwt.verify(token, config.JWT_SECRET);
 
    if (userId !== isValidUser._id) {

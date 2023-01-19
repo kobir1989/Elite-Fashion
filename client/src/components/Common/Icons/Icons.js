@@ -10,7 +10,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 const icons = {
    search: SearchIcon,
    person: PermIdentityIcon,
@@ -22,9 +22,8 @@ const icons = {
    logout: LogoutIcon,
    signup: AppRegistrationIcon,
    account: ManageAccountsIcon,
-   check: CheckCircleOutlineIcon
-
-
+   check: CheckCircleOutlineIcon,
+   truck: LocalShippingOutlinedIcon
 }
 
 const Icons = React.forwardRef((props, ref) => {

@@ -4,8 +4,9 @@ const errorResponse = require("../helper/errorResponse");
 
 module.exports.updateStock = (req, res, next) => {
    // console.log(req.body.product)
+   const { checkout } = req.body;
    try {
-      const updateOperations = req.body.product.map((product) => {
+      const updateOperations = checkout.order.map((product) => {
          return {
             updateOne: {
                filter: { _id: product._id },
@@ -15,7 +16,7 @@ module.exports.updateStock = (req, res, next) => {
       });
       Product.bulkWrite(updateOperations, (err, _products) => {
          if (err) {
-            throw new CustomError("Bulk Oparation failed", 400);
+            throw new CustomError(400, "Bulk Oparation failed", "Update stock middleware");
          }
          next();
       });

@@ -10,7 +10,7 @@ import productReducer from "../features/productsSlice";
 import cartReducer from "../features/cartSlice";
 import wishListReducer from "../features/wishLishSlice";
 import stepsReducer from "../features/stepsSlice";
-import orderReducer from "../features/orderSlice";
+import checkoutReducer from "../features/checkoutSlice";
 
 const reducers = combineReducers({
    category: categoryReducer,
@@ -20,7 +20,7 @@ const reducers = combineReducers({
    cart: cartReducer,
    wishList: wishListReducer,
    steps: stepsReducer,
-   order: orderReducer
+   checkout: checkoutReducer
 
 });
 
