@@ -11,7 +11,7 @@ import cartReducer from "../features/cartSlice";
 import wishListReducer from "../features/wishLishSlice";
 import stepsReducer from "../features/stepsSlice";
 import checkoutReducer from "../features/checkoutSlice";
-
+import userProfileReducer from "../features/userProfileSlice";
 const reducers = combineReducers({
    category: categoryReducer,
    subCategory: subCategoryReducer,
@@ -20,14 +20,22 @@ const reducers = combineReducers({
    cart: cartReducer,
    wishList: wishListReducer,
    steps: stepsReducer,
-   checkout: checkoutReducer
+   checkout: checkoutReducer,
+   userProfile: userProfileReducer
 
 });
 
 const persistConfig = {
    key: "root",
    storage,
-   blacklist: ["category", "subCategory", "product", "steps", "order"]
+   blacklist: [
+      "category",
+      "subCategory",
+      "product",
+      "steps",
+      "order",
+      "userProfile"
+   ]
 }
 const persistedReducer = persistReducer(persistConfig, reducers)
 const store = configureStore({

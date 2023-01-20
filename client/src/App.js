@@ -9,6 +9,7 @@ import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
 import CartPage from "./pages/CartPage/CartPage";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
+import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
 import { isAuth } from "./helpers/isAuth.helper";
 import { useSelector } from "react-redux";
 
@@ -29,6 +30,8 @@ const App = () => {
       {isLoggedIn && <>
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/user-profile/:id" element={<UserProfilePage />} />
+
       </>
       }
       <Route path='*' element={<Navigate to='/login' replace />} />

@@ -1,0 +1,46 @@
+@import "../../../sass/sass-utils/colors";
+@import "../../../sass/sass-utils/mixins";
+h4 {
+	margin-bottom: 1.5rem;
+}
+.order_products {
+	margin-bottom: 1.2rem;
+	border-radius: 6px;
+	border: 1px solid $light_gray;
+	padding: 1.5rem;
+
+	.order_date_status {
+		@include flex-col-space-between;
+		font-weight: 500;
+		align-items: center;
+		border-bottom: 1px solid $light_gray;
+		@include screens-md {
+			@include flex-row-space-between;
+		}
+	}
+	img {
+		width: 5rem;
+		height: 6rem;
+		border: 1px solid $light_gray;
+		border-radius: 4px;
+	}
+	.order_details {
+		@include flex-col-space-between;
+		align-items: center;
+		padding: 1rem 0;
+		gap: 0.5rem;
+		@include screens-md {
+			@include flex-row-space-between;
+			padding: 0.8rem 0;
+		}
+	}
+	.order_total {
+		text-align: center;
+		border-top: 1px solid $light_gray;
+		padding-top: 0.5rem;
+		font-weight: 500;
+		@include screens-md {
+			text-align: end;
+		}
+	}
+}

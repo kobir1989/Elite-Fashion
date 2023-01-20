@@ -29,14 +29,10 @@ module.exports.createNewOrder = async (req, res) => {
       });
 
       //User purchases Array will be updated after create new order.
-      const orders = [];
-      checkout.order.forEach((item) => {
-         orders.push(item)
-      });
       await User.findByIdAndUpdate({
          _id: userId,
       },
-         { $push: { purchases: orders } },
+         { $push: { purchases: order } },
          { new: true })
 
       console.log(order)

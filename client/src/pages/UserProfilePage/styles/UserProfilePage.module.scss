@@ -1,0 +1,23 @@
+@import "../../../sass/sass-utils/colors";
+@import "../../../sass/sass-utils/mixins";
+
+.page_wrapper {
+	margin-top: 3.5rem;
+	padding: 2rem;
+	background-color: $body;
+	.profile_tab_wrapper {
+		@include flex-row;
+		gap: 2rem;
+		margin-top: 3rem;
+	}
+	.tabs_list {
+		width: 10rem;
+		align-items: flex-start;
+	}
+	.tab_panels {
+		background-color: $white;
+		width: 100%;
+		border-radius: 6px;
+		@include box-shadow-sm;
+	}
+}

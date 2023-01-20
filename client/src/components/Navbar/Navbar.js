@@ -17,6 +17,7 @@ const Navbar = () => {
    const dispatch = useDispatch();
    const { quantity } = useSelector(state => state.cart);
    const isLoggedIn = isAuth(userInfo);
+
    return (
       <nav className={styles.nav_wrapper}>
          {/*Big screen nav*/}
@@ -76,8 +77,10 @@ const Navbar = () => {
                         {isLoggedIn &&
                            <>
                               <li>
-                                 <Icons name={"person"} size={"1.5rem"} />
-                                 Account
+                                 <Link to={`/user-profile/${userInfo._id}`}>
+                                    <Icons name={"person"} size={"1.5rem"} />
+                                    Account
+                                 </Link>
                               </li>
                               <li onClick={() => dispatch(userLogout())}>
                                  <Icons name={"logout"} size={"1.5rem"} />

@@ -1,0 +1,28 @@
+@import "../../../sass/sass-utils/colors";
+@import "../../../sass/sass-utils/mixins";
+
+.profile_info {
+	&_title {
+		@include flex-row;
+		align-items: flex-start;
+		justify-content: space-between;
+	}
+	h4 {
+		margin-bottom: 2rem;
+	}
+	ul {
+		li {
+			@include flex-row-center;
+			gap: 2rem;
+			border: 1px solid $light_gray;
+			margin-bottom: 1rem;
+			background-color: $body;
+			height: 2.5rem;
+			padding: 0 0.5rem;
+			font-weight: 500;
+			p {
+				min-width: 6rem;
+			}
+		}
+	}
+}
