@@ -1,0 +1,13 @@
+@import "../../../sass/sass-utils/colors";
+@import "../../../sass/sass-utils/mixins";
+
+.main_wrapper {
+	width: 100%;
+	padding: 1rem;
+	margin: 3rem 0;
+	@include flex-col-center;
+	justify-content: center;
+	@include screens-md {
+		padding: 0;
+	}
+}

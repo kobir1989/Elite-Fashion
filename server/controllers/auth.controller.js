@@ -14,31 +14,30 @@ const errorResponse = require("../helper/errorResponse");
 
 module.exports.signUp = async (req, res) => {
 	try {
-		const { firstName, lastName, email, password, confirmPassword, gender } = req.body;
+		const { firstName, lastName, email, password, confirmPassword } = req.body;
 
-		if (!firstName || !lastName || !email || !password || !gender) {
+		if (!firstName || !lastName || !email || !password || !confirmPassword) {
 			throw new CustomError(400, "All the input fields are mandatory");
 		}
 
 		if (!isValidEmail(email)) {
-			throw new CustomError(400, "Invalid Email");
+			throw new CustomError(400, "Invalid Email", "email");
 		}
 
 		const isExistingUser = await User.findOne({ email });
 		if (isExistingUser) {
-			throw new CustomError(400, "User Already exists");
+			throw new CustomError(400, "User Already exists", "email");
 		}
 
 		if (password.length < 8) {
-			throw new CustomError(400, "Password should be more then 8 Characters");
+			throw new CustomError(400, "Password should be more then 8 Characters", "password");
 		}
 		if (password !== confirmPassword) {
-			throw new CustomError(400, "Password and Confirm Password does not match");
+			throw new CustomError(400, "Password and Confirm Password does not match", "confirmPassword");
 		}
 
 		const user = await User.create({
 			name: firstName + " " + lastName,
-			gender,
 			email,
 			password,
 		});
@@ -66,6 +65,7 @@ module.exports.signUp = async (req, res) => {
  *********************************************************/
 
 module.exports.login = async (req, res) => {
+	console.log(req.body)
 	try {
 		const { email, password } = req.body;
 

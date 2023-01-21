@@ -1,0 +1,66 @@
+@import "../../sass/sass-utils/colors";
+@import "../../sass/sass-utils/mixins";
+
+.signup_wrapper {
+	width: 100%;
+	margin: 2rem 0;
+	@include flex-col;
+	justify-content: center;
+	padding: 0 1rem;
+	@include screens-md {
+		@include flex-row;
+		margin: 4rem 0;
+	}
+	.signup_img {
+		width: 100%;
+		opacity: 0.8;
+		object-fit: cover;
+		position: relative;
+		@include screens-md {
+			width: 50%;
+		}
+		img {
+			width: 100%;
+			height: 100%;
+			filter: brightness(80%);
+			object-fit: cover;
+		}
+		.signup_slogan {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			@include flex-col;
+			gap: 1rem;
+		}
+	}
+	.form_wrapper {
+		width: 100%;
+		border: 1px solid $light_gray;
+		padding: 2rem;
+		@include screens-md {
+			width: 35%;
+			padding: 2rem;
+		}
+		.form_title {
+			text-align: center;
+			margin: 1.5rem;
+			@include screens-md {
+				margin: 3rem;
+			}
+		}
+		.loading_line {
+			margin-top: -2rem;
+		}
+	}
+	.form_link {
+		margin-top: 1rem;
+		text-align: center;
+		a {
+			border-bottom: 1px solid $red_main;
+			&:hover {
+				color: $red_main;
+			}
+		}
+	}
+}

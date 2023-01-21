@@ -13,24 +13,24 @@ const orderSchema = new Schema({
                type: Number,
                required: [true, "Quantity is Required"],
             },
-            price: {
+            totalAmount: {
                type: Number,
-               required: [true, "Price is Required"]
-            }
+               required: [true, "Total Amount is Required"]
+            },
          },
 
       ]
    },
-   transactionId: {
+   paymentId: {
       type: String,
-      required: [true, "Transaction Id is Required"]
-   },
-   totalAmount: {
-      type: Number,
-      required: [true, "Total Amount is Required"]
+      require: [true, "Payment Id is Required"]
    },
    shippingAddress: {
-      type: Array,
+      type: String,
+      required: [true, "Shipping address is Required"]
+   },
+   city: {
+      type: String,
       required: [true, "Shipping address is Required"]
    },
    user: {

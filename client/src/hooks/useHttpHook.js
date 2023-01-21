@@ -1,36 +1,35 @@
 import React, { useState, useCallback } from 'react';
 import axios from "axios";
+
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export const useHttpHook = () => {
-   const [error, setError] = useState(null)
-   const [isLoading, setIsLoading] = useState(null)
+   const [errorFromServer, setErrorFromServer] = useState(null)
+   const [isLoading, setIsLoading] = useState(null);
 
-   const sendRequest = useCallback(async (reqConfig, getData) => {
+   const sendRequest = useCallback(async (reqConfig, getResponseData) => {
       setIsLoading(true);
-      setError(null);
       try {
          const response = await axios({
             method: reqConfig.method ? reqConfig.method : "get",
             url: `${BASE_URL}/${reqConfig.url}`,
-            postData: reqConfig.postData ? reqConfig.postData : {},
+            data: reqConfig.postData ? reqConfig.postData : {},
          });
-         if (response.status !== 200) {
-            throw new Error("Request failed");
-         };
-         console.log(response.data)
-         getData(response.data);
+         console.log(response.data, "FROM USEHTTP HOOK")
+         getResponseData(response.data);
+         setIsLoading(false);
 
       } catch (err) {
-         setError(err.message);
+         setErrorFromServer(err?.response?.data);
+         console.log(err?.response?.data, "ERROR FROM USEHTTP HOOK");
+         setIsLoading(false);
       }
-      setIsLoading(false);
    }, []);
 
    return {
       isLoading,
-      error,
-      sendRequest
+      errorFromServer,
+      sendRequest,
    }
 
 }

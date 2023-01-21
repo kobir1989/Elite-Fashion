@@ -1,0 +1,18 @@
+@import "../../../sass/sass-utils/colors";
+@import "../../../sass/sass-utils/mixins";
+.signup_form {
+	@include flex-col;
+	button {
+		margin-top: 1.5rem;
+		@include screens-md {
+			margin-top: 2rem;
+		}
+		@include flex-row-center;
+		justify-content: center;
+		gap: 0.4rem;
+		img {
+			width: 1rem;
+			height: 1rem;
+		}
+	}
+}

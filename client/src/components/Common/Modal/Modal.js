@@ -1,5 +1,6 @@
 import React from 'react';
-import styles from "./Modal.module.scss";
+import ReactDOM from "react-dom";
+import styles from "./styles/Modal.module.scss";
 const portalElement = document.getElementById("portal");
 
 const Backdrop = (props) => {

@@ -11,6 +11,10 @@ const errorResponse = require("../helper/errorResponse");
  *********************************************************/
 module.exports.createSubCategory = async (req, res) => {
    try {
+      //only ADMIN has access.
+      if (req.role !== "ADMIN") {
+         throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
+      };
       const { name, categoryId } = req.body;
       if (!name || !categoryId) {
          throw new CustomError(400, "All the fields are mandatory");
@@ -44,13 +48,19 @@ module.exports.createSubCategory = async (req, res) => {
  * @Parameters subCategoryId, name, imageUrl, categoryId 
  * @Return success message
  *********************************************************/
+//TODO: TEST this: There is issue fix it
 module.exports.editSubCategory = async (req, res) => {
    try {
+      //only ADMIN has access.
+      if (req.role !== "ADMIN") {
+         throw new CustomError(401, "Access denied. You are not authorized to access this resource.", "");
+      };
       const { subCategoryId } = req.params;
-      const { name, imageUrl, categoryId } = req.bdoy;
+      const { name, image, categoryId } = req.body;
+      console.log(name, image, categoryId)
 
-      if (!name || !imageUrl || !categoryId) {
-         throw new CustomError(400, "All the fields are mandatory")
+      if (!name || !image || !categoryId) {
+         throw new CustomError(400, "All the fields are mandatory", "Edit validatin")
       }
 
       const updateSubCategory = await SubCategory.findByIdAndUpdate(
@@ -58,7 +68,7 @@ module.exports.editSubCategory = async (req, res) => {
             _id: subCategoryId
          },
          {
-            name, imageUrl, categoryId
+            name, imageUrl: image, category: categoryId
          },
          {
             new: true,
@@ -89,6 +99,10 @@ module.exports.editSubCategory = async (req, res) => {
  *********************************************************/
 module.exports.removeSubCategory = async (req, res) => {
    try {
+      //only ADMIN has access.
+      if (req.role !== "ADMIN") {
+         throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
+      };
       const { subCategoryId } = req.params;
 
       const deleteSubCategory = await SubCategory.findByIdAndRemove({

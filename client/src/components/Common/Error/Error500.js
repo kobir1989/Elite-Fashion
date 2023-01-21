@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '../Typography/Typography';
-import styles from "./Error500.module.scss";
+import styles from "./styles/Error500.module.scss";
 
 const Error500 = () => {
    return (

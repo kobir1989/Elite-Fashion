@@ -1,0 +1,64 @@
+@import "../../../../sass/sass-utils/colors";
+@import "../../../../sass/sass-utils/mixins";
+
+.card_wrapper {
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	@include flex-col;
+	padding-bottom: 1.5rem;
+	gap: 1rem;
+	a {
+		width: 100%;
+		height: 85%;
+	}
+	.card_img_wrapper {
+		width: 100%;
+		height: 100%;
+		border: 1px solid $body;
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			filter: brightness(95%);
+		}
+	}
+	.card_details_wrapper {
+		text-transform: uppercase;
+		padding: 0 0.5rem;
+		@include flex-row-space-between;
+		gap: 0.8rem;
+		p {
+			display: -webkit-box;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
+	.card_buttons {
+		@include flex-row;
+		gap: 0.5rem;
+		height: 3rem;
+		button {
+			@include flex-row;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+	&:hover {
+		@include box-shadow-strong;
+	}
+	animation: popup 0.5s ease-in-out;
+	animation-fill-mode: forwards;
+	transform: scale(1);
+}
+
+@keyframes popup {
+	0% {
+		transform: scale(0.7);
+	}
+	100% {
+		transform: scale(1);
+	}
+}

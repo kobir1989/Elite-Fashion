@@ -10,7 +10,8 @@ const config = {
    CLOUD_NAME: process.env.CLOUD_NAME,
    CLOUD_API_KEY: process.env.CLOUD_API_KEY,
    CLOUD_SECRET: process.env.CLOUD_SECRET,
-   SEND_GRID_EMIL_API: process.env.SEND_GRID_EMIL_API
+   SEND_GRID_EMIL_API: process.env.SEND_GRID_EMIL_API,
+   STRIPE_KEY: process.env.STRIPE_KEY
 }
 
 module.exports = config;

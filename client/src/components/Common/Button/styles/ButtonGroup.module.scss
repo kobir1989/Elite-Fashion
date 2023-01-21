@@ -1,0 +1,19 @@
+@import "../../../../sass/sass-utils/mixins";
+@import "../../../../sass/sass-utils/colors";
+.btn_group {
+	@include flex-row-center;
+	justify-content: center;
+	gap: 1rem;
+	border: 1px solid $light_gray;
+	@include screens-md {
+		width: 9rem;
+	}
+}
+.btn_rounded {
+	border-radius: 4rem;
+	padding: 0.2rem 0.8rem;
+}
+.btn_normal {
+	border-radius: 6px;
+	padding: 0.5rem 1.5rem;
+}

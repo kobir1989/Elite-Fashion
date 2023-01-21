@@ -15,4 +15,7 @@ a {
 }
 body {
 	font-family: "Roboto", sans-serif;
+	-webkit-font-smoothing: subpixel-antialiased;
+	-moz-osx-font-smoothing: subpixel-antialiased;
+	font-smooth: subpixel-antialiased;
 }

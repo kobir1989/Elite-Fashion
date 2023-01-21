@@ -1,0 +1,16 @@
+@import "../../../sass/sass-utils/colors";
+@import "../../../sass/sass-utils/mixins";
+
+.pagination_buttons {
+	@include flex-row-center;
+	justify-content: center;
+	background-color: $body;
+	padding: 1.8rem 0;
+	gap: 0.6rem;
+	button {
+		@include flex-row-center;
+		justify-content: center;
+		width: 2.5rem;
+		height: 2.2rem;
+	}
+}

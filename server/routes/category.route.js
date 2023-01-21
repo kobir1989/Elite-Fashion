@@ -7,7 +7,7 @@ const {
    getSingleCategory
 } = require("../controllers/category.controller");
 
-const { isAuthenticated, isAdmin } = require("../middlewares/authMiddleware");
+const { isAuthenticated } = require("../middlewares/authMiddleware");
 const { fileUploader } = require("../middlewares/imgUpload.middleware");
 
 route.get(
@@ -23,7 +23,6 @@ route.get(
 route.post(
    "/category/create/:userId",
    isAuthenticated,
-   isAdmin,
    fileUploader,
    createCategory
 );
@@ -31,7 +30,6 @@ route.post(
 route.put(
    "/category/edit/:userId/:categoryId",
    isAuthenticated,
-   isAdmin,
    fileUploader,
    editCategory
 );
@@ -39,7 +37,6 @@ route.put(
 route.delete(
    "/category/remove/:userId/:categoryId",
    isAuthenticated,
-   isAdmin,
    removeCategory
 );
 

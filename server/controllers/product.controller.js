@@ -11,6 +11,10 @@ const errorResponse = require("../helper/errorResponse");
  *********************************************************/
 module.exports.createNewProduct = async (req, res) => {
    try {
+      //only ADMIN has access.
+      if (req.role !== "ADMIN") {
+         throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
+      };
       const {
          title,
          description,
@@ -53,6 +57,10 @@ module.exports.createNewProduct = async (req, res) => {
  *********************************************************/
 module.exports.editProduct = async (req, res) => {
    try {
+      //only ADMIN has access.
+      if (req.role !== "ADMIN") {
+         throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
+      };
       const {
          title,
          description,
@@ -109,6 +117,10 @@ module.exports.editProduct = async (req, res) => {
  *********************************************************/
 module.exports.deleteProduct = async (req, res) => {
    try {
+      //only ADMIN has access.
+      if (req.role !== "ADMIN") {
+         throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
+      };
       const { productId } = req.params;
       const deleteProduct = await Product.findByIdAndRemove({ _id: productId });
       if (!deleteProduct) {
@@ -126,17 +138,70 @@ module.exports.deleteProduct = async (req, res) => {
 
 /********************************************************
  * @getAllProducts
- * @Route GET http://localhost:5000/api/v1/products/all
- * @Description Retrieve All products, and then sends the resulting data back to the client as a JSON response.
+ * @Route GET http://localhost:5000/api/v1/:subCategoryId/product?page=1&limit=12
+ * @Description Retrieve All products, based on page number and limit, and then 
+ * @Description sends the resulting data back to the client as a JSON response.
  * @Parameters none
  * @Return Products Array
  *********************************************************/
-module.exports.getAllProducts = async (_req, res) => {
+module.exports.getAllProducts = async (req, res) => {
    try {
-      const products = await Product.find().populate("category subCategory")
-      return res.status(200).json({ success: true, products })
+      const { page, limit } = req.query;
+      const { subCategoryId } = req.params;
+      const startsIndexAt = (page - 1) * limit;
+      const endsIndexAt = page * limit;
+      const products = {};
+      if (!page || !limit) {
+         throw new CustomError(400, "Page and Limit are required")
+      }
 
+      const docLength = await Product.find({ "subCategory": subCategoryId }).countDocuments().exec();
+
+      if (endsIndexAt < docLength) {
+         products.next = {
+            page: parseInt(page) + 1,
+            limit: limit
+         }
+      };
+
+      if (startsIndexAt > 0) {
+         products.previous = {
+            page: page - 1,
+            limit: limit
+         }
+      };
+
+      if (docLength) {
+         products.totalPage = Math.floor(docLength / parseInt(limit) + 1);
+      };
+
+      products.result = await Product.find({ "subCategory": subCategoryId })
+         .select("-sold")
+         .limit(limit)
+         .skip(startsIndexAt)
+         .exec();
+
+      return res.status(200).json({ success: true, products })
    } catch (err) {
       errorResponse(res, err, "GET-ALL-PRODUCTS");
    }
+};
+
+/********************************************************
+ * @getSingleProducts
+ * @Route GET http://localhost:5000/api/v1/product/single/:productId
+ * @Description Retrieve single product, and then sends the resulting data back to the client as a JSON response.
+ * @Parameters none
+ * @Return Products Array
+ *********************************************************/
+module.exports.getSingleProducts = async (req, res) => {
+   try {
+      const { productId } = req.params;
+      const products = await Product.findById({ _id: productId }).select("-sold").exec();
+      console.log(products)
+      return res.status(200).json({ success: true, products })
+   } catch (err) {
+      errorResponse(res, err, "GET-SINGLE_PRODUCT");
+   }
+
 }
