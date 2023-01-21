@@ -29,7 +29,7 @@ const ProfileInfo = ({ userProfileData }) => {
                   Phone:
                </Typography>
                <Typography variant={"body"}>
-                  {purchases && purchases[0].phoneNumber || "0174XXXXXX"}
+                  {purchases && purchases.length ? purchases[0].phoneNumber : "0174XXXXXX"}
                </Typography>
             </li>
             <li>
@@ -37,7 +37,7 @@ const ProfileInfo = ({ userProfileData }) => {
                   Address:
                </Typography>
                <Typography variant={"body"}>
-                  {purchases && purchases[0].shippingAddress || "None"}
+                  {purchases && purchases.length ? purchases[0].shippingAddress : "None"}
                </Typography>
             </li>
             <li>
@@ -45,7 +45,7 @@ const ProfileInfo = ({ userProfileData }) => {
                   City:
                </Typography>
                <Typography variant={"body"}>
-                  {purchases && purchases[0].city || "none"}
+                  {purchases && purchases.length ? purchases[0].city : "none"}
                </Typography>
             </li>
          </ul>

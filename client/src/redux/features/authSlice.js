@@ -4,7 +4,7 @@ import { userLogin, userSignup, userLogout } from "../actions/authAction";
 const initialState = {
    loading: false,
    userInfo: null,
-   error: null
+   error: null,
 };
 
 const authSlice = createSlice({

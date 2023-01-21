@@ -16,4 +16,23 @@ export const fetchUserInfo = createAsyncThunk(
       }
 
    }
+);
+
+export const updateUserProfile = createAsyncThunk(
+   "userProfile/updateUserProfile",
+   async ({ id, email, oldPassword, newPassword, confirmNewPassword }, { rejectWithValue }) => {
+      try {
+         const response = await axios.post(`${BASE_URL}/user/update/profile/${id}`, {
+            oldPassword,
+            newPassword,
+            confirmNewPassword,
+            email
+         });
+         console.log(response);
+         return response?.data;
+      } catch (err) {
+         console.log(err);
+         return rejectWithValue(err?.response?.data)
+      }
+   }
 )

@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import WishlistView from '../../components/WishListModal/WishlistView';
 import ProfileInfo from './Components/ProfileInfo';
 import Orders from './Components/Orders';
+import Settings from './Components/Settings';
 
 const TabPanel = (props) => {
    const { children, value, index, ...other } = props;
@@ -65,6 +66,7 @@ const a11yProps = (index) => {
 
 const UserProfilePage = () => {
    const [value, setValue] = React.useState(0);
+
    const { isLoading, error, userProfileData } = useSelector(state => state.userProfile)
    const dispatch = useDispatch();
    const { id } = useParams()
@@ -120,10 +122,7 @@ const UserProfilePage = () => {
                      <Orders userProfileData={userProfileData} />
                   </TabPanel>
                   <TabPanel value={value} index={3}>
-                     Item Four
-                  </TabPanel>
-                  <TabPanel value={value} index={4}>
-                     Item Five
+                     <Settings />
                   </TabPanel>
                </div>
             </div>
