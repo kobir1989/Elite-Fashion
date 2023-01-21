@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Icons from '../../components/Common/Icons/Icons';
 import PageLayout from "../../layouts/PageLayout";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./styles/ProductDetails.module.scss";
@@ -6,11 +7,7 @@ import { useParams } from 'react-router-dom';
 import Typography from '../../components/Common/Typography/Typography';
 import Button from '../../components/Common/Button/Button';
 import { fetchProducts } from "../../redux/actions/productsAction";
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SelectOptions from '../../components/Common/SelectOptions/SelectOptions';
-import CancelIcon from '@mui/icons-material/Cancel';
 import CardSkeleton from "../../components/Common/Skeleton/CardSkeleton";
 import TextSkeleton from '../../components/Common/Skeleton/TextSkeleton';
 import Error500 from "../../components/Common/Error/Error500";
@@ -104,13 +101,13 @@ const ProductDetailsPage = () => {
                      {products?.stock > 0 ? "In Stock" : "Out of Stock"}
                   </Typography>
                   {
-                     products?.stock > 0 ? <CheckCircleIcon sx={{ color: "#116954" }} /> : <CancelIcon sx={{ color: "#cc2121" }} />
+                     products?.stock > 0 ? <Icons name={"check"} color={"#116954"} /> : <Icons name={"delete"} color={"#cc2121"} />
                   }
                </div>
                <div className={styles.buttons_wrapper}>
                   <div className={styles.item_count_buttons}>
                      <Button variant={"icon-btn-normal"} onClick={() => { removeHandler(products?._id) }}>
-                        <RemoveIcon sx={{ color: "#cc2123" }} />
+                        <Icons name={"subtract"} color={"#cc2121"} />
                      </Button>
                      <Typography variant={"h5"}>
                         {qntt?.quantity || 0}
@@ -127,7 +124,7 @@ const ProductDetailsPage = () => {
                               size: size
                            })
                         }}>
-                        <AddIcon sx={{ color: "#116954" }} />
+                        <Icons name={"add"} color={"#116954"} />
                      </Button>
                   </div>
                   <Button variant={"btn-black"} onClick={() => {

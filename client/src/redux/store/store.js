@@ -12,6 +12,7 @@ import wishListReducer from "../features/wishLishSlice";
 import stepsReducer from "../features/stepsSlice";
 import checkoutReducer from "../features/checkoutSlice";
 import userProfileReducer from "../features/userProfileSlice";
+import bestSellingReducer from "../features/bestSellingSlice";
 const reducers = combineReducers({
    category: categoryReducer,
    subCategory: subCategoryReducer,
@@ -21,7 +22,8 @@ const reducers = combineReducers({
    wishList: wishListReducer,
    steps: stepsReducer,
    checkout: checkoutReducer,
-   userProfile: userProfileReducer
+   userProfile: userProfileReducer,
+   bestSelling: bestSellingReducer
 
 });
 
@@ -34,7 +36,8 @@ const persistConfig = {
       "product",
       "steps",
       "order",
-      "userProfile"
+      "userProfile",
+      "bestSelling"
    ]
 }
 const persistedReducer = persistReducer(persistConfig, reducers)

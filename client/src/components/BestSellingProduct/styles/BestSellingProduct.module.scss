@@ -1,0 +1,28 @@
+@import "../../../sass/sass-utils/colors";
+@import "../../../sass/sass-utils/mixins";
+
+.best_selling_product_wrapper {
+	margin-bottom: 8rem;
+	position: relative;
+	.best_selling_title {
+		margin: 3rem 0;
+		text-align: center;
+	}
+	.slider_wrapper {
+		padding: 0 2rem;
+		@include screens-2xl {
+			padding: 0;
+		}
+	}
+	.best_selling_product_card {
+		height: 32rem;
+		padding: 1rem 0.6rem;
+		overflow: hidden;
+	}
+	.skeleton {
+		@include flex-row-center;
+		gap: 1rem;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+}

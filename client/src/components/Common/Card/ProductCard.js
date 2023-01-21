@@ -2,7 +2,7 @@ import React from 'react';
 import styles from "./styles/ProductCard.module.scss";
 import Typography from '../Typography/Typography';
 import Button from '../Button/Button';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import Icons from "../Icons/Icons";
 import { Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { addToWishList } from "../../../redux/features/wishLishSlice";
@@ -37,7 +37,7 @@ const ProductCard = ({ title, imageUrl, linkTo, price, id, ...otherProps }) => {
                         id
                      })
                   }}>
-                  <FavoriteBorderIcon />
+                  <Icons name={"love"} />
                </Button>
             </div>
          </div>

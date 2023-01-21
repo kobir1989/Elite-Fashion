@@ -191,7 +191,7 @@ module.exports.getAllProducts = async (req, res) => {
  * @getSingleProducts
  * @Route GET http://localhost:5000/api/v1/product/single/:productId
  * @Description Retrieve single product, and then sends the resulting data back to the client as a JSON response.
- * @Parameters none
+ * @Parameters product id from req.params
  * @Return Products Array
  *********************************************************/
 module.exports.getSingleProducts = async (req, res) => {
@@ -202,6 +202,26 @@ module.exports.getSingleProducts = async (req, res) => {
       return res.status(200).json({ success: true, products })
    } catch (err) {
       errorResponse(res, err, "GET-SINGLE_PRODUCT");
+   }
+
+}
+
+
+/********************************************************
+ * @getBestSellingProducts
+ * @Route GET http://localhost:5000/api/v1/product/best-selling
+ * @Description Retrieve Best selling products, and then sends the resulting data back to the client as a JSON response.
+ * @Parameters none
+ * @Return Products Array limit 12
+ *********************************************************/
+
+module.exports.getBestSellingProducts = async (req, res) => {
+   try {
+      const products = await Product.aggregate([{ $sample: { size: 12 } }])
+      console.log(products)
+      return res.status(200).json({ success: true, products })
+   } catch (err) {
+      errorResponse(res, err, "GET-BEST-SELLING-PRODUCT");
    }
 
 }

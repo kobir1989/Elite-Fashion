@@ -1,54 +1,66 @@
 @import "../../../sass/sass-utils/colors";
 @import "../../../sass/sass-utils/mixins";
 .slider_cover_wrapper {
+	@include flex-col;
+	gap: 1.5rem;
+	margin-top: 2rem;
 	width: 100%;
-	height: 72vh;
-	position: relative;
+	height: 57vh;
 	overflow: hidden;
-	img {
-		width: 100%;
+	background-color: $black_main;
+	.cover_1,
+	.cover_2 {
+		@include flex-row-center;
+		justify-content: space-between;
+		align-content: stretch;
 		height: 100%;
-		object-fit: cover;
-		// filter: brightness(0.9);
-	}
-}
-.cover_1,
-.cover_2,
-.cover_3 {
-	&::after {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		z-index: 10;
-		width: 100%;
-		height: 102%;
-		background-color: #5e5d5d62;
-	}
-	.cover_text {
-		position: absolute;
-		top: 25%;
-		left: 10%;
-		width: 80%;
-		color: $white;
-		z-index: 30;
-		@include flex-col;
-		gap: 1.5rem;
-		@include screens-lg {
-			top: 20%;
-			left: 30%;
-			max-width: 40rem;
+		img {
+			display: none;
+			@include screens-md {
+				display: flex;
+				width: 50%;
+				height: 100%;
+				object-fit: cover;
+			}
+			@include screens-xl {
+				width: 50%;
+				height: 100%;
+			}
+		}
+		.cover_text {
+			width: 100%;
+			color: $white;
+			@include flex-col;
+			gap: 0.8rem;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+			@include screens-md {
+				margin-left: 3rem;
+				width: 45%;
+			}
+			button {
+				margin-top: 1rem;
+			}
 		}
 	}
 }
 
 .discount {
-	font-size: 2rem;
+	font-size: 1.6rem;
 	text-transform: uppercase;
 	letter-spacing: 0.01px;
+	color: $red_main;
 }
 .span_text {
-	color: $orange;
+	color: $red_main;
+}
+.banner_wrapper {
+	margin-top: 0.8rem;
+	@include flex-col-center;
+	gap: 1rem;
+	width: 100%;
+	@include screens-md {
+		@include flex-row-center;
+	}
 }

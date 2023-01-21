@@ -5,67 +5,90 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styles from "../styles/Hero.module.scss";
 import Typography from "../../../components/Common/Typography/Typography";
+import { Link } from "react-router-dom";
+import CardBanner from "../../../components/Common/Banner/CardBanner";
 
 const Hero = () => {
    const settings = {
       dots: true,
       infinite: true,
-      autoplay: true,
+      // autoplay: true,
       speed: 500,
       arrows: false,
       slidesToShow: 1,
       slidesToScroll: 1,
       draggable: true,
       centerPadding: "0px",
-      centerMode: true,
+      centerMode: false,
    };
    return (
-      <div>
+      <div className={styles.hero_section_wrapper}>
          <Slider {...settings}>
-            <div className={`${styles.slider_cover_wrapper} ${styles.cover_1}`}>
-               <img src="assets/shoe-cover.webp" alt="cover" />
-               <div className={styles.cover_text}>
-                  <Typography color={"white"} variant={"h1"}>
-                     Everything you <br /> need, on a
-                     <span className={styles.span_text}> budget</span>
-                  </Typography>
-                  <Typography color={"white"} variant={"subtitle"}>
-                     Buy More, Spend Less
-                  </Typography>
-                  <span className={styles.discount}>Up to 50% off!</span>
-                  <div> <Button variant={"white"}>Shop Now</Button></div>
+            <div className={styles.slider_cover_wrapper}>
+               <div className={styles.cover_1}>
+                  <div className={styles.cover_text}>
+                     <Typography color={"white"} variant={"h1"}>
+                        Everything you <br /> need, on a
+                        <span className={styles.span_text}> Budget
+                        </span>
+                     </Typography>
+                     <Typography color={"white"} variant={"subtitle"}>
+                        Buy More, Spend Less
+                     </Typography>
+                     <span className={styles.discount}>
+                        Up to 50% off!
+                     </span>
+                     <div>
+                        <Link to="/sub-category/63b848e91e0644fd041c8ee3">
+                           <Button variant={"white"}>
+                              Shop Now
+                           </Button>
+                        </Link>
+                     </div>
+                  </div>
+                  <img src="/assets/women-red.png" alt="cover" />
                </div>
             </div>
-            <div className={`${styles.slider_cover_wrapper} ${styles.cover_2}`}>
-               <img src="assets/model 2.webp" alt="cover" />
-               <div className={styles.cover_text}>
-                  <Typography color={"white"} variant={"h1"}>
-                     There is
-                     <span className={styles.span_text}> Luxury</span>
-                     <br /> in Simplicity
-                  </Typography>
-                  <Typography color={"white"} variant={"subtitle"}>
-                     Fall In Love with the best Things in This Season
-                  </Typography>
-                  <span className={styles.discount}>Up to 35% off!</span>
-                  <div>   <Button variant={"white"}>Shop Now</Button></div>
-               </div>
-            </div>
-            <div className={`${styles.slider_cover_wrapper} ${styles.cover_3}`}>
-               <img src="assets/model1.webp" alt="cover" />
-               <div className={styles.cover_text}>
-                  <Typography color={"white"} variant={"h1"}>
-                     Get the <span className={styles.span_text}>celebrity </span> <br />look you have been craving
-
-                  </Typography>
-                  <Typography color={"white"} variant={"subtitle"}>
-                     Your favorite products made affordable for you
-                  </Typography>
-                  <span className={styles.discount}>Up to 25% off!</span>
-                  <div><Button variant={"white"}>Shop Now</Button></div>
+            <div className={styles.slider_cover_wrapper}>
+               <div className={styles.cover_2}>
+                  <div className={styles.cover_text}>
+                     <Typography color={"white"} variant={"h1"}>
+                        There is
+                        <span className={styles.span_text}> Luxury</span>
+                        <br /> in Simplicity
+                     </Typography>
+                     <Typography color={"white"} variant={"subtitle"}>
+                        Fall In Love with the best Things in This Season
+                     </Typography>
+                     <span className={styles.discount}>Up to 35% off!</span>
+                     <div>
+                        <Link to="sub-category/63b848501e0644fd041c8ee0">
+                           <Button variant={"white"}>
+                              Shop Now
+                           </Button>
+                        </Link>
+                     </div>
+                  </div>
+                  <img src="/assets/man.png" alt="cover" />
                </div>
             </div>
          </Slider>
+         <div className={styles.banner_wrapper}>
+            <CardBanner
+               imgUrl={"/assets/banner11.jpg"}
+               title={"For Men's"}
+               subTitle={"Starting at 599 TK."}
+               position={"left"}
+               linkTo={"sub-category/63b848501e0644fd041c8ee0"}
+            />
+            <CardBanner
+               imgUrl={"/assets/banner-12.jpg"}
+               title={"For Women's"}
+               subTitle={"Up to 25% Off"}
+               position={"right"}
+               linkTo={"/sub-category/63b848e91e0644fd041c8ee3"}
+            />
+         </div>
       </div>
    )
 }

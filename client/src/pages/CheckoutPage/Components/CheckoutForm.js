@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "../styles/CheckoutForm.module.scss";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { PaymentElement } from "@stripe/react-stripe-js";
@@ -27,7 +27,7 @@ const CheckoutForm = () => {
          return;
       }
       setIsProcessing(true);
-
+      //Stripe Confirm Payment
       const result = await stripe.confirmPayment({
          elements,
          redirect: 'if_required',

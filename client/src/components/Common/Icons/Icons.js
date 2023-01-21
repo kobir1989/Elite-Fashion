@@ -15,6 +15,20 @@ import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
+import RemoveIcon from '@mui/icons-material/Remove';
+import AddIcon from '@mui/icons-material/Add';
+import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
+import AssignmentReturnOutlinedIcon from '@mui/icons-material/AssignmentReturnOutlined';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import EmailIcon from '@mui/icons-material/Email';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+
+
 
 const icons = {
    search: SearchIcon,
@@ -32,7 +46,19 @@ const icons = {
    bag: ShoppingBagOutlinedIcon,
    settings: SettingsOutlinedIcon,
    delete: DeleteForeverIcon,
-   edit: EditIcon
+   edit: EditIcon,
+   subtract: RemoveIcon,
+   add: AddIcon,
+   card: CreditScoreOutlinedIcon,
+   return: AssignmentReturnOutlinedIcon,
+   facebook: FacebookIcon,
+   twitter: TwitterIcon,
+   youtube: YouTubeIcon,
+   email: EmailIcon,
+   phone: LocalPhoneIcon,
+   instagram: InstagramIcon,
+   backArrow: ArrowBackIosNewIcon,
+   forwardArrow: ArrowForwardIosIcon,
 }
 
 const Icons = React.forwardRef((props, ref) => {

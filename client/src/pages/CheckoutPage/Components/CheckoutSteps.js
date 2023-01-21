@@ -1,6 +1,6 @@
 import React from "react";
 import { Stepper, Step, StepLabel } from '@mui/material';
-import ShippingForm from './ShippingForm';
+import ShippmentForm from './ShippmentForm';
 import OrderDetails from './OrderDetails';
 import Payment from "./Payment";
 import styles from "../styles/CheckoutSteps.module.scss";
@@ -9,9 +9,7 @@ import { increaseStep, decreaseStep } from "../../../redux/features/stepsSlice";
 import Icons from "../../../components/Common/Icons/Icons";
 import Typography from "../../../components/Common/Typography/Typography";
 import Button from "../../../components/Common/Button/Button";
-import { Link } from "react-router-dom";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
 const steps = ["Shipping Address", "Confirm Order", "Payment"];
 
 const CheckoutSteps = () => {
@@ -50,7 +48,7 @@ const CheckoutSteps = () => {
             </div> :
             <div className={styles.steps_components}>
                {activeStep === 0 &&
-                  <ShippingForm />}
+                  <ShippmentForm />}
                {activeStep === 1 &&
                   <OrderDetails
                      onBack={backHandler}

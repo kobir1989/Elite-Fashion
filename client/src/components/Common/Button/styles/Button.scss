@@ -121,3 +121,18 @@
 		color: $red_main;
 	}
 }
+
+.small-banner {
+	background-color: rgba(253, 252, 250, 0.226);
+
+	color: $white;
+	border: 1px solid $white;
+	font-weight: 400;
+	padding: 0.6rem 1.2rem;
+	font-size: 0.9rem;
+	border-radius: 4px;
+	&:hover {
+		font-weight: 500;
+		border: 1px solid $red_main;
+	}
+}
