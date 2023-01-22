@@ -6,6 +6,7 @@ import Icons from "../Icons/Icons";
 import { Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { addToWishList } from "../../../redux/features/wishLishSlice";
+import Ratings from '../Ratings/Ratings';
 
 const ProductCard = ({ title, imageUrl, linkTo, price, id, ...otherProps }) => {
    const dispatch = useDispatch();
@@ -19,6 +20,9 @@ const ProductCard = ({ title, imageUrl, linkTo, price, id, ...otherProps }) => {
          <Link to={linkTo}>
             <div className={styles.card_img_wrapper}>
                <img src={imageUrl} alt="product.jpg" />
+               <div className={styles.ratings}>
+                  <Ratings />
+               </div>
             </div>
          </Link>
          <div className={styles.card_details_wrapper}>

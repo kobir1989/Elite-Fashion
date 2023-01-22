@@ -38,6 +38,9 @@
 			@include screens-md {
 				margin-left: 3rem;
 				width: 45%;
+				align-items: flex-start;
+				justify-content: start;
+				text-align: start;
 			}
 			button {
 				margin-top: 1rem;

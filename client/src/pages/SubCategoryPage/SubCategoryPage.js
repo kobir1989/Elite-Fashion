@@ -9,6 +9,7 @@ import Typography from '../../components/Common/Typography/Typography';
 import Button from '../../components/Common/Button/Button';
 import GridViewLayout from '../../layouts/GridViewLayout';
 import CardSkeleton from '../../components/Common/Skeleton/CardSkeleton';
+import CategoryCard from '../../components/Common/Card/CategoryCard';
 
 const SubCategoryPage = () => {
    const {
@@ -25,19 +26,12 @@ const SubCategoryPage = () => {
       <PageLayout>
          <GridViewLayout page={"sub_category"}>
             {subCategories.map((subCategory) => (
-               <Link
-                  to={`/products/${subCategory?._id}`}
-                  key={subCategory?._id}>
-                  <div className={styles.sub_category_card}>
-                     <div className={styles.image_wrapper}>
-                        <img src={subCategory?.image} alt={subCategory?.name} />
-                     </div>
-                     <div className={styles.card_text_wrapper}>
-                        <Typography variant={"h4"} color={"white"}>{subCategory?.name}</Typography>
-                        <Button variant={"white"}>Shop now</Button>
-                     </div>
-                  </div>
-               </Link>
+               <CategoryCard
+                  title={subCategory?.name}
+                  imgUrl={subCategory?.image}
+                  linkTo={`/products/${subCategory?._id}`}
+                  key={subCategory?._id}
+               />
             ))}
             {isLoading &&
                <CardSkeleton

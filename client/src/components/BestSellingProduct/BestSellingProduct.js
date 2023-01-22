@@ -51,21 +51,22 @@ const settings = {
    ]
 };
 
-const BestSellingProduct = () => {
+const BestSellingProduct = ({ title }) => {
    const { error, isLoading, bestSellingProducts } = useSelector(state => state.bestSelling);
 
    return (
       <div className={styles.best_selling_product_wrapper}>
          <div className={styles.best_selling_title}>
             <Typography variant={"h3"}>
-               Best Selling Products
+               {title}
             </Typography>
          </div>
          <div className={styles.slider_wrapper}>
             <Slider {...settings}>
                {
                   bestSellingProducts.map((product) => (
-                     <div className={styles.best_selling_product_card}>
+                     <div className={styles.best_selling_product_card}
+                        key={product?._id}>
                         <ProductCard
                            title={product?.title}
                            imageUrl={product?.image}

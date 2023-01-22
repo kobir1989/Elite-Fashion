@@ -14,6 +14,8 @@ import Error500 from "../../components/Common/Error/Error500";
 import { addToCart, removeOneFromCart } from "../../redux/features/cartSlice";
 import { isAuth } from "../../helpers/isAuth.helper";
 import { useNavigate } from "react-router-dom";
+import BestSellingProduct from "../../components/BestSellingProduct/BestSellingProduct";
+import { fetchBestSellingProducts } from "../../redux/actions/bestSellingAction";
 
 const ProductDetailsPage = () => {
    const [color, setColor] = useState("")
@@ -30,6 +32,7 @@ const ProductDetailsPage = () => {
 
    useEffect(() => {
       dispatch(fetchProducts(`/product/single/${id}`));
+      dispatch(fetchBestSellingProducts())
    }, [id, dispatch]);
 
    const cartHandler = (item) => {
@@ -146,6 +149,7 @@ const ProductDetailsPage = () => {
             <Typography variant={"h3"}>
                Related Products
             </Typography>
+            <BestSellingProduct />
          </div>
       </PageLayout >
    )

@@ -1,7 +1,7 @@
 import React from 'react'
-import Icons from "../../../components/Common/Icons/Icons";
-import Typography from '../../../components/Common/Typography/Typography';
-import styles from "../styles/InfoBanner.module.scss";
+import Icons from "../Icons/Icons";
+import Typography from '../Typography/Typography';
+import styles from "./styles/InfoBanner.module.scss";
 
 const InfoBanner = () => {
    return (
@@ -11,7 +11,7 @@ const InfoBanner = () => {
                <Icons name={"card"} color={"#cc2121"} />
             </span>
             <div>
-               <Typography variant={"h4"}>
+               <Typography variant={"h5"}>
                   PAYMENT METHODS
                </Typography>
                <Typography variant={"body"}>
@@ -25,7 +25,7 @@ const InfoBanner = () => {
                <Icons name={"truck"} color={"#cc2121"} />
             </span>
             <div>
-               <Typography variant={"h4"}>
+               <Typography variant={"h5"}>
                   SAME DAY SHIPPING
                </Typography>
                <Typography variant={"body"}>
@@ -38,7 +38,7 @@ const InfoBanner = () => {
                <Icons name={"return"} color={"#cc2121"} />
             </span>
             <div>
-               <Typography variant={"h4"}>
+               <Typography variant={"h5"}>
                   EASY RETURN POLICY
                </Typography>
                <Typography variant={"body"}>

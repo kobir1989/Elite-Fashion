@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from '../../../components/Common/Button/Button';
-import Typography from '../../../components/Common/Typography/Typography';
-import styles from "../styles/Banner.module.scss";
+import Button from '../Button/Button';
+import Typography from '../Typography/Typography';
+import styles from "./styles/Banner.module.scss";
 
 const Banner = () => {
    return (
