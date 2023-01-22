@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Button from '../../components/Common/Button/Button';
 import PageLayout from '../../layouts/PageLayout';
 import styles from "./styles/UserProfilePage.module.scss";
 import PropTypes from 'prop-types';
@@ -9,7 +8,7 @@ import Icons from '../../components/Common/Icons/Icons';
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUserInfo } from "../../redux/actions/userProfileAction";
 import { useParams } from "react-router-dom";
-import WishlistView from '../../components/WishListModal/WishlistView';
+import WishlistCard from '../../components/Common/Card/WishlistCard';
 import ProfileInfo from './Components/ProfileInfo';
 import Orders from './Components/Orders';
 import Settings from './Components/Settings';
@@ -72,7 +71,7 @@ const UserProfilePage = () => {
    const { id } = useParams()
    useEffect(() => {
       dispatch(fetchUserInfo(id))
-   }, [id])
+   }, [id, dispatch])
    const handleChange = (event, newValue) => {
       setValue(newValue);
    };
@@ -116,7 +115,7 @@ const UserProfilePage = () => {
                      <ProfileInfo userProfileData={userProfileData} />
                   </TabPanel>
                   <TabPanel value={value} index={1}>
-                     <WishlistView showCross={false} />
+                     <WishlistCard showCross={false} />
                   </TabPanel>
                   <TabPanel value={value} index={2}>
                      <Orders userProfileData={userProfileData} />

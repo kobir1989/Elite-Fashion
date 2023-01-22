@@ -20,7 +20,7 @@
 		img {
 			width: 100%;
 			height: 100%;
-			// object-fit: contain;
+			object-fit: cover;
 			filter: brightness(95%);
 		}
 		.ratings {
@@ -36,8 +36,9 @@
 	.card_details_wrapper {
 		text-transform: uppercase;
 		padding: 0 0.5rem;
+		text-align: start;
 		@include flex-row-space-between;
-		gap: 0.8rem;
+		gap: 1rem;
 		p {
 			display: -webkit-box;
 			-webkit-line-clamp: 1;

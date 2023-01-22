@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import styles from "../styles/CheckoutForm.module.scss";
+import styles from "../../styles/CheckoutForm.module.scss";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
-import { postCheckoutData } from "../../../redux/actions/checkoutAction";
-import { increaseStep } from "../../../redux/features/stepsSlice";
-import { resetCartState } from "../../../redux/features/cartSlice";
+import { postCheckoutData } from "../../../../redux/actions/checkoutAction";
+import { increaseStep } from "../../../../redux/features/stepsSlice";
+import { resetCartState } from "../../../../redux/features/cartSlice";
 
 const CheckoutForm = () => {
    const stripe = useStripe();

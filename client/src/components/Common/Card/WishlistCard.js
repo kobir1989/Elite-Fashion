@@ -1,13 +1,13 @@
 import React from 'react';
-import styles from "./styles/WishListView.module.scss";
-import Typography from '../Common/Typography/Typography';
+import styles from "./styles/WishListCard.module.scss";
+import Typography from '../Typography/Typography';
 import { Link } from "react-router-dom";
-import Button from '../Common/Button/Button';
+import Button from '../Button/Button';
 import { useSelector, useDispatch } from "react-redux";
-import { setToggleWishList, removeFromWishList } from "../../redux/features/wishLishSlice";
-import Icons from '../Common/Icons/Icons';
+import { setToggleWishList, removeFromWishList } from "../../../redux/features/wishLishSlice";
+import Icons from '../Icons/Icons';
 
-const WishlistView = ({ showCross = true }) => {
+const WishlistCard = ({ showCross = true }) => {
    const { wishListItem } = useSelector(state => state.wishList);
    const dispatch = useDispatch();
 
@@ -61,4 +61,4 @@ const WishlistView = ({ showCross = true }) => {
    )
 }
 
-export default WishlistView
+export default WishlistCard;

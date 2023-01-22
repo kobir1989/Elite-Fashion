@@ -26,7 +26,7 @@ const MobileNav = (
             </Button>
             <Link to="/cart">
                <Button variant={"icon-btn-normal"}>
-                  <Icons name={"shopingCart"} size={"1.5rem"} />
+                  <Icons name={"bag"} size={"1.5rem"} />
                   <span>{quantity}</span>
                </Button>
             </Link>

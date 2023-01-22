@@ -28,7 +28,7 @@ const ProductCard = ({ title, imageUrl, linkTo, price, id, ...otherProps }) => {
          <div className={styles.card_details_wrapper}>
             <div>
                <Typography variant={"body"}>{title}</Typography>
-               <Typography variant={"h5"}>${price.toFixed(2)}</Typography>
+               <Typography variant={"h5"}>TK. {price.toFixed(2)}</Typography>
             </div>
             <div className={styles.card_buttons}>
                <Button

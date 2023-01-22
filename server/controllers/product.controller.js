@@ -218,7 +218,7 @@ module.exports.getSingleProducts = async (req, res) => {
 module.exports.getBestSellingProducts = async (req, res) => {
    try {
       const products = await Product.aggregate([{ $sample: { size: 12 } }])
-      console.log(products)
+      // console.log(products)
       return res.status(200).json({ success: true, products })
    } catch (err) {
       errorResponse(res, err, "GET-BEST-SELLING-PRODUCT");

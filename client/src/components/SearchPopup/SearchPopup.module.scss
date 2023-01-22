@@ -1,0 +1,60 @@
+@import "../../sass/sass-utils/colors";
+@import "../../sass/sass-utils/mixins";
+
+.search_popup_wrapper {
+	height: 25rem;
+	width: 18rem;
+	padding: 1.5rem;
+	position: relative;
+	@include screens-md {
+		width: 35rem;
+	}
+	.search_input {
+		position: relative;
+		svg {
+			position: absolute;
+			top: 1.2rem;
+			right: 1%;
+		}
+	}
+
+	.search_result_wrapper {
+		height: 100%;
+		width: 100%;
+		@include flex-col;
+		gap: 0.7rem;
+		margin: 0.5rem 0;
+		.search_result_row {
+			@include flex-row-space-between;
+			align-items: center;
+			background-color: $body;
+			border-radius: 4px;
+			cursor: pointer;
+			&:hover {
+				@include box-shadow-sm;
+			}
+			img {
+				width: 3rem;
+				height: 3rem;
+			}
+			p {
+				width: calc(100% / 3);
+				display: -webkit-box;
+				-webkit-line-clamp: 1;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
+	}
+
+	.close_btn {
+		position: absolute;
+		bottom: 4%;
+		left: 50%;
+		transform: translate(-50%, -4%);
+	}
+	.error_message {
+		text-align: center;
+	}
+}

@@ -6,10 +6,9 @@
 	z-index: 25;
 	width: 100%;
 	padding: 0 1rem;
-	// @include box-shadow-soft;
 	@include flex-row-space-between;
 	align-items: center;
-	background-color: rgba(255, 255, 255, 0.925);
+	background-color: #ffffffec;
 	@include screens-lg {
 		display: block;
 		padding: 0;
@@ -73,7 +72,7 @@
 			}
 			.user_name {
 				background-color: $light_gray;
-				padding: 0.5rem 0.6rem;
+				padding: 0.5rem 0.7rem;
 				border-radius: 50%;
 				p {
 					color: $red_main;
@@ -120,7 +119,6 @@
 @keyframes popup {
 	0% {
 		opacity: 0;
-		transition: all 0.1s ease-in-out;
 		transform: scale(0.8);
 	}
 }

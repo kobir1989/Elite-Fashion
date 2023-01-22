@@ -1,8 +1,8 @@
 import React from "react";
 import { Stepper, Step, StepLabel } from '@mui/material';
 import ShippmentForm from './ShippmentForm';
-import OrderDetails from './OrderDetails';
-import Payment from "./Payment";
+import OrderDetails from './SubComponents/OrderDetails';
+import Payment from "./SubComponents/Payment";
 import styles from "../styles/CheckoutSteps.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { increaseStep, decreaseStep } from "../../../redux/features/stepsSlice";

@@ -11,6 +11,7 @@ const orderRoute = require("./routes/order.route");
 const userRoute = require("./routes/user.route");
 const stripeRoute = require("./routes/stripe.route");
 const fileUpload = require("express-fileupload");
+const searchRoute = require("./routes/search.route")
 
 app.use(morgan("tiny"));
 app.use(cors({
@@ -34,6 +35,7 @@ app.use("/api/v1", subCategoryRoute);
 app.use("/api/v1", productRoute);
 app.use("/api/v1", orderRoute);
 app.use("/api/v1", stripeRoute);
+app.use("/api/v1", searchRoute)
 app.use("/api/v1", userRoute);
 
 module.exports = app;

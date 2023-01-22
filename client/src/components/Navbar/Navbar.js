@@ -9,6 +9,7 @@ import { isAuth } from "../../helpers/isAuth.helper";
 import Typography from '../Common/Typography/Typography';
 import MobileNav from './MobileNav';
 import { userLogout } from "../../redux/actions/authAction";
+import { setOpenSearchBox } from "../../redux/features/searchSlice";
 
 const Navbar = () => {
    const [openDropdown, setOpenDropdown] = useState(false);
@@ -44,7 +45,8 @@ const Navbar = () => {
                </li>
             </ul>
             <div className={styles.nav_buttons}>
-               <Button variant={"icon-btn-normal"}>
+               <Button variant={"icon-btn-normal"}
+                  onClick={() => { dispatch(setOpenSearchBox(true)) }}>
                   <Icons name={"search"} size={"1.5rem"} />
                </Button>
                <Button variant={"icon-btn-normal"} onClick={() => { setOpenDropdown(!openDropdown) }}>
@@ -98,7 +100,7 @@ const Navbar = () => {
                </Button>
                <Link to={"/cart"}>
                   <Button variant={"icon-btn-normal"}>
-                     <Icons name={"shopingCart"} size={"1.5rem"} />
+                     <Icons name={"bag"} size={"1.5rem"} />
                      <span>{quantity}</span>
                   </Button>
                </Link>

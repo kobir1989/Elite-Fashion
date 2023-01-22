@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const CardBanner = ({ imgUrl, title, subTitle, position, linkTo }) => {
    return (
       <div className={styles.card_banner_wrapper}>
-         <img src={imgUrl} alt="banner.jpg" />
+         <img className={styles.banner_img} src={imgUrl} alt="banner.jpg" />
          <div className={`${styles.banner_text} ${styles[`position-${position}`]}`}>
             <Typography variant={"h3"} color={"white"}>
                {title}
