@@ -16,16 +16,8 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	height: 70vh;
-	width: 85vw;
-	overflow-y: scroll;
 	background: $white;
 	border-radius: 8px;
-	padding: 1rem;
 	z-index: 100;
 	@include box-shadow-diffuse;
-	@include screens-lg {
-		width: 40vw;
-		height: 60vh;
-	}
 }

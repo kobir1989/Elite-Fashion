@@ -1,0 +1,17 @@
+@import "../../sass/sass-utils/mixins";
+.discount_modal {
+	position: relative;
+	img {
+		width: 28rem;
+		height: 22rem;
+		@include screens-md {
+			width: 45rem;
+			height: 30rem;
+		}
+	}
+	button {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+	}
+}

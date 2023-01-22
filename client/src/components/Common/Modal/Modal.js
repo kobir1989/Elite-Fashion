@@ -12,15 +12,15 @@ const Backdrop = (props) => {
    );
 };
 
-const ModalOverlay = (props) => {
+const ModalOverlay = ({ children }) => {
    return (
       <div className={styles.overlay}>
-         <div>{props.children}</div>
+         <div>{children}</div>
       </div>
    );
 };
 
-const Modal = ({ onClose, children, ...otherProps }) => {
+const Modal = ({ onClose, children, height }) => {
    return (
       <>
          {ReactDOM.createPortal(
@@ -28,7 +28,7 @@ const Modal = ({ onClose, children, ...otherProps }) => {
             portalElement
          )}
          {ReactDOM.createPortal(
-            <ModalOverlay>{children}</ModalOverlay>,
+            <ModalOverlay height={height}>{children}</ModalOverlay>,
             portalElement
          )}
       </>

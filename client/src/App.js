@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import SubCategoryPage from "./pages/SubCategoryPage/SubCategoryPage";
@@ -12,6 +13,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
 import { isAuth } from "./helpers/isAuth.helper";
 import { useSelector } from "react-redux";
+import WishListModal from "./components/WishListModal/WishListModal";
 
 const App = () => {
   axios.defaults.withCredentials = true;

@@ -4,6 +4,7 @@
 	padding: 4rem 0 3rem 0;
 	max-width: 1400px;
 	margin: auto;
+	overflow: hidden;
 	@include screens-md {
 		padding: 4.5rem 0 3rem 0;
 	}

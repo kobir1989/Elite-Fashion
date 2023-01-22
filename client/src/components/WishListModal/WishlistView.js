@@ -16,44 +16,46 @@ const WishlistView = ({ showCross = true }) => {
    };
    return (
       <div className={styles.wish_list_popup_wrapper}>
-         <Typography variant={"h4"}>
-            WISHLIST <Icons name={"love"} size={"1.5rem"} color={"#cc2121"} />
-         </Typography>
-         {showCross &&
-            <div
-               className={styles.close_icon}
-               onClick={() => { dispatch(setToggleWishList(false)) }}>
-               <Button variant={"icon-btn-normal"}>
-                  <Icons name={"cross"} color={"#cc2121"} />
-               </Button>
-            </div>}
-         {wishListItem.map((list) => (
-            <Link
-               key={list?.id}
-               to={`/product-details/${list?.id}`}
-               onClick={() => { dispatch(setToggleWishList(false)) }}>
-               <div className={styles.modal_content_wrapper}>
-                  <div className={styles.img_wrapper}>
-                     <img src={list?.imageUrl} alt="" />
-                  </div>
-                  <div className={styles.details_wrapper}>
-                     <Typography variant={"h5"}>{list?.title}</Typography>
-                     <Typography variant={"h5"}>&#2547; {list?.price}</Typography>
-                  </div>
-                  <Button variant={"icon-btn-normal"} onClick={() => removeHandler(list?.id)}>
-                     <Icons name={"delete"} color={"#cc2121"} />
+         <div className={styles.wishList_row}>
+            <Typography variant={"h4"}>
+               WISHLIST <Icons name={"love"} size={"1.5rem"} color={"#cc2121"} />
+            </Typography>
+            {showCross &&
+               <div
+                  className={styles.close_icon}
+                  onClick={() => { dispatch(setToggleWishList(false)) }}>
+                  <Button variant={"icon-btn-normal"}>
+                     <Icons name={"cross"} color={"#cc2121"} />
                   </Button>
-               </div>
-            </Link>
-         ))}
-         <div className={styles.message}>
-            {wishListItem.length <= 0 &&
-               < Typography
-                  color={"red"}
-                  variant={"body"}>
-                  You don't have any wishlists yet!
-               </Typography>
-            }
+               </div>}
+            {wishListItem.map((list) => (
+               <Link
+                  key={list?.id}
+                  to={`/product-details/${list?.id}`}
+                  onClick={() => { dispatch(setToggleWishList(false)) }}>
+                  <div className={styles.modal_content_wrapper}>
+                     <div className={styles.img_wrapper}>
+                        <img src={list?.imageUrl} alt="" />
+                     </div>
+                     <div className={styles.details_wrapper}>
+                        <Typography variant={"h5"}>{list?.title}</Typography>
+                        <Typography variant={"h5"}>&#2547; {list?.price}</Typography>
+                     </div>
+                     <Button variant={"icon-btn-normal"} onClick={() => removeHandler(list?.id)}>
+                        <Icons name={"delete"} color={"#cc2121"} />
+                     </Button>
+                  </div>
+               </Link>
+            ))}
+            <div className={styles.message}>
+               {wishListItem.length <= 0 &&
+                  < Typography
+                     color={"red"}
+                     variant={"body"}>
+                     You don't have any wishlists yet!
+                  </Typography>
+               }
+            </div>
          </div>
       </div>
    )
