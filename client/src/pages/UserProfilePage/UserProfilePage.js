@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PageLayout from '../../layouts/PageLayout';
 import styles from "./styles/UserProfilePage.module.scss";
 import PropTypes from 'prop-types';
@@ -12,6 +12,7 @@ import WishlistCard from '../../components/Common/Card/WishlistCard';
 import ProfileInfo from './Components/ProfileInfo';
 import Orders from './Components/Orders';
 import Settings from './Components/Settings';
+import Button from '../../components/Common/Button/Button';
 
 const TabPanel = (props) => {
    const { children, value, index, ...other } = props;
@@ -44,28 +45,11 @@ const a11yProps = (index) => {
    };
 }
 
-// const tabLabel = [
-//    {
-//       label: "Profile",
-//       icon: "person"
-//    },
-//    {
-//       label: "Wishlists",
-//       icon: "love"
-//    },
-//    {
-//       label: "Orders",
-//       icon: "bag"
-//    },
-//    {
-//       label: "Settinngs",
-//       icon: "settings"
-//    }
-// ]
+const tabData = [{ icon: 'person', label: 'Profile' }, { icon: 'love', label: 'Wishlist' }, { icon: 'bag', label: 'Orders' }, { icon: 'settings', label: 'Settings' }];
 
 const UserProfilePage = () => {
    const [value, setValue] = React.useState(0);
-
+   const [showToggle, setShowToggle] = useState(true)
    const { isLoading, error, userProfileData } = useSelector(state => state.userProfile)
    const dispatch = useDispatch();
    const { id } = useParams()
@@ -78,38 +62,38 @@ const UserProfilePage = () => {
    return (
       <PageLayout>
          <div className={styles.page_wrapper}>
+            <div className={styles.toggle_btn}>
+               {showToggle && <Button variant={"icon-btn-normal"} onClick={() => setShowToggle(!showToggle)}>
+                  <Icons size={"2.9rem"} color={"#116954"} name={"on"} />
+               </Button>
+               }
+               {!showToggle && <Button variant={"icon-btn-normal"} onClick={() => setShowToggle(!showToggle)}>
+                  <Icons size={"2.9rem"} color={"#cc2121"} name={"off"} />
+               </Button>}
+            </div>
             <Typography variant={"h5"}>My Account</Typography>
             <div className={styles.profile_tab_wrapper}>
-               <div className={styles.tabs_list}>
-                  <Tabs
-                     orientation="vertical"
-                     value={value}
-                     onChange={handleChange}
-                     aria-label="Vertical tabs example"
-                     sx={{ borderRight: 1, borderColor: 'divider', alignItems: "flex-start" }}
-                  >
-                     <Tab
-                        sx={{ justifyContent: "start", textTransform: "capitalize" }}
-                        icon={<Icons name={"person"} />}
-                        iconPosition="start"
-                        label="Profile" {...a11yProps(0)} />
-                     <Tab
-                        sx={{ justifyContent: "start", textTransform: "capitalize" }}
-                        icon={<Icons name={"love"} />}
-                        iconPosition="start"
-                        label="Wishlist" {...a11yProps(1)} />
-                     <Tab
-                        sx={{ justifyContent: "start", textTransform: "capitalize" }}
-                        icon={<Icons name={"bag"} />}
-                        iconPosition="start"
-                        label="Orders" {...a11yProps(2)} />
-                     <Tab
-                        sx={{ justifyContent: "start", textTransform: "capitalize" }}
-                        icon={<Icons name={"settings"} />}
-                        iconPosition="start"
-                        label="Settings" {...a11yProps(3)} />
-                  </Tabs>
-               </div>
+               {showToggle &&
+                  <div className={styles.tabs_list}>
+                     <Tabs
+                        orientation="vertical"
+                        value={value}
+                        onChange={handleChange}
+                        aria-label="Vertical tabs example"
+                        sx={{ borderRight: 1, borderColor: 'divider', alignItems: "flex-start" }}
+                     >
+                        {tabData.map(({ icon, label }, index) => (
+                           <Tab
+                              sx={{ justifyContent: "start", textTransform: "capitalize" }}
+                              icon={<Icons name={icon} />}
+                              iconPosition="start"
+                              label={label} {...a11yProps(index)}
+                              key={index}
+                           />
+                        ))}
+                     </Tabs>
+                  </div>
+               }
                <div className={styles.tab_panels}>
                   <TabPanel value={value} index={0}>
                      <ProfileInfo userProfileData={userProfileData} />

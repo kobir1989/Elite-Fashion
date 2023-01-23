@@ -4,15 +4,32 @@
 .page_wrapper {
 	margin: 3.5rem 0 4.5rem 0;
 	padding: 2rem;
+	position: relative;
 	background-color: $body;
+	.toggle_btn {
+		@include flex-row-center;
+		justify-content: center;
+		margin-top: -2.2rem;
+	}
 	.profile_tab_wrapper {
 		@include flex-row;
 		gap: 2rem;
 		margin-top: 3rem;
 	}
 	.tabs_list {
-		width: 10rem;
-		align-items: flex-start;
+		width: 50%;
+		background-color: $body;
+		z-index: 40;
+		position: absolute;
+		@include box-shadow-soft;
+		min-height: 28.5rem;
+		border-radius: 8px;
+		@include screens-md {
+			width: 10rem;
+			position: unset;
+			align-items: flex-start;
+			box-shadow: unset;
+		}
 	}
 	.tab_panels {
 		background-color: $white;

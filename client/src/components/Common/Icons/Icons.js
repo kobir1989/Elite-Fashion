@@ -27,7 +27,9 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-
+import ErrorIcon from '@mui/icons-material/Error';
+import ToggleOnIcon from '@mui/icons-material/ToggleOn';
+import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 
 
 const icons = {
@@ -59,6 +61,9 @@ const icons = {
    instagram: InstagramIcon,
    backArrow: ArrowBackIosNewIcon,
    forwardArrow: ArrowForwardIosIcon,
+   error: ErrorIcon,
+   off: ToggleOffIcon,
+   on: ToggleOnIcon
 }
 
 const Icons = React.forwardRef((props, ref) => {

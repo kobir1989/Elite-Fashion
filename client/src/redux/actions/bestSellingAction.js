@@ -11,7 +11,7 @@ export const fetchBestSellingProducts = createAsyncThunk(
          return response?.data?.products;
       } catch (err) {
          console.log(err);
-         return rejectWithValue(err?.response)
+         return rejectWithValue(err)
       }
    }
 );

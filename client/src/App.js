@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import SubCategoryPage from "./pages/SubCategoryPage/SubCategoryPage";
@@ -11,14 +11,9 @@ import CartPage from "./pages/CartPage/CartPage";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
-import { isAuth } from "./helpers/isAuth.helper";
-import { useSelector } from "react-redux";
-import WishListModal from "./components/WishListModal/WishListModal";
 
 const App = () => {
-  axios.defaults.withCredentials = true;
-  const { userInfo } = useSelector(state => state.auth);
-  const isLoggedIn = isAuth(userInfo);
+  // axios.defaults.withCredentials = true;
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
@@ -27,15 +22,14 @@ const App = () => {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/products/:id" element={<ProductsPage />} />
       <Route path="/product-details/:id" element={<ProductDetailsPage />} />
-      <Route element={<ProtectedRoute role={"ADMIN"} />}>
-      </Route>
-      {isLoggedIn && <>
+      <Route element={<ProtectedRoute />}>
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/user-profile/:id" element={<UserProfilePage />} />
+      </Route>
 
-      </>
-      }
+
+
       <Route path='*' element={<Navigate to='/login' replace />} />
     </Routes>
   );

@@ -4,7 +4,7 @@ import Rating from '@mui/material/Rating';
 const Ratings = ({ value = 4 }) => {
    return (
       <div>
-         <Rating name="read-only" value={value} size="small" readOnly />
+         <Rating name="read-only" sx={{ color: "#cc2121" }} value={value} size="small" readOnly />
       </div>
    )
 }

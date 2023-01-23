@@ -4,12 +4,20 @@ import Typography from '../../components/Common/Typography/Typography';
 import Button from '../../components/Common/Button/Button';
 import PageLayout from '../../layouts/PageLayout';
 import styles from "./styles/CartPage.styles.module.scss";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import TotalAmountView from '../../components/TotalAmountView/TotalAmountView';
 import CartProductInfoCard from '../../components/Common/Card/CartProductInfoCard';
+import { toast } from 'react-hot-toast';
 
 const CartPage = () => {
-   const { cartItem, totalAmount } = useSelector(state => state.cart);
+   const { cartItem, totalAmount, quantity } = useSelector(state => state.cart);
+   const navigate = useNavigate()
+   const checkoutHandler = () => {
+      if (quantity <= 0) {
+         return toast.error("Please add a product to your cart before proceeding to checkout!")
+      }
+      navigate("/checkout")
+   }
    return (
       <PageLayout>
          <div className={styles.cart_content_wrapper}>
@@ -28,11 +36,9 @@ const CartPage = () => {
             </div>
             <TotalAmountView totalAmount={totalAmount} />
             <div className={styles.checkout_btn}>
-               <Link to={"/checkout"}>
-                  <Button variant={"rounded"}>
-                     Checkout
-                  </Button>
-               </Link>
+               <Button variant={"rounded"} onClick={checkoutHandler}>
+                  Checkout
+               </Button>
             </div>
          </div>
       </PageLayout>

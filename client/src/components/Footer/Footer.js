@@ -50,16 +50,35 @@ const Footer = () => {
                      <Icons name={"phone"} size={"1.1rem"} />
                      +88017XXXXXX
                   </li>
+                  <li>
+                     <div className={styles.social_icons}>
+                        <span>
+                           <Icons name={"facebook"} size={"1.5rem"} color={"#fff"} />
+                        </span>
+                        <span>
+                           <Icons name={"twitter"} size={"1.5rem"} color={"#fff"} />
+                        </span>
+                        <span>
+                           <Icons name={"youtube"} size={"1.5rem"} color={"#fff"} />
+                        </span>
+                        <span>
+                           <Icons name={"instagram"} size={"1.5rem"} color={"#fff"} />
+                        </span>
+                     </div>
+                  </li>
                </ul>
             </div>
          </div>
-         <div className={styles.footer_social_icons}>
-            <span><Icons name={"facebook"} /></span>
-            <span><Icons name={"twitter"} /></span>
-            <span><Icons name={"youtube"} /></span>
-            <span><Icons name={"instagram"} /></span>
-         </div>
          <div className={styles.footer_copyright}>
+            <div className={styles.payment_logo}>
+               <Typography variant={"small"} color={"white"}>
+                  We Accept
+               </Typography>
+               <div>
+                  <img src="/assets/master.png" alt="master.png" />
+                  <img src="/assets/visa.png" alt="visa.png" />
+               </div>
+            </div>
             <Typography color={"white"} variant={"small"}>Copyright &copy;  2023 | Kabir Hossain
             </Typography>
          </div>

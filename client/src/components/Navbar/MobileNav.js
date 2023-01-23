@@ -6,6 +6,7 @@ import { setToggleWishList } from "../../redux/features/wishLishSlice";
 import Button from '../Common/Button/Button';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { setOpenSearchBox } from "../../redux/features/searchSlice";
 
 const MobileNav = (
    {
@@ -46,12 +47,13 @@ const MobileNav = (
                      </Button>
                   </div>
                   <div className={styles.nav_menu_mobile_dropdown_search}>
-                     <span className={styles.input}>
-                        <Input size={"small"} label={"Search"} />
-                     </span>
-                     <span className={styles.icon}>
-                        <Icons name={"search"} size={"1.3rem"} color={"#b5b5b5"} />
-                     </span>
+                     <Button variant={"icon-btn-black"} onClick={() => { dispatch(setOpenSearchBox(true)) }}>
+                        Search...
+                        <Icons
+                           name={"search"}
+                           size={"1.3rem"}
+                           color={"#b5b5b5"} />
+                     </Button>
                   </div>
                   <ul className={styles.nav_menu_mobile_dropdown_links}>
                      <li>

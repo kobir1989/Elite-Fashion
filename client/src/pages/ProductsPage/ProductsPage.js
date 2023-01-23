@@ -11,7 +11,7 @@ import { fetchProducts } from "../../redux/actions/productsAction";
 import { loadPage } from "../../redux/features/productsSlice";
 import CardSkeleton from '../../components/Common/Skeleton/CardSkeleton';
 import ProductCard from '../../components/Common/Card/ProductCard';
-import Error500 from "../../components/Common/Error/Error500";
+import ErrorMessage from '../../components/Common/Error/ErrorMessage';
 
 const ProductsPage = () => {
    const { id } = useParams();
@@ -33,6 +33,7 @@ const ProductsPage = () => {
 
    return (
       <PageLayout>
+         {error && <ErrorMessage />}
          <ProductsLayout>
             {products?.result?.map((product) => (
                <ProductCard
@@ -52,7 +53,7 @@ const ProductsPage = () => {
                   height={"28rem"}
                />
             }
-            {error && <Error500 />}
+
          </ProductsLayout>
          <div className={styles.pagination_buttons}>
             {products?.previous &&

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Slider from 'react-slick';
 import styles from "./styles/BestSellingProduct.module.scss";
 import "slick-carousel/slick/slick.css";
@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import Typography from '../Common/Typography/Typography';
 import { NextArrow } from '../Common/Button/SliderButton';
 import { PrevArrow } from '../Common/Button/SliderButton';
+import ErrorMessage from "../Common/Error/ErrorMessage";
+
 
 const settings = {
    // dots: true,
@@ -88,9 +90,11 @@ const BestSellingProduct = ({ title }) => {
                />
             </div>
          }
-         {error &&
-            <Typography variant={"body"}>Something went wrong!</Typography>
-         }
+         <div>
+            {error &&
+               <ErrorMessage />
+            }
+         </div>
       </div>
    )
 }

@@ -48,7 +48,7 @@ const LoginPage = () => {
    useEffect(() => {
       if (isLoggedIn) {
          navigate("/");
-         toast.success("Login Successfull");
+         toast.success("Welcome Back");
          setLoginValue(defaultLoginValue);
       }
    }, [isLoggedIn, navigate])

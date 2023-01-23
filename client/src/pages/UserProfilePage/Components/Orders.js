@@ -10,17 +10,17 @@ const Orders = ({ userProfileData }) => {
       <div>
          <div>
             <Typography variant={"h4"}>Order History</Typography>
-            {product && product.lenght ? product.product.map((item) => (
+            {purchases && purchases.length ? product.product.map((item) => (
                <div className={styles.order_products} key={item?._id._id}>
                   <div className={styles.order_date_status}>
                      <Typography variant={"body"}>
-                        {dayjs(purchases && purchases.lenght ? purchases[0].createdAt : "")
+                        {dayjs(purchases && purchases.length ? purchases[0].createdAt : "")
                            .format('MMMM DD YYYY, h:mm:ss A')
                         }
                      </Typography>
                      <Typography variant={"body"}
                         color={"success"}>
-                        STATUS: {purchases && purchases.lenght ? purchases[0].orderStatus : ""}
+                        STATUS: {purchases && purchases.length ? purchases[0].orderStatus : ""}
                      </Typography>
                   </div>
                   <div className={styles.order_details}>

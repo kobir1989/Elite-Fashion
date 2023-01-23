@@ -6,7 +6,8 @@ export const fetchSubCategory = createAsyncThunk("subcategory/fetchSubCategory",
       try {
          console.log(id, "SLICE")
          const response = await axiosBaseUrl.get(`/sub-category/${id}`);
-         return response.data.subCategories;
+         console.log(response.data.subCategories)
+         return response?.data?.subCategories;
       } catch (err) {
          return rejectWithValue(err?.response?.data);
       }

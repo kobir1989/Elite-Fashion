@@ -1,13 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+import { axiosBaseUrl } from "../../utils/axios.config";
 
 export const postCheckoutData = createAsyncThunk(
    "checkout/postCheckout",
    async (checkout, { rejectWithValue }) => {
       try {
-         const response = await axios.post(`${BASE_URL}/order/create/${checkout.userId}`, { checkout });
+         const response = await axiosBaseUrl.post(`/order/create/${checkout.userId}`, { checkout });
          console.log(response, "RESPONSE CHECHOUT")
          return response?.data
 

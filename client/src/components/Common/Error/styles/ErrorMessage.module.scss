@@ -1,0 +1,11 @@
+@import "../../../../sass/sass-utils/mixins";
+.error_wrapper {
+	@include flex-row-center;
+	justify-content: center;
+	min-height: 12rem;
+	width: 100%;
+	h5 {
+		@include flex-row-center;
+		gap: 0.3rem;
+	}
+}

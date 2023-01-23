@@ -3,7 +3,7 @@ import PageLayout from "../../layouts/PageLayout";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSubCategory } from "../../redux/actions/subCategoryAction";
-import Error from "../../components/Common/Error/Error500";
+import ErrorMessage from '../../components/Common/Error/ErrorMessage';
 import GridViewLayout from '../../layouts/GridViewLayout';
 import CardSkeleton from '../../components/Common/Skeleton/CardSkeleton';
 import CategoryCard from '../../components/Common/Card/CategoryCard';
@@ -21,6 +21,7 @@ const SubCategoryPage = () => {
    }, [id, dispatch])
    return (
       <PageLayout>
+         {error && <ErrorMessage />}
          <GridViewLayout page={"sub_category"}>
             {subCategories.map((subCategory) => (
                <CategoryCard
@@ -37,7 +38,6 @@ const SubCategoryPage = () => {
                   height={"100%"}
                />
             }
-            {error && <Error />}
          </GridViewLayout>
       </PageLayout>
    )

@@ -1,13 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+import { axiosBaseUrl } from "../../utils/axios.config";
 
 export const fetchUserInfo = createAsyncThunk(
    "userProfile/fetchUserInfo",
    async (id, { rejectWithValue }) => {
       try {
-         const response = await axios.get(`${BASE_URL}/user/profile/${id}`);
+         const response = await axiosBaseUrl.get(`/user/profile/${id}`);
          console.log(response?.data?.user);
          return response?.data?.user;
       } catch (err) {
@@ -22,13 +20,13 @@ export const updateUserProfile = createAsyncThunk(
    "userProfile/updateUserProfile",
    async ({ id, email, oldPassword, newPassword, confirmNewPassword }, { rejectWithValue }) => {
       try {
-         const response = await axios.post(`${BASE_URL}/user/update/profile/${id}`, {
+         const response = await axiosBaseUrl.post(`/user/update/profile/${id}`, {
             oldPassword,
             newPassword,
             confirmNewPassword,
             email
          });
-         console.log(response);
+         // console.log(response);
          return response?.data;
       } catch (err) {
          console.log(err);

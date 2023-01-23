@@ -113,7 +113,9 @@ const Navbar = () => {
             wishListItem={wishListItem}
             toggleWishList={toggleWishList}
             isLoggedIn={isLoggedIn}
-            quantity={quantity} />
+            quantity={quantity}
+
+         />
          {/*********************************/}
       </nav>
    )

@@ -9,10 +9,7 @@
 		text-align: center;
 	}
 	.slider_wrapper {
-		padding: 0 2rem;
-		@include screens-2xl {
-			padding: 0;
-		}
+		padding: 0 2.2rem;
 	}
 	.best_selling_product_card {
 		height: 32rem;
