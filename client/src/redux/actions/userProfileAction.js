@@ -6,13 +6,12 @@ export const fetchUserInfo = createAsyncThunk(
    async (id, { rejectWithValue }) => {
       try {
          const response = await axiosBaseUrl.get(`/user/profile/${id}`);
-         console.log(response?.data?.user);
+         // console.log(response);
          return response?.data?.user;
       } catch (err) {
-         console.log(err);
+         console.log(err.response);
          return rejectWithValue(err.response);
       }
-
    }
 );
 
@@ -26,6 +25,7 @@ export const updateUserProfile = createAsyncThunk(
             confirmNewPassword,
             email
          });
+
          // console.log(response);
          return response?.data;
       } catch (err) {

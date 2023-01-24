@@ -33,7 +33,7 @@
 	display: grid;
 	grid-template-columns: repeat(6, auto);
 	grid-auto-rows: 22rem;
-	gap: 1.4rem;
+	gap: 1rem;
 	@include screens-md {
 		grid-template-rows: 36rem 22rem 36rem;
 	}

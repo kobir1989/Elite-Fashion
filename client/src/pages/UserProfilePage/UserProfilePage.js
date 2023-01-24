@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PageLayout from '../../layouts/PageLayout';
 import styles from "./styles/UserProfilePage.module.scss";
-import PropTypes from 'prop-types';
-import { Tabs, Tab, Box } from '@mui/material';
+import { Tabs, Tab } from '@mui/material';
 import Typography from '../../components/Common/Typography/Typography';
 import Icons from '../../components/Common/Icons/Icons';
 import { useSelector, useDispatch } from "react-redux";
@@ -13,30 +12,8 @@ import ProfileInfo from './Components/ProfileInfo';
 import Orders from './Components/Orders';
 import Settings from './Components/Settings';
 import Button from '../../components/Common/Button/Button';
-
-const TabPanel = (props) => {
-   const { children, value, index, ...other } = props;
-   return (
-      <div
-         role="tabpanel"
-         hidden={value !== index}
-         id={`vertical-tabpanel-${index}`}
-         aria-labelledby={`vertical-tab-${index}`}
-         {...other}
-      >
-         {value === index && (
-            <Box sx={{ p: 3 }}>
-               {children}
-            </Box>
-         )}
-      </div>
-   );
-}
-TabPanel.propTypes = {
-   children: PropTypes.node,
-   index: PropTypes.number.isRequired,
-   value: PropTypes.number.isRequired,
-};
+import { userLogout } from "../../redux/actions/authAction";
+import TabPanel from './Components/TabPanel';
 
 const a11yProps = (index) => {
    return {
@@ -50,26 +27,38 @@ const tabData = [{ icon: 'person', label: 'Profile' }, { icon: 'love', label: 'W
 const UserProfilePage = () => {
    const [value, setValue] = React.useState(0);
    const [showToggle, setShowToggle] = useState(true)
-   const { isLoading, error, userProfileData } = useSelector(state => state.userProfile)
+   const { isLoading, error, userProfileData, userOrderData } = useSelector(state => state.userProfile)
    const dispatch = useDispatch();
    const { id } = useParams()
    useEffect(() => {
-      dispatch(fetchUserInfo(id))
-   }, [id, dispatch])
+      dispatch(fetchUserInfo(id));
+      if (error) {
+         console.log(error, "ERROR")
+         if (error.status === 401 || error.status === 403) {
+            dispatch(userLogout())
+         }
+      }
+
+   }, [id, dispatch, error])
    const handleChange = (event, newValue) => {
       setValue(newValue);
    };
+   console.log(userOrderData, "PROF")
    return (
       <PageLayout>
          <div className={styles.page_wrapper}>
             <div className={styles.toggle_btn}>
-               {showToggle && <Button variant={"icon-btn-normal"} onClick={() => setShowToggle(!showToggle)}>
-                  <Icons size={"2.9rem"} color={"#116954"} name={"on"} />
-               </Button>
+               {showToggle &&
+                  <Button variant={"icon-btn-normal"}
+                     onClick={() => setShowToggle(!showToggle)}>
+                     <Icons size={"2.9rem"} color={"#116954"} name={"on"} />
+                  </Button>
                }
-               {!showToggle && <Button variant={"icon-btn-normal"} onClick={() => setShowToggle(!showToggle)}>
-                  <Icons size={"2.9rem"} color={"#cc2121"} name={"off"} />
-               </Button>}
+               {!showToggle &&
+                  <Button variant={"icon-btn-normal"}
+                     onClick={() => setShowToggle(!showToggle)}>
+                     <Icons size={"2.9rem"} color={"#cc2121"} name={"off"} />
+                  </Button>}
             </div>
             <Typography variant={"h5"}>My Account</Typography>
             <div className={styles.profile_tab_wrapper}>
@@ -102,7 +91,10 @@ const UserProfilePage = () => {
                      <WishlistCard showCross={false} />
                   </TabPanel>
                   <TabPanel value={value} index={2}>
-                     <Orders userProfileData={userProfileData} />
+                     <Orders userOrderData={userOrderData}
+                        userProfileData={userProfileData}
+
+                     />
                   </TabPanel>
                   <TabPanel value={value} index={3}>
                      <Settings />

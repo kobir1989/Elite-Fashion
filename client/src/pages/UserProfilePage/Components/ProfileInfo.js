@@ -3,7 +3,6 @@ import Typography from '../../../components/Common/Typography/Typography';
 import styles from "../styles/ProfileInfo.module.scss";
 
 const ProfileInfo = ({ userProfileData }) => {
-   const { purchases } = userProfileData;
    return (
       <div className={styles.profile_info}>
          <Typography variant={"h4"}>Profile</Typography>
@@ -29,7 +28,7 @@ const ProfileInfo = ({ userProfileData }) => {
                   Phone:
                </Typography>
                <Typography variant={"body"}>
-                  {purchases && purchases.length ? purchases[0].phoneNumber : "0174XXXXXX"}
+                  {userProfileData?.phone || "None"}
                </Typography>
             </li>
             <li>
@@ -37,7 +36,7 @@ const ProfileInfo = ({ userProfileData }) => {
                   Address:
                </Typography>
                <Typography variant={"body"}>
-                  {purchases && purchases.length ? purchases[0].shippingAddress : "None"}
+                  {userProfileData?.address || "None"}
                </Typography>
             </li>
             <li>
@@ -45,7 +44,7 @@ const ProfileInfo = ({ userProfileData }) => {
                   City:
                </Typography>
                <Typography variant={"body"}>
-                  {purchases && purchases.length ? purchases[0].city : "none"}
+                  {userProfileData?.city || "None"}
                </Typography>
             </li>
          </ul>

@@ -112,7 +112,7 @@ const ProductDetailsView = () => {
                      <Icons name={"subtract"} color={"#cc2121"} />
                   </Button>
                   <Typography variant={"h5"}>
-                     {findQntt && findQntt.quantity || 0}
+                     {findQntt ? findQntt.quantity : 0}
                   </Typography>
                   <Button variant={"icon-btn-normal"}
                      onClick={() => {

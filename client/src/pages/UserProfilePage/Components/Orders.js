@@ -3,24 +3,22 @@ import dayjs from "dayjs"
 import Typography from '../../../components/Common/Typography/Typography';
 import styles from "../styles/Orders.module.scss";
 
-const Orders = ({ userProfileData }) => {
-   const { purchases } = userProfileData;
-   const [product] = purchases;
+const Orders = ({ userOrderData, userProfileData }) => {
    return (
       <div>
          <div>
             <Typography variant={"h4"}>Order History</Typography>
-            {purchases && purchases.length ? product.product.map((item) => (
+            {userOrderData && userOrderData.length ? userOrderData.map((item) => (
                <div className={styles.order_products} key={item?._id._id}>
                   <div className={styles.order_date_status}>
                      <Typography variant={"body"}>
-                        {dayjs(purchases && purchases.length ? purchases[0].createdAt : "")
+                        {dayjs(userProfileData?.date)
                            .format('MMMM DD YYYY, h:mm:ss A')
                         }
                      </Typography>
                      <Typography variant={"body"}
                         color={"success"}>
-                        STATUS: {purchases && purchases.length ? purchases[0].orderStatus : ""}
+                        STATUS: {userProfileData?.status}
                      </Typography>
                   </div>
                   <div className={styles.order_details}>

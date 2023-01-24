@@ -1,7 +1,6 @@
 const CustomError = require("../helper/customError");
 const User = require("../models/user.schema");
 const errorResponse = require("../helper/errorResponse");
-const cookieOptions = require("../utils/cookieOptions");
 
 /********************************************************
  * @userProfile
@@ -18,9 +17,12 @@ module.exports.userProfile = async (req, res) => {
          populate: {
             path: "product._id",
             model: "Product",
-            select: "title price image createdAt"
+            select: "title price image createdAt",
+            options: {
+               name: "items"
+            }
          }
-      })
+      });
 
       user.password = undefined;
       if (!user) {

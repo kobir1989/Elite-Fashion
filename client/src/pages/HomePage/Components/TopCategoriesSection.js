@@ -20,12 +20,12 @@ const TopCategoriesSection = () => {
             <CategoryCard
                title={"Women's Tops"}
                imgUrl={"https://res.cloudinary.com/dhkdpjwjm/image/upload/v1674331816/products/dresss_mglfq9.jpg"}
-               linkTo={"products/63b993d64548043f8e798be1"}
+               linkTo={"products/63b994104548043f8e798be7"}
             />
             <CategoryCard
                title={"Fashionable Accessories"}
                imgUrl={"https://res.cloudinary.com/dhkdpjwjm/image/upload/v1673105268/products/gxy13acqxvcunqok7kql.jpg"}
-               linkTo={"products/63b994104548043f8e798be7"}
+               linkTo={"products/63c9a2447a0abbfb3ac0687a"}
             />
          </GridViewLayout>
       </div>
