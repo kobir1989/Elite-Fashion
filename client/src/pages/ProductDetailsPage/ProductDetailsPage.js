@@ -7,7 +7,7 @@ import { fetchProducts } from "../../redux/actions/productsAction";
 import BestSellingProduct from "../../components/BestSellingProduct/BestSellingProduct";
 import { fetchBestSellingProducts } from "../../redux/actions/bestSellingAction";
 import ProductDetailsView from './Components/ProductDetailsView';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const ProductDetailsPage = () => {
    const dispatch = useDispatch()

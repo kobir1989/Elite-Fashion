@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Input from "../Common/Input/Input";
 import styles from "./styles/MobileNav.module.scss";
 import Icons from '../Common/Icons/Icons';
 import { setToggleWishList } from "../../redux/features/wishLishSlice";
@@ -12,9 +11,12 @@ const MobileNav = (
    {
       toggleWishList,
       wishListItem,
-      isLoggedIn,
-      quantity
+      userInfo,
+      quantity,
+      logoutHandler
+
    }) => {
+
    const [openMenu, setOpenMenu] = useState(false);
    const dispatch = useDispatch()
    return (
@@ -71,13 +73,15 @@ const MobileNav = (
                            LIFESTYLE
                         </Link>
                      </li>
-                     {isLoggedIn &&
+                     {userInfo &&
                         <>
                            <li>Account</li>
-                           <li>logout</li>
+                           <li onClick={logoutHandler}>
+                              logout
+                           </li>
                         </>
                      }
-                     {!isLoggedIn && <>
+                     {!userInfo && <>
                         <li>
                            <Link to="/login">login</Link>
                         </li>

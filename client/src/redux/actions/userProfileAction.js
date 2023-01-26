@@ -5,11 +5,11 @@ export const fetchUserInfo = createAsyncThunk(
    "userProfile/fetchUserInfo",
    async (id, { rejectWithValue }) => {
       try {
-         const response = await axiosBaseUrl.get(`/user/profile/${id}`);
+         const response = await axiosBaseUrl.get(`/user/profile/${id}`,);
          // console.log(response);
          return response?.data?.user;
       } catch (err) {
-         console.log(err.response);
+         // console.log(err.response);
          return rejectWithValue(err.response);
       }
    }

@@ -12,7 +12,6 @@ import ProfileInfo from './Components/ProfileInfo';
 import Orders from './Components/Orders';
 import Settings from './Components/Settings';
 import Button from '../../components/Common/Button/Button';
-import { userLogout } from "../../redux/actions/authAction";
 import TabPanel from './Components/TabPanel';
 
 const a11yProps = (index) => {
@@ -27,23 +26,18 @@ const tabData = [{ icon: 'person', label: 'Profile' }, { icon: 'love', label: 'W
 const UserProfilePage = () => {
    const [value, setValue] = React.useState(0);
    const [showToggle, setShowToggle] = useState(true)
-   const { isLoading, error, userProfileData, userOrderData } = useSelector(state => state.userProfile)
+   const { isLoading, userProfileData, userOrderData } = useSelector(state => state.userProfile)
    const dispatch = useDispatch();
    const { id } = useParams()
+
    useEffect(() => {
       dispatch(fetchUserInfo(id));
-      if (error) {
-         console.log(error, "ERROR")
-         if (error.status === 401 || error.status === 403) {
-            dispatch(userLogout())
-         }
-      }
+   }, [id, dispatch])
 
-   }, [id, dispatch, error])
-   const handleChange = (event, newValue) => {
+   const handleChange = (_event, newValue) => {
       setValue(newValue);
    };
-   console.log(userOrderData, "PROF")
+
    return (
       <PageLayout>
          <div className={styles.page_wrapper}>
@@ -85,15 +79,17 @@ const UserProfilePage = () => {
                }
                <div className={styles.tab_panels}>
                   <TabPanel value={value} index={0}>
-                     <ProfileInfo userProfileData={userProfileData} />
+                     <ProfileInfo
+                        userProfileData={userProfileData}
+                        isLoading={isLoading} />
                   </TabPanel>
                   <TabPanel value={value} index={1}>
                      <WishlistCard showCross={false} />
                   </TabPanel>
                   <TabPanel value={value} index={2}>
-                     <Orders userOrderData={userOrderData}
+                     <Orders
+                        userOrderData={userOrderData}
                         userProfileData={userProfileData}
-
                      />
                   </TabPanel>
                   <TabPanel value={value} index={3}>

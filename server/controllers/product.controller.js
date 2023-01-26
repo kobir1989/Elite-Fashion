@@ -12,7 +12,7 @@ const errorResponse = require("../helper/errorResponse");
 module.exports.createNewProduct = async (req, res) => {
    try {
       //only ADMIN has access.
-      if (req.role !== "ADMIN") {
+      if (req.user.role !== "ADMIN") {
          throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
       };
       const {
@@ -58,7 +58,7 @@ module.exports.createNewProduct = async (req, res) => {
 module.exports.editProduct = async (req, res) => {
    try {
       //only ADMIN has access.
-      if (req.role !== "ADMIN") {
+      if (req.user.role !== "ADMIN") {
          throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
       };
       const {
@@ -118,7 +118,7 @@ module.exports.editProduct = async (req, res) => {
 module.exports.deleteProduct = async (req, res) => {
    try {
       //only ADMIN has access.
-      if (req.role !== "ADMIN") {
+      if (req.user.role !== "ADMIN") {
          throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
       };
       const { productId } = req.params;

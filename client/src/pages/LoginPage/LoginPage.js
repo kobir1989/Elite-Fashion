@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../redux/actions/authAction";
 import toast from 'react-hot-toast';
 import { setError } from "../../redux/features/authSlice";
-import { isAuth } from "../../helpers/isAuth.helper";
 
 const defaultLoginValue = {
    email: "",
@@ -25,9 +24,8 @@ const LoginPage = () => {
    const {
       loading,
       error,
-      userInfo
+      token
    } = useSelector(state => state.auth);
-   const isLoggedIn = isAuth(userInfo)
 
    const onChangeHandler = (e) => {
       const { name, value } = e.target;
@@ -46,12 +44,12 @@ const LoginPage = () => {
    };
 
    useEffect(() => {
-      if (isLoggedIn) {
+      if (token) {
          navigate("/");
          toast.success("Welcome Back");
          setLoginValue(defaultLoginValue);
       }
-   }, [isLoggedIn, navigate])
+   }, [token, navigate])
 
    return (
       <PageLayout>

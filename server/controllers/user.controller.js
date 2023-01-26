@@ -11,8 +11,8 @@ const errorResponse = require("../helper/errorResponse");
  *********************************************************/
 module.exports.userProfile = async (req, res) => {
    try {
-      const { userId } = req.params;
-      const user = await User.findById({ _id: userId }).populate({
+      const { _id } = req.user;
+      const user = await User.findById({ _id: _id }).populate({
          path: "purchases",
          populate: {
             path: "product._id",

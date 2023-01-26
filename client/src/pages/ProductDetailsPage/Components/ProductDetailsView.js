@@ -131,7 +131,7 @@ const ProductDetailsView = () => {
                </div>
                <div className={styles.checkout_btn_wrapper}>
                   {findQntt && findQntt.quantity > 0 ?
-                     <Button variant={"btn-black"}
+                     <Button variant={"primary"}
                         onClick={checkoutHandler}>
                         Checkout
                      </Button>

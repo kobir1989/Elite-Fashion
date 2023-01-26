@@ -8,29 +8,37 @@
 	cursor: pointer;
 	&:hover {
 		@include box-shadow-diffuse;
+		transition: all 0.2s linear;
 	}
 }
+//Black background
 .primary {
-	background-color: unset;
-	border: 1px solid $black_main;
-	color: $black_main;
+	background-color: $black_main;
+	border: unset;
+	color: $light_gray;
 	font-weight: 500;
 	border-radius: 4px;
 	&:hover {
-		background-color: $black_main;
 		color: $white;
 	}
 }
+//Hover background - Red
 .white {
 	background-color: $white;
-	border: 1px solid $black_main;
+	border: unset;
 	color: $black_main;
 	font-weight: 500;
 	border-radius: 8px;
+	transition: all 0.3s linear;
 	&:hover {
-		border: 1px solid $red_deep;
+		background-color: $red_main;
+		color: $white;
+		border: unset;
+		transform: translateY(0.1rem);
+		transition: all 0.2s linear;
 	}
 }
+//Background black rounded
 .rounded {
 	background-color: $black_main;
 	color: $white;
@@ -38,53 +46,33 @@
 	border-radius: 2.2rem;
 	font-weight: 300;
 }
-.red {
-	background-color: $red_main;
-	border: unset;
-	border-radius: 4px;
-	font-weight: 400;
-	color: $white;
-	padding: 0.7rem 1.5rem;
-	font-size: 0.9rem;
-	&:hover {
-		background-color: $tomato_hover;
-		color: $white;
-		border: unset;
-	}
-}
-.success {
-	background-color: $green;
-	border: unset;
-	border-radius: 8px;
-	font-weight: 300;
-	color: $white;
-	&:hover {
-		background-color: unset;
-		border: 1px solid $green;
-		color: $white;
-	}
-}
-.btn-black {
-	background-color: $black_main;
-	color: $light_gray;
-	border: unset;
-	border-radius: 4px;
-	font-weight: 300;
-	&:hover {
-		color: $white;
-	}
-}
+// .red {
+// 	background-color: $red_main;
+// 	border: unset;
+// 	border-radius: 4px;
+// 	font-weight: 400;
+// 	color: $white;
+// 	padding: 0.7rem 1.5rem;
+// 	font-size: 0.9rem;
+// 	&:hover {
+// 		background-color: $tomato_hover;
+// 		color: $white;
+// 		border: unset;
+// 	}
+// }
 
-.icon-btn-black {
-	background-color: $black_main;
-	color: $white;
-	border-radius: 4px;
-	font-weight: 300;
-	padding: 0.4rem 0.9rem;
-	&:hover {
-		background-color: $black_main;
-	}
-}
+// .icon-btn-black {
+// 	background-color: $black_main;
+// 	color: $white;
+// 	border-radius: 4px;
+// 	font-weight: 300;
+// 	padding: 0.4rem 0.9rem;
+// 	&:hover {
+// 		background-color: $black_main;
+// 	}
+// }
+
+// Icons Squre white banckground hover - background red
 .icon-btn-white {
 	background-color: $white;
 	color: $black_main;
@@ -97,6 +85,7 @@
 		color: $white;
 	}
 }
+// No background
 .icon-btn-normal {
 	background-color: unset;
 	color: $gray_text;
@@ -108,6 +97,8 @@
 		box-shadow: unset;
 	}
 }
+
+//White background banner btn
 .small-white {
 	background-color: unset;
 
@@ -122,6 +113,7 @@
 	}
 }
 
+//Transparent banckground banner btn
 .small-banner {
 	background-color: rgba(253, 252, 250, 0.226);
 

@@ -6,7 +6,8 @@ export const userLogin = createAsyncThunk(
    async ({ email, password }, { rejectWithValue }) => {
       try {
          const response = await axiosBaseUrl.post(`/auth/login`, { email, password });
-         return response?.data.userPayload;
+         console.log(response.data, "RESPONSE")
+         return response?.data;
       } catch (err) {
          console.log(err?.response)
          return rejectWithValue(err?.response?.data)
@@ -25,23 +26,9 @@ export const userSignup = createAsyncThunk(
             password,
             confirmPassword
          });
-         return response?.data?.userPayload;
+         return response?.data;
       } catch (err) {
          return rejectWithValue(err?.response?.data);
       }
    }
 );
-
-export const userLogout = createAsyncThunk(
-   "auth/userLogout",
-   async (_, { rejectWithValue }) => {
-      try {
-         const response = await axiosBaseUrl.get(`/auth/logout`);
-         console.log(response?.data)
-         return response?.data;
-
-      } catch (err) {
-         return rejectWithValue(err?.response?.data);
-      }
-   }
-)
