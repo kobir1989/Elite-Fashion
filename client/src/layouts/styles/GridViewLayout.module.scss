@@ -37,6 +37,9 @@
 	@include screens-md {
 		grid-template-rows: 36rem 22rem 36rem;
 	}
+	@include screens-2xl {
+		padding: 1rem 0;
+	}
 }
 
 .grid_view_wrapper_sub_category > *:nth-child(1),

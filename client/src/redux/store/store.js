@@ -13,6 +13,7 @@ import checkoutReducer from "../features/checkoutSlice";
 import userProfileReducer from "../features/userProfileSlice";
 import bestSellingReducer from "../features/bestSellingSlice";
 import searchReducer from "../features/searchSlice";
+
 const reducers = combineReducers({
    subCategory: subCategoryReducer,
    auth: authReducer,

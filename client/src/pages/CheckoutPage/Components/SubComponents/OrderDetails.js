@@ -27,12 +27,12 @@ const OrderDetails = ({ onBack, onNext }) => {
          </div>
          <div className={styles.btn_wrapper}>
             <Button
-               variant={"primary"}
+               variant={"btn-border-black"}
                onClick={onBack}>
                Back
             </Button>
             <Button
-               variant={"btn-black"}
+               variant={"primary"}
                onClick={onNext}>
                Confirm
             </Button>

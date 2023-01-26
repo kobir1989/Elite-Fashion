@@ -74,7 +74,10 @@ const BestSellingProduct = ({ title }) => {
                            imageUrl={product?.image}
                            linkTo={`/product-details/${product?._id}`}
                            price={product?.price}
-                           id={product?._id} />
+                           id={product?._id}
+                           discount={true}
+                           percentage={"15% OFF"}
+                        />
                      </div>
                   ))
                }

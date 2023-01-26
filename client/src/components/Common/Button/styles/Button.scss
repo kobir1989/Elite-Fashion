@@ -2,13 +2,18 @@
 @import "../../../../sass/sass-utils/mixins";
 
 .button {
-	padding: 0.8rem 2rem;
+	padding: 0.7rem 2rem;
 	letter-spacing: 0.5px;
-	font-size: 1rem;
+	font-size: 0.8rem;
 	cursor: pointer;
 	&:hover {
 		@include box-shadow-diffuse;
 		transition: all 0.2s linear;
+	}
+	@include screens-md {
+		padding: 0.8rem 2rem;
+		letter-spacing: 0.5px;
+		font-size: 1rem;
 	}
 }
 //Black background
@@ -46,31 +51,37 @@
 	border-radius: 2.2rem;
 	font-weight: 300;
 }
-// .red {
-// 	background-color: $red_main;
-// 	border: unset;
-// 	border-radius: 4px;
-// 	font-weight: 400;
-// 	color: $white;
-// 	padding: 0.7rem 1.5rem;
-// 	font-size: 0.9rem;
-// 	&:hover {
-// 		background-color: $tomato_hover;
-// 		color: $white;
-// 		border: unset;
-// 	}
-// }
 
-// .icon-btn-black {
-// 	background-color: $black_main;
-// 	color: $white;
-// 	border-radius: 4px;
-// 	font-weight: 300;
-// 	padding: 0.4rem 0.9rem;
-// 	&:hover {
-// 		background-color: $black_main;
-// 	}
-// }
+//White background black-border
+.btn-border-black {
+	background-color: $white;
+	color: $black_main;
+	border-radius: 4px;
+	border: 1px solid $dark_gray;
+	font-weight: 400;
+	padding: 0.6rem 1.9rem;
+	transition: all 0.4s linear;
+	&:hover {
+		background-color: $black_main;
+		color: $white;
+		transition: all 0.4s linear;
+	}
+}
+
+//Balck background squre small btn
+.btn-black-small {
+	background-color: $black_main;
+	color: $white;
+	border-radius: 4px;
+	font-weight: 300;
+	padding: 0.2rem 0.9rem;
+	font-size: 0.9rem;
+	color: $light_gray;
+	&:hover {
+		background-color: $black_main;
+		color: $white;
+	}
+}
 
 // Icons Squre white banckground hover - background red
 .icon-btn-white {
@@ -80,9 +91,11 @@
 	border: 1px solid $light_gray;
 	font-weight: 300;
 	padding: 0.5rem 0.9rem;
+	transition: all 0.2s linear;
 	&:hover {
 		background-color: $red_main;
 		color: $white;
+		transition: all 0.2s linear;
 	}
 }
 // No background
@@ -101,15 +114,19 @@
 //White background banner btn
 .small-white {
 	background-color: unset;
-
 	color: $black_main;
-	border: 1px solid $gray_text;
+	border: 1px solid $light_gray;
 	font-weight: 300;
 	padding: 0.6rem 1.2rem;
 	font-size: 0.9rem;
 	border-radius: 4px;
+	transition: all 0.3s linear;
 	&:hover {
 		color: $red_main;
+		background-color: $red_main;
+		border: 1px solid $red_main;
+		color: $white;
+		transition: all 0.3s linear;
 	}
 }
 

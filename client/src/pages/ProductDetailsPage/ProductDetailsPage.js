@@ -19,7 +19,6 @@ const ProductDetailsPage = () => {
 
    return (
       <PageLayout>
-
          <ProductDetailsView />
          <div className={styles.related_products}>
             <Typography variant={"h3"}>

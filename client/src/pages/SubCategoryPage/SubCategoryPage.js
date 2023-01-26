@@ -7,6 +7,7 @@ import ErrorMessage from '../../components/Common/Error/ErrorMessage';
 import GridViewLayout from '../../layouts/GridViewLayout';
 import CardSkeleton from '../../components/Common/Skeleton/CardSkeleton';
 import CategoryCard from '../../components/Common/Card/CategoryCard';
+import CardBanner from '../../components/Common/Banner/CardBanner';
 
 const SubCategoryPage = () => {
    const {
@@ -21,6 +22,12 @@ const SubCategoryPage = () => {
    }, [id, dispatch])
    return (
       <PageLayout>
+         <CardBanner
+            title={"Limited time offers at Elite Fashion"}
+            subTitle={"Score unbeatable deals with up to 50% off at Elite Fashion!"}
+            imgUrl={"/assets/banner1.jpg"}
+            position={"left"}
+            linkTo={"/products/63b993f04548043f8e798be4"} />
          {error && <ErrorMessage />}
          <GridViewLayout page={"sub_category"}>
             {subCategories.map((subCategory) => (

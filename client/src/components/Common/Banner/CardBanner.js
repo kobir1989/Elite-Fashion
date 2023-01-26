@@ -15,7 +15,7 @@ const CardBanner = ({ imgUrl, title, subTitle, position, linkTo }) => {
             <Typography variant={"body"} color={"white"}>
                {subTitle}
             </Typography>
-            <Link to={linkTo || "#"}>
+            <Link to={linkTo || "#"} onClick={() => window.scrollTo(0, 0)}>
                <Button variant={"small-banner"}>Shop Now</Button>
             </Link>
          </div>

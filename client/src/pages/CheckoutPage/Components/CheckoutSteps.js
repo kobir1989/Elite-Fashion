@@ -42,7 +42,7 @@ const CheckoutSteps = () => {
                <Icons name={"truck"} size={"6rem"} color={"#3b3841"} />
                <Typography variant={"h4"}>Thank you for your purchase!<br /> Your stylish new clothes will be on their way soon. Shop again for more fashion inspiration!
                </Typography>
-               <Button variant={"btn-black"}
+               <Button variant={"primary"}
                   onClick={() => window.location.href = `http://localhost:3000`}>
                   Ok</Button>
             </div> :

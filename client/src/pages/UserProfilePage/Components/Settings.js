@@ -94,7 +94,7 @@ const Settings = () => {
                size={"small"}
                helperText={updateError?.name === "confirmNewPassword" ? updateError.message : ""}
             />
-            <Button variant={"btn-black"} type={"submit"}
+            <Button variant={"primary"} type={"submit"}
                style={{ marginTop: "1.5rem" }}>
                Update Profile
             </Button>

@@ -10,6 +10,9 @@
 		@include flex-row-center;
 		justify-content: center;
 		margin-top: -2.2rem;
+		@include screens-md {
+			display: none;
+		}
 	}
 	.profile_tab_wrapper {
 		@include flex-row;

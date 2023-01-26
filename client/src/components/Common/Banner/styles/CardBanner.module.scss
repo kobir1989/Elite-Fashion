@@ -2,7 +2,7 @@
 @import "../../../../sass/sass-utils/mixins";
 .card_banner_wrapper {
 	position: relative;
-	height: 17rem;
+	height: 15rem;
 	width: 100%;
 	overflow: hidden;
 
@@ -14,7 +14,9 @@
 	}
 	.banner_text {
 		color: $white;
-		width: 40%;
+		width: 70%;
+		@include flex-col;
+		gap: 0.4rem;
 		button {
 			margin-top: 1rem;
 		}

@@ -90,10 +90,10 @@ const SignupForm = ({
                   helperText={error?.name === "confirmPassword" ? error.message : ""}
                />
             </div>
-            <Button variant={"btn-black"} type={"submit"}>
+            <Button variant={"primary"} type={"submit"}>
                Create Account
             </Button>
-            <Button variant={"primary"} type={"button"}>
+            <Button variant={"btn-border-black"} type={"button"}>
                <img src="/assets/icons8-google.svg" alt="google.svg" /> Continue with Google
             </Button>
          </form>

@@ -46,7 +46,6 @@ const Hero = () => {
                         </Link>
                      </div>
                   </div>
-                  <img src="/assets/women-red.png" alt="cover" />
                </div>
             </div>
             <div className={styles.slider_cover_wrapper}>
@@ -69,7 +68,6 @@ const Hero = () => {
                         </Link>
                      </div>
                   </div>
-                  <img src="/assets/man.png" alt="cover" />
                </div>
             </div>
          </Slider>

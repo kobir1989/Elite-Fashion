@@ -39,7 +39,8 @@ const MobileNav = (
             </Button>
          </div>
          {openMenu &&
-            <div className={styles.nav_backdrop}>
+            <div className={styles.nav_backdrop}
+               onClick={() => { setOpenMenu(false) }}>
                <div className={styles.nav_menu_mobile_dropdown}>
                   <div className={styles.close_icon}>
                      <Button
@@ -49,7 +50,7 @@ const MobileNav = (
                      </Button>
                   </div>
                   <div className={styles.nav_menu_mobile_dropdown_search}>
-                     <Button variant={"icon-btn-black"} onClick={() => { dispatch(setOpenSearchBox(true)) }}>
+                     <Button variant={"btn-border-black"} onClick={() => { dispatch(setOpenSearchBox(true)) }}>
                         Search...
                         <Icons
                            name={"search"}
@@ -75,7 +76,11 @@ const MobileNav = (
                      </li>
                      {userInfo &&
                         <>
-                           <li>Account</li>
+                           <li>
+                              <Link to={`/user-profile/${userInfo._id}`}>
+                                 Account
+                              </Link>
+                           </li>
                            <li onClick={logoutHandler}>
                               logout
                            </li>

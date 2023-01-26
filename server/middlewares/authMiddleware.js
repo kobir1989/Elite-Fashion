@@ -4,20 +4,21 @@ const User = require("../models/user.schema");
 
 /********************************************************
  * @isAuthenticated Middleware
- * @Description This middleware is used to check the presence of a JSON Web Token (JWT) in the request's cookies and verifies it using a secret stored in the config file.
+ * @Description This middleware is used to check the presence of a JSON Web Token (JWT) in the request's header and verifies it using a secret stored in the config file.
  * @Parameters
  *   - req: The request object
  *   - res: The response object
  *   - next: The callback function to move to the next middleware
  *
- * @Return   - If the token is invalid the middleware will return a 401 Unauthorized response.
+ * @Return   - If the token is invalid the middleware will return a 401 Unauthorized response. -if jwt error, return 403 status code.
  *********************************************************/
 module.exports.isAuthenticated = async (req, res, next) => {
    try {
       let token;
       if (req.headers.authorization
          && req.headers.authorization.startsWith("Bearer")) {
-         token = req.headers.authorization.split(" ")[1]
+         token = req.headers.authorization.split(" ")[1];
+         console.log(token, "TOKEN FRESH")
       }
       if (!token) {
          return res.status(401).json({
@@ -27,7 +28,7 @@ module.exports.isAuthenticated = async (req, res, next) => {
       }
 
       const decodedJwtPayload = jwt.verify(token, config.JWT_SECRET);
-      console.log(decodedJwtPayload)
+      // console.log(decodedJwtPayload)
       const user = await User.findById(decodedJwtPayload._id, "name _id role")
       if (!user) {
          return res.status(401).json({
@@ -43,24 +44,3 @@ module.exports.isAuthenticated = async (req, res, next) => {
       res.status(403).json({ success: false, message: "Unauthorized" })
    }
 };
-
-//********DEPRICATED******** */
-// module.exports.isAdmin = (req, res, next) => {
-//    if (req.role !== "ADMIN") {
-//       return res.status(401).json({
-//          success: false,
-//          message: "You are not authorized",
-//       });
-//    }
-//    next();
-// };
-
-// module.exports.isUser = (req, res, next) => {
-//    if (req.role !== "USER") {
-//       return res.status(401).json({
-//          success: false,
-//          message: "You are not authorized token",
-//       });
-//    }
-//    next()
-// }

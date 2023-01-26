@@ -84,10 +84,13 @@
 				position: absolute;
 				background-color: $white;
 				z-index: 10;
-				@include flex-col;
+				@include flex-col-center;
+				justify-content: center;
 				gap: 1rem;
 				left: 0.8rem;
 				top: 2.4rem;
+				width: 10rem;
+				height: 8rem;
 				@include box-shadow-diffuse;
 				animation: popup 0.1s linear;
 				padding: 1.5rem;
@@ -97,6 +100,7 @@
 					letter-spacing: 0.5px;
 					text-transform: uppercase;
 					font-weight: 700;
+					width: 100%;
 					@include flex-row;
 					align-items: center;
 					gap: 0.4rem;

@@ -92,7 +92,7 @@ const ShippmentForm = () => {
             />
             <Link to="/payment">
             </Link>
-            <Button type="submit" variant={"btn-black"}>Submit</Button>
+            <Button type="submit" variant={"primary"}>Submit</Button>
          </form>
       </div>
 

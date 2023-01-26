@@ -28,6 +28,7 @@ const SearchPopup = () => {
                   required={false}
                   label={"Search..."}
                   size={"small"}
+                  autoComplete="off"
                   onChange={searchHandler}
                   value={searchValue}
                />
@@ -58,9 +59,9 @@ const SearchPopup = () => {
                }
             </div>
             <div className={styles.close_btn}>
-               <Button variant={"icon-btn-black "}
+               <Button variant={"icon-btn-white "}
                   onClick={() => dispatch(setOpenSearchBox(false))}>
-                  Close
+                  Cancel
                </Button>
             </div>
          </div>

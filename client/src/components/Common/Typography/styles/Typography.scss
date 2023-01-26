@@ -1,7 +1,6 @@
 @import "../../../../sass/sass-utils/colors";
 @import "../../../../sass/sass-utils/mixins";
 
-//TODO: Refactor
 .typography__variant-h1 {
 	font-size: 2.8rem;
 	letter-spacing: 0.06px;
@@ -33,7 +32,7 @@
 }
 
 .typography__variant-h4 {
-	font-size: 1.1rem;
+	font-size: 1rem;
 	font-weight: 500;
 	letter-spacing: 0.5px;
 	@include screens-lg {
@@ -50,8 +49,11 @@
 }
 
 .typography__variant-h6 {
-	font-size: 1.1rem;
+	font-size: 0.8rem;
 	font-weight: 500;
+	@include screens-lg {
+		font-size: 1rem;
+	}
 }
 .typography__variant-subtitle {
 	font-size: 1.2rem;
@@ -72,7 +74,7 @@
 	}
 }
 .typography__variant-small {
-	font-size: 0.7rem;
+	font-size: 0.68rem;
 	letter-spacing: 0.5px;
 	@include screens-lg {
 		font-size: 0.85rem;
@@ -93,7 +95,4 @@
 }
 .typography__color-paragraph {
 	color: $gray_text;
-}
-.typography__color-pink {
-	color: $pink_main;
 }

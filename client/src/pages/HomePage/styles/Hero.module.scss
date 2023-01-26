@@ -10,50 +10,58 @@
 	background-color: $black_main;
 	.cover_1,
 	.cover_2 {
-		@include flex-row-center;
-		justify-content: space-between;
-		align-content: stretch;
-		height: 100%;
-		img {
-			display: none;
-			@include screens-md {
-				display: flex;
-				width: 50%;
-				height: 100%;
-				object-fit: cover;
-			}
-			@include screens-xl {
-				width: 50%;
-				height: 100%;
-			}
+		background-repeat: no-repeat;
+		background-position: right;
+		background-size: cover;
+		opacity: 0.9;
+		@include screens-lg {
+			background-size: contain;
 		}
+		@include flex-row-center;
+		height: 100%;
 		.cover_text {
 			width: 100%;
 			color: $white;
-			@include flex-col;
+			@include flex-col-center;
 			gap: 0.8rem;
-			align-items: center;
 			justify-content: center;
 			text-align: center;
+			background-color: #2125299d;
+			height: 100%;
 			@include screens-md {
-				margin-left: 3rem;
-				width: 45%;
+				width: 100%;
+				padding-left: 3rem;
 				align-items: flex-start;
-				justify-content: start;
+				justify-content: center;
 				text-align: start;
+			}
+			@include screens-lg {
+				margin-left: 3rem;
+				background-color: unset;
+				height: unset;
+				width: 60%;
 			}
 			button {
 				margin-top: 1rem;
 			}
 		}
+		@include screens-md {
+		}
 	}
 }
 
+.cover_1 {
+	background-image: url("https://res.cloudinary.com/dhkdpjwjm/image/upload/v1674753042/products/women-red_rmqwnx.png");
+}
+.cover_2 {
+	background-image: url("https://res.cloudinary.com/dhkdpjwjm/image/upload/v1674753744/products/man_tsfkls.png");
+}
 .discount {
 	font-size: 1.6rem;
 	text-transform: uppercase;
 	letter-spacing: 0.01px;
 	color: $red_main;
+	font-weight: 500;
 }
 .span_text {
 	color: $red_main;

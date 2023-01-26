@@ -92,10 +92,10 @@ const LoginPage = () => {
                   />
 
                </div>
-               <Button variant={"btn-black"} type={"submit"}>
+               <Button variant={"primary"} type={"submit"}>
                   Login
                </Button>
-               <Button variant={"primary"} type={"button"}>
+               <Button variant={"btn-border-black"} type={"button"}>
                   <img src="/assets/icons8-google.svg" alt="" /> Continue with Google
                </Button>
             </form>

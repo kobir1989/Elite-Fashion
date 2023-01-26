@@ -25,17 +25,19 @@ const tabData = [{ icon: 'person', label: 'Profile' }, { icon: 'love', label: 'W
 
 const UserProfilePage = () => {
    const [value, setValue] = React.useState(0);
-   const [showToggle, setShowToggle] = useState(true)
+   const [showToggle, setShowToggle] = useState(window.innerWidth < 600 ? false : true)
    const { isLoading, userProfileData, userOrderData } = useSelector(state => state.userProfile)
    const dispatch = useDispatch();
    const { id } = useParams()
 
    useEffect(() => {
-      dispatch(fetchUserInfo(id));
+      dispatch(fetchUserInfo({ id }));
    }, [id, dispatch])
-
    const handleChange = (_event, newValue) => {
       setValue(newValue);
+      if (window.innerWidth < 600) {
+         setShowToggle(false)
+      }
    };
 
    return (

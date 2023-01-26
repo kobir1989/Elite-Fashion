@@ -62,7 +62,7 @@ const ProductsPage = () => {
                </Button>}
             {numberOfPages.map((pg, index) => (
                <div key={index}>
-                  <Button variant={page === pg ? "icon-btn-black" : "icon-btn-white"} onClick={() => { dispatch(loadPage(pg)) }} >
+                  <Button variant={page === pg ? "btn-black-small" : "icon-btn-white"} onClick={() => { dispatch(loadPage(pg)) }} >
                      {pg}
                   </Button>
                </div>

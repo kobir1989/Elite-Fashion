@@ -1,10 +1,9 @@
-import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import SubCategoryPage from "./pages/SubCategoryPage/SubCategoryPage";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import axios from "axios";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage/ProductDetailsPage";
 import CartPage from "./pages/CartPage/CartPage";
@@ -13,7 +12,11 @@ import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
 
 const App = () => {
-  // axios.defaults.withCredentials = true;
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
@@ -27,10 +30,7 @@ const App = () => {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/user-profile/:id" element={<UserProfilePage />} />
       </Route>
-
-
-
-      <Route path='*' element={<Navigate to='/login' replace />} />
+      <Route path='*' element={<Navigate to='/' replace />} />
     </Routes>
   );
 }
