@@ -38,6 +38,7 @@
 		width: 100%;
 		border: 1px solid $light_gray;
 		padding: 2rem;
+		position: relative;
 		@include screens-md {
 			width: 35%;
 			padding: 2rem;
@@ -50,7 +51,10 @@
 			}
 		}
 		.loading_line {
-			margin-top: -2rem;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			left: 0;
 		}
 	}
 	.form_link {

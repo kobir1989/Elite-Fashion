@@ -48,7 +48,7 @@ const SignupPage = () => {
       if (userInfo?._id) {
          navigate("/");
          setInputData(defaulSignupValue);
-         toast.success("Signup Successfull")
+         toast.success("Welcome! You've successfully signed up")
       }
    }, [userInfo?._id, navigate])
 

@@ -13,7 +13,7 @@ const ProductCard = (
       ...otherProps
    }) => {
    const dispatch = useDispatch();
-   console.log(discount, percentage)
+   // console.log(discount, percentage)
    const wishListHandler = (data) => {
       dispatch(addToWishList(data))
    }
@@ -32,9 +32,10 @@ const ProductCard = (
          <div className={styles.card_details_wrapper}>
             <div className={styles.price_details}>
                <Typography variant={"body"}>{title}</Typography>
-               <Typography variant={"h5"}>TK. {price.toFixed(2)}
+               <Typography variant={"h5"}>
+                  TK. {parseInt(price) - Math.floor((parseInt(price) / 100) * parseInt(percentage))}
                   {discount && <span className={styles.old_price}>
-                     {parseInt(price) - Math.floor((parseInt(price) / 100) * parseInt(percentage))}
+                     {price.toFixed(2)}
                   </span>}
                </Typography>
             </div>

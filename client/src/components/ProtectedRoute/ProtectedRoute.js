@@ -16,12 +16,12 @@ export const ProtectedRoute = ({ children, ...otherProps }) => {
    }
    try {
       const decodedToken = jwt_decode(token);
-      console.log(decodedToken, "DECODE")
+      // console.log(decodedToken, "DECODE")
       // check token expiration date
       const expirationDate = new Date(decodedToken.exp * 1000);
       console.log(expirationDate, "EXPIRE")
       if (expirationDate < new Date()) {
-         toast.error("our session has expired. Please login again.")
+         toast.error("Your session has expired. Please login again.")
          return <Navigate to="/login" state={{ from: location }} />
       }
    } catch (err) {

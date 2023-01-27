@@ -67,6 +67,7 @@ const LoginPage = () => {
                      error={error ? true : false}
                      type={"email"}
                      label={"Email"}
+                     size={"small"}
                      full
                      name="email"
                      value={email}
@@ -83,6 +84,7 @@ const LoginPage = () => {
                      type={"password"}
                      label={"Password"}
                      full
+                     size={"small"}
                      name="password"
                      value={password}
                      onChange={onChangeHandler}

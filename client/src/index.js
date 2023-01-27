@@ -17,7 +17,7 @@ root.render(
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <BrowserRouter>
-          <Toaster position="top-right" toastOptions={{ duration: 6000, }} />
+          <Toaster position="top-right" toastOptions={{ duration: 5000, }} />
           <PersistGate loading={null} persistor={persistStore(store)}>
             <App />
           </PersistGate>
