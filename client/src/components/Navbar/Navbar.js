@@ -2,22 +2,26 @@ import React, { useState } from 'react';
 import Icons from '../Common/Icons/Icons';
 import Button from "../Common/Button/Button";
 import styles from "./styles/Navbar.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setToggleWishList } from "../../redux/features/wishLishSlice";
-import { isAuth } from "../../helpers/isAuth.helper";
 import Typography from '../Common/Typography/Typography';
 import MobileNav from './MobileNav';
-import { userLogout } from "../../redux/actions/authAction";
+import { setOpenSearchBox } from "../../redux/features/searchSlice";
+import { logout } from "../../redux/features/authSlice";
 
 const Navbar = () => {
    const [openDropdown, setOpenDropdown] = useState(false);
    const { userInfo } = useSelector(state => state.auth);
    const { wishListItem, toggleWishList } = useSelector(state => state.wishList);
+   const navigate = useNavigate()
    const dispatch = useDispatch();
    const { quantity } = useSelector(state => state.cart);
-   const isLoggedIn = isAuth(userInfo);
 
+   const logoutHandler = () => {
+      dispatch(logout())
+      navigate("/login")
+   }
    return (
       <nav className={styles.nav_wrapper}>
          {/*Big screen nav*/}
@@ -44,11 +48,12 @@ const Navbar = () => {
                </li>
             </ul>
             <div className={styles.nav_buttons}>
-               <Button variant={"icon-btn-normal"}>
+               <Button variant={"icon-btn-normal"}
+                  onClick={() => { dispatch(setOpenSearchBox(true)) }}>
                   <Icons name={"search"} size={"1.5rem"} />
                </Button>
                <Button variant={"icon-btn-normal"} onClick={() => { setOpenDropdown(!openDropdown) }}>
-                  {isLoggedIn ?
+                  {userInfo ?
                      <div className={styles.user_name}>
                         <Typography variant={"small"}>
                            {userInfo?.name.slice(0, 1)}
@@ -58,7 +63,7 @@ const Navbar = () => {
                   }
                   {openDropdown &&
                      <ul className={styles.bgscreen_dropdown}>
-                        {!isLoggedIn &&
+                        {!userInfo &&
                            <>
                               <li>
                                  <Link to="/login">
@@ -74,7 +79,7 @@ const Navbar = () => {
                               </li>
                            </>
                         }
-                        {isLoggedIn &&
+                        {userInfo &&
                            <>
                               <li>
                                  <Link to={`/user-profile/${userInfo._id}`}>
@@ -82,9 +87,8 @@ const Navbar = () => {
                                     Account
                                  </Link>
                               </li>
-                              <li onClick={() => dispatch(userLogout())}>
-                                 <Icons name={"logout"} size={"1.5rem"} />
-                                 Logout
+                              <li onClick={logoutHandler}>
+                                 <Icons name={"logout"} size={"1.5rem"} />  Logout
                               </li>
                            </>
                         }
@@ -98,7 +102,7 @@ const Navbar = () => {
                </Button>
                <Link to={"/cart"}>
                   <Button variant={"icon-btn-normal"}>
-                     <Icons name={"shopingCart"} size={"1.5rem"} />
+                     <Icons name={"bag"} size={"1.5rem"} />
                      <span>{quantity}</span>
                   </Button>
                </Link>
@@ -110,8 +114,11 @@ const Navbar = () => {
          <MobileNav
             wishListItem={wishListItem}
             toggleWishList={toggleWishList}
-            isLoggedIn={isLoggedIn}
-            quantity={quantity} />
+            userInfo={userInfo}
+            quantity={quantity}
+            logoutHandler={logoutHandler}
+
+         />
          {/*********************************/}
       </nav>
    )

@@ -1,34 +1,43 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+import { axiosBaseUrl } from "../../utils/axios.config";
 
 export const fetchUserInfo = createAsyncThunk(
    "userProfile/fetchUserInfo",
-   async (id, { rejectWithValue }) => {
+   async ({ id }, { getState, rejectWithValue }) => {
       try {
-         const response = await axios.get(`${BASE_URL}/user/profile/${id}`);
-         console.log(response?.data?.user);
+         const state = getState()
+         const response = await axiosBaseUrl.get(`/user/profile/${id}`, {
+            headers: {
+               "Content-Type": " application/x-www-form-urlencoded",
+               "Authorization": `Bearer ${state.auth.token}`
+            }
+         });
+         // console.log(response);
          return response?.data?.user;
       } catch (err) {
-         console.log(err);
+         // console.log(err.response);
          return rejectWithValue(err.response);
       }
-
    }
 );
 
 export const updateUserProfile = createAsyncThunk(
    "userProfile/updateUserProfile",
-   async ({ id, email, oldPassword, newPassword, confirmNewPassword }, { rejectWithValue }) => {
+   async ({ id, email, oldPassword, newPassword, confirmNewPassword }, { getState, rejectWithValue }) => {
       try {
-         const response = await axios.post(`${BASE_URL}/user/update/profile/${id}`, {
+         const state = getState()
+         const response = await axiosBaseUrl.post(`/user/update/profile/${id}`, {
             oldPassword,
             newPassword,
             confirmNewPassword,
             email
+         }, {
+            headers: {
+               "Content-Type": " application/x-www-form-urlencoded",
+               "Authorization": `Bearer ${state.auth.token}`
+            }
          });
-         console.log(response);
+         // console.log(response);
          return response?.data;
       } catch (err) {
          console.log(err);

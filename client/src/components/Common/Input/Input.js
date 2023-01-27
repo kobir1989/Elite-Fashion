@@ -21,6 +21,11 @@ const Input = ({
          error={error || false}
          sx={{
             m: ".7rem 0", fontSize: "0.9rem",
+            "& .MuiOutlinedInput-root.Mui-focused": {
+               "& > fieldset": {
+                  borderColor: "#e5e5e5"
+               }
+            }
          }}
          type={type || "text"}
          label={label || "Required"}
@@ -30,6 +35,7 @@ const Input = ({
          value={value || ""}
          required={required || false}
          helperText={errorMessage || ""}
+
 
          {...otherProps}
       />

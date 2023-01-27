@@ -3,11 +3,14 @@
 
 footer {
 	background-color: $black_main;
-	padding: 4rem 2rem;
+	padding: 4rem 1rem;
 	@include flex-col;
 	justify-content: center;
 	align-items: center;
 	gap: 2.5rem;
+	@include screens-md {
+		padding: 4rem 2rem;
+	}
 }
 .footer {
 	@include flex-row-space-between;
@@ -17,6 +20,7 @@ footer {
 	max-width: 1500px;
 	margin: auto;
 	width: 100%;
+
 	.divider {
 		display: none;
 		@include screens-lg {
@@ -32,8 +36,8 @@ footer {
 	&_help_wrapper,
 	&_contract_wrapper {
 		@include flex-col;
-		gap: 1.8rem;
-		width: 12rem;
+		gap: 1rem;
+		min-width: 10rem;
 		ul {
 			@include flex-col;
 			gap: 1rem;
@@ -49,9 +53,18 @@ footer {
 			}
 		}
 	}
-	&_social_icons {
-		color: $white;
-		@include flex-row;
-		gap: 3rem;
+}
+
+.payment_logo {
+	@include flex-row-center;
+	justify-content: center;
+	gap: 1.2rem;
+	img {
+		width: 2.5rem;
+		height: 2.5rem;
 	}
+}
+.social_icons {
+	@include flex-row;
+	gap: 1.2rem;
 }

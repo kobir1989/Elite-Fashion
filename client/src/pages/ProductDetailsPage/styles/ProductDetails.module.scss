@@ -3,7 +3,6 @@
 
 .product_page_details_wrapper {
 	@include flex-col-center;
-	// justify-content: center;
 	gap: 2rem;
 	margin: 2rem;
 	@include screens-md {
@@ -16,9 +15,17 @@
 		@include screens-md {
 			width: 40%;
 		}
+		overflow: hidden;
 		img {
 			width: 100%;
-			max-height: 44rem;
+			max-height: 40rem;
+			filter: brightness(95%);
+			transform: scale(1);
+			transition: all 0.3s linear;
+			&:hover {
+				transform: scale(1.5);
+				cursor: zoom-in;
+			}
 		}
 	}
 	.text_wrapper {
@@ -35,6 +42,8 @@
 		gap: 1.5rem;
 		.options {
 			width: 100%;
+			overflow: hidden;
+			height: 6rem;
 			@include screens-xl {
 				width: 80%;
 			}
@@ -48,14 +57,8 @@
 		.buttons_wrapper {
 			@include flex-row-center;
 			gap: 1rem;
-			button {
-				width: 60%;
-				@include screens-md {
-					width: 50%;
-				}
-			}
 			.item_count_buttons {
-				padding: 0.4rem 0;
+				padding: 0.28rem 0;
 				width: 50%;
 				border-radius: 4px;
 				border: 1px solid $light_gray;
@@ -65,6 +68,15 @@
 				gap: 1rem;
 				@include screens-md {
 					max-width: 12rem;
+				}
+			}
+			.checkout_btn_wrapper {
+				width: 100%;
+				button {
+					width: 100%;
+					@include screens-xl {
+						width: 72%;
+					}
 				}
 			}
 		}

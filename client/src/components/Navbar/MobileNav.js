@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import Input from "../Common/Input/Input";
 import styles from "./styles/MobileNav.module.scss";
 import Icons from '../Common/Icons/Icons';
 import { setToggleWishList } from "../../redux/features/wishLishSlice";
 import Button from '../Common/Button/Button';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { setOpenSearchBox } from "../../redux/features/searchSlice";
 
 const MobileNav = (
    {
       toggleWishList,
       wishListItem,
-      isLoggedIn,
-      quantity
+      userInfo,
+      quantity,
+      logoutHandler
+
    }) => {
+
    const [openMenu, setOpenMenu] = useState(false);
    const dispatch = useDispatch()
    return (
@@ -26,7 +29,7 @@ const MobileNav = (
             </Button>
             <Link to="/cart">
                <Button variant={"icon-btn-normal"}>
-                  <Icons name={"shopingCart"} size={"1.5rem"} />
+                  <Icons name={"bag"} size={"1.5rem"} />
                   <span>{quantity}</span>
                </Button>
             </Link>
@@ -36,7 +39,8 @@ const MobileNav = (
             </Button>
          </div>
          {openMenu &&
-            <div className={styles.nav_backdrop}>
+            <div className={styles.nav_backdrop}
+               onClick={() => { setOpenMenu(false) }}>
                <div className={styles.nav_menu_mobile_dropdown}>
                   <div className={styles.close_icon}>
                      <Button
@@ -46,12 +50,13 @@ const MobileNav = (
                      </Button>
                   </div>
                   <div className={styles.nav_menu_mobile_dropdown_search}>
-                     <span className={styles.input}>
-                        <Input size={"small"} label={"Search"} />
-                     </span>
-                     <span className={styles.icon}>
-                        <Icons name={"search"} size={"1.3rem"} color={"#b5b5b5"} />
-                     </span>
+                     <Button variant={"btn-border-black"} onClick={() => { dispatch(setOpenSearchBox(true)) }}>
+                        Search...
+                        <Icons
+                           name={"search"}
+                           size={"1.3rem"}
+                           color={"#b5b5b5"} />
+                     </Button>
                   </div>
                   <ul className={styles.nav_menu_mobile_dropdown_links}>
                      <li>
@@ -69,13 +74,19 @@ const MobileNav = (
                            LIFESTYLE
                         </Link>
                      </li>
-                     {isLoggedIn &&
+                     {userInfo &&
                         <>
-                           <li>Account</li>
-                           <li>logout</li>
+                           <li>
+                              <Link to={`/user-profile/${userInfo._id}`}>
+                                 Account
+                              </Link>
+                           </li>
+                           <li onClick={logoutHandler}>
+                              logout
+                           </li>
                         </>
                      }
-                     {!isLoggedIn && <>
+                     {!userInfo && <>
                         <li>
                            <Link to="/login">login</Link>
                         </li>

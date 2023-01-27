@@ -50,7 +50,7 @@ module.exports.signUp = async (req, res) => {
 			role: user.role,
 		};
 		res.cookie("token", token, cookieOptions);
-		return res.status(200).json({ success: true, userPayload });
+		return res.status(200).json({ success: true, userPayload, token });
 	} catch (err) {
 		errorResponse(res, err, "SIGNUP")
 	}
@@ -90,7 +90,7 @@ module.exports.login = async (req, res) => {
 			role: user.role,
 		};
 		res.cookie("token", token, cookieOptions);
-		res.status(200).json({ success: true, userPayload });
+		res.status(200).json({ success: true, userPayload, token });
 	} catch (err) {
 		errorResponse(res, err, "LOGIN");
 	};
@@ -104,19 +104,19 @@ module.exports.login = async (req, res) => {
  * @Return user object
  ********************************************************/
 
-module.exports.logout = (_req, res) => {
-	try {
-		res.cookie("token", null, {
-			httpOnly: true,
-			expires: new Date(Date.now()),
-		});
-		res.status(200).json({
-			success: true,
-			message: "Logged out Successfull",
-		});
-	} catch (err) {
-		errorResponse(res, err, "Logged");
-	}
-};
+// module.exports.logout = (_req, res) => {
+// 	try {
+// 		res.cookie("token", null, {
+// 			httpOnly: true,
+// 			expires: new Date(Date.now()),
+// 		});
+// 		res.status(200).json({
+// 			success: true,
+// 			message: "Logged out Successfull",
+// 		});
+// 	} catch (err) {
+// 		errorResponse(res, err, "Logged");
+// 	}
+// };
 
 //TODO: Forget password Controller

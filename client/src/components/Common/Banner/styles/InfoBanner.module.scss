@@ -1,5 +1,5 @@
-@import "../../../sass/sass-utils/mixins";
-@import "../../../sass/sass-utils/colors";
+@import "../../../../sass/sass-utils/mixins";
+@import "../../../../sass/sass-utils/colors";
 .banner_wrapper {
 	margin: 3rem 0;
 	padding: 0 1rem;
@@ -22,7 +22,7 @@
 		svg {
 			font-size: 4rem;
 			@include screens-md {
-				font-size: 6rem;
+				font-size: 6.2rem;
 			}
 		}
 		@include screens-md {

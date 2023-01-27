@@ -12,7 +12,7 @@ const errorResponse = require("../helper/errorResponse");
 module.exports.createCategory = async (req, res) => {
 	try {
 		//only ADMIN has access.
-		if (req.role !== "ADMIN") {
+		if (req.user.role !== "ADMIN") {
 			throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
 		};
 
@@ -49,7 +49,7 @@ module.exports.createCategory = async (req, res) => {
 module.exports.editCategory = async (req, res) => {
 	try {
 		//only ADMIN has access.
-		if (req.role !== "ADMIN") {
+		if (req.user.role !== "ADMIN") {
 			throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
 		};
 		const { categoryId } = req.params;
@@ -94,7 +94,7 @@ module.exports.editCategory = async (req, res) => {
 module.exports.removeCategory = async (req, res) => {
 	try {
 		//only ADMIN has access.
-		if (req.role !== "ADMIN") {
+		if (req.user.role !== "ADMIN") {
 			throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
 		};
 		const { categoryId } = req.params;

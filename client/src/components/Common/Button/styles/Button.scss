@@ -2,35 +2,48 @@
 @import "../../../../sass/sass-utils/mixins";
 
 .button {
-	padding: 0.8rem 2rem;
+	padding: 0.7rem 2rem;
 	letter-spacing: 0.5px;
-	font-size: 1rem;
+	font-size: 0.8rem;
 	cursor: pointer;
 	&:hover {
 		@include box-shadow-diffuse;
+		transition: all 0.2s linear;
+	}
+	@include screens-md {
+		padding: 0.8rem 2rem;
+		letter-spacing: 0.5px;
+		font-size: 1rem;
 	}
 }
+//Black background
 .primary {
-	background-color: unset;
-	border: 1px solid $black_main;
-	color: $black_main;
+	background-color: $black_main;
+	border: unset;
+	color: $light_gray;
 	font-weight: 500;
 	border-radius: 4px;
 	&:hover {
-		background-color: $black_main;
 		color: $white;
 	}
 }
+//Hover background - Red
 .white {
 	background-color: $white;
-	border: 1px solid $black_main;
+	border: unset;
 	color: $black_main;
 	font-weight: 500;
 	border-radius: 8px;
+	transition: all 0.3s linear;
 	&:hover {
-		border: 1px solid $red_deep;
+		background-color: $red_main;
+		color: $white;
+		border: unset;
+		transform: translateY(0.1rem);
+		transition: all 0.2s linear;
 	}
 }
+//Background black rounded
 .rounded {
 	background-color: $black_main;
 	color: $white;
@@ -38,53 +51,39 @@
 	border-radius: 2.2rem;
 	font-weight: 300;
 }
-.red {
-	background-color: $red_main;
-	border: unset;
+
+//White background black-border
+.btn-border-black {
+	background-color: $white;
+	color: $black_main;
 	border-radius: 4px;
+	border: 1px solid $dark_gray;
 	font-weight: 400;
-	color: $white;
-	padding: 0.7rem 1.5rem;
-	font-size: 0.9rem;
+	padding: 0.6rem 1.9rem;
+	transition: all 0.4s linear;
 	&:hover {
-		background-color: $tomato_hover;
+		background-color: $black_main;
 		color: $white;
-		border: unset;
+		transition: all 0.4s linear;
 	}
 }
-.success {
-	background-color: $green;
-	border: unset;
-	border-radius: 8px;
-	font-weight: 300;
-	color: $white;
-	&:hover {
-		background-color: unset;
-		border: 1px solid $green;
-		color: $white;
-	}
-}
-.btn-black {
+
+//Balck background squre small btn
+.btn-black-small {
 	background-color: $black_main;
-	color: $light_gray;
-	border: unset;
+	color: $white;
 	border-radius: 4px;
 	font-weight: 300;
+	padding: 0.2rem 0.9rem;
+	font-size: 0.9rem;
+	color: $light_gray;
 	&:hover {
+		background-color: $black_main;
 		color: $white;
 	}
 }
 
-.icon-btn-black {
-	background-color: $black_main;
-	color: $white;
-	border-radius: 4px;
-	font-weight: 300;
-	padding: 0.4rem 0.9rem;
-	&:hover {
-		background-color: $black_main;
-	}
-}
+// Icons Squre white banckground hover - background red
 .icon-btn-white {
 	background-color: $white;
 	color: $black_main;
@@ -92,11 +91,14 @@
 	border: 1px solid $light_gray;
 	font-weight: 300;
 	padding: 0.5rem 0.9rem;
+	transition: all 0.2s linear;
 	&:hover {
 		background-color: $red_main;
 		color: $white;
+		transition: all 0.2s linear;
 	}
 }
+// No background
 .icon-btn-normal {
 	background-color: unset;
 	color: $gray_text;
@@ -108,16 +110,38 @@
 		box-shadow: unset;
 	}
 }
+
+//White background banner btn
 .small-white {
 	background-color: unset;
-
 	color: $black_main;
-	border: 1px solid $gray_text;
+	border: 1px solid $light_gray;
 	font-weight: 300;
 	padding: 0.6rem 1.2rem;
 	font-size: 0.9rem;
 	border-radius: 4px;
+	transition: all 0.3s linear;
 	&:hover {
 		color: $red_main;
+		background-color: $red_main;
+		border: 1px solid $red_main;
+		color: $white;
+		transition: all 0.3s linear;
+	}
+}
+
+//Transparent banckground banner btn
+.small-banner {
+	background-color: rgba(253, 252, 250, 0.226);
+
+	color: $white;
+	border: 1px solid $white;
+	font-weight: 400;
+	padding: 0.6rem 1.2rem;
+	font-size: 0.9rem;
+	border-radius: 4px;
+	&:hover {
+		font-weight: 500;
+		border: 1px solid $red_main;
 	}
 }

@@ -1,0 +1,32 @@
+@import "../../../../sass/sass-utils/colors";
+@import "../../../../sass/sass-utils/mixins";
+
+.arrow_prev,
+.arrow_next {
+	@include flex-row-center;
+	justify-content: center;
+	position: absolute;
+	&:hover {
+		@include box-shadow-sm;
+	}
+}
+.arrow_next {
+	left: -2rem;
+	top: 50%;
+	border-radius: 12px 0 0 12px;
+	button {
+		&:hover {
+			color: $red_main;
+		}
+	}
+}
+.arrow_prev {
+	right: -2rem;
+	top: 50%;
+	border-radius: 0 12px 12px 0;
+	button {
+		&:hover {
+			color: $red_main;
+		}
+	}
+}

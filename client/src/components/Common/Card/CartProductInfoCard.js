@@ -4,7 +4,7 @@ import Typography from '../Typography/Typography';
 import ButtonGroup from "../Button/ButtonGroup";
 import ClearIcon from '@mui/icons-material/Clear';
 import Button from '../Button/Button';
-import { removeFromCart } from "../../../redux/features/cartSlice";
+import { removeFromCart, addToCart, removeOneFromCart } from "../../../redux/features/cartSlice";
 import { useDispatch } from 'react-redux';
 
 const CartProductInfoCard = (
@@ -12,7 +12,7 @@ const CartProductInfoCard = (
       item,
       showBtn = true,
       color,
-      disabled = false
+      disabled = false,
    }) => {
    const [showDeleteBtn, setShowDeleteBtn] = useState(false);
    const dispatch = useDispatch()
@@ -45,7 +45,20 @@ const CartProductInfoCard = (
             </Typography>
          </div>
          <div className={styles.price_details}>
-            {showBtn && <ButtonGroup item={item} variant={"rounded"} />}
+            {showBtn && <ButtonGroup
+               quantity={item?.quantity}
+               variant={"rounded"}
+               onRemove={() => { dispatch(removeOneFromCart(item?.id)) }}
+               onAdd={() => {
+                  dispatch(addToCart({
+                     title: item?.title,
+                     imageUrl: item?.image,
+                     price: item?.price,
+                     id: item?.id,
+                     quantity: 1,
+                  }))
+               }}
+            />}
             <div className={styles.product_price_count}>
                <Typography variant={"body"}>
                   Price:   TK. {item?.price} X {item?.quantity}

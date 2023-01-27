@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchUserInfo, updateUserProfile } from "../actions/userProfileAction";
 
 const initialState = {
-   userProfileData: [],
+   userProfileData: {},
+   userOrderData: [],
    error: null,
    isLoading: false,
    updateError: null,
@@ -23,9 +24,25 @@ const userProfileSlice = createSlice({
          state.isLoading = true;
       });
       builder.addCase(fetchUserInfo.fulfilled, (state, action) => {
-         state.isLoading = false;
-         state.userProfileData = action.payload;
+         state.isLoading = false
+         const profileData = action.payload;
+         const isProfileData = profileData?.purchases.find(item => item.product);
+         state.userOrderData = isProfileData?.product;
+
+         state.userProfileData = {
+            name: profileData?.name,
+            email: profileData?.email,
+            _id: profileData?._id,
+            city: isProfileData?.city,
+            phone: isProfileData?.phoneNumber,
+            address: isProfileData?.shippingAddress,
+            time: isProfileData?.createdAt,
+            status: isProfileData?.orderStatus
+
+         };
+         // console.log(isProfileData, "FFF")
       });
+
       builder.addCase(fetchUserInfo.rejected, (state, action) => {
          state.error = action.payload;
          state.isLoading = false;

@@ -52,6 +52,10 @@ module.exports.createNewOrder = async (req, res) => {
  *********************************************************/
 module.exports.getAllOrders = async (_req, res) => {
    try {
+      //only ADMIN has access.
+      if (req.user.role !== "ADMIN") {
+         throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
+      };
       const order = await Order.find().populate("user", "_id name");
       if (!order) {
          throw new CustomError(400, "No order found")
@@ -70,9 +74,12 @@ module.exports.getAllOrders = async (_req, res) => {
  * @Parameters  none
  * @Return status
  *********************************************************/
-module.exports.getOrderStatus = async (_req, res) => {
+module.exports.getOrderStatus = async (req, res) => {
    try {
-
+      //only ADMIN has access.
+      if (req.user.role !== "ADMIN") {
+         throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
+      };
       return res.json(Order.schema.path("orderStatus").enumValues);
    } catch (err) {
       errorResponse(res, err, "ORDER-STATUS");

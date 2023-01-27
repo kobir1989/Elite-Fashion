@@ -15,8 +15,9 @@ const SelectOptions = (
    return (
       <FormControl
          fullWidth
+         style={{ width: "50%" }}
          required
-         sx={{ height: "4rem" }}
+         sx={{ height: "4rem", width: "100%" }}
          size='small'
          error={value === "" && error}>
          <InputLabel>{label}</InputLabel>

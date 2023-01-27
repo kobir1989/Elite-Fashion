@@ -1,17 +1,15 @@
 import React from "react";
 import { Stepper, Step, StepLabel } from '@mui/material';
-import ShippingForm from './ShippingForm';
-import OrderDetails from './OrderDetails';
-import Payment from "./Payment";
+import ShippmentForm from './ShippmentForm';
+import OrderDetails from './SubComponents/OrderDetails';
+import Payment from "./SubComponents/Payment";
 import styles from "../styles/CheckoutSteps.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { increaseStep, decreaseStep } from "../../../redux/features/stepsSlice";
 import Icons from "../../../components/Common/Icons/Icons";
 import Typography from "../../../components/Common/Typography/Typography";
 import Button from "../../../components/Common/Button/Button";
-import { Link } from "react-router-dom";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
 const steps = ["Shipping Address", "Confirm Order", "Payment"];
 
 const CheckoutSteps = () => {
@@ -44,13 +42,13 @@ const CheckoutSteps = () => {
                <Icons name={"truck"} size={"6rem"} color={"#3b3841"} />
                <Typography variant={"h4"}>Thank you for your purchase!<br /> Your stylish new clothes will be on their way soon. Shop again for more fashion inspiration!
                </Typography>
-               <Button variant={"btn-black"}
+               <Button variant={"primary"}
                   onClick={() => window.location.href = `http://localhost:3000`}>
                   Ok</Button>
             </div> :
             <div className={styles.steps_components}>
                {activeStep === 0 &&
-                  <ShippingForm />}
+                  <ShippmentForm />}
                {activeStep === 1 &&
                   <OrderDetails
                      onBack={backHandler}

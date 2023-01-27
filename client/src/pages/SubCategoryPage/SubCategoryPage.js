@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
 import PageLayout from "../../layouts/PageLayout";
-import { Link, useParams } from "react-router-dom";
-import styles from "./styles/SubCategoryPage.module.scss";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSubCategory } from "../../redux/actions/subCategoryAction";
-import Error from "../../components/Common/Error/Error500";
-import Typography from '../../components/Common/Typography/Typography';
-import Button from '../../components/Common/Button/Button';
+import ErrorMessage from '../../components/Common/Error/ErrorMessage';
 import GridViewLayout from '../../layouts/GridViewLayout';
 import CardSkeleton from '../../components/Common/Skeleton/CardSkeleton';
+import CategoryCard from '../../components/Common/Card/CategoryCard';
+import CardBanner from '../../components/Common/Banner/CardBanner';
 
 const SubCategoryPage = () => {
    const {
@@ -23,21 +22,21 @@ const SubCategoryPage = () => {
    }, [id, dispatch])
    return (
       <PageLayout>
+         <CardBanner
+            title={"Limited time offers at Elite Fashion"}
+            subTitle={"Score unbeatable deals with up to 50% off at Elite Fashion!"}
+            imgUrl={"/assets/banner1.jpg"}
+            position={"left"}
+            linkTo={"/products/63b993f04548043f8e798be4"} />
+         {error && <ErrorMessage />}
          <GridViewLayout page={"sub_category"}>
             {subCategories.map((subCategory) => (
-               <Link
-                  to={`/products/${subCategory?._id}`}
-                  key={subCategory?._id}>
-                  <div className={styles.sub_category_card}>
-                     <div className={styles.image_wrapper}>
-                        <img src={subCategory?.image} alt={subCategory?.name} />
-                     </div>
-                     <div className={styles.card_text_wrapper}>
-                        <Typography variant={"h4"} color={"white"}>{subCategory?.name}</Typography>
-                        <Button variant={"white"}>Shop now</Button>
-                     </div>
-                  </div>
-               </Link>
+               <CategoryCard
+                  title={subCategory?.name}
+                  imgUrl={subCategory?.image}
+                  linkTo={`/products/${subCategory?._id}`}
+                  key={subCategory?._id}
+               />
             ))}
             {isLoading &&
                <CardSkeleton
@@ -46,7 +45,6 @@ const SubCategoryPage = () => {
                   height={"100%"}
                />
             }
-            {error && <Error />}
          </GridViewLayout>
       </PageLayout>
    )

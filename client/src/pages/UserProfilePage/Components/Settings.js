@@ -5,7 +5,6 @@ import Typography from '../../../components/Common/Typography/Typography';
 import { useSelector, useDispatch } from "react-redux";
 import { setHasError } from "../../../redux/features/userProfileSlice";
 import { updateUserProfile } from "../../../redux/actions/userProfileAction";
-import { userLogout } from "../../../redux/actions/authAction";
 import { toast } from 'react-hot-toast';
 
 const Settings = () => {
@@ -35,7 +34,6 @@ const Settings = () => {
          email
       }));
       if (updateData.success) {
-         dispatch(userLogout())
          setConfirmNewPassword("")
          setNewPassword("")
          setOldPassword("")
@@ -96,7 +94,7 @@ const Settings = () => {
                size={"small"}
                helperText={updateError?.name === "confirmNewPassword" ? updateError.message : ""}
             />
-            <Button variant={"btn-black"} type={"submit"}
+            <Button variant={"primary"} type={"submit"}
                style={{ marginTop: "1.5rem" }}>
                Update Profile
             </Button>

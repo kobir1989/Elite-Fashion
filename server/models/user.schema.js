@@ -66,7 +66,7 @@ userSchema.methods = {
          },
          config.JWT_SECRET,
          {
-            expiresIn: config.JWT_EXPIRE
+            expiresIn: "72h"
          }
 
       )

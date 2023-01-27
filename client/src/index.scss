@@ -19,3 +19,24 @@ body {
 	-moz-osx-font-smoothing: subpixel-antialiased;
 	font-smooth: subpixel-antialiased;
 }
+.slick-dots {
+	width: 4rem;
+	height: 1rem;
+	position: absolute;
+	top: 92%;
+
+	li {
+		border-radius: 50%;
+		button {
+			&:before {
+				content: "";
+				width: 2rem;
+				height: 2rem;
+				border-radius: 50%;
+				background-color: #cc2121;
+				transition: all 0.2s linear 0s;
+				border: 1px solid #f0eded;
+			}
+		}
+	}
+}

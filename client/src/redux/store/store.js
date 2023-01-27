@@ -3,7 +3,6 @@ import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
-import categoryReducer from "../features/categorySlice";
 import subCategoryReducer from '../features/subCategorySlice';
 import authReducer from "../features/authSlice";
 import productReducer from "../features/productsSlice";
@@ -12,8 +11,10 @@ import wishListReducer from "../features/wishLishSlice";
 import stepsReducer from "../features/stepsSlice";
 import checkoutReducer from "../features/checkoutSlice";
 import userProfileReducer from "../features/userProfileSlice";
+import bestSellingReducer from "../features/bestSellingSlice";
+import searchReducer from "../features/searchSlice";
+
 const reducers = combineReducers({
-   category: categoryReducer,
    subCategory: subCategoryReducer,
    auth: authReducer,
    product: productReducer,
@@ -21,7 +22,9 @@ const reducers = combineReducers({
    wishList: wishListReducer,
    steps: stepsReducer,
    checkout: checkoutReducer,
-   userProfile: userProfileReducer
+   userProfile: userProfileReducer,
+   bestSelling: bestSellingReducer,
+   search: searchReducer
 
 });
 
@@ -34,7 +37,9 @@ const persistConfig = {
       "product",
       "steps",
       "order",
-      "userProfile"
+      "userProfile",
+      "bestSelling",
+      "search"
    ]
 }
 const persistedReducer = persistReducer(persistConfig, reducers)

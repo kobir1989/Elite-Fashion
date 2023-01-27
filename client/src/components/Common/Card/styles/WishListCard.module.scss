@@ -1,9 +1,8 @@
-@import "../../../sass/sass-utils/colors";
-@import "../../../sass/sass-utils/mixins";
+@import "../../../../sass/sass-utils/colors";
+@import "../../../../sass/sass-utils/mixins";
 
-.wish_list_popup_wrapper {
+.wishList_row {
 	position: relative;
-
 	.modal_content_wrapper {
 		margin-top: 2rem;
 		@include flex-row-space-between;

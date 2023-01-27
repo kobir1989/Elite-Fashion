@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../redux/actions/authAction";
 import toast from 'react-hot-toast';
 import { setError } from "../../redux/features/authSlice";
-import { isAuth } from "../../helpers/isAuth.helper";
 
 const defaultLoginValue = {
    email: "",
@@ -25,9 +24,8 @@ const LoginPage = () => {
    const {
       loading,
       error,
-      userInfo
+      token
    } = useSelector(state => state.auth);
-   const isLoggedIn = isAuth(userInfo)
 
    const onChangeHandler = (e) => {
       const { name, value } = e.target;
@@ -46,12 +44,12 @@ const LoginPage = () => {
    };
 
    useEffect(() => {
-      if (isLoggedIn) {
+      if (token) {
          navigate("/");
-         toast.success("Login Successfull");
+         toast.success("Welcome Back");
          setLoginValue(defaultLoginValue);
       }
-   }, [isLoggedIn, navigate])
+   }, [token, navigate])
 
    return (
       <PageLayout>
@@ -69,6 +67,7 @@ const LoginPage = () => {
                      error={error ? true : false}
                      type={"email"}
                      label={"Email"}
+                     size={"small"}
                      full
                      name="email"
                      value={email}
@@ -85,6 +84,7 @@ const LoginPage = () => {
                      type={"password"}
                      label={"Password"}
                      full
+                     size={"small"}
                      name="password"
                      value={password}
                      onChange={onChangeHandler}
@@ -94,10 +94,10 @@ const LoginPage = () => {
                   />
 
                </div>
-               <Button variant={"btn-black"} type={"submit"}>
+               <Button variant={"primary"} type={"submit"}>
                   Login
                </Button>
-               <Button variant={"primary"} type={"button"}>
+               <Button variant={"btn-border-black"} type={"button"}>
                   <img src="/assets/icons8-google.svg" alt="" /> Continue with Google
                </Button>
             </form>

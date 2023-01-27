@@ -8,7 +8,7 @@ import Typography from '../../../components/Common/Typography/Typography';
 import { increaseStep } from "../../../redux/features/stepsSlice";
 import { setShipmentDetails, setOrder } from "../../../redux/features/checkoutSlice";
 
-const ShippingForm = () => {
+const ShippmentForm = () => {
    const { userInfo } = useSelector(state => state.auth);
    const { cartItem, totalAmount } = useSelector(state => state.cart);
    const [phone, setPhone] = useState("");
@@ -92,11 +92,11 @@ const ShippingForm = () => {
             />
             <Link to="/payment">
             </Link>
-            <Button type="submit" variant={"btn-black"}>Submit</Button>
+            <Button type="submit" variant={"primary"}>Submit</Button>
          </form>
       </div>
 
    )
 }
 
-export default ShippingForm;
+export default ShippmentForm;

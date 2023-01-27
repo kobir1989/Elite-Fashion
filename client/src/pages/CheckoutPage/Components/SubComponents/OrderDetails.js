@@ -1,10 +1,10 @@
 import React from 'react'
 import { useSelector } from "react-redux";
-import CartProductInfoCard from '../../../components/Common/Card/CartProductInfoCard';
-import TotalAmountView from '../../../components/TotalAmountView/TotalAmountView';
-import styles from "../styles/OrderDetails.module.scss";
-import Typography from '../../../components/Common/Typography/Typography';
-import Button from '../../../components/Common/Button/Button';
+import CartProductInfoCard from '../../../../components/Common/Card/CartProductInfoCard';
+import TotalAmountView from '../../../../components/TotalAmountView/TotalAmountView';
+import styles from "../../styles/OrderDetails.module.scss";
+import Typography from '../../../../components/Common/Typography/Typography';
+import Button from '../../../../components/Common/Button/Button';
 
 const OrderDetails = ({ onBack, onNext }) => {
    const { totalAmount, cartItem } = useSelector(state => state.cart)
@@ -27,12 +27,12 @@ const OrderDetails = ({ onBack, onNext }) => {
          </div>
          <div className={styles.btn_wrapper}>
             <Button
-               variant={"primary"}
+               variant={"btn-border-black"}
                onClick={onBack}>
                Back
             </Button>
             <Button
-               variant={"btn-black"}
+               variant={"primary"}
                onClick={onNext}>
                Confirm
             </Button>
