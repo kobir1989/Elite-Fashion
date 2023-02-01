@@ -2,19 +2,21 @@ const route = require("express").Router();
 const { isAuthenticated } = require("../middlewares/authMiddleware");
 const { fileUploader } = require("../middlewares/imgUpload.middleware")
 const {
-   getAllProducts,
+   getProductsByLimits,
    getSingleProducts,
    deleteProduct,
    editProduct,
    createNewProduct,
    getBestSellingProducts,
-   getStockOutPoducts
+   getStockOutPoducts,
+   getAllProducts
 } = require("../controllers/product.controller")
 
-route.get("/:subCategoryId/products", getAllProducts);
+route.get("/:subCategoryId/products", getProductsByLimits);
 route.get("/product/single/:productId", getSingleProducts);
 route.get("/product/best-selling", getBestSellingProducts);
 route.get("/product/stock-out", isAuthenticated, getStockOutPoducts);
+route.get("/products/all", isAuthenticated, getAllProducts);
 
 route.post(
    "/create/product/:userId",

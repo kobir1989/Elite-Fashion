@@ -137,14 +137,14 @@ module.exports.deleteProduct = async (req, res) => {
 }
 
 /********************************************************
- * @getAllProducts
+ * @getProductsByLimits
  * @Route GET http://localhost:5000/api/v1/:subCategoryId/product?page=1&limit=12
- * @Description Retrieve All products, based on page number and limit, and then 
+ * @Description Retrieve products, based on page number and limit, and then 
  * @Description sends the resulting data back to the client as a JSON response.
  * @Parameters none
  * @Return Products Array
  *********************************************************/
-module.exports.getAllProducts = async (req, res) => {
+module.exports.getProductsByLimits = async (req, res) => {
    try {
       const { page, limit } = req.query;
       const { subCategoryId } = req.params;
@@ -183,9 +183,28 @@ module.exports.getAllProducts = async (req, res) => {
 
       return res.status(200).json({ success: true, products })
    } catch (err) {
-      errorResponse(res, err, "GET-ALL-PRODUCTS");
+      errorResponse(res, err, "GET-PAGINATED-PRODUCTS");
    }
 };
+
+/********************************************************
+ * @getAllProducts
+ * @Route GET http://localhost:5000/api/v1/products/all
+ * @Description Retrieve All products from db.
+ * @Parameters none
+ * @Return Products Array
+ *********************************************************/
+module.exports.getAllProducts = async (_req, res) => {
+   try {
+      const products = await Product.find().populate("subCategory category", "_id name");
+      res.status(200).json({ success: true, products })
+
+   } catch (err) {
+      errorResponse(res, err, "GET-ALL-PRODUCTS")
+   }
+
+}
+
 
 /********************************************************
  * @getSingleProducts
@@ -240,14 +259,10 @@ module.exports.getStockOutPoducts = async (req, res) => {
       if (req.user.role !== "ADMIN") {
          throw new CustomError(401, "Access denied. You are not authorized to access this resource.")
       }
-      const stockout = await Product.aggregate([
-         {
-            $match: {
-               stock: { $lte: 0 }
-            }
-         }
-      ])
-      res.status(200).json({ success: true, stockout })
+      const stockout = await Product.find({ stock: { $lte: 0 } })
+         .populate("subCategory category", "_id name")
+      res.status(200).json({ success: true, stockout });
+
    } catch (err) {
       errorResponse(res, err, "STOCK-OUT-PRODUCT")
    }
