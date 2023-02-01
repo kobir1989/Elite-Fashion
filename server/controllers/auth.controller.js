@@ -97,26 +97,47 @@ module.exports.login = async (req, res) => {
 };
 
 /********************************************************
- * @Logout
- * @Route GET http://localhost:5000/api/v1/auth/logout
- * @Description User logout controller.
- * @Parameters none
- * @Return user object
+ * @adminLogin
+ * @Route GET http://localhost:5000/api/v1/admin/login
+ * @Description Only admin can login useing this route.
+ * @Parameters  email, password  from req.body
+ * @Return user object and token
  ********************************************************/
+module.exports.adminLogin = async (req, res) => {
+	console.log(req.body)
+	try {
+		const { email, password } = req.body;
 
-// module.exports.logout = (_req, res) => {
-// 	try {
-// 		res.cookie("token", null, {
-// 			httpOnly: true,
-// 			expires: new Date(Date.now()),
-// 		});
-// 		res.status(200).json({
-// 			success: true,
-// 			message: "Logged out Successfull",
-// 		});
-// 	} catch (err) {
-// 		errorResponse(res, err, "Logged");
-// 	}
-// };
+		if (!email || !password) {
+			throw new CustomError(400, "All the input fields are mandatory");
+		}
+
+		const user = await User.findOne({ email });
+		if (!user) {
+			throw new CustomError(401, "Invalid Credentials");
+		}
+
+		if (user.role !== "ADMIN") {
+			throw new CustomError(401, "Invalid Credentials");
+		}
+
+		const isPasswordMatch = await user.comparePassword(password);
+		if (!isPasswordMatch) {
+			throw new CustomError(401, "Invalid Credentials");
+		}
+		user.password = undefined;
+		const token = user.generateJwtToken();
+		const userPayload = {
+			_id: user._id,
+			name: user.name,
+			role: user.role,
+		};
+		res.cookie("token", token, cookieOptions);
+		res.status(200).json({ success: true, userPayload, token });
+	} catch (err) {
+		errorResponse(res, err, "LOGIN");
+	};
+};
+
 
 //TODO: Forget password Controller

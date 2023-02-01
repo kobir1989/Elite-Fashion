@@ -225,3 +225,30 @@ module.exports.getBestSellingProducts = async (req, res) => {
    }
 
 }
+
+
+/********************************************************
+ * @getStockOutPoducts
+ * @Route GET http://localhost:5000/api/v1/product/stock-out
+ * @Description Retrieve Stock out products, and then sends the resulting data back to the client as a JSON response. note: ***Stock out product data will be use only in admin dashboard***
+ * @Parameters none
+ * @Return Stock out Products Array 
+ *********************************************************/
+
+module.exports.getStockOutPoducts = async (req, res) => {
+   try {
+      if (req.user.role !== "ADMIN") {
+         throw new CustomError(401, "Access denied. You are not authorized to access this resource.")
+      }
+      const stockout = await Product.aggregate([
+         {
+            $match: {
+               stock: { $lte: 0 }
+            }
+         }
+      ])
+      res.status(200).json({ success: true, stockout })
+   } catch (err) {
+      errorResponse(res, err, "STOCK-OUT-PRODUCT")
+   }
+}
