@@ -19,23 +19,37 @@ module.exports.createNewProduct = async (req, res) => {
          title,
          description,
          price,
+         sellPrice,
+         productCost,
          stock,
-         categoryId,
-         subCategoryId,
+         category,
+         subCategory,
       } = req.body;
       console.log(req.body)
-      if (!title || !description || !price || !stock || !categoryId || !subCategoryId) {
-         throw new CustomError(400, "All the fields are mandatory");
+      if (
+         !title ||
+         !description ||
+         !price ||
+         !sellPrice ||
+         !productCost ||
+         !stock ||
+         !category ||
+         !subCategory
+      ) {
+         throw new CustomError(400, "All the fields are mandatory", "all");
       };
 
       await Product.create({
          title,
          description,
          price,
-         image: req.imageUrl,
+         sellPrice,
+         productCost,
          stock,
-         category: categoryId,
-         subCategory: subCategoryId,
+         image: req.image,
+         imageId: req.imageId,
+         category,
+         subCategory
       });
 
       return res.status(200).json({
@@ -61,24 +75,27 @@ module.exports.editProduct = async (req, res) => {
       if (req.user.role !== "ADMIN") {
          throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
       };
+      const { productId } = req.params;
       const {
          title,
          description,
          price,
-         image,
+         sellPrice,
+         productCost,
          stock,
-         categoryId,
-         subCategoryId,
+         category,
+         subCategory,
       } = req.body;
-      const { productId } = req.params;
+
       if (
          !title ||
          !description ||
          !price ||
-         !image ||
+         !sellPrice ||
+         !productCost ||
          !stock ||
-         !categoryId ||
-         !subCategoryId
+         !category ||
+         !subCategory
       ) {
          throw new CustomError(400, "All the fields are mandatory");
       };
@@ -87,13 +104,12 @@ module.exports.editProduct = async (req, res) => {
             _id: productId
          },
          {
-            title, description, price, image, stock, categoryId, subCategoryId
+            title, description, price, sellPrice, productCost, image: req.image, imageId: req.imageId, stock, category, subCategory
          },
          {
             new: true, runValidators: true
          }
       );
-
       if (!updateProduct) {
          throw new CustomError(400, "Update product failed, please try again")
       }
@@ -104,6 +120,7 @@ module.exports.editProduct = async (req, res) => {
       })
 
    } catch (err) {
+      console.log(err)
       errorResponse(res, err, "EDIT-PRODUCT");
    }
 }
@@ -243,27 +260,4 @@ module.exports.getBestSellingProducts = async (req, res) => {
       errorResponse(res, err, "GET-BEST-SELLING-PRODUCT");
    }
 
-}
-
-
-/********************************************************
- * @getStockOutPoducts
- * @Route GET http://localhost:5000/api/v1/product/stock-out
- * @Description Retrieve Stock out products, and then sends the resulting data back to the client as a JSON response. note: ***Stock out product data will be use only in admin dashboard***
- * @Parameters none
- * @Return Stock out Products Array 
- *********************************************************/
-
-module.exports.getStockOutPoducts = async (req, res) => {
-   try {
-      if (req.user.role !== "ADMIN") {
-         throw new CustomError(401, "Access denied. You are not authorized to access this resource.")
-      }
-      const stockout = await Product.find({ stock: { $lte: 0 } })
-         .populate("subCategory category", "_id name")
-      res.status(200).json({ success: true, stockout });
-
-   } catch (err) {
-      errorResponse(res, err, "STOCK-OUT-PRODUCT")
-   }
 }

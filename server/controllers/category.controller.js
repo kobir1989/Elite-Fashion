@@ -1,5 +1,6 @@
 const CustomError = require("../helper/customError");
 const Category = require("../models/category.schema");
+const SubCategory = require("../models/subCategory.schema");
 const errorResponse = require("../helper/errorResponse");
 
 /********************************************************
@@ -41,7 +42,7 @@ module.exports.createCategory = async (req, res) => {
 
 /********************************************************
  * @editCategory
- * @Route PUT http://localhost:5000/api/v1/category/sub-category/edit/:userId/:subCategoryId,
+ * @Route PUT http://localhost:5000/api/v1/category/sub-category/edit/:subCategoryId,
  * @Description Edit existing Sub-Category, Only Admin are Authorized to Edit.
  * @Parameters categoryId, name, imageUrl 
  * @Return success message

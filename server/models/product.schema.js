@@ -18,9 +18,25 @@ const productSchema = new Schema({
       maxlength: [10, "Max length should be less then 10 digits"],
       required: true
    },
+   sellPrice: {
+      type: Number,
+      trim: true,
+      maxlength: [10, "Max length should be less then 10 digits"],
+      required: true
+   },
+   productCost: {
+      type: Number,
+      trim: true,
+      maxlength: [10, "Max length should be less then 10 digits"],
+      required: true
+   },
    image: {
       type: String,
       required: [true, "Image URL is Required"]
+   },
+   imageId: {
+      type: String,
+      required: [true, "Image Public Id is Required"]
    },
    category: {
       type: Schema.Types.ObjectId,
@@ -41,7 +57,6 @@ const productSchema = new Schema({
       type: Number,
       default: 0,
    }
-
 },
    {
       timestamps: true

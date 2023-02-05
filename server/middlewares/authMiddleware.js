@@ -18,7 +18,7 @@ module.exports.isAuthenticated = async (req, res, next) => {
       if (req.headers.authorization
          && req.headers.authorization.startsWith("Bearer")) {
          token = req.headers.authorization.split(" ")[1];
-         console.log(token, "TOKEN FRESH")
+         // console.log(token, "TOKEN FRESH")
       }
       if (!token) {
          return res.status(401).json({
