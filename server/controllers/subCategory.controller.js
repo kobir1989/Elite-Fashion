@@ -15,20 +15,15 @@ module.exports.createSubCategory = async (req, res) => {
       if (req.user.role !== "ADMIN") {
          throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
       };
-      const { name, categoryId } = req.body;
-      if (!name || !categoryId) {
+      const { title, category } = req.body;
+      if (!title || !category) {
          throw new CustomError(400, "All the fields are mandatory");
       };
-
-      const isSubCategory = await SubCategory.findOne({ name }).exec();
-      if (isSubCategory) {
-         throw new CustomError(400, "Sub-Category already exists")
-      }
-
       await SubCategory.create({
-         name,
-         image: req.imageUrl,
-         category: categoryId
+         name: title,
+         image: req.image,
+         imageId: req.imageId,
+         category
       });
 
       return res.status(200).json({
@@ -144,6 +139,24 @@ module.exports.getSingleSubCategory = async (req, res) => {
 };
 
 /********************************************************
+ * @getAllRelatedSubCategory
+ * @Route GET http://localhost:5000/api/v1/sub-category/:categoryId
+ * @Description  Retrieve all Sub-Categories based on category Id, and then sends the resulting data back to the client as a JSON response.
+ * @Parameters none
+ * @Return category Array
+ *********************************************************/
+module.exports.getAllRelatedSubCategory = async (req, res) => {
+   try {
+      const { categoryId } = req.params;
+      const subCategories = await SubCategory.find({ "category": categoryId });
+      return res.status(200).json({ success: true, subCategories });
+
+   } catch (err) {
+      errorResponse(res, err, "GET-RELATED-SUB-CATEGORY");
+   };
+};
+
+/********************************************************
  * @getAllCategories
  * @Route GET http://localhost:5000/api/v1/sub-categories/all
  * @Description  Retrieve all Sub-Categories, and then sends the resulting data back to the client as a JSON response.
@@ -152,11 +165,10 @@ module.exports.getSingleSubCategory = async (req, res) => {
  *********************************************************/
 module.exports.getAllSubCategory = async (req, res) => {
    try {
-      const { categoryId } = req.params;
-      const subCategories = await SubCategory.find({ "category": categoryId });
+      const subCategories = await SubCategory.find().populate("category", "name _id");
       return res.status(200).json({ success: true, subCategories });
-
    } catch (err) {
+      console.log(err)
       errorResponse(res, err, "GET-ALL-SUB-CATEGORY");
    };
 };

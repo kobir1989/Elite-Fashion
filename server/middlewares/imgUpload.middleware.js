@@ -50,12 +50,16 @@ module.exports.fileUploader = async (req, res, next) => {
    }
 };
 
-
 //File Update Middleware 
-
 module.exports.updateFile = async (req, res, next) => {
    try {
       const { imageId } = req.body;
+      //Only exicute this condition if it's DELETE Request.
+      if (req.method === "DELETE") {
+         await cloudinary.uploader.destroy(imageId);
+         return next()
+      }
+
       //If req has imageId and req.files is null, that means user only wants to update product details, in that case this middleware won't do anything just next() will trigger.
       if (!req.files && imageId) {
          return next()

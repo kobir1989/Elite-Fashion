@@ -14,7 +14,7 @@ const {
 route.get("/:subCategoryId/products", getProductsByLimits);
 route.get("/product/single/:productId", getSingleProducts);
 route.get("/product/best-selling", getBestSellingProducts);
-route.get("/products/all", isAuthenticated, getAllProducts);
+route.get("/products/all", getAllProducts);
 
 route.post(
    "/create/product",
@@ -33,8 +33,9 @@ route.put(
 route.delete(
    "/product/delete/:productId",
    isAuthenticated,
+   updateFile,
    deleteProduct
 );
 
 
-module.exports = route
+module.exports = route;

@@ -12,6 +12,10 @@ const categorySchema = new Schema(
 			type: String,
 			required: [true, "Image Url is Required"],
 		},
+		imageId: {
+			type: String,
+			required: [true, "Image Id is Required"],
+		},
 	},
 	{
 		timestamps: true,
