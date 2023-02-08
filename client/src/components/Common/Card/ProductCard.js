@@ -35,7 +35,7 @@ const ProductCard = (
                <Typography variant={"h5"}>
                   TK. {parseInt(price) - Math.floor((parseInt(price) / 100) * parseInt(percentage))}
                   {discount && <span className={styles.old_price}>
-                     {price.toFixed(2)}
+                     {price}.00
                   </span>}
                </Typography>
             </div>

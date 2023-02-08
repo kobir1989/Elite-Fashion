@@ -11,6 +11,10 @@ const subCategorySchema = new Schema({
       type: String,
       required: [true, "Image URL is Required"]
    },
+   imageId: {
+      type: String,
+      required: [true, "Image URL is Required"]
+   },
    category: {
       type: Schema.Types.ObjectId,
       ref: "Category",

@@ -1,37 +1,41 @@
 const route = require("express").Router();
 const { isAuthenticated } = require("../middlewares/authMiddleware");
-const { fileUploader } = require("../middlewares/imgUpload.middleware")
+const { fileUploader, updateFile } = require("../middlewares/imgUpload.middleware");
 const {
-   getAllProducts,
+   getProductsByLimits,
    getSingleProducts,
    deleteProduct,
    editProduct,
    createNewProduct,
-   getBestSellingProducts
+   getBestSellingProducts,
+   getAllProducts,
 } = require("../controllers/product.controller")
 
-route.get("/:subCategoryId/products", getAllProducts);
+route.get("/:subCategoryId/products", getProductsByLimits);
 route.get("/product/single/:productId", getSingleProducts);
 route.get("/product/best-selling", getBestSellingProducts);
+route.get("/products/all", getAllProducts);
 
 route.post(
-   "/create/product/:userId",
+   "/create/product",
    isAuthenticated,
    fileUploader,
    createNewProduct
 );
 
 route.put(
-   "/product/edit/:userId/:productId",
+   "/product/edit/:productId",
    isAuthenticated,
+   updateFile,
    editProduct
 );
 
 route.delete(
-   "/product/delete/:userId/:productId",
+   "/product/delete/:productId",
    isAuthenticated,
+   updateFile,
    deleteProduct
 );
 
 
-module.exports = route
+module.exports = route;

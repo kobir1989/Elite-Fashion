@@ -16,32 +16,32 @@ module.exports.createCategory = async (req, res) => {
 			throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
 		};
 
-		const { name } = req.body;
+		const { title } = req.body;
+		console.log(title)
 
-		if (!name) {
+		if (!title) {
 			throw new CustomError(400, "All the fields are mandatory");
 		}
-		const category = await Category.findOne({ name }).exec();
-		if (category) {
-			throw new CustomError(400, "Category Already Exists");
-		}
-		await Category.create({
-			name,
-			image: req.imageUrl,
+		const category = await Category.create({
+			name: title,
+			image: req.image,
+			imageId: req.imageId
 		});
+		console.log(category)
 		return res.status(200).json({
 			success: true,
 			message: "New Category added"
 		});
 
 	} catch (err) {
+		console.log(err)
 		errorResponse(res, err, "CREATE-CATEGORY");
 	}
 };
 
 /********************************************************
  * @editCategory
- * @Route PUT http://localhost:5000/api/v1/category/sub-category/edit/:userId/:subCategoryId,
+ * @Route PUT http://localhost:5000/api/v1/category/sub-category/edit/:subCategoryId,
  * @Description Edit existing Sub-Category, Only Admin are Authorized to Edit.
  * @Parameters categoryId, name, imageUrl 
  * @Return success message
@@ -53,7 +53,8 @@ module.exports.editCategory = async (req, res) => {
 			throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
 		};
 		const { categoryId } = req.params;
-		const { name } = req.body;
+		const { title: name, imageId } = req.body;
+		console.log(req.body)
 		if (!name) {
 			throw new CustomError(400, "All the fields are mandatory")
 		};
@@ -63,7 +64,7 @@ module.exports.editCategory = async (req, res) => {
 				_id: categoryId
 			},
 			{
-				name, image: imageUrl
+				name, image: req.image, imageId
 			},
 			{
 				new: true,
@@ -86,7 +87,7 @@ module.exports.editCategory = async (req, res) => {
 
 /********************************************************
  * @removeCategory
- * @Route DELETE http://localhost:5000/api/v1/category/remove/:userId/:categoryId
+ * @Route DELETE http://localhost:5000/api/v1/category/remove/:categoryId
  * @Description Remove existing Category, Only Admin are Authorized to Remove Category
  * @Parameters categoryId
  * @Return success message

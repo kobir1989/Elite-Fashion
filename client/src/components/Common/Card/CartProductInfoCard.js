@@ -53,7 +53,7 @@ const CartProductInfoCard = (
                   dispatch(addToCart({
                      title: item?.title,
                      imageUrl: item?.image,
-                     price: item?.price,
+                     price: item?.price || item?.regularPrice,
                      id: item?.id,
                      quantity: 1,
                   }))
@@ -64,7 +64,7 @@ const CartProductInfoCard = (
                   Price:   TK. {item?.price} X {item?.quantity}
                </Typography>
                <Typography variant={"body"}>
-                  Total:   TK. {item?.quantity * item?.price}
+                  Total:   TK. {item?.quantity * item?.price || item?.regularPrice}
                </Typography>
             </div>
          </div>

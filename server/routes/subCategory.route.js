@@ -5,12 +5,18 @@ const {
    editSubCategory,
    removeSubCategory,
    getSingleSubCategory,
+   getAllRelatedSubCategory,
    getAllSubCategory
 } = require("../controllers/subCategory.controller");
-const { fileUploader } = require("../middlewares/imgUpload.middleware")
+const { fileUploader, updateFile } = require("../middlewares/imgUpload.middleware")
 
 route.get(
    "/sub-category/:categoryId",
+   getAllRelatedSubCategory
+);
+
+route.get(
+   "/sub-category/list/all",
    getAllSubCategory
 );
 
@@ -20,21 +26,23 @@ route.get(
 );
 
 route.post(
-   "/sub-category/create/:userId",
+   "/sub-category/create",
    isAuthenticated,
    fileUploader,
    createSubCategory
 );
 
 route.put(
-   "/sub-category/edit/:userId/:subCategoryId",
+   "/sub-category/edit/:subCategoryId",
    isAuthenticated,
+   updateFile,
    editSubCategory,
 );
 
 route.delete(
-   "/sub-category/remove/:userId/:subCategoryId",
+   "/sub-category/remove/:subCategoryId",
    isAuthenticated,
+   updateFile,
    removeSubCategory
 );
 
