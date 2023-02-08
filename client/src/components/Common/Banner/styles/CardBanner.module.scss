@@ -11,6 +11,7 @@
 		height: 100%;
 		transform: scale(1);
 		transition: transform 0.2s;
+		object-fit: cover;
 	}
 	.banner_text {
 		color: $white;

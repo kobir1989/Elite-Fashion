@@ -15,6 +15,7 @@ import ErrorMessage from '../../components/Common/Error/ErrorMessage';
 
 const ProductsPage = () => {
    const { id } = useParams();
+   console.log(id, "ID CATE")
    const dispatch = useDispatch();
    const {
       isLoading,
@@ -39,6 +40,7 @@ const ProductsPage = () => {
                <ProductCard
                   title={product?.title}
                   price={product?.price}
+                  sellPrice={product?.sellPrice}
                   imageUrl={product?.image}
                   linkTo={`/product-details/${product?._id}`}
                   key={product?._id}

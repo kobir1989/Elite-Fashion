@@ -9,7 +9,7 @@ import { addToWishList } from "../../../redux/features/wishLishSlice";
 import Ratings from '../Ratings/Ratings';
 
 const ProductCard = (
-   { title, imageUrl, linkTo, price, id, discount = false, percentage,
+   { title, imageUrl, linkTo, price, sellPrice, id,
       ...otherProps
    }) => {
    const dispatch = useDispatch();
@@ -17,12 +17,17 @@ const ProductCard = (
    const wishListHandler = (data) => {
       dispatch(addToWishList(data))
    }
+   const discountPercantage = sellPrice ? Math.floor((price - sellPrice) / sellPrice * 100) : ""
 
    return (
       <div className={styles.card_wrapper} {...otherProps}>
          <Link to={linkTo}>
             <div className={styles.card_img_wrapper}>
-               {discount && <span className={styles.discount_tag}>{percentage}</span>}
+               {sellPrice &&
+                  <span className={styles.discount_tag}>
+                     {discountPercantage}% Off
+                  </span>
+               }
                <img src={imageUrl} alt="product.jpg" />
                <div className={styles.ratings}>
                   <Ratings />
@@ -33,9 +38,9 @@ const ProductCard = (
             <div className={styles.price_details}>
                <Typography variant={"body"}>{title}</Typography>
                <Typography variant={"h5"}>
-                  TK. {parseInt(price) - Math.floor((parseInt(price) / 100) * parseInt(percentage))}
-                  {discount && <span className={styles.old_price}>
-                     {price}.00
+                  TK. {price}.00
+                  {sellPrice && <span className={styles.old_price}>
+                     {sellPrice}.00
                   </span>}
                </Typography>
             </div>

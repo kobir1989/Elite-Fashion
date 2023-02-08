@@ -1,11 +1,11 @@
 @import "../../sass/sass-utils/mixins";
 
 .main_wrapper {
-	padding: 4rem 0 3rem 0;
+	padding: 2.8rem 0 3rem 0;
 	max-width: 1400px;
 	margin: auto;
 	overflow: hidden;
 	@include screens-md {
-		padding: 5.5rem 0 3rem 0;
+		padding: 3.5rem 0 2rem 0;
 	}
 }

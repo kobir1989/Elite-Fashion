@@ -26,7 +26,7 @@ route.get(
 );
 
 route.post(
-   "/sub-category/create",
+   "/sub-category/create/new",
    isAuthenticated,
    fileUploader,
    createSubCategory
