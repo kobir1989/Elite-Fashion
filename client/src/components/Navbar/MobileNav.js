@@ -6,6 +6,7 @@ import Button from '../Common/Button/Button';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setOpenSearchBox } from "../../redux/features/searchSlice";
+import { motion, AnimatePresence } from "framer-motion";
 
 const MobileNav = (
    {
@@ -38,68 +39,81 @@ const MobileNav = (
                <Icons name={"menu"} size={"2rem"} />
             </Button>
          </div>
-         {openMenu &&
-            <div className={styles.nav_backdrop}
-               onClick={() => { setOpenMenu(false) }}>
-               <div className={styles.nav_menu_mobile_dropdown}>
-                  <div className={styles.close_icon}>
-                     <Button
-                        variant={"icon-btn-normal"}
-                        onClick={() => { setOpenMenu(false) }}>
-                        <Icons name={"cross"} size={"1.5rem"} />
-                     </Button>
-                  </div>
-                  <div className={styles.nav_menu_mobile_dropdown_search}>
-                     <Button variant={"btn-border-black"} onClick={() => { dispatch(setOpenSearchBox(true)) }}>
-                        Search...
-                        <Icons
-                           name={"search"}
-                           size={"1.3rem"}
-                           color={"#b5b5b5"} />
-                     </Button>
-                  </div>
-                  <ul className={styles.nav_menu_mobile_dropdown_links}>
-                     <li>
-                        <Link to={`/sub-category/63b848501e0644fd041c8ee0`}>
-                           MEN
-                        </Link>
-                     </li>
-                     <li>
-                        <Link to={`/sub-category/63b848e91e0644fd041c8ee3`}>
-                           WOMEN
-                        </Link>
-                     </li>
-                     <li>
-                        <Link to={`/sub-category/63b848e91e0644fd041c8ee3`}>
-                           LIFESTYLE
-                        </Link>
-                     </li>
-                     {userInfo &&
-                        <>
+         <AnimatePresence>
+            {openMenu &&
+               <motion.div
+                  initial={{ opacity: 0, transition: { duration: 0.2 } }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, transition: { duration: 0.2 } }}
+                  transition={{ default: { ease: "linear" } }}
+                  className={styles.nav_backdrop}
+                  onClick={() => { setOpenMenu(false) }}>
+                  <motion.div
+                     initial={{ x: "-100%", transition: { duration: 0.2 } }}
+                     animate={{ x: 0 }}
+                     exit={{ x: "-100%", transition: { duration: 0.2 } }}
+                     transition={{ default: { ease: "linear" } }}
+                     className={styles.nav_menu_mobile_dropdown}>
+                     <div className={styles.close_icon}>
+                        <Button
+                           variant={"icon-btn-normal"}
+                           onClick={() => { setOpenMenu(false) }}>
+                           <Icons name={"cross"} size={"1.5rem"} />
+                        </Button>
+                     </div>
+                     <div className={styles.nav_menu_mobile_dropdown_search}>
+                        <Button variant={"btn-border-black"} onClick={() => { dispatch(setOpenSearchBox(true)) }}>
+                           Search...
+                           <Icons
+                              name={"search"}
+                              size={"1.3rem"}
+                              color={"#b5b5b5"} />
+                        </Button>
+                     </div>
+                     <ul className={styles.nav_menu_mobile_dropdown_links}>
+                        <li>
+                           <Link to={`/sub-category/63b848501e0644fd041c8ee0`}>
+                              MEN
+                           </Link>
+                        </li>
+                        <li>
+                           <Link to={`/sub-category/63b848e91e0644fd041c8ee3`}>
+                              WOMEN
+                           </Link>
+                        </li>
+                        <li>
+                           <Link to={`/sub-category/63b8490f1e0644fd041c8ee6`}>
+                              LIFESTYLE
+                           </Link>
+                        </li>
+                        {userInfo &&
+                           <>
+                              <li>
+                                 <Link to={`/user-profile/${userInfo._id}`}>
+                                    Account
+                                 </Link>
+                              </li>
+                              <li onClick={logoutHandler}>
+                                 logout
+                              </li>
+                           </>
+                        }
+                        {!userInfo && <>
                            <li>
-                              <Link to={`/user-profile/${userInfo._id}`}>
-                                 Account
-                              </Link>
+                              <Link to="/login">login</Link>
                            </li>
-                           <li onClick={logoutHandler}>
-                              logout
+                           <li>
+                              <Link to="/signup">signup</Link>
                            </li>
                         </>
-                     }
-                     {!userInfo && <>
-                        <li>
-                           <Link to="/login">login</Link>
-                        </li>
-                        <li>
-                           <Link to="/signup">signup</Link>
-                        </li>
-                     </>
-                     }
-                  </ul>
-               </div>
-            </div>
-         }
-      </div>
+                        }
+                     </ul>
+                  </motion.div>
+               </motion.div>
+            }
+         </AnimatePresence>
+
+      </div >
    )
 }
 

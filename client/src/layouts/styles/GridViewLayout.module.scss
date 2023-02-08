@@ -29,7 +29,7 @@
 /************Sub-category Page*****************/
 
 .grid_view_wrapper_sub_category {
-	padding: 1.4rem;
+	padding: 1.5rem 1.5rem 3rem 1.5rem;
 	display: grid;
 	grid-template-columns: repeat(6, auto);
 	grid-auto-rows: 22rem;
@@ -38,7 +38,7 @@
 		grid-template-rows: 36rem 22rem 36rem;
 	}
 	@include screens-2xl {
-		padding: 1rem 0;
+		padding: 1.5rem 0 3rem 0;
 	}
 }
 

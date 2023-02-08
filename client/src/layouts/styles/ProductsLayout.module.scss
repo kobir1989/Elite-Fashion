@@ -9,12 +9,12 @@
 	margin-bottom: 2rem;
 	@include screens-sm {
 		grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: 28rem;
+		grid-auto-rows: 28rem;
 	}
 	@include screens-md {
 		grid-template-columns: repeat(3, 1fr);
 		padding: 3rem 2.5rem;
-		grid-template-rows: 28rem;
+		grid-auto-rows: 28rem;
 	}
 	@include screens-lg {
 		grid-template-columns: repeat(3, 1fr);
@@ -22,11 +22,11 @@
 	}
 	@include screens-xl {
 		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: 30rem;
+		grid-auto-rows: 30rem;
 	}
 	@include screens-2xl {
 		grid-template-columns: repeat(4, 1fr);
-		grid-template-rows: 30rem;
+		grid-auto-rows: 30rem;
 		padding: 3rem 0rem;
 	}
 }

@@ -31,7 +31,6 @@
 		background-color: $white;
 		max-width: 18rem;
 		height: 100vh;
-		animation: toggle 0.3s linear;
 		.close_icon {
 			position: absolute;
 			right: 6%;
@@ -71,11 +70,5 @@
 		width: 100%;
 		height: 100vh;
 		background-color: $back_drop;
-	}
-}
-
-@keyframes toggle {
-	0% {
-		transform: translateX(-100%);
 	}
 }

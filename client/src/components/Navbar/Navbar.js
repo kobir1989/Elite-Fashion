@@ -9,6 +9,7 @@ import Typography from '../Common/Typography/Typography';
 import MobileNav from './MobileNav';
 import { setOpenSearchBox } from "../../redux/features/searchSlice";
 import { logout } from "../../redux/features/authSlice";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Navbar = () => {
    const [openDropdown, setOpenDropdown] = useState(false);
@@ -22,6 +23,7 @@ const Navbar = () => {
       dispatch(logout())
       navigate("/login")
    }
+
    return (
       <nav className={styles.nav_wrapper}>
          {/*Big screen nav*/}
@@ -61,39 +63,46 @@ const Navbar = () => {
                      </div>
                      : <Icons name={"person"} size={"1.5rem"} />
                   }
-                  {openDropdown &&
-                     <ul className={styles.bgscreen_dropdown}>
-                        {!userInfo &&
-                           <>
-                              <li>
-                                 <Link to="/login">
-                                    <Icons name={"login"} size={"1.5rem"} />
-                                    Login
-                                 </Link>
-                              </li>
-                              <li>
-                                 <Link to="/signup">
-                                    <Icons name={"signup"} size={"1.5rem"} />
-                                    signup
-                                 </Link>
-                              </li>
-                           </>
-                        }
-                        {userInfo &&
-                           <>
-                              <li>
-                                 <Link to={`/user-profile/${userInfo._id}`}>
-                                    <Icons name={"person"} size={"1.5rem"} />
-                                    Account
-                                 </Link>
-                              </li>
-                              <li onClick={logoutHandler}>
-                                 <Icons name={"logout"} size={"1.5rem"} />  Logout
-                              </li>
-                           </>
-                        }
-                     </ul>
-                  }
+                  <AnimatePresence>
+                     {openDropdown &&
+
+                        <motion.ul
+                           initial={{ opacity: 0 }}
+                           animate={{ opacity: 1 }}
+                           exit={{ opacity: 0 }}
+                           className={styles.bgscreen_dropdown}>
+                           {!userInfo &&
+                              <>
+                                 <li>
+                                    <Link to="/login">
+                                       <Icons name={"login"} size={"1.5rem"} />
+                                       Login
+                                    </Link>
+                                 </li>
+                                 <li>
+                                    <Link to="/signup">
+                                       <Icons name={"signup"} size={"1.5rem"} />
+                                       signup
+                                    </Link>
+                                 </li>
+                              </>
+                           }
+                           {userInfo &&
+                              <>
+                                 <li>
+                                    <Link to={`/user-profile/${userInfo._id}`}>
+                                       <Icons name={"person"} size={"1.5rem"} />
+                                       Account
+                                    </Link>
+                                 </li>
+                                 <li onClick={logoutHandler}>
+                                    <Icons name={"logout"} size={"1.5rem"} />  Logout
+                                 </li>
+                              </>
+                           }
+                        </motion.ul>
+                     }
+                  </AnimatePresence>
                </Button>
                <Button variant={"icon-btn-normal"}
                   onClick={() => { dispatch(setToggleWishList(!toggleWishList)) }}>

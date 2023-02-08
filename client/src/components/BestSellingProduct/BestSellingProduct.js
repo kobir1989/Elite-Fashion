@@ -75,8 +75,7 @@ const BestSellingProduct = ({ title }) => {
                            linkTo={`/product-details/${product?._id}`}
                            price={product?.price}
                            id={product?._id}
-                           discount={true}
-                           percentage={"15% OFF"}
+                           sellPrice={product?.sellPrice}
                         />
                      </div>
                   ))

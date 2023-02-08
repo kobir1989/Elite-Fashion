@@ -3,7 +3,8 @@ const {
    createNewOrder,
    getAllOrders,
    getOrderStatus,
-   updateOrderStatus
+   updateOrderStatus,
+   getSingleOrder
 } = require("../controllers/order.controller");
 
 const {
@@ -13,9 +14,15 @@ const {
 const { updateStock } = require("../middlewares/updateStock.middleware")
 
 route.get(
-   "/order/all/:userId",
+   "/orders/all",
    isAuthenticated,
    getAllOrders
+);
+
+route.get(
+   "/order/single/:orderId",
+   isAuthenticated,
+   getSingleOrder
 );
 
 route.post(
@@ -25,16 +32,17 @@ route.post(
    createNewOrder
 );
 
-route.post(
-   "/order/update/status/:userId/:orderId",
+route.put(
+   "/order/update/status/:orderId",
    isAuthenticated,
    updateOrderStatus
 );
 
-route.get(
-   "/order/status/:userId",
-   isAuthenticated,
-   getOrderStatus
-);
+// /***Currently Not using***
+// route.get(
+//    "/order/status/all",
+//    isAuthenticated,
+//    getOrderStatus
+// );
 
 module.exports = route;

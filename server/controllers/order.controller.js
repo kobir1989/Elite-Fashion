@@ -46,11 +46,11 @@ module.exports.createNewOrder = async (req, res) => {
 /********************************************************
  * @getAllOrders
  * @Route GET http://localhost:5000/api/v1/order/all
- * @Description user and admin can see all order.
+ * @Description admin can see all order.
  * @Parameters  none
  * @Return order object
  *********************************************************/
-module.exports.getAllOrders = async (_req, res) => {
+module.exports.getAllOrders = async (req, res) => {
    try {
       //only ADMIN has access.
       if (req.user.role !== "ADMIN") {
@@ -67,23 +67,34 @@ module.exports.getAllOrders = async (_req, res) => {
    }
 }
 
+
 /********************************************************
- * @getOrderStatus
- * @Route GET http://localhost:5000/api/v1/order/status
- * @Description user and admin can check order status.
- * @Parameters  none
- * @Return status
+ * @getSingleOrder
+ * @Route GET http://localhost:5000/api/v1/order/single/:orderId
+ * @Description admin can see all order.
+ * @Parameters  orderId from req.params
+ * @Return order object
  *********************************************************/
-module.exports.getOrderStatus = async (req, res) => {
+module.exports.getSingleOrder = async (req, res) => {
    try {
+      const { orderId } = req.params;
       //only ADMIN has access.
       if (req.user.role !== "ADMIN") {
          throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
       };
-      return res.json(Order.schema.path("orderStatus").enumValues);
+      const order = await Order.findOne({ _id: orderId }).populate({
+         path: "product._id",
+         model: "Product",
+         select: "title price image _id",
+      });
+      if (!order) {
+         throw new CustomError(400, "No order found")
+      }
+      return res.status(200).json({ success: true, order })
+
    } catch (err) {
-      errorResponse(res, err, "ORDER-STATUS");
-   };
+      errorResponse(res, err, "GET-ALL-ORDER");
+   }
 }
 
 /********************************************************
@@ -94,10 +105,10 @@ module.exports.getOrderStatus = async (req, res) => {
  * @Return success message
  *********************************************************/
 module.exports.updateOrderStatus = async (req, res) => {
-   console.log(req.body)
    try {
       //only ADMIN has access.
-      if (req.role !== "ADMIN") {
+      console.log(req.body, "BODYU")
+      if (req.user.role !== "ADMIN") {
          throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
       };
       const { orderId } = req.params;
@@ -118,3 +129,24 @@ module.exports.updateOrderStatus = async (req, res) => {
       errorResponse(res, err, "UPDATE-ORDER-STATUS")
    };
 };
+
+
+// /**********************Currently Not using**********************************
+//  * @getOrderStatus
+//  * @Route GET http://localhost:5000/api/v1/order/status
+//  * @Description user and admin can check order status.
+//  * @Parameters  none
+//  * @Return status
+//  *********************************************************/
+// module.exports.getOrderStatus = async (req, res) => {
+//    try {
+//       //only ADMIN has access.
+//       if (req.user.role !== "ADMIN") {
+//          throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
+//       };
+//       return res.json(Order.schema.path("orderStatus").enumValues);
+//    } catch (err) {
+//       errorResponse(res, err, "ORDER-STATUS");
+//    };
+// }
+
