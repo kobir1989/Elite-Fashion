@@ -169,39 +169,36 @@ module.exports.getProductsByLimits = async (req, res) => {
       const endsIndexAt = page * limit;
       const products = {};
       if (!page || !limit || !subCategoryId) {
-         throw new CustomError(400, "Page and Products Limits are required")
+         throw new CustomError(400, "Page and Limit are required")
       }
 
+      const docLength = await Product.find({ "subCategory": subCategoryId }).countDocuments().exec();
+
+      if (endsIndexAt < docLength) {
+         products.next = {
+            page: parseInt(page) + 1,
+            limit: limit
+         }
+      };
+
+      if (startsIndexAt > 0) {
+         products.previous = {
+            page: page - 1,
+            limit: limit
+         }
+      };
+      products.totalPage = Math.floor(docLength / parseInt(limit) + 1);
       products.result = await Product.find({ "subCategory": subCategoryId })
          .select("-sold -productCost")
          .limit(limit)
          .skip(startsIndexAt)
          .exec();
 
-      if (products.result.length) {
-         products.totalPage = Math.trunc(await Product.find({ "subCategory": subCategoryId }).countDocuments().exec() / parseInt(limit) + 1);
-         if (endsIndexAt < products.result.length) {
-            products.next = {
-               page: parseInt(page) + 1,
-               limit: limit
-            }
-         };
-
-         if (startsIndexAt > 0) {
-            products.previous = {
-               page: page - 1,
-               limit: limit
-            }
-         };
-      }
-
       return res.status(200).json({ success: true, products })
    } catch (err) {
-      console.log(err, "RR")
       errorResponse(res, err, "GET-PAGINATED-PRODUCTS");
    }
 };
-
 /********************************************************
  * @getAllProducts
  * @Route GET http://localhost:5000/api/v1/products/all

@@ -10,6 +10,7 @@ import MobileNav from './MobileNav';
 import { setOpenSearchBox } from "../../redux/features/searchSlice";
 import { logout } from "../../redux/features/authSlice";
 import { AnimatePresence, motion } from "framer-motion";
+import { setSubCategoryPage } from "../../redux/features/subCategorySlice";
 
 const Navbar = () => {
    const [openDropdown, setOpenDropdown] = useState(false);
@@ -23,7 +24,9 @@ const Navbar = () => {
       dispatch(logout())
       navigate("/login")
    }
-
+   const resetSubCategory = () => {
+      dispatch(setSubCategoryPage(1))
+   }
    return (
       <nav className={styles.nav_wrapper}>
          {/*Big screen nav*/}
@@ -33,17 +36,17 @@ const Navbar = () => {
             </Link>
             </div>
             <ul className={styles.nav_links}>
-               <li>
+               <li onClick={resetSubCategory}>
                   <Link to={`/sub-category/63b848501e0644fd041c8ee0`}>
                      MEN
                   </Link>
                </li>
-               <li>
+               <li onClick={resetSubCategory}>
                   <Link to={`/sub-category/63b848e91e0644fd041c8ee3`}>
                      WOMEN
                   </Link>
                </li>
-               <li>
+               <li onClick={resetSubCategory}>
                   <Link to={`/sub-category/63b8490f1e0644fd041c8ee6`}>
                      LIFESTYLE
                   </Link>
@@ -126,6 +129,7 @@ const Navbar = () => {
             userInfo={userInfo}
             quantity={quantity}
             logoutHandler={logoutHandler}
+            resetSubCategory={resetSubCategory}
 
          />
          {/*********************************/}
