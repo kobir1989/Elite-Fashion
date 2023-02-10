@@ -31,7 +31,7 @@
 .grid_view_wrapper_sub_category {
 	padding: 1.5rem 1.5rem 3rem 1.5rem;
 	display: grid;
-	grid-template-columns: repeat(6, auto);
+	grid-template-columns: repeat(6, 1fr);
 	grid-auto-rows: 22rem;
 	gap: 1rem;
 	@include screens-md {

@@ -9,18 +9,25 @@ import CardSkeleton from '../../components/Common/Skeleton/CardSkeleton';
 import CategoryCard from '../../components/Common/Card/CategoryCard';
 import CardBanner from '../../components/Common/Banner/CardBanner';
 import styles from "./styles/SubCategoryPage.module.scss";
+import Pagination from "../../components/Pagenation/Pagination";
+import { setSubCategoryPage } from "../../redux/features/subCategorySlice";
 
 const SubCategoryPage = () => {
    const {
       isLoading,
       subCategories,
-      error
+      error,
+      page
    } = useSelector(state => state.subCategory);
    const dispatch = useDispatch()
    const { id } = useParams();
    useEffect(() => {
-      dispatch(fetchSubCategory(id))
-   }, [id, dispatch])
+      dispatch(fetchSubCategory(`sub-category/related/${id}?page=${page}&limit=7`))
+   }, [id, page, dispatch])
+
+   const subCategoryPaginationHandler = (pageCount) => {
+      dispatch(setSubCategoryPage(pageCount))
+   }
    return (
       <PageLayout>
          <div className={styles.discount_banner}>
@@ -33,14 +40,14 @@ const SubCategoryPage = () => {
          </div>
          {error && <ErrorMessage />}
          <GridViewLayout page={"sub_category"}>
-            {subCategories.map((subCategory) => (
+            {subCategories?.result ? subCategories?.result.map((subCtg) => (
                <CategoryCard
-                  title={subCategory?.name}
-                  imgUrl={subCategory?.image}
-                  linkTo={`/products/${subCategory?._id}`}
-                  key={subCategory?._id}
+                  title={subCtg?.name}
+                  imgUrl={subCtg?.image}
+                  linkTo={`/products/${subCtg?._id}`}
+                  key={subCtg?._id}
                />
-            ))}
+            )) : null}
             {isLoading &&
                <CardSkeleton
                   col={7}
@@ -49,6 +56,11 @@ const SubCategoryPage = () => {
                />
             }
          </GridViewLayout>
+         <Pagination
+            page={page}
+            paginationHandler={subCategoryPaginationHandler}
+            api={subCategories}
+         />
       </PageLayout>
    )
 }

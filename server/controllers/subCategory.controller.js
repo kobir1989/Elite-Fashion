@@ -170,3 +170,48 @@ module.exports.getAllSubCategory = async (req, res) => {
       errorResponse(res, err, "GET-ALL-SUB-CATEGORY");
    };
 };
+
+/********************************************************
+ * @getPaginatedSubCategory
+ * @Route GET http://localhost:5000/api/v1/:categoryId/sub-category?page=1&limit=12
+ * @Description  Retrieve all Sub-Categories based page and limits from related category Id, and then sends the resulting data back to the client as a JSON response.
+ * @Parameters  page, limit from req.query and categoryId from req.params
+ * @Return category Array
+ *********************************************************/
+module.exports.getSubCategoryByLimits = async (req, res) => {
+   try {
+      const { page, limit } = req.query;
+      const { categoryId } = req.params;
+      const startsIndexAt = (page - 1) * limit;
+      const endsIndexAt = page * limit;
+      const subCategory = {};
+      if (!page || !limit || !categoryId) {
+         throw new CustomError(400, "Page and Sub-category Limits are required")
+      }
+      subCategory.result = await SubCategory.find({ "category": categoryId })
+         .limit(limit)
+         .skip(startsIndexAt)
+         .exec();
+
+      if (subCategory.result.length) {
+         subCategory.totalPage = Math.trunc(await SubCategory.find({ "category": categoryId }).countDocuments().exec() / parseInt(limit));
+         if (endsIndexAt < subCategory.result.length) {
+            subCategory.next = {
+               page: parseInt(page) + 1,
+               limit: limit
+            }
+         };
+
+         if (startsIndexAt > 0) {
+            subCategory.previous = {
+               page: page - 1,
+               limit: limit
+            }
+         };
+      }
+      return res.status(200).json({ success: true, subCategory })
+
+   } catch (err) {
+      errorResponse(res, err, "PAGINATED-SUB-CATEGORY");
+   };
+};

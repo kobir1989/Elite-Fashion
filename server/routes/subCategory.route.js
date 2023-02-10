@@ -6,7 +6,8 @@ const {
    removeSubCategory,
    getSingleSubCategory,
    getAllRelatedSubCategory,
-   getAllSubCategory
+   getAllSubCategory,
+   getSubCategoryByLimits
 } = require("../controllers/subCategory.controller");
 const { fileUploader, updateFile } = require("../middlewares/imgUpload.middleware")
 
@@ -18,6 +19,12 @@ route.get(
 route.get(
    "/sub-category/list/all",
    getAllSubCategory
+);
+
+//Pagination API 
+route.get(
+   "/sub-category/related/:categoryId",
+   getSubCategoryByLimits
 );
 
 route.get(

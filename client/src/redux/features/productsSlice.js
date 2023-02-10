@@ -12,7 +12,7 @@ const productsSlice = createSlice({
    name: "product",
    initialState,
    reducers: {
-      loadPage: (state, action) => {
+      setProductPage: (state, action) => {
          state.page = action.payload;
       }
    },
@@ -30,5 +30,5 @@ const productsSlice = createSlice({
       });
    }
 });
-export const { loadPage } = productsSlice.actions;
+export const { setProductPage } = productsSlice.actions;
 export default productsSlice.reducer;
