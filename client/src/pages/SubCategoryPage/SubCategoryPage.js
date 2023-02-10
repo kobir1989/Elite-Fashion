@@ -21,7 +21,7 @@ const SubCategoryPage = () => {
    } = useSelector(state => state.subCategory);
    const dispatch = useDispatch()
    const { id } = useParams();
-   console.log(id, "IDDDDDD")
+   // console.log(id, "IDDDDDD")
    useEffect(() => {
       dispatch(fetchSubCategory(`sub-category/related/${id}?page=${page}&limit=7`))
    }, [id, page, dispatch])

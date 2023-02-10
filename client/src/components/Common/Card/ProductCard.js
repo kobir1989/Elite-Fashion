@@ -17,13 +17,12 @@ const ProductCard = (
    const wishListHandler = (data) => {
       dispatch(addToWishList(data))
    }
-   const discountPercantage = sellPrice ? Math.floor((price - sellPrice) / sellPrice * 100) : ""
-
+   const discountPercantage = sellPrice ? Math.floor((price - sellPrice) / price * 100) : "";
    return (
       <div className={styles.card_wrapper} {...otherProps}>
          <Link to={linkTo}>
             <div className={styles.card_img_wrapper}>
-               {sellPrice &&
+               {discountPercantage > 0 &&
                   <span className={styles.discount_tag}>
                      {discountPercantage}% Off
                   </span>
@@ -38,10 +37,12 @@ const ProductCard = (
             <div className={styles.price_details}>
                <Typography variant={"body"}>{title}</Typography>
                <Typography variant={"h5"}>
-                  TK. {price}.00
-                  {sellPrice && <span className={styles.old_price}>
-                     {sellPrice}.00
-                  </span>}
+                  TK. {sellPrice}.00
+                  {sellPrice && discountPercantage > 0 ?
+                     <span className={styles.old_price}>
+                        {price}.00
+                     </span>
+                     : null}
                </Typography>
             </div>
             <div className={styles.card_buttons}>

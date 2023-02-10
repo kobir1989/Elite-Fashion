@@ -165,40 +165,45 @@ module.exports.getProductsByLimits = async (req, res) => {
    try {
       const { page, limit } = req.query;
       const { subCategoryId } = req.params;
-      const startsIndexAt = (page - 1) * limit;
-      const endsIndexAt = page * limit;
-      const products = {};
+
       if (!page || !limit || !subCategoryId) {
-         throw new CustomError(400, "Page and Limit are required")
+         throw new CustomError(400, "Page, Limit and Sub Category Id are required");
       }
 
-      const docLength = await Product.find({ "subCategory": subCategoryId }).countDocuments().exec();
+      const startsIndexAt = (page - 1) * limit;
+      const endsIndexAt = page * limit;
 
-      if (endsIndexAt < docLength) {
-         products.next = {
-            page: parseInt(page) + 1,
-            limit: limit
-         }
-      };
+      const totalCount = await Product.countDocuments({ "subCategory": subCategoryId });
+      const products = {};
 
-      if (startsIndexAt > 0) {
-         products.previous = {
-            page: page - 1,
-            limit: limit
-         }
-      };
-      products.totalPage = Math.floor(docLength / parseInt(limit) + 1);
       products.result = await Product.find({ "subCategory": subCategoryId })
          .select("-sold -productCost")
          .limit(limit)
          .skip(startsIndexAt)
          .exec();
 
-      return res.status(200).json({ success: true, products })
+      if (endsIndexAt < totalCount) {
+         products.next = {
+            page: parseInt(page) + 1,
+            limit: limit
+         };
+      }
+
+      if (startsIndexAt > 0) {
+         products.previous = {
+            page: page - 1,
+            limit: limit
+         };
+      }
+
+      products.totalPage = Math.ceil(totalCount / limit);
+
+      return res.status(200).json({ success: true, products });
    } catch (err) {
       errorResponse(res, err, "GET-PAGINATED-PRODUCTS");
    }
 };
+
 /********************************************************
  * @getAllProducts
  * @Route GET http://localhost:5000/api/v1/products/all

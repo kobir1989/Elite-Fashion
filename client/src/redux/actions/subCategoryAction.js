@@ -4,7 +4,7 @@ import { axiosBaseUrl } from "../../utils/axios.config";
 export const fetchSubCategory = createAsyncThunk("subcategory/fetchSubCategory",
    async (url, { rejectWithValue }) => {
       try {
-         console.log(url, "SLICE")
+         // console.log(url, "SUB_CATEGORY_URL")
          const response = await axiosBaseUrl.get(url);
          // console.log(response.data.subCategory)
          return response?.data?.subCategory;
