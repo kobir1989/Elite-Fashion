@@ -14,7 +14,8 @@ const MobileNav = (
       wishListItem,
       userInfo,
       quantity,
-      logoutHandler
+      logoutHandler,
+      resetSubCategory
 
    }) => {
 
@@ -71,17 +72,17 @@ const MobileNav = (
                         </Button>
                      </div>
                      <ul className={styles.nav_menu_mobile_dropdown_links}>
-                        <li>
+                        <li onClick={resetSubCategory}>
                            <Link to={`/sub-category/63b848501e0644fd041c8ee0`}>
                               MEN
                            </Link>
                         </li>
-                        <li>
+                        <li onClick={resetSubCategory}>
                            <Link to={`/sub-category/63b848e91e0644fd041c8ee3`}>
                               WOMEN
                            </Link>
                         </li>
-                        <li>
+                        <li onClick={resetSubCategory}>
                            <Link to={`/sub-category/63b8490f1e0644fd041c8ee6`}>
                               LIFESTYLE
                            </Link>

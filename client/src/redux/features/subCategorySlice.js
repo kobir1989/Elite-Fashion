@@ -5,11 +5,17 @@ const initialState = {
    isLoading: false,
    subCategories: [],
    error: null,
+   page: 1
 };
 
 const subCategorySlice = createSlice({
    name: "subCategory",
    initialState,
+   reducers: {
+      setSubCategoryPage: (state, action) => {
+         state.page = action.payload;
+      }
+   },
    extraReducers: (builder) => {
       builder.addCase(fetchSubCategory.pending, (state, _action) => {
          state.isLoading = true;
@@ -25,4 +31,5 @@ const subCategorySlice = createSlice({
    }
 });
 
+export const { setSubCategoryPage } = subCategorySlice.actions;
 export default subCategorySlice.reducer;

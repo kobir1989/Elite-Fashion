@@ -30,7 +30,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ErrorIcon from '@mui/icons-material/Error';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import ToggleOffIcon from '@mui/icons-material/ToggleOff';
-
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 const icons = {
    search: SearchIcon,
@@ -63,7 +63,8 @@ const icons = {
    forwardArrow: ArrowForwardIosIcon,
    error: ErrorIcon,
    off: ToggleOffIcon,
-   on: ToggleOnIcon
+   on: ToggleOnIcon,
+   arrowBack: ArrowBackIosIcon
 }
 
 const Icons = React.forwardRef((props, ref) => {
