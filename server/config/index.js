@@ -10,8 +10,11 @@ const config = {
    CLOUD_NAME: process.env.CLOUD_NAME,
    CLOUD_API_KEY: process.env.CLOUD_API_KEY,
    CLOUD_SECRET: process.env.CLOUD_SECRET,
-   SEND_GRID_EMIL_API: process.env.SEND_GRID_EMIL_API,
-   STRIPE_KEY: process.env.STRIPE_KEY
+   STRIPE_KEY: process.env.STRIPE_KEY,
+   GOOGLE_API_CLIENT_ID: process.env.GOOGLE_API_CLIENT_ID,
+   GOOGLE_API_CLIENT_SECRET: process.env.GOOGLE_API_CLIENT_SECRET,
+   GOOGLE_API_REFRESH_TOKEN: process.env.GOOGLE_API_REFRESH_TOKEN,
+   GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI
 }
 
 module.exports = config;

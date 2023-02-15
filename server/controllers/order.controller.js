@@ -2,7 +2,7 @@ const Order = require("../models/order.schema");
 const CustomError = require("../helper/customError");
 const errorResponse = require("../helper/errorResponse");
 const User = require("../models/user.schema");
-
+const mailSender = require("../helper/mailSender");
 /********************************************************
  * @createNewOrder
  * @Route POST http://localhost:5000/api/v1/order/create/:userId
@@ -14,11 +14,9 @@ module.exports.createNewOrder = async (req, res) => {
    try {
       const { checkout } = req.body;
       const { userId } = req.params
-      console.log(checkout, "ORDER")
       if (!checkout.address || !checkout.phone || !checkout.city || !checkout.order) {
          throw new CustomError(400, "All the feilds are mendetory", "Order Validation Error");
       };
-      console.log(checkout.paymentId, "PAYMENT_ID")
       const order = await Order.create({
          product: checkout.order,
          city: checkout.city,
@@ -35,8 +33,11 @@ module.exports.createNewOrder = async (req, res) => {
          { $push: { purchases: order } },
          { new: true })
 
-      console.log(order)
-      return res.status(200).json({ success: true, message: "Order created successfully" })
+      console.log(req.user, "CHE")
+      //Email sender helper function, if order successfull user will get an email with order details invoice.   
+      mailSender(req?.user?.email, req?.user?.name)
+
+      return res.status(200).json({ success: true, message: "Order Submit successfully" })
 
    } catch (err) {
       errorResponse(res, err, "CREATE-ORDER");
