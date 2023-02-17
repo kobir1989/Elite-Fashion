@@ -31,6 +31,8 @@ import ErrorIcon from '@mui/icons-material/Error';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const icons = {
    search: SearchIcon,
@@ -64,7 +66,9 @@ const icons = {
    error: ErrorIcon,
    off: ToggleOffIcon,
    on: ToggleOnIcon,
-   arrowBack: ArrowBackIosIcon
+   arrowBack: ArrowBackIosIcon,
+   eyeOpen: RemoveRedEyeIcon,
+   eyeClosed: VisibilityOffIcon
 }
 
 const Icons = React.forwardRef((props, ref) => {

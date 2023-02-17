@@ -1,8 +1,11 @@
+const crypto = require("crypto");
 const CustomError = require("../helper/customError");
 const User = require("../models/user.schema");
 const isValidEmail = require("../helper/emailValidator");
 const cookieOptions = require("../utils/cookieOptions");
 const errorResponse = require("../helper/errorResponse");
+const mailSender = require("../helper/mailSender");
+const config = require("../config/index");
 
 /********************************************************
  * @Signup
@@ -72,7 +75,6 @@ module.exports.login = async (req, res) => {
 		if (!email || !password) {
 			throw new CustomError(400, "All the input fields are mandatory");
 		}
-
 		const user = await User.findOne({ email });
 		if (!user) {
 			throw new CustomError(401, "Invalid Credentials");
@@ -141,3 +143,120 @@ module.exports.adminLogin = async (req, res) => {
 
 
 //TODO: Forget password Controller
+/********************************************************
+ * @forgetPassword
+ * @Route POST http://localhost:5000/api/v1/auth/forget/password
+ * @Description User or Admin can reset Their Password
+ * @Parameters  
+ * @Return 
+ ********************************************************/
+module.exports.forgotPassword = async (req, res) => {
+	let user;
+
+	try {
+		const { email } = req.body;
+		if (!email) {
+			throw new CustomError(400, "Invalid Email", "email");
+		}
+		if (!isValidEmail(email)) {
+			throw new CustomError(400, "Invalid Email", "email");
+		}
+
+		user = await User.findOne({ email });
+		if (!user) {
+			throw new CustomError(400, "User not found", "email");
+		}
+
+		const resetToken = user.generateForgetPassToken();
+
+		await user.save({ validateBeforeSave: false });
+
+		// const resetUrl = `${req.protocol}://${req.get("host")}/api/auth/forget/password/${resetToken}`;
+		const resetUrl = `${config.CLIENT_URL}/reset/password/${resetToken}`;
+		console.log(resetUrl, "RESET")
+		const text = `
+		 <div style="background-color: #ffffff; padding: 10px;">
+			<h1 style="margin-bottom: 15px; color: #212529;">Reset Your Password</h1>
+			<p style="font-size: 18px;">Click the link below to reset your password:</p>
+			<a style="display: inline-block;
+			  padding: 10px 20px;
+			  background-color: #3f7fb8;
+			  color: #fff;
+			  text-decoration: none;
+			  border-radius: 5px;" href=${resetUrl}>Reset Password</a>
+			<p>If you did not request a password reset, please ignore this email.</p>
+		 </div>
+	  `;
+
+		// Send email
+		await mailSender(user?.email, text, "Reset Your Password - Elite Fashion");
+
+		res.status(200).json({
+			success: true,
+			message: `Password reset email has been sent to your email ${user.email}`,
+		});
+	} catch (err) {
+		if (user) {
+			// Roll back - clear fields and save
+			user.forgotPasswordToken = undefined;
+			user.forgotPasswordExpiry = undefined;
+			await user.save({ validateBeforeSave: false });
+		}
+		errorResponse(res, err, "FORGET-PASSWORD");
+	}
+};
+
+
+/********************************************************
+ * @resetPassword
+ * @Route POST http://localhost:5000/api/v1/reset/password/:resetToken
+ * @Description User or Admin can reset Their Password
+ * @Parameters  
+ * @Return 
+ ********************************************************/
+
+module.exports.resetPassword = async (req, res) => {
+	try {
+		const { resetToken } = req.params;
+		const { password, confirmPassword } = req.body;
+
+		const resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+
+		const user = await User.findOne({
+			forgotPasswordToken: resetPasswordToken,
+			forgotPasswordExpiry: { $gt: Date.now() },
+		});
+
+		if (!user) {
+			throw new CustomError(403, "Invalid Token", "password");
+		}
+
+		if (password !== confirmPassword) {
+			throw new CustomError(400, "Incorrect Password", "confirmPassword");
+		}
+
+		user.password = password;
+		user.forgetPasswordToken = undefined;
+		user.forgetPasswordExpiry = undefined;
+
+		await user.save();
+
+		//create a new JWT token and send as response
+		const token = user.generateJwtToken();
+		user.password = undefined;
+		const userPayload = {
+			_id: user._id,
+			name: user.name,
+			role: user.role,
+		};
+
+		res.cookie("token", token, cookieOptions);
+		res.status(200).json({
+			success: true,
+			userPayload,
+			token,
+		});
+	} catch (err) {
+		errorResponse(res, err, "FORGET-PASSWORD-CONTROLLER")
+	}
+};

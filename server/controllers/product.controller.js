@@ -195,7 +195,6 @@ module.exports.getProductsByLimits = async (req, res) => {
             limit: limit
          };
       }
-
       products.totalPage = Math.ceil(totalCount / limit);
 
       return res.status(200).json({ success: true, products });
@@ -222,7 +221,6 @@ module.exports.getAllProducts = async (_req, res) => {
 
 }
 
-
 /********************************************************
  * @getSingleProducts
  * @Route GET http://localhost:5000/api/v1/product/single/:productId
@@ -233,15 +231,12 @@ module.exports.getAllProducts = async (_req, res) => {
 module.exports.getSingleProducts = async (req, res) => {
    try {
       const { productId } = req.params;
-      const products = await Product.findById({ _id: productId }).select("-sold").exec();
-      console.log(products)
+      const products = await Product.findById({ _id: productId }).populate("category subCategory", "_id name").exec();
       return res.status(200).json({ success: true, products })
    } catch (err) {
       errorResponse(res, err, "GET-SINGLE_PRODUCT");
    }
-
 }
-
 
 /********************************************************
  * @getBestSellingProducts

@@ -103,7 +103,7 @@ const LoginPage = () => {
             </form>
             <div className={styles.forget_password_link}>
                <Typography variant={"body"}>
-                  <Link to="/">
+                  <Link to="/forget/password">
                      Forgot Your Password?
                   </Link>
                </Typography>
