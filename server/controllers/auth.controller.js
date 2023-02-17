@@ -68,7 +68,6 @@ module.exports.signUp = async (req, res) => {
  *********************************************************/
 
 module.exports.login = async (req, res) => {
-	console.log(req.body)
 	try {
 		const { email, password } = req.body;
 
@@ -81,6 +80,7 @@ module.exports.login = async (req, res) => {
 		}
 
 		const isPasswordMatch = await user.comparePassword(password);
+		console.log(isPasswordMatch, "USER")
 		if (!isPasswordMatch) {
 			throw new CustomError(401, "Invalid Credentials");
 		}
@@ -198,8 +198,8 @@ module.exports.forgotPassword = async (req, res) => {
 	} catch (err) {
 		if (user) {
 			// Roll back - clear fields and save
-			user.forgotPasswordToken = undefined;
-			user.forgotPasswordExpiry = undefined;
+			user.forgetPasswordToken = undefined;
+			user.forgetPasswordExpiry = undefined;
 			await user.save({ validateBeforeSave: false });
 		}
 		errorResponse(res, err, "FORGET-PASSWORD");
@@ -215,48 +215,44 @@ module.exports.forgotPassword = async (req, res) => {
  * @Return 
  ********************************************************/
 
-module.exports.resetPassword = async (req, res) => {
+exports.resetPassword = async (req, res) => {
 	try {
 		const { resetToken } = req.params;
+
+		if (!resetToken) {
+			throw new CustomError(403, 'Invalid Token', 'password');
+		}
+
 		const { password, confirmPassword } = req.body;
 
-		const resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+		if (!password || !confirmPassword) {
+			throw new CustomError(400, 'Password and Confirm Password are required', 'password');
+		}
 
+		const resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
 		const user = await User.findOne({
-			forgotPasswordToken: resetPasswordToken,
-			forgotPasswordExpiry: { $gt: Date.now() },
+			forgetPasswordToken: resetPasswordToken,
+			forgetPasswordExpiry: { $gt: Date.now() },
 		});
 
 		if (!user) {
-			throw new CustomError(403, "Invalid Token", "password");
+			throw new CustomError(403, "The reset token you provided is invalid or has expired", 'password');
 		}
 
 		if (password !== confirmPassword) {
-			throw new CustomError(400, "Incorrect Password", "confirmPassword");
+			throw new CustomError(400, 'Incorrect Password', 'confirmPassword');
 		}
-
 		user.password = password;
 		user.forgetPasswordToken = undefined;
 		user.forgetPasswordExpiry = undefined;
 
-		await user.save();
+		await user.save({ validateBeforeSave: false });
 
-		//create a new JWT token and send as response
-		const token = user.generateJwtToken();
-		user.password = undefined;
-		const userPayload = {
-			_id: user._id,
-			name: user.name,
-			role: user.role,
-		};
-
-		res.cookie("token", token, cookieOptions);
 		res.status(200).json({
 			success: true,
-			userPayload,
-			token,
+			message: 'Password updated',
 		});
 	} catch (err) {
-		errorResponse(res, err, "FORGET-PASSWORD-CONTROLLER")
+		errorResponse(res, err, 'FORGET-PASSWORD-CONTROLLER');
 	}
 };

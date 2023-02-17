@@ -33,7 +33,7 @@ const App = () => {
         <Route path="/user-profile/:id" element={<UserProfilePage />} />
       </Route>
       <Route path="/forget/password" element={<ForgetPassword />} />
-      <Route path="/reset/password/:token" element={<ResetPasswordPage />} />
+      <Route path="/reset/password/:resetToken" element={<ResetPasswordPage />} />
       <Route path='*' element={<Navigate to='/' replace />} />
     </Routes>
   );

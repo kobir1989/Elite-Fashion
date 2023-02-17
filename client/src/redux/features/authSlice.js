@@ -16,7 +16,7 @@ const authSlice = createSlice({
          state.error = action.payload
          // console.log(action.payload)
       },
-      logout: (state, action) => {
+      logout: (state, _action) => {
          state.userInfo = null
          state.token = null
       }

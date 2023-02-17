@@ -4,7 +4,7 @@ const { signUp, login, adminLogin, resetPassword, forgotPassword } = require("..
 route.post("/auth/signup", signUp);
 route.post("/auth/login", login);
 route.post("/admin/login", adminLogin);
-route.post("/reset/password/:resetToken", resetPassword);
+route.post("/auth/reset/password/:resetToken", resetPassword);
 route.post("/auth/forget/password", forgotPassword);
 
 module.exports = route;

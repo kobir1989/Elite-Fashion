@@ -16,7 +16,8 @@ const ResetPasswordPage = () => {
    const { loading, error, hasResetSuccess } = useSelector(state => state.resetPassword);
    const dispatch = useDispatch()
    const navigate = useNavigate();
-   const { id: resetToken } = useParams()
+   const { resetToken } = useParams()
+   console.log(resetToken, "ID")
    //Password onChange Handler
    const onPasswordHandler = (e) => {
       if (password !== "") {
@@ -54,7 +55,7 @@ const ResetPasswordPage = () => {
    //If request has success property navigate to login page.
    useEffect(() => {
       if (hasResetSuccess) {
-         // console.log(hasResetSuccess, "YES")
+         console.log(hasResetSuccess, "YES")
          setConfirmPassword("")
          setPassword("")
          toast.success("Password updated! Please Login to continue...")
