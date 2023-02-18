@@ -24,17 +24,23 @@ const MobileNav = (
    return (
       <div className={styles.nav_menu_mobile}>
          <div className={styles.nav_menu_mobile_btn}>
-            <Button variant={"icon-btn-normal"}
-               onClick={() => { dispatch(setToggleWishList(!toggleWishList)) }}>
-               <Icons name={"love"} size={"1.5rem"} />
-               <span>{wishListItem ? wishListItem.length : 0}</span>
-            </Button>
-            <Link to="/cart">
-               <Button variant={"icon-btn-normal"}>
-                  <Icons name={"bag"} size={"1.5rem"} />
-                  <span>{quantity}</span>
+            <div className={styles.wish_list_btn_wrapper}>
+               <Button variant={"icon-btn-normal"}
+                  onClick={() => { dispatch(setToggleWishList(!toggleWishList)) }}>
+                  <Icons name={"love"} size={"1.5rem"} color={"#727272"} />
+                  <span className={styles.wish_list_count}>
+                     {wishListItem ? wishListItem.length : 0}
+                  </span>
                </Button>
-            </Link>
+            </div>
+            <div className={styles.cart_item_link_wrapper}>
+               <Link to={"/cart"}>
+                  <Icons name={"bag"} size={"1.5rem"} color={"#727272"} />
+                  <span className={styles.cart_item_count}>
+                     {quantity}
+                  </span>
+               </Link>
+            </div>
             <Button variant={"icon-btn-normal"}
                onClick={() => { setOpenMenu(!openMenu) }}>
                <Icons name={"menu"} size={"2rem"} />
@@ -55,11 +61,22 @@ const MobileNav = (
                      exit={{ x: "-100%", transition: { duration: 0.2 } }}
                      transition={{ default: { ease: "linear" } }}
                      className={styles.nav_menu_mobile_dropdown}>
+                     {userInfo &&
+                        <div className={styles.drop_down_user_info}>
+                           <img src="/assets/user.jpg" alt="" />
+                           <div className={styles.user_account}>
+                              <span className={styles.user_name}>                                    {userInfo?.name}
+                              </span>
+                              <span className={styles.user_email}>                                    {userInfo?.email}
+                              </span>
+                           </div>
+                        </div>
+                     }
                      <div className={styles.close_icon}>
                         <Button
                            variant={"icon-btn-normal"}
                            onClick={() => { setOpenMenu(false) }}>
-                           <Icons name={"cross"} size={"1.5rem"} />
+                           <Icons name={"cross"} size={"1.1rem"} />
                         </Button>
                      </div>
                      <div className={styles.nav_menu_mobile_dropdown_search}>

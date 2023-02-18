@@ -32,7 +32,7 @@ const SearchPopup = () => {
                   onChange={searchHandler}
                   value={searchValue}
                />
-               <Icons name={"search"} color={"#727272"} />
+               <Icons name={"search"} color={"#e5e5e5"} />
             </div>
             <div className={styles.search_result_wrapper}>
                {searchResult && searchResult.length ? searchResult.map((result) => (
