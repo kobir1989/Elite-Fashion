@@ -120,7 +120,9 @@ const Navbar = () => {
                            {userInfo &&
                               <>
                                  <li className={styles.drop_down_user_info}>
-                                    <img src="/assets/user.jpg" alt="" />
+                                    <img
+                                       src={userInfo?.profilePic || "/assets/user.jpg"}
+                                       alt="profile.png" />
                                     <div className={styles.user_account}>
                                        <span className={styles.user_name}>                                    {userInfo?.name}
                                        </span>

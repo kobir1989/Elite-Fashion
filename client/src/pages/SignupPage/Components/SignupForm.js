@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../../../components/Common/Button/Button';
 import Input from '../../../components/Common/Input/Input';
 import styles from "../styles/SignupPage.module.scss";
+import Icons from '../../../components/Common/Icons/Icons';
 const SignupForm = ({
    submitHandler,
    onChangeHandler,
@@ -12,6 +13,14 @@ const SignupForm = ({
    email,
    confirmPassword
 }) => {
+   const [viewPassword, setViewPassword] = useState(false);
+   const [viewConfirmPassword, setViewConfirmPassword] = useState(false);
+   const toggleViewPassword = () => {
+      setViewPassword(!viewPassword)
+   }
+   const toggleViewConfirmPassword = () => {
+      setViewConfirmPassword(!viewConfirmPassword)
+   }
    return (
       <div>
          <form onSubmit={submitHandler} className={styles.signup_form}>
@@ -61,11 +70,20 @@ const SignupForm = ({
                   helperText={error?.name === "email" ? error.message : ""}
                />
             </div>
-            <div>
+            <div className={styles.password_input_wrapper}>
+               <div className={styles.view_password}>
+                  <Button
+                     variant={"icon-btn-normal"}
+                     onClick={toggleViewPassword}>
+                     <Icons
+                        name={viewPassword ? "eyeClosed" : "eyeOpen"}
+                        color={"#b5b5b5"} />
+                  </Button>
+               </div>
                <Input
                   error={error?.name === "password" ? true : false}
                   required={true}
-                  type={"password"}
+                  type={viewPassword ? "text" : "password"}
                   label={"Password"}
                   full
                   name={"password"}
@@ -76,11 +94,20 @@ const SignupForm = ({
                />
 
             </div>
-            <div>
+            <div className={styles.confirm_password_input_wrapper}>
+               <div className={styles.view_password}>
+                  <Button
+                     variant={"icon-btn-normal"}
+                     onClick={toggleViewConfirmPassword}>
+                     <Icons
+                        name={viewConfirmPassword ? "eyeClosed" : "eyeOpen"}
+                        color={"#b5b5b5"} />
+                  </Button>
+               </div>
                <Input
                   error={error?.name === "confirmPassword" ? true : false}
                   required={true}
-                  type={"password"}
+                  type={viewConfirmPassword ? "text" : "password"}
                   label={"Confirm Password"}
                   full
                   name={"confirmPassword"}

@@ -60,6 +60,7 @@ const SignupPage = () => {
             title={"Create Your Account"}
             link={"Login"}
             linkText={"Already"}
+            error={error}
             loading={loading}>
             <SignupForm submitHandler={submitHandler}
                onChangeHandler={onChangeHandler}

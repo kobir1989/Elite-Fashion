@@ -10,7 +10,6 @@ import styles from "../styles/Settings.module.scss";
 import { LinearProgress } from '@mui/material';
 import { Link } from "react-router-dom";
 import DragAndDrop from './DragAndDrop';
-import Icons from '../../../components/Common/Icons/Icons';
 
 const Settings = () => {
    const { userProfileData, isLoading, error, updateSuccess } = useSelector(state => state.userProfile);

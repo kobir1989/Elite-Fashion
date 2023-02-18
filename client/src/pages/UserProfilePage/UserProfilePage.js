@@ -25,7 +25,7 @@ const tabData = [{ icon: 'person', label: 'Profile' }, { icon: 'love', label: 'W
 
 const UserProfilePage = () => {
    const [value, setValue] = React.useState(0);
-   const [showSideTab, setShowSideTab] = useState(window.innerWidth > 1024 ? true : false)
+   const [showSideTab, setShowSideTab] = useState(window.innerWidth > 700 ? true : false)
    const { isLoading, userProfileData, userOrderData, updateSuccess } = useSelector(state => state.userProfile)
    const dispatch = useDispatch();
    const { id } = useParams()
@@ -33,6 +33,7 @@ const UserProfilePage = () => {
    useEffect(() => {
       dispatch(fetchUserInfo({ id }));
    }, [id, dispatch, updateSuccess])
+
    const handleChange = (_event, newValue) => {
       setValue(newValue);
       if (window.innerWidth < 600) {
@@ -42,7 +43,7 @@ const UserProfilePage = () => {
 
    return (
       <PageLayout>
-         <div className={styles.page_wrapper}>
+         <div className={styles.page_wrapper} >
             <div className={styles.toggle_btn}>
                {showSideTab &&
                   <Button variant={"icon-btn-normal"}
@@ -74,6 +75,7 @@ const UserProfilePage = () => {
                               iconPosition="start"
                               label={label} {...a11yProps(index)}
                               key={index}
+                              onClick={() => { setShowSideTab(window.innerWidth > 700 ? true : false) }}
                            />
                         ))}
                      </Tabs>

@@ -2,10 +2,20 @@
 @import "../../../sass/sass-utils/mixins";
 .login_form {
 	@include flex-col;
+	gap: 0.5rem;
+	.password_input_wrapper {
+		position: relative;
+		.view_password {
+			position: absolute;
+			right: 0;
+			top: -0.1rem;
+			z-index: 10;
+		}
+	}
 	button {
-		margin-top: 1.5rem;
+		margin-top: 1rem;
 		@include screens-md {
-			margin-top: 2rem;
+			margin-top: 1.1rem;
 		}
 		@include flex-row-center;
 		justify-content: center;
