@@ -45,7 +45,7 @@ const persistConfig = {
       "bestSelling",
       "search",
       "forgetPassword",
-      "resetPassword"
+      "resetPassword",
    ]
 }
 const persistedReducer = persistReducer(persistConfig, reducers)

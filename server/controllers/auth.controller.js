@@ -142,14 +142,15 @@ module.exports.adminLogin = async (req, res) => {
 };
 
 
-//TODO: Forget password Controller
 /********************************************************
- * @forgetPassword
- * @Route POST http://localhost:5000/api/v1/auth/forget/password
- * @Description User or Admin can reset Their Password
- * @Parameters  
- * @Return 
- ********************************************************/
+@forgetPassword
+@Route POST http://localhost:5000/api/v1/auth/forget/password
+@Description Generates a forget password token and sends a reset password email to the user's email address.
+@Parameters email, the email address of the user who needs to reset their password.
+@Return success (boolean) - indicates whether the operation was successful.
+message (string) - a message indicating whether the reset password email has been sent to the user's email address.
+@Throws CustomError - if the email is invalid, the user is not found, or an error occurred while sending the reset password email.
+********************************************************/
 module.exports.forgotPassword = async (req, res) => {
 	let user;
 
@@ -208,12 +209,14 @@ module.exports.forgotPassword = async (req, res) => {
 
 
 /********************************************************
- * @resetPassword
- * @Route POST http://localhost:5000/api/v1/reset/password/:resetToken
- * @Description User or Admin can reset Their Password
- * @Parameters  
- * @Return 
- ********************************************************/
+ @resetPassword
+@Route POST http://localhost:5000/api/v1/reset/password/:resetToken
+@Description This API endpoint allows the user or admin to reset their password, if they provide a reset token and new password.
+@Parameters - resetToken: A unique token generated (from -forgotPassword- controller) and sent to the user or admin's email for resetting password
+- password: The new password for the user or admin's account
+- confirmPassword: Confirming the new password by re-entering it
+@Return Returns a JSON object with a success message if the password is updated successfully.
+********************************************************/
 
 exports.resetPassword = async (req, res) => {
 	try {

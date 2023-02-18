@@ -11,7 +11,7 @@ import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute";
 import UserProfilePage from "./pages/UserProfilePage/UserProfilePage";
 import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage";
-import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
+import ForgetPasswordPage from "./pages/ForgetPasswordPage/ForgetPasswordPage";
 
 const App = () => {
   const { pathname } = useLocation();
@@ -32,7 +32,7 @@ const App = () => {
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/user-profile/:id" element={<UserProfilePage />} />
       </Route>
-      <Route path="/forget/password" element={<ForgetPassword />} />
+      <Route path="/forget/password" element={<ForgetPasswordPage />} />
       <Route path="/reset/password/:resetToken" element={<ResetPasswordPage />} />
       <Route path='*' element={<Navigate to='/' replace />} />
     </Routes>

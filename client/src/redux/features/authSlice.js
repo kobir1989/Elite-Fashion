@@ -30,6 +30,7 @@ const authSlice = createSlice({
          state.loading = false;
          state.userInfo = action.payload.userPayload;
          state.token = action.payload.token;
+         state.error = null;
       });
       builder.addCase(userLogin.rejected, (state, action) => {
          state.loading = false;
@@ -46,6 +47,7 @@ const authSlice = createSlice({
          state.loading = false;
          state.userInfo = action.payload.userPayload;
          state.token = action.payload.token;
+         state.error = null;
       });
       builder.addCase(userSignup.rejected, (state, action) => {
          state.loading = false;
