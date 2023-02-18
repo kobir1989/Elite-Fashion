@@ -14,6 +14,7 @@ const CartPage = () => {
    const navigate = useNavigate()
    const checkoutHandler = () => {
       if (quantity <= 0) {
+         toast.dismiss()
          return toast.error("Please add a product to your cart before proceeding to checkout!")
       }
       navigate("/checkout")

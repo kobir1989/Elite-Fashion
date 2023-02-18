@@ -17,7 +17,26 @@ root.render(
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <BrowserRouter>
-          <Toaster position="top-right" toastOptions={{ duration: 5000, }} />
+          <Toaster position="top-right" toastOptions={{
+            duration: 4000,
+            success: {
+              style: {
+                background: "#d2e4e0",
+                border: "1px solid #116954",
+                minHeight: "4rem",
+                color: "#116954"
+
+              },
+            },
+            error: {
+              style: {
+                background: "#f8d7db",
+                border: "1px solid #cc2121",
+                color: "#cc2121",
+                minHeight: "4rem",
+              },
+            },
+          }} />
           <PersistGate loading={null} persistor={persistStore(store)}>
             <App />
           </PersistGate>

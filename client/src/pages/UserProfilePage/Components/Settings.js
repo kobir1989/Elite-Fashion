@@ -5,7 +5,7 @@ import Typography from '../../../components/Common/Typography/Typography';
 import { useSelector, useDispatch } from "react-redux";
 import { setHasError } from "../../../redux/features/userProfileSlice";
 import { updateUserProfile } from "../../../redux/actions/userProfileAction";
-import { toast } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const Settings = () => {
    const { userProfileData, updateError, updateData } = useSelector(state => state.userProfile);
@@ -37,6 +37,7 @@ const Settings = () => {
          setConfirmNewPassword("")
          setNewPassword("")
          setOldPassword("")
+         toast.dismiss()
          toast.success("Your Account Updated")
       }
    };

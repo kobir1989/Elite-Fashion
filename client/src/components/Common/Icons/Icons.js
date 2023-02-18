@@ -33,6 +33,7 @@ import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const icons = {
    search: SearchIcon,
@@ -68,7 +69,8 @@ const icons = {
    on: ToggleOnIcon,
    arrowBack: ArrowBackIosIcon,
    eyeOpen: RemoveRedEyeIcon,
-   eyeClosed: VisibilityOffIcon
+   eyeClosed: VisibilityOffIcon,
+   loveFilled: FavoriteIcon
 }
 
 const Icons = React.forwardRef((props, ref) => {

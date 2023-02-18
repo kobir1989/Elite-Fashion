@@ -46,6 +46,7 @@ const LoginPage = () => {
    useEffect(() => {
       if (token) {
          navigate("/");
+         toast.dismiss()
          toast.success("Welcome Back");
          setLoginValue(defaultLoginValue);
       }

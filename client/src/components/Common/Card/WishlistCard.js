@@ -11,7 +11,9 @@ const WishlistCard = ({ showCross = true }) => {
    const { wishListItem } = useSelector(state => state.wishList);
    const dispatch = useDispatch();
 
-   const removeHandler = (id) => {
+   const removeHandler = (e, id) => {
+      e.stopPropagation();
+      e.preventDefault();
       dispatch(removeFromWishList(id));
    };
    return (
@@ -34,14 +36,16 @@ const WishlistCard = ({ showCross = true }) => {
                to={`/product-details/${list?.id}`}
                onClick={() => { dispatch(setToggleWishList(false)) }}>
                <div className={styles.modal_content_wrapper}>
-                  <div className={styles.img_wrapper}>
-                     <img src={list?.imageUrl} alt="" />
+                  <div className={styles.img_and_text}>
+                     <div className={styles.img_wrapper}>
+                        <img src={list?.imageUrl} alt="" />
+                     </div>
+                     <div className={styles.details_wrapper}>
+                        <Typography variant={"h5"}>{list?.title}</Typography>
+                        <Typography variant={"h5"}>&#2547; {list?.price}</Typography>
+                     </div>
                   </div>
-                  <div className={styles.details_wrapper}>
-                     <Typography variant={"h5"}>{list?.title}</Typography>
-                     <Typography variant={"h5"}>&#2547; {list?.price}</Typography>
-                  </div>
-                  <Button variant={"icon-btn-normal"} onClick={() => removeHandler(list?.id)}>
+                  <Button variant={"icon-btn-normal"} onClick={(e) => removeHandler(e, list?.id)}>
                      <Icons name={"delete"} color={"#cc2121"} />
                   </Button>
                </div>

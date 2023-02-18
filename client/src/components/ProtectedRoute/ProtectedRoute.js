@@ -11,6 +11,7 @@ export const ProtectedRoute = ({ children, ...otherProps }) => {
    const dispatch = useDispatch()
 
    if (!token) {
+      toast.dismiss()
       toast.error("You are not authorized. Please login to continue")
       return <Navigate to="/login" state={{ from: location }} />
    }
@@ -21,6 +22,7 @@ export const ProtectedRoute = ({ children, ...otherProps }) => {
       const expirationDate = new Date(decodedToken.exp * 1000);
       console.log(expirationDate, "EXPIRE")
       if (expirationDate < new Date()) {
+         toast.dismiss()
          toast.error("Your session has expired. Please login again.")
          return <Navigate to="/login" state={{ from: location }} />
       }

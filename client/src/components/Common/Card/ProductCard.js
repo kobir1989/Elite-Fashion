@@ -15,7 +15,7 @@ const ProductCard = (
    const dispatch = useDispatch();
    // console.log(discount, percentage)
    const wishListHandler = (data) => {
-      dispatch(addToWishList(data))
+      dispatch(addToWishList(data));
    }
    const discountPercantage = sellPrice ? Math.floor((price - sellPrice) / price * 100) : "";
    return (
@@ -56,6 +56,7 @@ const ProductCard = (
                         id
                      })
                   }}>
+
                   <Icons name={"love"} />
                </Button>
             </div>
