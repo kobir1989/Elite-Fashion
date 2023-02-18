@@ -34,6 +34,8 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 
 const icons = {
    search: SearchIcon,
@@ -70,7 +72,9 @@ const icons = {
    arrowBack: ArrowBackIosIcon,
    eyeOpen: RemoveRedEyeIcon,
    eyeClosed: VisibilityOffIcon,
-   loveFilled: FavoriteIcon
+   loveFilled: FavoriteIcon,
+   camera: CameraAltIcon,
+   uploadIcon: DriveFolderUploadIcon
 }
 
 const Icons = React.forwardRef((props, ref) => {

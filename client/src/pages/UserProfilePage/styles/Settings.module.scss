@@ -1,0 +1,30 @@
+@import "../../../sass//sass-utils/colors";
+@import "../../../sass//sass-utils/mixins";
+
+.profile_update_form_wrapper {
+	position: relative;
+	.loading_progress {
+		position: absolute;
+		top: -1.5rem;
+		width: 100%;
+	}
+	.form_buttons {
+		@include flex-col;
+		gap: 0.5rem;
+		button {
+			max-width: 15rem;
+		}
+		a {
+			font-weight: 400;
+			font-size: 1.1rem;
+			transition: all 0.2s linear;
+			&:hover {
+				color: $red_main;
+				transition: all 0.2s linear;
+			}
+		}
+	}
+}
+.loading_on {
+	opacity: 0.5;
+}

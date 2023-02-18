@@ -153,14 +153,22 @@ module.exports.deleteProduct = async (req, res) => {
    }
 }
 
-/********************************************************
- * @getProductsByLimits
- * @Route GET http://localhost:5000/api/v1/:subCategoryId/product?page=1&limit=12
- * @Description Retrieve products, based on page number and limit, and then 
- * @Description sends the resulting data back to the client as a JSON response.
- * @Parameters none
- * @Return Products Array
- *********************************************************/
+/******************************************************
+Retrieves products based on the provided page number and limit,
+and then sends the resulting data back to the client as a JSON response.
+
+@function getProductsByLimits
+
+@route GET http://localhost:5000/api/v1/:subCategoryId/product?page=1&limit=12
+
+@param req - The HTTP request object
+
+@param res - The HTTP response object
+
+@throws {CustomError} 400 - Page, Limit, and Sub Category ID are required
+
+@returns {Object} - Products Array
+*****************************************************/
 module.exports.getProductsByLimits = async (req, res) => {
    try {
       const { page, limit } = req.query;

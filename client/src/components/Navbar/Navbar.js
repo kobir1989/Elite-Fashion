@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Icons from '../Common/Icons/Icons';
 import Button from "../Common/Button/Button";
 import styles from "./styles/Navbar.module.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setToggleWishList } from "../../redux/features/wishLishSlice";
 import Typography from '../Common/Typography/Typography';
@@ -11,6 +11,7 @@ import { setOpenSearchBox } from "../../redux/features/searchSlice";
 import { logout } from "../../redux/features/authSlice";
 import { AnimatePresence, motion } from "framer-motion";
 import { setSubCategoryPage } from "../../redux/features/subCategorySlice";
+import { setProductPage } from "../../redux/features/productsSlice";
 
 const Navbar = () => {
    const [openDropdown, setOpenDropdown] = useState(false);
@@ -25,9 +26,10 @@ const Navbar = () => {
       dispatch(logout())
       navigate("/login")
    }
-   //Rest sub-category page to 1, every time user navigate to differen category page.
-   const resetSubCategory = () => {
+   //Rest product and sub-category page state to 1, every time user navigate to differen category or product page.
+   const resetPageState = () => {
       dispatch(setSubCategoryPage(1))
+      dispatch(setProductPage(1))
    }
    //Handles outside click events, if user click anywhere in the dom openDropdown will be false.
    useEffect(() => {
@@ -53,20 +55,26 @@ const Navbar = () => {
             </Link>
             </div>
             <ul className={styles.nav_links}>
-               <li onClick={resetSubCategory}>
-                  <Link to={`/sub-category/63b848501e0644fd041c8ee0`}>
+               <li onClick={resetPageState}>
+                  <NavLink
+                     to={`/sub-category/63b848501e0644fd041c8ee0`}
+                     className={({ isActive }) => isActive ? `${styles.active_nav_link}` : ""}>
                      MEN
-                  </Link>
+                  </NavLink>
                </li>
-               <li onClick={resetSubCategory}>
-                  <Link to={`/sub-category/63b848e91e0644fd041c8ee3`}>
+               <li onClick={resetPageState}>
+                  <NavLink
+                     to={`/sub-category/63b848e91e0644fd041c8ee3`}
+                     className={({ isActive }) => isActive ? `${styles.active_nav_link}` : ""}>
                      WOMEN
-                  </Link>
+                  </NavLink>
                </li>
-               <li onClick={resetSubCategory}>
-                  <Link to={`/sub-category/63b8490f1e0644fd041c8ee6`}>
+               <li onClick={resetPageState}>
+                  <NavLink
+                     to={`/sub-category/63b8490f1e0644fd041c8ee6`}
+                     className={({ isActive }) => isActive ? `${styles.active_nav_link}` : ""}>
                      LIFESTYLE
-                  </Link>
+                  </NavLink>
                </li>
             </ul>
             <div className={styles.nav_buttons}>
@@ -163,7 +171,7 @@ const Navbar = () => {
             userInfo={userInfo}
             quantity={quantity}
             logoutHandler={logoutHandler}
-            resetSubCategory={resetSubCategory}
+            resetSubCategory={resetPageState}
 
          />
          {/*********************************/}

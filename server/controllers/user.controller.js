@@ -37,43 +37,38 @@ module.exports.userProfile = async (req, res) => {
 /********************************************************
  * @updateUserProfile
  * @Route GET http://localhost:5000/api/v1/user/update/profile/:userId
- * @Description Update user profile based on  oldPassword, newPassword, confirmNewPassword, email data.
- * @Parameters oldPassword, newPassword, confirmNewPassword, email from req.body
- * @Return user object
+ * @Description Update user profile based on  user _id, 
+ * @Parameters email, name, phone, address from req.body
+ * @Return success message 
 *********************************************************/
 
 module.exports.updateUserProfile = async (req, res) => {
    try {
-      const { oldPassword, newPassword, confirmNewPassword, email } = req.body;
-      const user = await User.findById({ _id: req.user });
+      const { email, name, phone, address, city, } = req.body;
+      if (!email || !name || !phone || !address || !city) {
+         throw new CustomError(400, "All the fields mandatory")
+      }
+
+      const user = await User.findById({ _id: req.user?._id });
       if (!user) {
          throw new CustomError(404, "User not exists", "email")
       }
-      const checkOldPassword = await user.comparePassword(oldPassword);
-      if (!checkOldPassword) {
-         throw new CustomError(401, "Incrrect Password", "oldPassword");
-      };
-      if (newPassword.length < 8) {
-         throw new CustomError(400, "Password should not be less then 8 characters", "newPassword")
-      }
-      if (newPassword !== confirmNewPassword) {
-         throw new CustomError(400, "Password did not match", "confirmNewPassword");
-      };
-
+      console.log(req.image, "URL")
       user.email = email;
-      user.password = newPassword;
+      user.name = name;
+      user.phone = phone;
+      user.address = address;
+      user.city = city;
+      user.image = req.image;
+      user.imageId = req.imageId;
       await user.save()
 
-      //After change password or / email user will be logged out 
-      res.cookie("token", null, {
-         httpOnly: true,
-         expires: new Date(Date.now()),
-      });
       return res.status(200).json({
          success: true,
          message: "Account update Successfull",
       });
    } catch (err) {
+      console.log(err, "ERROR")
       errorResponse(res, err, "USER-PROFILE-UPDATE")
    }
 }

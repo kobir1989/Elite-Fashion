@@ -25,18 +25,18 @@ const tabData = [{ icon: 'person', label: 'Profile' }, { icon: 'love', label: 'W
 
 const UserProfilePage = () => {
    const [value, setValue] = React.useState(0);
-   const [showToggle, setShowToggle] = useState(window.innerWidth < 600 ? false : true)
-   const { isLoading, userProfileData, userOrderData } = useSelector(state => state.userProfile)
+   const [showSideTab, setShowSideTab] = useState(window.innerWidth > 1024 ? true : false)
+   const { isLoading, userProfileData, userOrderData, updateSuccess } = useSelector(state => state.userProfile)
    const dispatch = useDispatch();
    const { id } = useParams()
 
    useEffect(() => {
       dispatch(fetchUserInfo({ id }));
-   }, [id, dispatch])
+   }, [id, dispatch, updateSuccess])
    const handleChange = (_event, newValue) => {
       setValue(newValue);
       if (window.innerWidth < 600) {
-         setShowToggle(false)
+         setShowSideTab(false)
       }
    };
 
@@ -44,21 +44,21 @@ const UserProfilePage = () => {
       <PageLayout>
          <div className={styles.page_wrapper}>
             <div className={styles.toggle_btn}>
-               {showToggle &&
+               {showSideTab &&
                   <Button variant={"icon-btn-normal"}
-                     onClick={() => setShowToggle(!showToggle)}>
+                     onClick={() => setShowSideTab(!showSideTab)}>
                      <Icons size={"2.9rem"} color={"#116954"} name={"on"} />
                   </Button>
                }
-               {!showToggle &&
+               {!showSideTab &&
                   <Button variant={"icon-btn-normal"}
-                     onClick={() => setShowToggle(!showToggle)}>
+                     onClick={() => setShowSideTab(!showSideTab)}>
                      <Icons size={"2.9rem"} color={"#cc2121"} name={"off"} />
                   </Button>}
             </div>
             <Typography variant={"h5"}>My Account</Typography>
             <div className={styles.profile_tab_wrapper}>
-               {showToggle &&
+               {showSideTab &&
                   <div className={styles.tabs_list}>
                      <Tabs
                         orientation="vertical"

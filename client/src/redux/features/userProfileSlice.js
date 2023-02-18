@@ -6,9 +6,7 @@ const initialState = {
    userOrderData: [],
    error: null,
    isLoading: false,
-   updateError: null,
-   updateLoading: false,
-   updateData: null
+   updateSuccess: null
 };
 
 const userProfileSlice = createSlice({
@@ -16,7 +14,8 @@ const userProfileSlice = createSlice({
    initialState,
    reducers: {
       setHasError: (state, action) => {
-         state.updateError = action.payload
+         state.isLoading = false
+         state.error = action.payload
       }
    },
    extraReducers: (builder) => {
@@ -26,21 +25,22 @@ const userProfileSlice = createSlice({
       builder.addCase(fetchUserInfo.fulfilled, (state, action) => {
          state.isLoading = false
          const profileData = action.payload;
-         const isProfileData = profileData?.purchases.find(item => item.product);
-         state.userOrderData = isProfileData?.product;
+         const orderArr = profileData?.purchases.find(item => item.product);
+         state.userOrderData = orderArr?.product;
 
          state.userProfileData = {
             name: profileData?.name,
             email: profileData?.email,
             _id: profileData?._id,
-            city: isProfileData?.city,
-            phone: isProfileData?.phoneNumber,
-            address: isProfileData?.shippingAddress,
-            time: isProfileData?.createdAt,
-            status: isProfileData?.orderStatus
+            city: profileData?.city,
+            phone: profileData?.phone,
+            address: profileData?.address,
+            time: profileData?.createdAt,
+            status: orderArr?.orderStatus,
+            profilePic: profileData?.image
 
          };
-         // console.log(isProfileData, "FFF")
+         state.error = null
       });
 
       builder.addCase(fetchUserInfo.rejected, (state, action) => {
@@ -50,15 +50,16 @@ const userProfileSlice = createSlice({
 
       // Update profile Post request.
       builder.addCase(updateUserProfile.pending, (state, _action) => {
-         state.updateLoading = true;
+         state.isLoading = true;
       });
       builder.addCase(updateUserProfile.fulfilled, (state, action) => {
-         state.updateLoading = false;
-         state.updateData = action.payload;
+         state.isLoading = false;
+         state.updateSuccess = action.payload;
+         state.error = null
       });
       builder.addCase(updateUserProfile.rejected, (state, action) => {
-         state.updateError = action.payload;
-         state.updateLoading = false;
+         state.error = action.payload;
+         state.isLoading = false;
       });
    }
 });

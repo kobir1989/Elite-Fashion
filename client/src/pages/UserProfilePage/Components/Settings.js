@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Input from '../../../components/Common/Input/Input';
 import Button from '../../../components/Common/Button/Button';
 import Typography from '../../../components/Common/Typography/Typography';
@@ -6,49 +6,71 @@ import { useSelector, useDispatch } from "react-redux";
 import { setHasError } from "../../../redux/features/userProfileSlice";
 import { updateUserProfile } from "../../../redux/actions/userProfileAction";
 import toast from 'react-hot-toast';
+import styles from "../styles/Settings.module.scss";
+import { LinearProgress } from '@mui/material';
+import { Link } from "react-router-dom";
+import DragAndDrop from './DragAndDrop';
+import Icons from '../../../components/Common/Icons/Icons';
 
 const Settings = () => {
-   const { userProfileData, updateError, updateData } = useSelector(state => state.userProfile);
+   const { userProfileData, isLoading, error, updateSuccess } = useSelector(state => state.userProfile);
+   const [image, setImage] = useState("");
+   const [imageUrl, setImageUrl] = useState(userProfileData?.profilePic);
+   const [uploadError, setUploadError] = useState(null)
    const [email, setEmail] = useState(userProfileData?.email);
-   const [oldPassword, setOldPassword] = useState("");
-   const [newPassword, setNewPassword] = useState("");
-   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+   const [name, setName] = useState(userProfileData?.name);
+   const [phone, setPhone] = useState(userProfileData?.phone);
+   const [address, setAddress] = useState(userProfileData?.address);
+   const [city, setCity] = useState(userProfileData?.city);
    const dispatch = useDispatch();
-   console.log(updateData)
+
+   //File Upload Handler
+   const onDrop = useCallback(acceptedFiles => {
+      setImage(acceptedFiles[0])
+      setImageUrl(URL.createObjectURL(acceptedFiles[0]))
+   }, []);
+   console.log(image, "IMGH")
    const submitHandler = (e) => {
       e.preventDefault()
-      if (newPassword.length < 8) {
+      if (phone.length < 10) {
          return dispatch(setHasError({
-            name: "oldPassword",
-            message: "Password should be more then 8 characters"
+            name: "phone",
+            message: "Phone Number should be more then 10 digits"
          }));
-      }
-      if (newPassword !== confirmNewPassword) {
-         return dispatch(setHasError({ name: "confirmNewPassword", message: "Password did not match" }))
       }
       dispatch(updateUserProfile({
          id: userProfileData?._id,
-         oldPassword,
-         newPassword,
-         confirmNewPassword,
-         email
+         name,
+         phone,
+         address,
+         email,
+         city,
+         image
       }));
-      if (updateData.success) {
-         setConfirmNewPassword("")
-         setNewPassword("")
-         setOldPassword("")
+      if (updateSuccess) {
          toast.dismiss()
-         toast.success("Your Account Updated")
+         toast.success("Your Account Updated");
+         setUploadError(null)
+         setImageUrl("")
       }
    };
    return (
-      <div>
+      <div className={isLoading ? `${styles.profile_update_form_wrapper} ${styles.loading_on}` : `${styles.profile_update_form_wrapper}`}>
+         {isLoading &&
+            <div className={styles.loading_progress}>
+               <LinearProgress color='secondary' />
+            </div>}
          <div>
             <Typography variant={"h4"}>Profile Settings</Typography>
          </div>
          <form onSubmit={submitHandler}>
+            <DragAndDrop
+               hasError={uploadError}
+               imgUrl={imageUrl}
+               setImageUrl={setImageUrl}
+               onDrop={onDrop} />
             <Input
-               error={updateError?.name === "email" ? true : false}
+               error={error?.name === "email" ? true : false}
                required={true}
                type={"text"}
                label={"Email"}
@@ -57,48 +79,66 @@ const Settings = () => {
                onChange={(e) => { setEmail(e.target.value) }}
                value={email}
                size={"small"}
-               helperText={updateError?.name === "email" ? updateError.message : ""}
+               helperText={error?.name === "email" ? error.message : ""}
             />
             <Input
-               error={updateError?.name === "oldPassword" ? true : false}
+               error={error?.name === "name" ? true : false}
                required={true}
-               type={"password"}
-               label={"Old Password"}
+               type={"text"}
+               label={"Name"}
                full
-               name={"oldPassword"}
-               onChange={(e) => { setOldPassword(e.target.value) }}
-               value={oldPassword}
+               name={"name"}
+               onChange={(e) => { setName(e.target.value) }}
+               value={name}
                size={"small"}
-               helperText={updateError?.name === "oldPassword" ? updateError.message : ""}
+               helperText={error?.name === "name" ? error.message : ""}
             />
             <Input
-               error={updateError?.name === "newPassword" ? true : false}
+               error={error?.name === "phone" ? true : false}
                required={true}
-               type={"password"}
-               label={"New Password"}
+               type={"number"}
+               label={"Phone Number"}
                full
-               name={"newPassword"}
-               onChange={(e) => { setNewPassword(e.target.value) }}
-               value={newPassword}
+               name={"phone"}
+               onChange={(e) => { setPhone(e.target.value) }}
+               value={phone}
                size={"small"}
-               helperText={updateError?.name === "newPassword" ? updateError.message : ""}
+               helperText={error?.name === "phone" ? error.message : ""}
             />
             <Input
-               error={updateError?.name === "confirmNewPassword" ? true : false}
+               error={error?.name === "city" ? true : false}
                required={true}
-               type={"password"}
-               label={"Confirm New Password"}
+               type={"text"}
+               label={"City"}
                full
-               name={"confirmNewPassword"}
-               onChange={(e) => { setConfirmNewPassword(e.target.value) }}
-               value={confirmNewPassword}
+               name={"city"}
+               onChange={(e) => { setCity(e.target.value) }}
+               value={city}
                size={"small"}
-               helperText={updateError?.name === "confirmNewPassword" ? updateError.message : ""}
+               helperText={error?.name === "city" ? error.message : ""}
             />
-            <Button variant={"primary"} type={"submit"}
-               style={{ marginTop: "1.5rem" }}>
-               Update Profile
-            </Button>
+            <Input
+               error={error?.name === "address" ? true : false}
+               required={true}
+               type={"text"}
+               label={"Shipping Address"}
+               full
+               name={"address"}
+               onChange={(e) => { setAddress(e.target.value) }}
+               value={address}
+               size={"small"}
+               helperText={error?.name === "address" ? error.message : ""}
+            />
+            <div className={styles.form_buttons}>
+               <Link to={"/forget/password"} variant={"white"} type={"submit"}
+                  style={{ marginTop: "1.5rem" }}>
+                  Update Password?
+               </Link>
+               <Button variant={"primary"} type={"submit"}
+                  style={{ marginTop: "1.5rem" }}>
+                  Update Profile
+               </Button>
+            </div>
          </form>
       </div>
    )
