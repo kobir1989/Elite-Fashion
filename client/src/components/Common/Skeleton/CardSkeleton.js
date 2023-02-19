@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Skeleton from '@mui/material/Skeleton';
-import TextSkeleton from './TextSkeleton';
 
 const CardSkeleton = (
    {

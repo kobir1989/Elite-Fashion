@@ -48,6 +48,7 @@ const SignupPage = () => {
       if (userInfo?._id) {
          navigate("/");
          setInputData(defaulSignupValue);
+         toast.dismiss()
          toast.success("Welcome! You've successfully signed up")
       }
    }, [userInfo?._id, navigate])
@@ -59,6 +60,7 @@ const SignupPage = () => {
             title={"Create Your Account"}
             link={"Login"}
             linkText={"Already"}
+            error={error}
             loading={loading}>
             <SignupForm submitHandler={submitHandler}
                onChangeHandler={onChangeHandler}

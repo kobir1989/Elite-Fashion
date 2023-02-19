@@ -33,6 +33,22 @@ const userSchema = new Schema({
       type: Array,
       default: [],
    },
+   phone: {
+      type: String,
+      minlength: [10, "Phone Number should be more then 10 Digits"]
+   },
+   city: {
+      type: String
+   },
+   address: {
+      type: String
+   },
+   image: {
+      type: String,
+   },
+   imageId: {
+      type: String
+   },
    forgetPasswordToken: String,
    forgetPasswordExpiry: Date
 },

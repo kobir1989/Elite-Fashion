@@ -17,13 +17,26 @@ const SelectOptions = (
          fullWidth
          style={{ width: "50%" }}
          required
-         sx={{ height: "4rem", width: "100%" }}
+         sx={{
+            height: "4rem", width: "100%",
+            "& .MuiOutlinedInput-root": {
+               "& fieldset": {
+                  borderColor: "#e5e5e5",
+               },
+               "&:hover fieldset": {
+                  borderColor: "#9fa7b6e5",
+               },
+               "&.Mui-focused fieldset": {
+                  borderColor: "#9fa7b6",
+               },
+            },
+         }}
          size='small'
          error={value === "" && error}>
          <InputLabel>{label}</InputLabel>
          <Select
             value={value}
-            label="Age"
+            label={label}
             {...otherProps}
          >
             {options.map((option) => (

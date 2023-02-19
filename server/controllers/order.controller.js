@@ -2,7 +2,7 @@ const Order = require("../models/order.schema");
 const CustomError = require("../helper/customError");
 const errorResponse = require("../helper/errorResponse");
 const User = require("../models/user.schema");
-
+const mailSender = require("../helper/mailSender");
 /********************************************************
  * @createNewOrder
  * @Route POST http://localhost:5000/api/v1/order/create/:userId
@@ -14,11 +14,9 @@ module.exports.createNewOrder = async (req, res) => {
    try {
       const { checkout } = req.body;
       const { userId } = req.params
-      console.log(checkout, "ORDER")
       if (!checkout.address || !checkout.phone || !checkout.city || !checkout.order) {
          throw new CustomError(400, "All the feilds are mendetory", "Order Validation Error");
       };
-      console.log(checkout.paymentId, "PAYMENT_ID")
       const order = await Order.create({
          product: checkout.order,
          city: checkout.city,
@@ -35,8 +33,21 @@ module.exports.createNewOrder = async (req, res) => {
          { $push: { purchases: order } },
          { new: true })
 
-      console.log(order)
-      return res.status(200).json({ success: true, message: "Order created successfully" })
+      //Email Body text
+      const text = `
+      <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f5f5f5; font-family: Arial, sans-serif;">
+      <div style="background-color: #ffffff; padding: 20px; border-radius: 10px;">
+      <h1 style="text-align: center; margin-bottom: 30px; color: #d89b9b;">Thank You for Shopping with Elite Fashion!</h1>
+      <p style="font-size: 18px;">Dear ${req?.user?.name},</p>
+      <p style="font-size: 18px;">We wanted to take a moment to thank you for your recent purchase with Elite Fashion. We appreciate doing business with you and we hope that you are happy with your order.</p>
+      <p style="font-size: 18px;">If you have any questions or concerns about your purchase, please don't hesitate to contact us at support@elitefashion.com.</p>
+      <p style="font-size: 18px;">Thank you again for shopping with us. We hope to see you again soon!</p>
+      </div>
+      </div>`
+      //Email sender helper function, if order successfull user will get an email.   
+      await mailSender(req?.user?.email, text, "Thank You for Shopping with Elite Fashion")
+
+      return res.status(200).json({ success: true, message: "Order Submit successfully" })
 
    } catch (err) {
       errorResponse(res, err, "CREATE-ORDER");

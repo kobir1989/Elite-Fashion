@@ -26,6 +26,7 @@ const ProductDetailsView = () => {
    const dispatch = useDispatch();
    const cartHandler = (item) => {
       if (!userInfo) {
+         toast.dismiss()
          toast.error("Please log in to add items to your cart")
          navigate("/login")
       }
@@ -34,6 +35,7 @@ const ProductDetailsView = () => {
          return
       }
       if (products?.stock <= 0 || (findQntt && findQntt.quantity >= products.stock)) {
+         toast.dismiss()
          return toast.error("This product is currently out of stock")
       }
       dispatch(addToCart(item));

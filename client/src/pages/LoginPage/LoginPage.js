@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../redux/actions/authAction";
 import toast from 'react-hot-toast';
 import { setError } from "../../redux/features/authSlice";
+import Icons from '../../components/Common/Icons/Icons';
 
 const defaultLoginValue = {
    email: "",
@@ -19,6 +20,7 @@ const defaultLoginValue = {
 const LoginPage = () => {
    const [loginValue, setLoginValue] = useState(defaultLoginValue);
    const { email, password } = loginValue;
+   const [viewPassword, setViewPassword] = useState(false);
    const navigate = useNavigate();
    const dispatch = useDispatch();
    const {
@@ -42,10 +44,13 @@ const LoginPage = () => {
       }
       dispatch(userLogin(loginValue));
    };
-
+   const toggleViewPassword = () => {
+      setViewPassword(!viewPassword)
+   }
    useEffect(() => {
       if (token) {
          navigate("/");
+         toast.dismiss()
          toast.success("Welcome Back");
          setLoginValue(defaultLoginValue);
       }
@@ -59,9 +64,10 @@ const LoginPage = () => {
             link={"Signup"}
             linkText={"Don't"}
             img={"/assets/women-red.jpg"}
+            error={error}
             loading={loading}>
             <form className={styles.login_form} onSubmit={submitHandler}>
-               <div>
+               <div className={styles.email_input_wrapper}>
                   <Input
                      required={true}
                      error={error ? true : false}
@@ -77,11 +83,20 @@ const LoginPage = () => {
                      }
                   />
                </div>
-               <div>
+               <div className={styles.password_input_wrapper}>
+                  <div className={styles.view_password}>
+                     <Button
+                        variant={"icon-btn-normal"}
+                        onClick={toggleViewPassword}>
+                        <Icons
+                           name={viewPassword ? "eyeClosed" : "eyeOpen"}
+                           color={"#b5b5b5"} />
+                     </Button>
+                  </div>
                   <Input
                      required={true}
                      error={error ? true : false}
-                     type={"password"}
+                     type={viewPassword ? "text" : "password"}
                      label={"Password"}
                      full
                      size={"small"}
@@ -92,7 +107,6 @@ const LoginPage = () => {
                         error ? error.message : ""
                      }
                   />
-
                </div>
                <Button variant={"primary"} type={"submit"}>
                   Login
@@ -103,7 +117,7 @@ const LoginPage = () => {
             </form>
             <div className={styles.forget_password_link}>
                <Typography variant={"body"}>
-                  <Link to="/">
+                  <Link to="/forget/password">
                      Forgot Your Password?
                   </Link>
                </Typography>

@@ -10,7 +10,13 @@
 		gap: 1rem;
 		padding: 1rem;
 		border-radius: 4px;
-		border: 1px solid $body;
+		border: 1px solid $light_gray;
+		transition: all 0.2s linear;
+		.img_and_text {
+			min-width: 90%;
+			@include flex-row-center;
+			gap: 2rem;
+		}
 		.img_wrapper {
 			img {
 				width: 3rem;
@@ -23,13 +29,20 @@
 				}
 			}
 		}
+		.details_wrapper {
+			flex: 2;
+		}
 		&:hover {
 			background-color: $body;
+			transition: all 0.2s linear;
 		}
 		.details_wrapper {
 			@include flex-col;
 			width: calc(100% / 3);
 			gap: 0.5rem;
+		}
+		button {
+			z-index: 999;
 		}
 	}
 	.close_icon {

@@ -10,6 +10,7 @@
 	@include screens-md {
 		@include flex-row;
 		margin: 4rem 0;
+		min-height: 70vh;
 	}
 	.signup_img {
 		width: 100%;
@@ -65,6 +66,9 @@
 			&:hover {
 				color: $red_main;
 			}
+		}
+		span {
+			margin-left: 0.4rem;
 		}
 	}
 }

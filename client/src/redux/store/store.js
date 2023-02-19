@@ -13,6 +13,8 @@ import checkoutReducer from "../features/checkoutSlice";
 import userProfileReducer from "../features/userProfileSlice";
 import bestSellingReducer from "../features/bestSellingSlice";
 import searchReducer from "../features/searchSlice";
+import forgetPasswordReducer from "../features/forgetPasswordSlice";
+import resetPasswordReducer from "../features/resetPasswordSlice";
 
 const reducers = combineReducers({
    subCategory: subCategoryReducer,
@@ -24,7 +26,9 @@ const reducers = combineReducers({
    checkout: checkoutReducer,
    userProfile: userProfileReducer,
    bestSelling: bestSellingReducer,
-   search: searchReducer
+   search: searchReducer,
+   forgetPassword: forgetPasswordReducer,
+   resetPassword: resetPasswordReducer
 
 });
 
@@ -39,7 +43,9 @@ const persistConfig = {
       "order",
       "userProfile",
       "bestSelling",
-      "search"
+      "search",
+      "forgetPassword",
+      "resetPassword",
    ]
 }
 const persistedReducer = persistReducer(persistConfig, reducers)

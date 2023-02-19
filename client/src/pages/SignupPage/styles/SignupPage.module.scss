@@ -1,6 +1,17 @@
 @import "../../../sass/sass-utils/colors";
 @import "../../../sass/sass-utils/mixins";
 .signup_form {
+	.password_input_wrapper,
+	.confirm_password_input_wrapper {
+		position: relative;
+		.view_password {
+			position: absolute;
+			right: 0;
+			top: -1rem;
+			z-index: 10;
+		}
+	}
+
 	@include flex-col;
 	button {
 		margin-top: 1.5rem;

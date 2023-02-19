@@ -54,22 +54,96 @@
 		}
 		&_buttons {
 			display: none;
-			position: relative;
 			@include screens-lg {
 				@include flex-row;
 				align-items: center;
 				gap: 1.5rem;
+			}
+			.user_profile_btn {
 				position: relative;
-				span {
+				.bgscreen_dropdown {
 					position: absolute;
-					top: -0.5rem;
-					color: $white;
-					font-weight: 700;
-					font-size: 0.8rem;
-					background-color: $red_main;
-					padding: 0.2rem 0.4rem;
-					border-radius: 12px;
+					background-color: $white;
+					z-index: 10;
+					@include flex-col-center;
+					justify-content: flex-start;
+					gap: 1.5rem;
+					left: 50%;
+					top: 3rem;
+					transform: translate(-50%);
+					max-width: 18rem;
+					max-height: 14rem;
 					@include box-shadow-diffuse;
+					padding: 1.5rem;
+					border-radius: 4px;
+					.drop_down_user_info {
+						img {
+							width: 3rem;
+							height: 3rem;
+							border-radius: 50%;
+							filter: brightness(95%);
+						}
+						@include flex-row;
+						text-align: left;
+						gap: 0.6rem;
+						width: 100%;
+						border-bottom: 1px solid $light_gray;
+						padding-bottom: 1.5rem;
+						.user_account {
+							@include flex-col;
+							gap: 0.4rem;
+						}
+						.user_name {
+							text-transform: capitalize;
+							background-color: unset;
+							font-size: 1rem;
+							border-radius: unset;
+							padding: 0;
+							width: 100%;
+							height: unset;
+							font-weight: 600;
+							&:hover {
+								color: unset !important;
+							}
+						}
+						.user_email {
+							text-transform: lowercase;
+							font-size: 0.8rem;
+							font-weight: 400;
+							padding: 0;
+							width: 100%;
+							&:hover {
+								color: unset !important;
+							}
+						}
+					}
+					li {
+						font-size: 0.8rem;
+						letter-spacing: 0.5px;
+						text-transform: uppercase;
+						font-weight: 400;
+						width: 100%;
+						color: $gray_text;
+						cursor: pointer;
+						// color: $light_gray;
+						@include flex-row-center;
+						gap: 0.4rem;
+						button {
+							@include flex-row;
+						}
+						&:hover {
+							color: $red_main;
+						}
+						a {
+							@include flex-row;
+							align-items: center;
+							gap: 0.4rem;
+						}
+						svg {
+							padding: 0;
+							margin: 0;
+						}
+					}
 				}
 			}
 			.user_name {
@@ -84,42 +158,36 @@
 					font-weight: 700;
 				}
 			}
-			.bgscreen_dropdown {
-				position: absolute;
-				background-color: $white;
-				z-index: 10;
-				@include flex-col-center;
-				justify-content: center;
-				gap: 1rem;
-				left: 0.8rem;
-				top: 2.4rem;
-				width: 10rem;
-				height: 8rem;
-				@include box-shadow-diffuse;
-				padding: 1.5rem;
-				border-radius: 4px;
-				li {
-					font-size: 0.7rem;
-					letter-spacing: 0.5px;
-					text-transform: uppercase;
-					font-weight: 700;
-					width: 100%;
-					@include flex-row;
-					align-items: center;
-					gap: 0.4rem;
-					button {
-						@include flex-row;
-					}
-					&:hover {
-						color: $red_main;
-					}
-					a {
-						@include flex-row;
-						align-items: center;
-						gap: 0.4rem;
-					}
-				}
-			}
 		}
 	}
+}
+.wish_list_btn_wrapper,
+.cart_item_link_wrapper {
+	position: relative;
+	.wish_list_count,
+	.cart_item_count {
+		color: $white;
+		font-weight: 700;
+		font-size: 0.8rem;
+		background-color: $red_main;
+		width: 1.2rem;
+		height: 1.2rem;
+		border-radius: 12px;
+		@include box-shadow-diffuse;
+		@include flex-col-center;
+		justify-content: center;
+	}
+	.wish_list_count {
+		position: absolute;
+		right: -0.4rem;
+		top: -0.2rem;
+	}
+	.cart_item_count {
+		position: absolute;
+		right: -0.7rem;
+		top: -0.3rem;
+	}
+}
+.active_nav_link {
+	color: $red_main !important;
 }

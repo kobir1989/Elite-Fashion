@@ -25,6 +25,10 @@ const Input = ({
                "& > fieldset": {
                   borderColor: "#e5e5e5"
                }
+            },
+            "& .MuiFormHelperText-root": {
+               position: "absolute",
+               bottom: "-1.4rem"
             }
          }}
          type={type || "text"}

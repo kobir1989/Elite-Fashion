@@ -11,12 +11,13 @@ const AuthFormLayout = ({
    to,
    linkText,
    img,
-   loading
+   loading,
+   error
 }) => {
    return (
       <div className={styles.signup_wrapper}>
          <div className={styles.signup_img}>
-            <img src={img || "/assets/signup.jpg"} alt="women.png" />
+            <img src={error ? "/assets/angry-girl.jpg" : img || "/assets/signup.jpg"} alt="women.png" />
             <div className={styles.signup_slogan}>
                <Typography variant={"h2"} color={"white"}>
                   Elite Fashion
@@ -38,11 +39,13 @@ const AuthFormLayout = ({
             </div>
             {children}
             <div className={styles.form_link}>
-               <Typography variant={"body"}>{linkText}
-                  have an Account?
-                  <Link to={`/${to}`}>
-                     {link || "Login"}
-                  </Link>
+               <Typography variant={"body"}>
+                  {linkText} have an Account?
+                  <span>
+                     <Link to={`/${to}`}>
+                        {link || "Login"}
+                     </Link>
+                  </span>
                </Typography>
             </div>
          </div>

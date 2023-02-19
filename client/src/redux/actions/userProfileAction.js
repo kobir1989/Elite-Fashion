@@ -12,7 +12,6 @@ export const fetchUserInfo = createAsyncThunk(
                "Authorization": `Bearer ${state.auth.token}`
             }
          });
-         // console.log(response);
          return response?.data?.user;
       } catch (err) {
          // console.log(err.response);
@@ -23,17 +22,19 @@ export const fetchUserInfo = createAsyncThunk(
 
 export const updateUserProfile = createAsyncThunk(
    "userProfile/updateUserProfile",
-   async ({ id, email, oldPassword, newPassword, confirmNewPassword }, { getState, rejectWithValue }) => {
+   async ({ id, name, phone, address, email, city, image }, { getState, rejectWithValue }) => {
       try {
          const state = getState()
          const response = await axiosBaseUrl.post(`/user/update/profile/${id}`, {
-            oldPassword,
-            newPassword,
-            confirmNewPassword,
-            email
+            name,
+            phone,
+            address,
+            email,
+            city,
+            image
          }, {
             headers: {
-               "Content-Type": " application/x-www-form-urlencoded",
+               'Content-Type': "application/json multipart/form-data",
                "Authorization": `Bearer ${state.auth.token}`
             }
          });

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Icons from '../Common/Icons/Icons';
 import Button from "../Common/Button/Button";
 import styles from "./styles/Navbar.module.scss";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setToggleWishList } from "../../redux/features/wishLishSlice";
 import Typography from '../Common/Typography/Typography';
@@ -11,10 +11,12 @@ import { setOpenSearchBox } from "../../redux/features/searchSlice";
 import { logout } from "../../redux/features/authSlice";
 import { AnimatePresence, motion } from "framer-motion";
 import { setSubCategoryPage } from "../../redux/features/subCategorySlice";
+import { setProductPage } from "../../redux/features/productsSlice";
 
 const Navbar = () => {
    const [openDropdown, setOpenDropdown] = useState(false);
    const { userInfo } = useSelector(state => state.auth);
+   const dropdownRef = useRef(null);
    const { wishListItem, toggleWishList } = useSelector(state => state.wishList);
    const navigate = useNavigate()
    const dispatch = useDispatch();
@@ -24,9 +26,26 @@ const Navbar = () => {
       dispatch(logout())
       navigate("/login")
    }
-   const resetSubCategory = () => {
+   //Rest product and sub-category page state to 1, every time user navigate to differen category or product page.
+   const resetPageState = () => {
       dispatch(setSubCategoryPage(1))
+      dispatch(setProductPage(1))
    }
+   //Handles outside click events, if user click anywhere in the dom openDropdown will be false.
+   useEffect(() => {
+      const handleClickOutside = (event) => {
+         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setOpenDropdown(false);
+         }
+      };
+      if (openDropdown) {
+         window.addEventListener('click', handleClickOutside);
+      }
+      return () => {
+         window.removeEventListener('click', handleClickOutside);
+      };
+   }, [openDropdown]);
+
    return (
       <nav className={styles.nav_wrapper}>
          {/*Big screen nav*/}
@@ -36,20 +55,26 @@ const Navbar = () => {
             </Link>
             </div>
             <ul className={styles.nav_links}>
-               <li onClick={resetSubCategory}>
-                  <Link to={`/sub-category/63b848501e0644fd041c8ee0`}>
+               <li onClick={resetPageState}>
+                  <NavLink
+                     to={`/sub-category/63b848501e0644fd041c8ee0`}
+                     className={({ isActive }) => isActive ? `${styles.active_nav_link}` : ""}>
                      MEN
-                  </Link>
+                  </NavLink>
                </li>
-               <li onClick={resetSubCategory}>
-                  <Link to={`/sub-category/63b848e91e0644fd041c8ee3`}>
+               <li onClick={resetPageState}>
+                  <NavLink
+                     to={`/sub-category/63b848e91e0644fd041c8ee3`}
+                     className={({ isActive }) => isActive ? `${styles.active_nav_link}` : ""}>
                      WOMEN
-                  </Link>
+                  </NavLink>
                </li>
-               <li onClick={resetSubCategory}>
-                  <Link to={`/sub-category/63b8490f1e0644fd041c8ee6`}>
+               <li onClick={resetPageState}>
+                  <NavLink
+                     to={`/sub-category/63b8490f1e0644fd041c8ee6`}
+                     className={({ isActive }) => isActive ? `${styles.active_nav_link}` : ""}>
                      LIFESTYLE
-                  </Link>
+                  </NavLink>
                </li>
             </ul>
             <div className={styles.nav_buttons}>
@@ -57,18 +82,20 @@ const Navbar = () => {
                   onClick={() => { dispatch(setOpenSearchBox(true)) }}>
                   <Icons name={"search"} size={"1.5rem"} />
                </Button>
-               <Button variant={"icon-btn-normal"} onClick={() => { setOpenDropdown(!openDropdown) }}>
-                  {userInfo ?
-                     <div className={styles.user_name}>
-                        <Typography variant={"small"}>
-                           {userInfo?.name.slice(0, 1)}
-                        </Typography>
-                     </div>
-                     : <Icons name={"person"} size={"1.5rem"} />
-                  }
+               <div className={styles.user_profile_btn}>
+                  <Button variant={"icon-btn-normal"}
+                     onClick={() => { setOpenDropdown(!openDropdown) }}>
+                     {userInfo ?
+                        <div className={styles.user_name} ref={dropdownRef}>
+                           <Typography variant={"small"}>
+                              {userInfo?.name.slice(0, 1)}
+                           </Typography>
+                        </div>
+                        : <Icons name={"person"} size={"1.5rem"} />
+                     }
+                  </Button>
                   <AnimatePresence>
                      {openDropdown &&
-
                         <motion.ul
                            initial={{ opacity: 0 }}
                            animate={{ opacity: 1 }}
@@ -92,6 +119,17 @@ const Navbar = () => {
                            }
                            {userInfo &&
                               <>
+                                 <li className={styles.drop_down_user_info}>
+                                    <img
+                                       src={userInfo?.profilePic || "/assets/user.jpg"}
+                                       alt="profile.png" />
+                                    <div className={styles.user_account}>
+                                       <span className={styles.user_name}>                                    {userInfo?.name}
+                                       </span>
+                                       <span className={styles.user_email}>                                    {userInfo?.email}
+                                       </span>
+                                    </div>
+                                 </li>
                                  <li>
                                     <Link to={`/user-profile/${userInfo._id}`}>
                                        <Icons name={"person"} size={"1.5rem"} />
@@ -106,18 +144,24 @@ const Navbar = () => {
                         </motion.ul>
                      }
                   </AnimatePresence>
-               </Button>
-               <Button variant={"icon-btn-normal"}
-                  onClick={() => { dispatch(setToggleWishList(!toggleWishList)) }}>
-                  <Icons name={"love"} size={"1.5rem"} />
-                  <span>{wishListItem ? wishListItem.length : 0}</span>
-               </Button>
-               <Link to={"/cart"}>
-                  <Button variant={"icon-btn-normal"}>
-                     <Icons name={"bag"} size={"1.5rem"} />
-                     <span>{quantity}</span>
+               </div>
+               <div className={styles.wish_list_btn_wrapper}>
+                  <Button variant={"icon-btn-normal"}
+                     onClick={() => { dispatch(setToggleWishList(!toggleWishList)) }}>
+                     <Icons name={"love"} size={"1.5rem"} color={"#727272"} />
+                     <span className={styles.wish_list_count}>
+                        {wishListItem ? wishListItem.length : 0}
+                     </span>
                   </Button>
-               </Link>
+               </div>
+               <div className={styles.cart_item_link_wrapper}>
+                  <Link to={"/cart"}>
+                     <Icons name={"bag"} size={"1.5rem"} color={"#727272"} />
+                     <span className={styles.cart_item_count}>
+                        {quantity}
+                     </span>
+                  </Link>
+               </div>
             </div>
          </div>
          {/******************************/}
@@ -129,7 +173,7 @@ const Navbar = () => {
             userInfo={userInfo}
             quantity={quantity}
             logoutHandler={logoutHandler}
-            resetSubCategory={resetSubCategory}
+            resetSubCategory={resetPageState}
 
          />
          {/*********************************/}

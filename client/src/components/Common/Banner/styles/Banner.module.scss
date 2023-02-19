@@ -1,7 +1,6 @@
 @import "../../../../sass/sass-utils/colors";
 @import "../../../../sass/sass-utils/mixins";
 .banner_wrapper {
-	// margin-top: 5rem;
 	background-color: $body;
 	padding: 2rem;
 	@include flex-col-center;

@@ -153,14 +153,22 @@ module.exports.deleteProduct = async (req, res) => {
    }
 }
 
-/********************************************************
- * @getProductsByLimits
- * @Route GET http://localhost:5000/api/v1/:subCategoryId/product?page=1&limit=12
- * @Description Retrieve products, based on page number and limit, and then 
- * @Description sends the resulting data back to the client as a JSON response.
- * @Parameters none
- * @Return Products Array
- *********************************************************/
+/******************************************************
+Retrieves products based on the provided page number and limit,
+and then sends the resulting data back to the client as a JSON response.
+
+@function getProductsByLimits
+
+@route GET http://localhost:5000/api/v1/:subCategoryId/product?page=1&limit=12
+
+@param req - The HTTP request object
+
+@param res - The HTTP response object
+
+@throws {CustomError} 400 - Page, Limit, and Sub Category ID are required
+
+@returns {Object} - Products Array
+*****************************************************/
 module.exports.getProductsByLimits = async (req, res) => {
    try {
       const { page, limit } = req.query;
@@ -195,7 +203,6 @@ module.exports.getProductsByLimits = async (req, res) => {
             limit: limit
          };
       }
-
       products.totalPage = Math.ceil(totalCount / limit);
 
       return res.status(200).json({ success: true, products });
@@ -222,7 +229,6 @@ module.exports.getAllProducts = async (_req, res) => {
 
 }
 
-
 /********************************************************
  * @getSingleProducts
  * @Route GET http://localhost:5000/api/v1/product/single/:productId
@@ -233,15 +239,12 @@ module.exports.getAllProducts = async (_req, res) => {
 module.exports.getSingleProducts = async (req, res) => {
    try {
       const { productId } = req.params;
-      const products = await Product.findById({ _id: productId }).select("-sold").exec();
-      console.log(products)
+      const products = await Product.findById({ _id: productId }).populate("category subCategory", "_id name").exec();
       return res.status(200).json({ success: true, products })
    } catch (err) {
       errorResponse(res, err, "GET-SINGLE_PRODUCT");
    }
-
 }
-
 
 /********************************************************
  * @getBestSellingProducts

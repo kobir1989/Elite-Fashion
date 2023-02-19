@@ -6,7 +6,9 @@ import TextSkeleton from "../../../components/Common/Skeleton/TextSkeleton";
 const ProfileInfo = ({ userProfileData, isLoading }) => {
    return (
       <div className={styles.profile_info}>
-         <Typography variant={"h4"}>Profile</Typography>
+         <div className={styles.profile_img}>
+            <img src={userProfileData?.profilePic || "/assets/user.jpg"} alt="user.png" />
+         </div>
          {isLoading ?
             <TextSkeleton row={3} height={34} />
             :
