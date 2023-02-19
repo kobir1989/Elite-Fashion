@@ -39,7 +39,7 @@ module.exports.isAuthenticated = async (req, res, next) => {
       req.user = user;
       next();
    } catch (err) {
-      console.log(err, "EEEEEEEE")
+      // console.log(err, "EEEEEEEE")
       res.status(403).json({ success: false, message: "Unauthorized" })
    }
 };

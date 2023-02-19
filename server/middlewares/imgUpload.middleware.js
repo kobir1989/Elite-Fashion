@@ -69,7 +69,7 @@ module.exports.updateFile = async (req, res, next) => {
          await cloudinary.uploader.destroy(imageId);
       }
       const file = req.files.image;
-      console.log(file, "FILE")
+      // console.log(file, "FILE")
 
       const result = await cloudinary.uploader.upload(file.tempFilePath, {
          folder: "products",

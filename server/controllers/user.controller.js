@@ -68,7 +68,7 @@ module.exports.updateUserProfile = async (req, res) => {
          message: "Account update Successfull",
       });
    } catch (err) {
-      console.log(err, "ERROR")
+      // console.log(err, "ERROR")
       errorResponse(res, err, "USER-PROFILE-UPDATE")
    }
 }

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import { Box } from '@mui/material';
+import styles from "../styles/TabPanel.module.scss";
+
 
 const TabPanel = (props) => {
    const { children, value, index, ...other } = props;
@@ -12,9 +13,9 @@ const TabPanel = (props) => {
          {...other}
       >
          {value === index && (
-            <Box sx={{ p: 3 }}>
+            <div className={styles.tab_pannel_wrapper}>
                {children}
-            </Box>
+            </div>
          )}
       </div>
    );

@@ -15,7 +15,7 @@ export const postCheckoutData = createAsyncThunk(
          // console.log(response, "RESPONSE CHECKOUT")
          return response?.data
       } catch (err) {
-         console.log(err)
+         // console.log(err)
          return rejectWithValue(err?.message)
       }
    }

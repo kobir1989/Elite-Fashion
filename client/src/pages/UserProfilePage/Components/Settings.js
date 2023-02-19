@@ -28,7 +28,7 @@ const Settings = () => {
       setImage(acceptedFiles[0])
       setImageUrl(URL.createObjectURL(acceptedFiles[0]))
    }, []);
-   console.log(image, "IMGH")
+   // console.log(image, "IMGH")
    const submitHandler = (e) => {
       e.preventDefault()
       if (phone.length < 10) {

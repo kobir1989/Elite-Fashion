@@ -1,17 +1,21 @@
 @import "../../sass/sass-utils/mixins";
 .discount_modal {
+	background-image: url("https://res.cloudinary.com/dhkdpjwjm/image/upload/v1676783544/products/sell_lvnpeg.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-radius: 8px;
+	filter: brightness(95%);
 	position: relative;
-	img {
-		width: 28rem;
-		height: 22rem;
-		@include screens-md {
-			width: 45rem;
-			height: 30rem;
-		}
-	}
 	button {
 		position: absolute;
 		top: 1rem;
 		right: 1rem;
+	}
+	width: 70vw;
+	height: 55vh;
+	@include screens-md {
+		width: 40vw;
+		height: 55vh;
 	}
 }

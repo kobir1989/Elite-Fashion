@@ -3,9 +3,12 @@
 
 .page_wrapper {
 	margin: 3.5rem 0 4.5rem 0;
-	padding: 2rem;
+	padding: 0.5rem;
 	position: relative;
 	background-color: $body;
+	@include screens-md {
+		padding: 2rem;
+	}
 	.toggle_btn {
 		@include flex-row-center;
 		justify-content: center;
@@ -20,9 +23,9 @@
 		margin-top: 3rem;
 	}
 	.tabs_list {
-		width: 50%;
+		width: 60%;
 		background-color: $body;
-		z-index: 40;
+		z-index: 20;
 		position: absolute;
 		@include box-shadow-soft;
 		min-height: 28.5rem;

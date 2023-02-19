@@ -23,15 +23,23 @@
 	ul {
 		li {
 			@include flex-row-center;
-			gap: 2rem;
+			gap: 0.4rem;
 			border: 1px solid $light_gray;
 			margin-bottom: 1rem;
 			background-color: $body;
 			height: 2.5rem;
-			padding: 0 0.5rem;
+			padding: 0 0.3rem;
 			font-weight: 500;
+			border-radius: 4px;
+
 			p {
-				min-width: 6rem;
+				@include screens-md {
+					min-width: 6rem;
+				}
+			}
+			@include screens-md {
+				gap: 2rem;
+				padding: 0 0.5rem;
 			}
 		}
 	}

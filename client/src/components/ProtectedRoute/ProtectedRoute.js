@@ -20,7 +20,7 @@ export const ProtectedRoute = ({ children, ...otherProps }) => {
       // console.log(decodedToken, "DECODE")
       // check token expiration date
       const expirationDate = new Date(decodedToken.exp * 1000);
-      console.log(expirationDate, "EXPIRE")
+      // console.log(expirationDate, "EXPIRE")
       if (expirationDate < new Date()) {
          toast.dismiss()
          toast.error("Your session has expired. Please login again.")

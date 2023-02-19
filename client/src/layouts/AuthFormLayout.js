@@ -39,11 +39,13 @@ const AuthFormLayout = ({
             </div>
             {children}
             <div className={styles.form_link}>
-               <Typography variant={"body"}>{linkText}
-                  have an Account?
-                  <Link to={`/${to}`}>
-                     {link || "Login"}
-                  </Link>
+               <Typography variant={"body"}>
+                  {linkText} have an Account?
+                  <span>
+                     <Link to={`/${to}`}>
+                        {link || "Login"}
+                     </Link>
+                  </span>
                </Typography>
             </div>
          </div>

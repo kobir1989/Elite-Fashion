@@ -10,6 +10,7 @@
 	margin-bottom: 2rem;
 	@include flex-col-center;
 	justify-content: space-around;
+	padding: 0.8rem 0.4rem;
 	.drag_error {
 		background-color: #fd8e8ed3;
 		position: absolute;
