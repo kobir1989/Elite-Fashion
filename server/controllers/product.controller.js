@@ -4,10 +4,20 @@ const errorResponse = require("../helper/errorResponse");
 
 /********************************************************
  * @createNewProduct
- * @Route GET http://localhost:5000/api/v1/create/product/:userId
- * @Description Create new product, only Admin has access to create new product.
- * @Parameters title, descreption, price, image, stock, categoryId,   subCategoryId,
- * @Return success message
+ * @description Create a new product. Only admin users are authorized.
+ * @route POST /api/v1/products
+ * @param {string} req.body.title - Product title
+ * @param {string} req.body.description - Product description
+ * @param {number} req.body.price - Product price
+ * @param {number} req.body.sellPrice - Product sell price
+ * @param {number} req.body.productCost - Product cost
+ * @param {number} req.body.stock - Product stock
+ * @param {string} req.body.category - Product category ID
+ * @param {string} req.body.subCategory - Product sub-category ID
+ * @param {string} req.body.image - Base64-encoded image data
+ * @param {string} req.body.imageId - Cloudinary image ID
+ * @returns {Object} A success message
+ * @throws {CustomError} If the user is not authorized or if any of the required fields is missing.
  *********************************************************/
 module.exports.createNewProduct = async (req, res) => {
    try {
@@ -64,10 +74,20 @@ module.exports.createNewProduct = async (req, res) => {
 
 /********************************************************
  * @editProduct
- * @Route GET http://localhost:5000/api/v1/products/edit/:userId/:productId
+ * @Route GET /api/v1/products/edit/:userId/:productId
  * @Description Edit product controller, only admin has access to edit product.
- * @Parameters title, descreption, price, image, stock, categoryId,   subCategoryId,
- * @Return success message
+ * @param {string} req.params.productId - The ID of the product to be edited
+ * @param {string} req.body.title - The updated title of the product
+ * @param {string} req.body.description - The updated description of the product
+ * @param {number} req.body.price - The updated price of the product
+ * @param {number} req.body.sellPrice - The updated sell price of the product
+ * @param {number} req.body.productCost - The updated product cost of the product
+ * @param {number} req.body.stock - The updated stock of the product
+ * @param {string} req.body.category - The updated category of the product
+ * @param {string} req.body.subCategory - The updated subcategory of the product
+ * @param {object} req.image - The updated image file of the product
+ * @param {string} req.imageId - The updated image ID of the product
+ * @returns {object} The updated product and a success message
  *********************************************************/
 module.exports.editProduct = async (req, res) => {
    try {
@@ -127,48 +147,44 @@ module.exports.editProduct = async (req, res) => {
 
 /********************************************************
  * @deleteProduct
- * @Route DELETE http://localhost:5000/api/v1/products/remove/:userId/:productId
- * @Description Delete product controller, only admin has access to edit product.
- * @Parameters productId
- * @Return success message.
+ * @Route DELETE /api/v1/products/remove/:userId/:productId
+ * @Description Delete product controller, only admin has access to delete product.
+ * @param {string} productId - The ID of the product to delete.
+ * @returns {object} - A success message indicating that the product has been deleted.
  *********************************************************/
 module.exports.deleteProduct = async (req, res) => {
    try {
-      //only ADMIN has access.
+      // Only ADMIN has access.
       if (req.user.role !== "ADMIN") {
          throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
       };
+
       const { productId } = req.params;
       const deleteProduct = await Product.findByIdAndRemove({ _id: productId });
+
       if (!deleteProduct) {
-         throw new CustomError(400, "Product delete failed")
+         throw new CustomError(400, "Product delete failed");
       }
+
       return res.status(200).json({
          success: true,
          message: "Product deleted successfully"
-      })
-
+      });
    } catch (err) {
       errorResponse(res, err, "DELETE-PRODUCT");
    }
-}
+};
 
 /******************************************************
-Retrieves products based on the provided page number and limit,
-and then sends the resulting data back to the client as a JSON response.
-
-@function getProductsByLimits
-
-@route GET http://localhost:5000/api/v1/:subCategoryId/product?page=1&limit=12
-
-@param req - The HTTP request object
-
-@param res - The HTTP response object
-
-@throws {CustomError} 400 - Page, Limit, and Sub Category ID are required
-
-@returns {Object} - Products Array
-*****************************************************/
+ * Retrieves products based on the provided page number and limit,
+ * and then sends the resulting data back to the client as a JSON response.
+ * @getProductsByLimits
+ * @route GET /api/v1/:subCategoryId/product?page=1&limit=12
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @throws {CustomError} 400 - Page, Limit, and Sub Category ID are required
+ * @returns {Object} - Products Array
+ ******************************************************/
 module.exports.getProductsByLimits = async (req, res) => {
    try {
       const { page, limit } = req.query;
@@ -213,11 +229,11 @@ module.exports.getProductsByLimits = async (req, res) => {
 
 /********************************************************
  * @getAllProducts
- * @Route GET http://localhost:5000/api/v1/products/all
- * @Description Retrieve All products from db.
- * @Parameters none
- * @Return Products Array
- *********************************************************/
+ * @description Retrieve all products from the database.
+ * @route GET /api/v1/products/all
+ * @throws {CustomError} 500 - Server error
+ * @returns {Object} Products array
+ ********************************************************/
 module.exports.getAllProducts = async (_req, res) => {
    try {
       const products = await Product.find().populate("subCategory category", "_id name");
@@ -226,41 +242,42 @@ module.exports.getAllProducts = async (_req, res) => {
    } catch (err) {
       errorResponse(res, err, "GET-ALL-PRODUCTS")
    }
-
 }
 
 /********************************************************
+ * Retrieves a single product based on the provided product ID and then sends the resulting data back to the client as a JSON response.
  * @getSingleProducts
- * @Route GET http://localhost:5000/api/v1/product/single/:productId
- * @Description Retrieve single product, and then sends the resulting data back to the client as a JSON response.
- * @Parameters product id from req.params
- * @Return Products Array
+ * @route GET /api/v1/product/single/:productId
+ * @throws {CustomError} 400 - Product ID is required
+ * @returns {object} - Product object
  *********************************************************/
 module.exports.getSingleProducts = async (req, res) => {
    try {
       const { productId } = req.params;
-      const products = await Product.findById({ _id: productId }).populate("category subCategory", "_id name").exec();
-      return res.status(200).json({ success: true, products })
+
+      if (!productId) {
+         throw new CustomError(400, "Product ID is required");
+      }
+
+      const products = await Product.findById(productId).populate("category subCategory", "_id name").exec();
+
+      return res.status(200).json({ success: true, products });
    } catch (err) {
       errorResponse(res, err, "GET-SINGLE_PRODUCT");
    }
-}
+};
 
 /********************************************************
- * @getBestSellingProducts
- * @Route GET http://localhost:5000/api/v1/product/best-selling
- * @Description Retrieve Best selling products, and then sends the resulting data back to the client as a JSON response.
- * @Parameters none
- * @Return Products Array limit 12
- *********************************************************/
-
+* @getBestSellingProducts
+* @Route GET /api/v1/product/best-selling
+* @description Retrieves the best-selling products and sends them back to the client as a JSON response.
+* @returns {Object} - Products Array with a limit of 12
+*********************************************************/
 module.exports.getBestSellingProducts = async (req, res) => {
    try {
       const products = await Product.aggregate([{ $sample: { size: 12 } }])
-      // console.log(products)
       return res.status(200).json({ success: true, products })
    } catch (err) {
       errorResponse(res, err, "GET-BEST-SELLING-PRODUCT");
    }
-
-}
+};

@@ -2,13 +2,14 @@ const CustomError = require("../helper/customError");
 const User = require("../models/user.schema");
 const errorResponse = require("../helper/errorResponse");
 
-/********************************************************
- * @userProfile
- * @Route GET http://localhost:5000/api/v1/user/profile/:userId
- * @Description Retrieve user profile, and then sends the resulting data back to the client as a JSON response.
- * @Parameters userId
- * @Return user object
- *********************************************************/
+/************************************************************
+ * Retrieve user profile for the logged in user.
+ *@userProfile
+ * @route GET /api/v1/user/profile/:userId
+ * @param {string} userId - The ID of the user.
+ * @returns {object} The user profile.
+ * @throws {CustomError} Error if user not found.
+ ***********************************************************/
 module.exports.userProfile = async (req, res) => {
    try {
       const { _id } = req.user;
@@ -34,24 +35,29 @@ module.exports.userProfile = async (req, res) => {
    };
 };
 
-/********************************************************
+/*************************************************************************
+ * Update user profile for the logged in user.
  * @updateUserProfile
- * @Route GET http://localhost:5000/api/v1/user/update/profile/:userId
- * @Description Update user profile based on  user _id, 
- * @Parameters email, name, phone, address from req.body
- * @Return success message 
-*********************************************************/
-
+ * @route PUT /api/v1/user/update/profile/:userId
+ * @param {string} userId - The ID of the user.
+ * @param {string} email - The email of the user.
+ * @param {string} name - The name of the user.
+ * @param {string} phone - The phone number of the user.
+ * @param {string} address - The address of the user.
+ * @param {string} city - The city of the user.
+ * @returns {object} Success message.
+ * @throws {CustomError} Error if any of the fields are missing or user not found.
+ **************************************************************************/
 module.exports.updateUserProfile = async (req, res) => {
    try {
-      const { email, name, phone, address, city, } = req.body;
+      const { email, name, phone, address, city } = req.body;
       if (!email || !name || !phone || !address || !city) {
-         throw new CustomError(400, "All the fields mandatory")
+         throw new CustomError(400, "All fields are mandatory")
       }
 
       const user = await User.findById({ _id: req.user?._id });
       if (!user) {
-         throw new CustomError(404, "User not exists", "email")
+         throw new CustomError(404, "User not found", "email")
       }
       console.log(req.image, "URL")
       user.email = email;
@@ -65,21 +71,20 @@ module.exports.updateUserProfile = async (req, res) => {
 
       return res.status(200).json({
          success: true,
-         message: "Account update Successfull",
+         message: "Account update successful",
       });
    } catch (err) {
-      // console.log(err, "ERROR")
       errorResponse(res, err, "USER-PROFILE-UPDATE")
    }
 }
 
-/********************************************************
- * @userProfile
- * @Route GET http://localhost:5000/api/v1/user/all/profile
- * @Description Retrieve All user profile , and then sends the resulting data back to the Admin app client as a JSON response.
- * @Parameters userId
- * @Return user object
- *********************************************************/
+/**********************************************************************
+ * Retrieve all user profiles for the admin user.
+ * @allUserProfiles
+ * @route GET /api/v1/user/all/profile
+ * @returns {object} The user profiles for all non-admin users.
+ * @throws {CustomError} Error if no users found.
+ **********************************************************************/
 module.exports.allUserProfiles = async (_req, res) => {
    try {
       //excludes the user with the role "ADMIN",
