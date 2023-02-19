@@ -3,25 +3,30 @@ const CustomError = require("../helper/customError");
 const errorResponse = require("../helper/errorResponse");
 
 /********************************************************
- * @editCategory
- * @Route GET http://localhost:5000/api/v1/search/:key
- * @Description This is a search controller that searches for products in the database with a title that matches the search key passed in the request. The search is case-insensitive, and the controller returns at most 5 matching products sorted by title in ascending order.
- * @Parameters search key from req.params
- * @Return  result array
+ * @searchController
+ * @route GET /api/v1/search/:key
+ * @description Searches for products in the database with a title that matches the search key passed in the request. The search is case-insensitive, and the controller returns at most 5 matching products sorted by title in ascending order.
+ * @param {string} key - The search key.
+ * @returns {Array} - Array of matching products.
  *********************************************************/
 module.exports.searchController = async (req, res) => {
-   console.log(req.params, "PARAMS")
    try {
+      const { key } = req.params;
+
+      if (!key) {
+         throw new CustomError(400, "Invalid search key provided.");
+      }
+
       const result = await Product.find({
          "$or": [
             {
-               title: { $regex: req.params.key, $options: "i" }
+               title: { $regex: key, $options: "i" }
             }
          ]
-      }).sort({ title: 1 }).skip(0).limit(4);
+      }).sort({ title: 1 }).limit(4);
 
-      res.status(200).json(result)
+      res.status(200).json(result);
    } catch (err) {
-      errorResponse(req, err, "SEARCH-CONTROLLER")
+      errorResponse(req, err, "SEARCH-CONTROLLER");
    }
-}
+};

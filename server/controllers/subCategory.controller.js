@@ -3,22 +3,25 @@ const CustomError = require("../helper/customError");
 const errorResponse = require("../helper/errorResponse");
 
 /********************************************************
- * @getSingleCategory
- * @Route GET http://localhost:5000/api/v1/sub-category/create/:userId
- * @Description Create new Sub-Category, Only Admin are Authorized to create Category
- * @Parameters name, imageUrl, categoryId 
- * @Return success message
+ * @createSubCategory
+ * @Route POST /api/v1/sub-category/create/:userId
+ * @Description Create new sub-category. Only admin users are authorized to create sub-categories.
+ * @Parameters {string} title - The name of the sub-category to be created.
+ * @Parameters {string} category - The ID of the category to which the new sub-category belongs.
+ * @Return success message.
  *********************************************************/
 module.exports.createSubCategory = async (req, res) => {
    try {
-      //only ADMIN has access.
+      // Only ADMIN have access.
       if (req.user.role !== "ADMIN") {
          throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
-      };
+      }
+
       const { title, category } = req.body;
       if (!title || !category) {
-         throw new CustomError(400, "All the fields are mandatory");
-      };
+         throw new CustomError(400, "All fields are mandatory.");
+      }
+
       await SubCategory.create({
          name: title,
          image: req.image,
@@ -28,32 +31,37 @@ module.exports.createSubCategory = async (req, res) => {
 
       return res.status(200).json({
          success: true,
-         message: "New Sub-Category Added"
+         message: "New sub-category added."
       });
 
    } catch (err) {
       errorResponse(res, err, "CREATE-SUB-CATEGORY");
-   };
+   }
 };
 
+
 /********************************************************
- * @editCategory
- * @Route PUT http://localhost:5000/api/v1/category/edit/:userId/:categoryId,
- * @Description Edit existing Category, Only Admin are Authorized to Edit Category
- * @Parameters subCategoryId, name, imageUrl, categoryId 
- * @Return success message
- *********************************************************/
+@editSubCategory
+@route PUT /api/v1/sub-category/edit/:userId/:subCategoryId
+@description Edit an existing sub-category. Only Admins are authorized to edit sub-categories.
+@param {string} subCategoryId - The ID of the sub-category to edit.
+@param {string} name - The new name for the sub-category.
+@param {string} imageId - The ID of the new image for the sub-category.
+@param {string} category - The ID of the category to which the sub-category belongs.
+@returns {object} - A success message.
+*********************************************************/
 module.exports.editSubCategory = async (req, res) => {
    try {
-      //only ADMIN has access.
+      // Only ADMIN has access.
       if (req.user.role !== "ADMIN") {
          throw new CustomError(401, "Access denied. You are not authorized to access this resource.", "");
-      };
+      }
+
       const { subCategoryId } = req.params;
       const { title, imageId, category } = req.body;
 
       if (!title || !imageId || !category) {
-         throw new CustomError(400, "All the fields are mandatory", "Edit validatin")
+         throw new CustomError(400, "All the fields are mandatory", "Edit validation");
       }
 
       const updateSubCategory = await SubCategory.findByIdAndUpdate(
@@ -70,12 +78,12 @@ module.exports.editSubCategory = async (req, res) => {
       );
 
       if (!updateSubCategory) {
-         throw new CustomError(400, "Requested Sub-Category does not exists")
-      };
+         throw new CustomError(400, "The requested sub-category does not exist.");
+      }
 
       return res.status(200).json({
          success: true,
-         message: "Sub-Category updated successfully"
+         message: "Sub-category updated successfully."
       });
 
    } catch (err) {
@@ -83,130 +91,135 @@ module.exports.editSubCategory = async (req, res) => {
    };
 };
 
-/********************************************************
- * @removeCategory
- * @Route DELETE http://localhost:5000/api/v1/sub-category/remove/:userId/:subCategoryId:categoryId
- * @Description Remove existing Sub-Category, Only Admin are Authorized to Remove.
- * @Parameters subCategoryId
- * @Return success message
- *********************************************************/
+
+/*****************************************************************************
+ * @description Remove existing sub-category. Only Admins are authorized to remove.
+ * @route DELETE /api/v1/sub-category/remove/:subCategoryId:categoryId
+ * @param {Object} req - The request object
+ * @param {Object} res - The response object
+ * @returns {Object} The success message
+ ******************************************************************************/
 module.exports.removeSubCategory = async (req, res) => {
    try {
-      //only ADMIN has access.
-      if (req.user.role !== "ADMIN") {
-         throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
-      };
-      const { subCategoryId } = req.params;
+      if (req.user.role !== 'ADMIN') {
+         throw new CustomError(
+            401,
+            'Access denied. You are not authorized to access this resource.'
+         );
+      }
 
+      const { subCategoryId } = req.params;
       const deleteSubCategory = await SubCategory.findByIdAndRemove({
-         _id: subCategoryId
+         _id: subCategoryId,
       });
 
       if (!deleteSubCategory) {
-         throw new CustomError(400, "Requested Sub-Category does not exists")
+         throw new CustomError(400, 'Requested sub-category does not exist.');
       }
+
       return res.status(200).json({
          success: true,
-         message: "Sub-Category Removed Successfully"
+         message: 'Sub-category removed successfully.',
       });
-
    } catch (err) {
-      errorResponse(res, err, "DELETE-SUB-CATEGORY");
-   };
+      errorResponse(res, err, 'DELETE-SUB-CATEGORY');
+   }
 };
 
-/********************************************************
- * @getSingleCategory
- * @Route GET http://localhost:5000/api/v1/sub-category/single/:subCategoryId
- * @Description Retrieve single sub-category, and then sends the resulting data back to the client as a JSON response.
- * @Parameters subCategoryId
- * @Return single sub-category Object
- *********************************************************/
+/***************************************************************
+ * @description Retrieve single sub-category by ID.
+ * @route GET /api/v1/sub-category/single/:subCategoryId
+ * @returns {Object} The single sub-category object
+ ****************************************************************/
 module.exports.getSingleSubCategory = async (req, res) => {
    try {
       const { subCategoryId } = req.params;
       const singleSubCategory = await SubCategory.findOne({
-         _id: subCategoryId
+         _id: subCategoryId,
       }).exec();
 
       return res.status(200).json({ success: true, singleSubCategory });
-
    } catch (err) {
-      errorResponse(res, err, "GET-SINGLE-SUB-CATEGORY");
-   };
+      errorResponse(res, err, 'GET-SINGLE-SUB-CATEGORY');
+   }
 };
 
-/********************************************************
- * @getAllRelatedSubCategory
- * @Route GET http://localhost:5000/api/v1/sub-category/:categoryId
- * @Description  Retrieve all Sub-Categories based on category Id, and then sends the resulting data back to the client as a JSON response.
- * @Parameters none
- * @Return category Array
- *********************************************************/
+/********************************************************************************
+ * @description Retrieve all sub-categories related to a category.
+ * @route GET /api/v1/sub-category/:categoryId
+ * @returns {Array} The sub-category array
+ ******************************************************************************/
 module.exports.getAllRelatedSubCategory = async (req, res) => {
    try {
       const { categoryId } = req.params;
-      const subCategories = await SubCategory.find({ "category": categoryId });
+      const subCategories = await SubCategory.find({ category: categoryId });
       return res.status(200).json({ success: true, subCategories });
-
    } catch (err) {
-      errorResponse(res, err, "GET-RELATED-SUB-CATEGORY");
-   };
+      errorResponse(res, err, 'GET-RELATED-SUB-CATEGORY');
+   }
 };
 
-/********************************************************
- * @getAllCategories
- * @Route GET http://localhost:5000/api/v1/sub-categories/all
- * @Description  Retrieve all Sub-Categories, and then sends the resulting data back to the client as a JSON response.
- * @Parameters none
- * @Return category Array
- *********************************************************/
-module.exports.getAllSubCategory = async (req, res) => {
+/*****************************************************************************
+ * @description Retrieve all sub-categories.
+ * @route GET /api/v1/sub-categories/all
+ * @returns {Array} The sub-category array
+ ***************************************************************************/
+module.exports.getAllSubCategory = async (_req, res) => {
    try {
-      const subCategories = await SubCategory.find().populate("category", "name _id");
+      const subCategories = await SubCategory.find().populate('category', 'name _id');
       return res.status(200).json({ success: true, subCategories });
    } catch (err) {
-      console.log(err)
-      errorResponse(res, err, "GET-ALL-SUB-CATEGORY");
-   };
+      // console.log(err);
+      errorResponse(res, err, 'GET-ALL-SUB-CATEGORY');
+   }
 };
 
+
 /********************************************************
- * @getSubCategoryByLimits
- * @Route GET http://localhost:5000/api/v1/:categoryId/sub-category?page=1&limit=12
- * @Description  Retrieve all Sub-Categories based page and limits from related category Id, and then sends the resulting data back to the client as a JSON response.
- * @Parameters  page, limit from req.query and categoryId from req.params
- * @Return category Array
- *********************************************************/
+@getSubCategoryByLimits
+@description Retrieves all sub-categories based on page and limit parameters from a specified category ID, and sends the resulting data back to the client as a JSON response.
+@route GET /api/v1/:categoryId/sub-category?page=1&limit=12
+@param {string} req.params.categoryId - The ID of the category to retrieve sub-categories from
+@param {number} req.query.page - The page number to retrieve
+@param {number} req.query.limit - The number of sub-categories to retrieve per page
+@returns {object} An object containing an array of sub-categories and pagination information
+@throws {CustomError} If the page and limit parameters are not provided
+*********************************************************/
 module.exports.getSubCategoryByLimits = async (req, res) => {
    try {
-      const { page, limit } = req.query;
       const { categoryId } = req.params;
+      let { page, limit } = req.query;
       const startsIndexAt = (page - 1) * limit;
       const subCategory = {};
-      if (!page || !limit || !categoryId) {
-         throw new CustomError(400, "Page and Sub-category Limits are required")
+      const DEFAULT_PAGE = 1;
+      const DEFAULT_LIMIT = 12;
+
+      // Validate page and limit parameters
+      page = parseInt(page) || DEFAULT_PAGE;
+      limit = parseInt(limit) || DEFAULT_LIMIT;
+      if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
+         throw new CustomError(400, "Invalid page or limit parameter");
       }
 
       const subCategoryCount = await SubCategory.find({ "category": categoryId }).countDocuments().exec();
       subCategory.result = await SubCategory.find({ "category": categoryId })
-         .limit(parseInt(limit))
+         .limit(limit)
          .skip(startsIndexAt)
          .exec();
 
       if (subCategory.result.length) {
-         subCategory.totalPage = Math.ceil(subCategoryCount / parseInt(limit));
+         subCategory.totalPage = Math.ceil(subCategoryCount / limit);
 
-         if (startsIndexAt + parseInt(limit) < subCategoryCount) {
+         if (startsIndexAt + limit < subCategoryCount) {
             subCategory.next = {
-               page: parseInt(page) + 1,
+               page: page + 1,
                limit: limit
             };
          }
 
          if (startsIndexAt > 0) {
             subCategory.previous = {
-               page: parseInt(page) - 1,
+               page: page - 1,
                limit: limit
             };
          }

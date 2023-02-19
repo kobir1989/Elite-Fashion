@@ -2,15 +2,13 @@ const CustomError = require("../helper/customError");
 const Product = require("../models/product.schema");
 const errorResponse = require("../helper/errorResponse");
 
-/********************************************************
- * @updateStock Middleware
- * @Description This middleware is used to reduce product stock quantity, so that client can validate if the product is in stock or not.
- * @Parameters
- *   -checkout object from req.body
- 
- *********************************************************/
+/**
+ * Middleware to update product stock quantity and sold quantity after an order is placed.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {Function} next - Express next middleware function.
+ */
 module.exports.updateStock = (req, res, next) => {
-   // console.log(req.body.product)
    const { checkout } = req.body;
    try {
       const updateOperations = checkout.order.map((product) => {
@@ -23,12 +21,12 @@ module.exports.updateStock = (req, res, next) => {
       });
       Product.bulkWrite(updateOperations, (err, _products) => {
          if (err) {
-            throw new CustomError(400, "Bulk Oparation failed", "Update stock middleware");
+            throw new CustomError(400, "Bulk operation failed", "Update stock middleware");
          }
          next();
       });
 
    } catch (err) {
-      errorResponse(err, res, "UPDATE-STOCk MIDDLEWARE")
+      errorResponse(err, res, "UPDATE-STOCK MIDDLEWARE");
    };
 };

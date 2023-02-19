@@ -9,81 +9,79 @@ cloudinary.config({
    api_secret: config.CLOUD_SECRET
 });
 
-//File Upload Middleware 
+/******************************************************************************
+ * Middleware for file upload
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {function} next - The callback function to move to the next middleware
+ * @throws {CustomError} Throws an error if image upload fails
+ ******************************************************************************/
 module.exports.fileUploader = async (req, res, next) => {
    try {
-
-      //MULFIPLE IMAGE UPLOAD WILL BE USE LATER 
-      // console.log(req.files, "FILE")
-      // let result;
-      // const imageArr = [];
-      // if (req.files) {
-      //    for (let i = 0; i < req.files.length; i++) {
-      //       result = await cloudinary.uploader.upload(
-      //          req.files.images[index].tempFilePath,
-      //          {
-      //             folder: "products",
-      //          });
-      //       imageArr.push({
-      //          public_id: result.public_id,
-      //          imageUrl: result.secure_url
-      //       });
-      //    };
-      // };
-      // console.log(image)
-
       const file = req.files.image;
       const result = await cloudinary.uploader.upload(file.tempFilePath, {
          folder: "products",
       });
-      // console.log(result.secure_url, "RESULT")
+
       req.image = result.secure_url;
       req.imageId = result.public_id;
+
       if (!req.image && !req.imageId) {
-         throw new CustomError(400, "Image upload failed!")
+         throw new CustomError(400, "Image upload failed!");
       }
+
       if (req.image) {
          return next();
-      };
+      }
    } catch (err) {
-      errorResponse(res, err, "UPLOAD MIDDLEWARE")
+      errorResponse(res, err, "UPLOAD MIDDLEWARE");
    }
 };
 
-//File Update Middleware 
+/********************************************************************************
+ * Middleware for file update
+ * @param {object} req - The request object
+ * @param {object} res - The response object
+ * @param {function} next - The callback function to move to the next middleware
+ * @throws {CustomError} Throws an error if image upload fails
+ ******************************************************************************/
 module.exports.updateFile = async (req, res, next) => {
    try {
       const { imageId } = req.body;
-      //Only exicute this condition if it's DELETE Request.
+
+      // Only execute this condition if it's a DELETE request.
       if (req.method === "DELETE") {
          await cloudinary.uploader.destroy(imageId);
-         return next()
+         return next();
       }
 
-      //If req has imageId and req.files is null, that means user only wants to update product details, in that case this middleware won't do anything just next() will trigger.
+      // If req has imageId and req.files is null, that means user only wants to update product details, 
+      // in that case this middleware won't do anything just next() will trigger.
       if (!req.files && imageId) {
-         return next()
+         return next();
       }
-      // console.log(imageId, "IIIIDDDD")
+
       if (imageId) {
          await cloudinary.uploader.destroy(imageId);
       }
+
       const file = req.files.image;
-      // console.log(file, "FILE")
 
       const result = await cloudinary.uploader.upload(file.tempFilePath, {
          folder: "products",
       });
-      // console.log(result.secure_url, "RESULT")
+
       req.image = result.secure_url;
       req.imageId = result.public_id;
+
       if (!req.image && !req.imageId) {
-         throw new CustomError(400, "Image upload failed!")
+         throw new CustomError(400, "Image upload failed!");
       }
+
       if (req.image) {
          return next();
-      };
+      }
    } catch (err) {
-      errorResponse(res, err, "EDIT MIDDLEWARE")
+      errorResponse(res, err, "EDIT MIDDLEWARE");
    }
 };

@@ -7,67 +7,69 @@ const errorResponse = require("../helper/errorResponse");
 const mailSender = require("../helper/mailSender");
 const config = require("../config/index");
 
-/********************************************************
- * @Signup
- * @Route POST http://localhost:5000/api/v1/auth/signup
- * @Description User signup controller for create new user.
- * @Parameters firstName, lastName, email, password, gender
- * @Return user object
- *********************************************************/
-
-module.exports.signUp = async (req, res) => {
+/**********************************************************
+ * Create a new user Controller.
+ * @route POST /api/v1/auth/signup
+ * @param {string} firstName.required - User's first name
+ * @param {string} lastName.required - User's last name
+ * @param {string} email.required - User's email address
+ * @param {string} password.required - User's password
+ * @returns {object} 200 - User object
+ * @throws {CustomError} 400 - All the input fields are mandatory
+ * @throws {CustomError} 400 - Invalid email
+ * @throws {CustomError} 400 - User already exists with this email
+ * @throws {CustomError} 400 - Password should be more than 8 characters
+ * @throws {CustomError} 400 - Password and Confirm Password does not match
+ * @throws {CustomError} 500 - Internal server error
+ ***************************************************************/
+exports.signUp = async (req, res) => {
 	try {
 		const { firstName, lastName, email, password, confirmPassword } = req.body;
 
 		if (!firstName || !lastName || !email || !password || !confirmPassword) {
-			throw new CustomError(400, "All the input fields are mandatory");
+			throw new CustomError(400, 'All the input fields are mandatory');
 		}
 
 		if (!isValidEmail(email)) {
-			throw new CustomError(400, "Invalid Email", "email");
+			throw new CustomError(400, 'Invalid email', 'email');
 		}
 
-		const isExistingUser = await User.findOne({ email });
-		if (isExistingUser) {
-			throw new CustomError(400, "User Already exists", "email");
+		const existingUser = await User.findOne({ email });
+		if (existingUser) {
+			throw new CustomError(400, 'User already exists with this email');
 		}
 
 		if (password.length < 8) {
-			throw new CustomError(400, "Password should be more then 8 Characters", "password");
-		}
-		if (password !== confirmPassword) {
-			throw new CustomError(400, "Password and Confirm Password does not match", "confirmPassword");
+			throw new CustomError(400, 'Password should be more than 8 characters', 'password');
 		}
 
-		const user = await User.create({
-			name: firstName + " " + lastName,
-			email,
-			password,
-		});
+		if (password !== confirmPassword) {
+			throw new CustomError(400, 'Password and Confirm Password does not match', 'confirmPassword');
+		}
+
+		const name = `${firstName} ${lastName}`;
+		const user = await User.create({ name, email, password });
 
 		user.password = undefined;
 		const token = user.generateJwtToken();
-		const userPayload = {
-			_id: user._id,
-			name: user.name,
-			role: user.role,
-			email: user.email
-		};
-		res.cookie("token", token, cookieOptions);
-		return res.status(200).json({ success: true, userPayload, token });
+		const userPayload = { _id: user._id, name, role: user.role, email: user.email };
+		res.cookie('token', token, cookieOptions);
+		res.status(200).json({ success: true, userPayload, token });
 	} catch (err) {
-		errorResponse(res, err, "SIGNUP")
+		errorResponse(res, err, 'SIGNUP');
 	}
 };
 
-/********************************************************
- * @Login
- * @Route POST http://localhost:5000/api/v1/auth/login
- * @Description User login controller.
- * @Parameters email, password
- * @Return user object
- *********************************************************/
-
+/******************************************************************
+ * User login Controller.
+ * @route POST /api/v1/auth/login
+ * @param {string} email.required - User's email address
+ * @param {string} password.required - User's password
+ * @returns {object} 200 - User object and JWT Token
+ * @throws {CustomError} 400 - All the input fields are mandatory
+ * @throws {CustomError} 401 - Invalid Credentials
+ * @throws {CustomError} 500 - Internal server error
+ ******************************************************************/
 module.exports.login = async (req, res) => {
 	try {
 		const { email, password } = req.body;
@@ -75,16 +77,17 @@ module.exports.login = async (req, res) => {
 		if (!email || !password) {
 			throw new CustomError(400, "All the input fields are mandatory");
 		}
+
 		const user = await User.findOne({ email });
 		if (!user) {
 			throw new CustomError(401, "Invalid Credentials");
 		}
 
 		const isPasswordMatch = await user.comparePassword(password);
-		console.log(isPasswordMatch, "USER")
 		if (!isPasswordMatch) {
 			throw new CustomError(401, "Invalid Credentials");
 		}
+
 		user.password = undefined;
 		const token = user.generateJwtToken();
 		const userPayload = {
@@ -101,15 +104,17 @@ module.exports.login = async (req, res) => {
 	};
 };
 
-/********************************************************
- * @adminLogin
- * @Route GET http://localhost:5000/api/v1/admin/login
- * @Description Only admin can login useing this route.
- * @Parameters  email, password  from req.body
- * @Return user object and token
- ********************************************************/
+/*************************************************************************
+ * Only admin can login using this route.
+ * @route POST /api/v1/admin/login
+ * @param {string} email.required - User's email address
+ * @param {string} password.required - User's password
+ * @returns {object} 200 - User object and JWT token
+ * @throws {CustomError} 400 - All the input fields are mandatory
+ * @throws {CustomError} 401 - Invalid credentials
+ * @throws {CustomError} 500 - Internal server error
+ **************************************************************************/
 module.exports.adminLogin = async (req, res) => {
-	// console.log(req.body)
 	try {
 		const { email, password } = req.body;
 
@@ -119,16 +124,16 @@ module.exports.adminLogin = async (req, res) => {
 
 		const user = await User.findOne({ email });
 		if (!user) {
-			throw new CustomError(401, "Invalid Credentials");
+			throw new CustomError(401, "Invalid credentials");
 		}
 
 		if (user.role !== "ADMIN") {
-			throw new CustomError(401, "Invalid Credentials");
+			throw new CustomError(401, "Invalid credentials");
 		}
 
 		const isPasswordMatch = await user.comparePassword(password);
 		if (!isPasswordMatch) {
-			throw new CustomError(401, "Invalid Credentials");
+			throw new CustomError(401, "Invalid credentials");
 		}
 		user.password = undefined;
 		const token = user.generateJwtToken();
@@ -145,16 +150,13 @@ module.exports.adminLogin = async (req, res) => {
 	};
 };
 
-
-/********************************************************
-@forgetPassword
-@Route POST http://localhost:5000/api/v1/auth/forget/password
-@Description Generates a forget password token and sends a reset password email to the user's email address.
-@Parameters email, the email address of the user who needs to reset their password.
-@Return success (boolean) - indicates whether the operation was successful.
-message (string) - a message indicating whether the reset password email has been sent to the user's email address.
-@Throws CustomError - if the email is invalid, the user is not found, or an error occurred while sending the reset password email.
-********************************************************/
+/***************************************************************************
+ * Generates a forget password token and sends a reset password email to the user's email address.
+ * @route POST /api/v1/admin/login
+ * @param {string} email.required - User's email address
+ * @returns {object} Returns a JSON object with a success property indicating whether the operation was successful and a message property containing a message indicating whether the reset password email has been sent to the user's email address.
+ * @throws {CustomError} If the email is invalid, the user is not found, or an error occurred while sending the reset password email.
+ *****************************************************************************/
 module.exports.forgotPassword = async (req, res) => {
 	let user;
 
@@ -211,17 +213,14 @@ module.exports.forgotPassword = async (req, res) => {
 	}
 };
 
-
-/********************************************************
- @resetPassword
-@Route POST http://localhost:5000/api/v1/reset/password/:resetToken
-@Description This API endpoint allows the user or admin to reset their password, if they provide a reset token and new password.
-@Parameters - resetToken: A unique token generated (from -forgotPassword- controller) and sent to the user or admin's email for resetting password
-- password: The new password for the user or admin's account
-- confirmPassword: Confirming the new password by re-entering it
-@Return Returns a JSON object with a success message if the password is updated successfully.
-********************************************************/
-
+/*****************************************************************************
+ * Resets the password for the user or admin account with the provided reset token.
+ * @route POST /api/v1/reset/password/:resetToken
+ * @param {string} email.required - User's email address
+ * @param {string} resetToken.required - User's email address
+ * @Return Returns a JSON object with a success message if the password is updated successfully.
+ * @throws {CustomError} - If the reset token is invalid or has expired, or if the password and confirm password do not match
+ ******************************************************************************/
 exports.resetPassword = async (req, res) => {
 	try {
 		const { resetToken } = req.params;
@@ -243,12 +242,13 @@ exports.resetPassword = async (req, res) => {
 		});
 
 		if (!user) {
-			throw new CustomError(403, "The reset token you provided is invalid or has expired", 'password');
+			throw new CustomError(403, 'The reset token you provided is invalid or has expired', 'password');
 		}
 
 		if (password !== confirmPassword) {
-			throw new CustomError(400, 'Incorrect Password', 'confirmPassword');
+			throw new CustomError(400, 'Password and Confirm Password do not match', 'confirmPassword');
 		}
+
 		user.password = password;
 		user.forgetPasswordToken = undefined;
 		user.forgetPasswordExpiry = undefined;
@@ -260,6 +260,6 @@ exports.resetPassword = async (req, res) => {
 			message: 'Password updated',
 		});
 	} catch (err) {
-		errorResponse(res, err, 'FORGET-PASSWORD-CONTROLLER');
+		errorResponse(res, err, 'RESET-PASSWORD-CONTROLLER');
 	}
 };
