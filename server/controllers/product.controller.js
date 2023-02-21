@@ -273,7 +273,7 @@ module.exports.getSingleProducts = async (req, res) => {
 * @description Retrieves the best-selling products and sends them back to the client as a JSON response.
 * @returns {Object} - Products Array with a limit of 12
 *********************************************************/
-module.exports.getBestSellingProducts = async (req, res) => {
+module.exports.getBestSellingProducts = async (_req, res) => {
    try {
       const products = await Product.aggregate([{ $sample: { size: 12 } }])
       return res.status(200).json({ success: true, products })
