@@ -77,7 +77,7 @@ const SignupForm = ({
                      onClick={toggleViewPassword}>
                      <Icons
                         name={viewPassword ? "eyeClosed" : "eyeOpen"}
-                        color={"#b5b5b5"} />
+                        color={"#b5b5b5"} size={"1.3rem"} />
                   </Button>
                </div>
                <Input
@@ -101,7 +101,7 @@ const SignupForm = ({
                      onClick={toggleViewConfirmPassword}>
                      <Icons
                         name={viewConfirmPassword ? "eyeClosed" : "eyeOpen"}
-                        color={"#b5b5b5"} />
+                        color={"#b5b5b5"} size={"1.3rem"} />
                   </Button>
                </div>
                <Input
@@ -120,9 +120,9 @@ const SignupForm = ({
             <Button variant={"primary"} type={"submit"}>
                Create Account
             </Button>
-            <Button variant={"btn-border-black"} type={"button"}>
+            {/* <Button variant={"btn-border-black"} type={"button"}>
                <img src="/assets/icons8-google.svg" alt="google.svg" /> Continue with Google
-            </Button>
+            </Button> */}
          </form>
       </div>
    )

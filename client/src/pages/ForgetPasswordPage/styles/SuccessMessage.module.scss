@@ -2,11 +2,15 @@
 @import "../../../sass//sass-utils/mixins";
 
 .success_message_wrapper {
-	padding: 2rem;
+	margin: 1rem;
+	padding: 2rem 1rem;
 	border-radius: 8px;
 	text-align: start;
 	box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 	@include flex-col;
+	@include screens-md {
+		padding: 2rem;
+	}
 	gap: 0.4rem;
 	h4 {
 		@include flex-row-center;
@@ -17,7 +21,11 @@
 	}
 	span {
 		color: $red_main;
-		font-size: 0.99rem;
+		font-size: 0.8rem;
+		text-decoration: underline;
+		@include screens-md {
+			font-size: 0.99rem;
+		}
 	}
 	.back_btn {
 		margin-top: 1rem;

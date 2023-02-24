@@ -180,7 +180,6 @@ module.exports.forgotPassword = async (req, res) => {
 
 		// const resetUrl = `${req.protocol}://${req.get("host")}/api/auth/forget/password/${resetToken}`;
 		const resetUrl = `${config.CLIENT_URL}/reset/password/${resetToken}`;
-		console.log(resetUrl, "RESET")
 		const text = `
 		 <div style="background-color: #ffffff; padding: 10px;">
 			<h1 style="margin-bottom: 15px; color: #212529;">Reset Your Password</h1>

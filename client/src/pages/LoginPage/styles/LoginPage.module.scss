@@ -7,9 +7,12 @@
 		position: relative;
 		.view_password {
 			position: absolute;
-			right: 0;
-			top: -0.1rem;
+			right: 0.5rem;
+			top: 0.1rem;
 			z-index: 10;
+			@include screens-md {
+				top: 0;
+			}
 		}
 	}
 	button {

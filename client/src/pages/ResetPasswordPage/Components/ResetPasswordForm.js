@@ -28,7 +28,7 @@ const ResetPasswordForm = (
                   onClick={togglePasswordHanadler}>
                   <Icons
                      name={togglePassword ? "eyeClosed" : "eyeOpen"}
-                     color={"#b5b5b5"} />
+                     color={"#b5b5b5"} size={"1.2rem"} />
                </Button>
             </div>
             <Input
@@ -50,7 +50,7 @@ const ResetPasswordForm = (
                   onClick={toggleConfirmPasswordHanadler}>
                   <Icons
                      name={toggleConfirmPass ? "eyeClosed" : "eyeOpen"}
-                     color={"#b5b5b5"} />
+                     color={"#b5b5b5"} size={"1.2rem"} />
                </Button>
             </div>
             <Input

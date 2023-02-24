@@ -57,7 +57,7 @@ const UserProfilePage = () => {
                      <Icons size={"2.9rem"} color={"#cc2121"} name={"off"} />
                   </Button>}
             </div>
-            <Typography variant={"h5"}>My Account</Typography>
+            <Typography variant={"h4"}>My Account</Typography>
             <div className={styles.profile_tab_wrapper}>
                {showSideTab &&
                   <div className={styles.tabs_list}>

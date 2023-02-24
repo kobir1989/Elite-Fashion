@@ -3,7 +3,8 @@
 
 .page_wrapper {
 	margin: 3.5rem 0 4.5rem 0;
-	padding: 0.5rem;
+	padding: 0.8rem;
+	min-height: 80vh;
 	position: relative;
 	background-color: $body;
 	@include screens-md {
@@ -12,7 +13,7 @@
 	.toggle_btn {
 		@include flex-row-center;
 		justify-content: center;
-		margin-top: -2.2rem;
+		margin-top: -1rem;
 		@include screens-md {
 			display: none;
 		}

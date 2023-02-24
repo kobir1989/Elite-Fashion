@@ -90,7 +90,7 @@ const LoginPage = () => {
                         onClick={toggleViewPassword}>
                         <Icons
                            name={viewPassword ? "eyeClosed" : "eyeOpen"}
-                           color={"#b5b5b5"} />
+                           color={"#b5b5b5"} size={"1.3rem"} />
                      </Button>
                   </div>
                   <Input
@@ -111,9 +111,9 @@ const LoginPage = () => {
                <Button variant={"primary"} type={"submit"}>
                   Login
                </Button>
-               <Button variant={"btn-border-black"} type={"button"}>
+               {/* <Button variant={"btn-border-black"} type={"button"}>
                   <img src="/assets/icons8-google.svg" alt="" /> Continue with Google
-               </Button>
+               </Button> */}
             </form>
             <div className={styles.forget_password_link}>
                <Typography variant={"body"}>
