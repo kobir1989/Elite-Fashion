@@ -42,12 +42,14 @@ const WishlistCard = ({ showCross = true }) => {
                      </div>
                      <div className={styles.details_wrapper}>
                         <Typography variant={"h5"}>{list?.title}</Typography>
-                        <Typography variant={"h5"}>&#2547; {list?.price}</Typography>
+                        <Typography variant={"h5"}>&#2547; {list?.price}.00</Typography>
                      </div>
                   </div>
-                  <Button variant={"icon-btn-normal"} onClick={(e) => removeHandler(e, list?.id)}>
-                     <Icons name={"delete"} color={"#cc2121"} />
-                  </Button>
+                  <div className={styles.item_delete_button}>
+                     <Button variant={"icon-btn-normal"} onClick={(e) => removeHandler(e, list?.id)}>
+                        <Icons name={"delete"} color={"#cc2121"} />
+                     </Button>
+                  </div>
                </div>
             </Link>
          ))}

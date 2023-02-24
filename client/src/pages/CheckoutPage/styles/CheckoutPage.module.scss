@@ -3,11 +3,8 @@
 
 .main_wrapper {
 	width: 100%;
-	padding: 1rem;
+	min-height: 65vh;
 	margin: 3rem 0;
 	@include flex-col-center;
 	justify-content: center;
-	@include screens-md {
-		padding: 0;
-	}
 }

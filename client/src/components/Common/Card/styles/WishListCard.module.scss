@@ -4,7 +4,8 @@
 .wishList_row {
 	position: relative;
 	.modal_content_wrapper {
-		margin-top: 2rem;
+		position: relative;
+		margin-top: 2.8rem;
 		@include flex-row-space-between;
 		align-items: center;
 		gap: 1rem;
@@ -13,7 +14,7 @@
 		border: 1px solid $light_gray;
 		transition: all 0.2s linear;
 		.img_and_text {
-			min-width: 90%;
+			width: 100%;
 			@include flex-row-center;
 			gap: 2rem;
 		}
@@ -30,25 +31,38 @@
 			}
 		}
 		.details_wrapper {
-			flex: 2;
+			@include flex-col;
+			gap: 0.5rem;
+			h5 {
+				display: -webkit-box;
+				-webkit-line-clamp: 1;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
 		}
 		&:hover {
 			background-color: $body;
 			transition: all 0.2s linear;
 		}
-		.details_wrapper {
-			@include flex-col;
-			width: calc(100% / 3);
-			gap: 0.5rem;
-		}
-		button {
-			z-index: 999;
+		.item_delete_button {
+			position: absolute;
+			top: -1.2rem;
+			right: 2rem;
+			background-color: $white;
+			border-radius: 50%;
+			border: 1px solid $light_gray;
+			padding: 0.25rem 0.4rem;
+			button {
+				margin: 0;
+				padding: 0;
+			}
 		}
 	}
 	.close_icon {
 		position: absolute;
 		top: 0;
-		right: 0;
+		right: -0.2rem;
 	}
 	.message {
 		text-align: center;
