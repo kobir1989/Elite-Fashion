@@ -43,7 +43,7 @@ const CheckoutSteps = () => {
                <Typography variant={"h4"}>Thank you for your purchase!<br /> Your stylish new clothes will be on their way soon. Shop again for more fashion inspiration!
                </Typography>
                <Button variant={"primary"}
-                  onClick={() => window.location.href = `http://localhost:3000`}>
+                  onClick={() => window.location.href = `https://elite-fashion.vercel.app/`}>
                   Ok</Button>
             </div> :
             <div className={styles.steps_components}>
