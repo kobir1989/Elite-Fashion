@@ -4,10 +4,11 @@
 .search_popup_wrapper {
 	height: 25rem;
 	width: 18rem;
-	padding: 1.5rem;
+	padding: 1rem;
 	position: relative;
 	@include screens-md {
 		width: 35rem;
+		padding: 1.5rem;
 	}
 	.search_input {
 		position: relative;

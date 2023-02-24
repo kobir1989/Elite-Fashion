@@ -85,10 +85,10 @@
 	.cart_item_count {
 		color: $white;
 		font-weight: 700;
-		font-size: 0.8rem;
+		font-size: 0.7rem;
 		background-color: $red_main;
-		width: 1.2rem;
-		height: 1.2rem;
+		width: 1rem;
+		height: 1rem;
 		border-radius: 12px;
 		@include box-shadow-diffuse;
 		@include flex-col-center;

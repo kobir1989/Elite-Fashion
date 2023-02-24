@@ -1,12 +1,14 @@
 @import "../../../../sass/sass-utils/mixins";
 @import "../../../../sass/sass-utils/colors";
 .btn_group {
+	height: 2.4rem;
 	@include flex-row-center;
 	justify-content: center;
 	gap: 1rem;
 	border: 1px solid $light_gray;
 	@include screens-md {
 		width: 9rem;
+		height: 2.7rem;
 	}
 }
 .btn_rounded {

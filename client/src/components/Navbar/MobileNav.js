@@ -28,7 +28,7 @@ const MobileNav = (
             <div className={styles.wish_list_btn_wrapper}>
                <Button variant={"icon-btn-normal"}
                   onClick={() => { dispatch(setToggleWishList(!toggleWishList)) }}>
-                  <Icons name={"love"} size={"1.5rem"} color={"#727272"} />
+                  <Icons name={"love"} size={"1.2rem"} color={"#727272"} />
                   <span className={styles.wish_list_count}>
                      {wishListItem ? wishListItem.length : 0}
                   </span>
@@ -36,7 +36,7 @@ const MobileNav = (
             </div>
             <div className={styles.cart_item_link_wrapper}>
                <Link to={"/cart"}>
-                  <Icons name={"bag"} size={"1.5rem"} color={"#727272"} />
+                  <Icons name={"bag"} size={"1.2rem"} color={"#727272"} />
                   <span className={styles.cart_item_count}>
                      {quantity}
                   </span>

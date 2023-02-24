@@ -104,10 +104,11 @@
 	color: $gray_text;
 	border: unset;
 	font-weight: 300;
-	padding: 0.2rem 0.5rem;
+	padding: 0.2rem;
 	&:hover {
 		background-color: unset;
 		box-shadow: unset;
+		color: $red_main;
 	}
 }
 
