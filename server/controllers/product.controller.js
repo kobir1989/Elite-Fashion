@@ -176,52 +176,44 @@ module.exports.deleteProduct = async (req, res) => {
 };
 
 /******************************************************
- * Retrieves products based on the provided page number and limit,
- * and then sends the resulting data back to the client as a JSON response.
- * @getProductsByLimits
- * @route GET /api/v1/:subCategoryId/product?page=1&limit=12
- * @param {Object} req - Express request object
- * @param {Object} res - Express response object
- * @throws {CustomError} 400 - Page, Limit, and Sub Category ID are required
- * @returns {Object} - Products Array
- ******************************************************/
+Retrieves products based on the provided page number and limit,
+and then sends the resulting data back to the client as a JSON response.
+@route GET /api/v1/:subCategoryId/product?page=1&limit=12
+@param {Object} req - Express request object
+@param {Object} res - Express response object
+@throws {CustomError} 400 - Page, Limit, and Sub Category ID are required
+@returns {Object} - Products Array
+******************************************************/
 module.exports.getProductsByLimits = async (req, res) => {
    try {
       const { page, limit } = req.query;
       const { subCategoryId } = req.params;
 
+      // Check if required query parameters are present
       if (!page || !limit || !subCategoryId) {
          throw new CustomError(400, "Page, Limit and Sub Category Id are required");
       }
 
-      const startsIndexAt = (page - 1) * limit;
-      const endsIndexAt = page * limit;
+      const startIndex = (page - 1) * limit;
+      const endIndex = page * limit;
 
-      const totalCount = await Product.countDocuments({ "subCategory": subCategoryId });
-      const products = {};
+      // Get the total count of products in the subcategory
+      const totalCount = await Product.countDocuments({ subCategory: subCategoryId });
 
-      products.result = await Product.find({ "subCategory": subCategoryId })
+      // Retrieve products based on the query parameters
+      const products = await Product.find({ subCategory: subCategoryId })
          .select("-sold -productCost")
          .limit(limit)
-         .skip(startsIndexAt)
+         .skip(startIndex)
          .exec();
 
-      if (endsIndexAt < totalCount) {
-         products.next = {
-            page: parseInt(page) + 1,
-            limit: limit
-         };
-      }
+      // Set pagination information
+      const totalPage = Math.ceil(totalCount / limit);
+      const next = (endIndex < totalCount) ? { page: parseInt(page) + 1, limit: limit } : null;
+      const previous = (startIndex > 0) ? { page: parseInt(page) - 1, limit: limit } : null;
 
-      if (startsIndexAt > 0) {
-         products.previous = {
-            page: page - 1,
-            limit: limit
-         };
-      }
-      products.totalPage = Math.ceil(totalCount / limit);
-
-      return res.status(200).json({ success: true, products });
+      // Send the response
+      return res.status(200).json({ success: true, products, pagination: { totalPage, next, previous } });
    } catch (err) {
       errorResponse(res, err, "GET-PAGINATED-PRODUCTS");
    }

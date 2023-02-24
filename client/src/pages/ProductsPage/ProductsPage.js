@@ -15,11 +15,12 @@ const ProductsPage = () => {
    const {
       isLoading,
       error,
+      pagination,
       products,
       page
    } = useSelector(state => state.product);
    useEffect(() => {
-      dispatch(fetchProducts(`/${id}/products?page=${page}&limit=12`))
+      dispatch(fetchProducts(`/${id}/products?page=${page}&limit=12`));
    }, [id, page, dispatch]);
 
    const productPaginationHandler = (pageCount) => {
@@ -29,7 +30,7 @@ const ProductsPage = () => {
       <PageLayout>
          {error && <ErrorMessage />}
          <ProductsLayout>
-            {products?.result ? products?.result.map((product) => (
+            {products && products.length ? products.map((product) => (
                <ProductCard
                   title={product?.title}
                   price={product?.price}
@@ -53,7 +54,7 @@ const ProductsPage = () => {
          <Pagination
             page={page}
             paginationHandler={productPaginationHandler}
-            api={products} />
+            api={pagination} />
       </PageLayout>
    )
 }

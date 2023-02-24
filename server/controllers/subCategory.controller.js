@@ -190,43 +190,62 @@ module.exports.getSubCategoryByLimits = async (req, res) => {
       const { categoryId } = req.params;
       let { page, limit } = req.query;
       const startsIndexAt = (page - 1) * limit;
-      const subCategory = {};
+
       const DEFAULT_PAGE = 1;
       const DEFAULT_LIMIT = 12;
+      const MAX_LIMIT = 100;
 
       // Validate page and limit parameters
       page = parseInt(page) || DEFAULT_PAGE;
       limit = parseInt(limit) || DEFAULT_LIMIT;
+
       if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
          throw new CustomError(400, "Invalid page or limit parameter");
       }
 
-      const subCategoryCount = await SubCategory.find({ "category": categoryId }).countDocuments().exec();
-      subCategory.result = await SubCategory.find({ "category": categoryId })
-         .limit(limit)
-         .skip(startsIndexAt)
-         .exec();
-
-      if (subCategory.result.length) {
-         subCategory.totalPage = Math.ceil(subCategoryCount / limit);
-
-         if (startsIndexAt + limit < subCategoryCount) {
-            subCategory.next = {
-               page: page + 1,
-               limit: limit
-            };
-         }
-
-         if (startsIndexAt > 0) {
-            subCategory.previous = {
-               page: page - 1,
-               limit: limit
-            };
-         }
+      if (limit > MAX_LIMIT) {
+         limit = MAX_LIMIT;
       }
 
-      return res.status(200).json({ success: true, subCategory });
+      const subCategoryCount = await SubCategory.countDocuments({ category: categoryId });
+      const subCategory = await SubCategory.find({ category: categoryId })
+         .limit(limit)
+         .skip(startsIndexAt);
+
+      const totalPage = Math.ceil(subCategoryCount / limit);
+
+      let prevPage = page - 1;
+      let nextPage = page + 1;
+
+      const pagination = {};
+
+      if (prevPage > 0) {
+         pagination.previous = {
+            page: prevPage,
+            limit
+         };
+      }
+
+      if (nextPage <= totalPage) {
+         pagination.next = {
+            page: nextPage,
+            limit
+         };
+      }
+
+      return res.status(200).json({
+         success: true,
+         subCategory,
+         pagination: {
+            total: subCategoryCount,
+            page,
+            limit,
+            totalPage,
+            ...pagination
+         }
+      });
    } catch (err) {
       errorResponse(res, err, "PAGINATED-SUB-CATEGORY");
-   };
+   }
 };
+

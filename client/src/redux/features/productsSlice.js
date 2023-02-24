@@ -5,6 +5,7 @@ const initialState = {
    isLoading: false,
    products: [],
    page: 1,
+   pagination: null,
    error: null,
 };
 
@@ -18,10 +19,12 @@ const productsSlice = createSlice({
    },
    extraReducers: (builder) => {
       builder.addCase(fetchProducts.pending, (state, _action) => {
+         state.products = []
          state.isLoading = true;
       });
       builder.addCase(fetchProducts.fulfilled, (state, action) => {
-         state.products = action.payload;
+         state.products = action.payload.products;
+         state.pagination = action.payload.pagination
          state.isLoading = false;
       });
       builder.addCase(fetchProducts.rejected, (state, action) => {

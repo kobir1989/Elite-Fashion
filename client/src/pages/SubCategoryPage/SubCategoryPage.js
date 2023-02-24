@@ -16,6 +16,7 @@ const SubCategoryPage = () => {
    const {
       isLoading,
       subCategories,
+      pagination,
       error,
       page
    } = useSelector(state => state.subCategory);
@@ -30,6 +31,7 @@ const SubCategoryPage = () => {
       dispatch(setSubCategoryPage(pageCount))
       // console.log(pageCount, "PAGE")
    }
+   console.log(isLoading, "LOAD")
    return (
       <PageLayout>
          <div className={styles.discount_banner}>
@@ -42,7 +44,7 @@ const SubCategoryPage = () => {
          </div>
          {error && <ErrorMessage />}
          <GridViewLayout page={"sub_category"}>
-            {subCategories?.result ? subCategories?.result.map((subCtg) => (
+            {subCategories && subCategories.length ? subCategories.map((subCtg) => (
                <CategoryCard
                   title={subCtg?.name}
                   imgUrl={subCtg?.image}
@@ -61,7 +63,7 @@ const SubCategoryPage = () => {
          <Pagination
             page={page}
             paginationHandler={subCategoryPaginationHandler}
-            api={subCategories}
+            api={pagination}
          />
       </PageLayout>
    )

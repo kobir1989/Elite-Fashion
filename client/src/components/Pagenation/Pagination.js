@@ -4,10 +4,8 @@ import Icons from '../Common/Icons/Icons';
 import Button from '../Common/Button/Button';
 
 const Pagination = ({ api, page, paginationHandler }) => {
-   // console.log(api, "API")
    const numberOfPages = Array(api?.totalPage)
       .fill().map((_, index) => index + 1);
-   // console.log(numberOfPages, "LENGTH")
    return (
       <div className={styles.pagination_buttons}>
          {api?.previous &&
