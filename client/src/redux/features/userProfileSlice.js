@@ -25,9 +25,20 @@ const userProfileSlice = createSlice({
       builder.addCase(fetchUserInfo.fulfilled, (state, action) => {
          state.isLoading = false
          const profileData = action.payload;
-         const orderArr = profileData?.purchases.find(item => item.product);
-         state.userOrderData = orderArr?.product;
+         const orderArr = profileData.purchases.map((order) => (
+            {
+               products: order.product,
+               status: order.orderStatus,
+               date: order.createdAt,
+               id: order._id
+            }
+         ));
+         console.log(profileData, "ORD")
 
+         //User purchase PRoducts
+         state.userOrderData = orderArr
+
+         //User PRofile data
          state.userProfileData = {
             name: profileData?.name,
             email: profileData?.email,
@@ -35,8 +46,6 @@ const userProfileSlice = createSlice({
             city: profileData?.city,
             phone: profileData?.phone,
             address: profileData?.address,
-            time: profileData?.createdAt,
-            status: orderArr?.orderStatus,
             profilePic: profileData?.image
 
          };

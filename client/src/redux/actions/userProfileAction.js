@@ -13,9 +13,9 @@ export const fetchUserInfo = createAsyncThunk(
             }
          });
          return response?.data?.user;
-      } catch (err) {
-         // console.log(err.response);
-         return rejectWithValue(err.response);
+      } catch (error) {
+         // console.log(error.response.status);
+         return rejectWithValue(error);
       }
    }
 );
@@ -41,7 +41,6 @@ export const updateUserProfile = createAsyncThunk(
          // console.log(response);
          return response?.data;
       } catch (err) {
-         console.log(err);
          return rejectWithValue(err?.response?.data)
       }
    }

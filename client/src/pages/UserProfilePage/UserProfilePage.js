@@ -13,6 +13,7 @@ import Orders from './Components/Orders';
 import Settings from './Components/Settings';
 import Button from '../../components/Common/Button/Button';
 import TabPanel from './Components/TabPanel';
+import { logout } from "../../redux/features/authSlice";
 
 const a11yProps = (index) => {
    return {
@@ -26,12 +27,15 @@ const tabData = [{ icon: 'person', label: 'Profile' }, { icon: 'love', label: 'W
 const UserProfilePage = () => {
    const [value, setValue] = React.useState(0);
    const [showSideTab, setShowSideTab] = useState(window.innerWidth > 700 ? true : false)
-   const { isLoading, userProfileData, userOrderData, updateSuccess } = useSelector(state => state.userProfile)
+   const { isLoading, error, userProfileData, shippingDetails, userOrderData, updateSuccess } = useSelector(state => state.userProfile)
    const dispatch = useDispatch();
    const { id } = useParams()
 
    useEffect(() => {
       dispatch(fetchUserInfo({ id }));
+      if (error?.response?.status === 401 || error?.response?.status === 403) {
+         dispatch(logout())
+      }
    }, [id, dispatch, updateSuccess])
 
    const handleChange = (_event, newValue) => {
@@ -93,7 +97,6 @@ const UserProfilePage = () => {
                   <TabPanel value={value} index={2}>
                      <Orders
                         userOrderData={userOrderData}
-                        userProfileData={userProfileData}
                      />
                   </TabPanel>
                   <TabPanel value={value} index={3}>
