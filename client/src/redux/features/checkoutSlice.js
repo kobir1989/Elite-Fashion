@@ -11,6 +11,7 @@ const initialState = {
    userId: null,
    hasError: false,
    order: [],
+   totalAmount: 0,
    paymentId: null,
 };
 
@@ -26,7 +27,8 @@ const checkoutSlice = createSlice({
          state.userId = userId
       },
       setOrder: (state, action) => {
-         state.order = action.payload;
+         state.order = action.payload.product;
+         state.totalAmount = action.payload.totalAmount
       },
       setPayment: (state, action) => {
          state.paymentId = action.payload;

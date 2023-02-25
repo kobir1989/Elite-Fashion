@@ -16,12 +16,12 @@ const ShippmentForm = () => {
    const [address, setAddress] = useState("");
    const [hasError, setHasError] = useState(false);
    const dispatch = useDispatch();
+
    //to send product array to backend
    const product = cartItem.map((item) => {
       return {
          _id: item.id,
          quantity: item.quantity,
-         totalAmount
       }
    });
 
@@ -32,7 +32,7 @@ const ShippmentForm = () => {
          return;
       }
       dispatch(setShipmentDetails({ phone, city, address, userId: userInfo?._id }));
-      dispatch(setOrder(product));
+      dispatch(setOrder({ product, totalAmount }));
       dispatch(increaseStep())
       setAddress("");
       setCity("");

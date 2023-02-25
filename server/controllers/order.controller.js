@@ -25,6 +25,7 @@ module.exports.createNewOrder = async (req, res) => {
       };
       const order = await Order.create({
          product: checkout.order,
+         totalAmount: checkout.totalAmount,
          city: checkout.city,
          shippingAddress: checkout.address,
          user: userId,

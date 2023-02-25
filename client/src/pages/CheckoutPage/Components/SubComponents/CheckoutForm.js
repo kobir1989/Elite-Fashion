@@ -19,6 +19,7 @@ const CheckoutForm = () => {
       city,
       userId,
       order,
+      totalAmount
    } = useSelector(state => state.checkout);
 
    const handleSubmit = async (e) => {
@@ -38,7 +39,7 @@ const CheckoutForm = () => {
 
       console.log(result, "RESULT")
       if (result.paymentIntent.status === "succeeded") {
-         dispatch(postCheckoutData({ phone, address, city, userId, order, paymentId: result.paymentIntent.id }));
+         dispatch(postCheckoutData({ phone, address, city, userId, order, totalAmount, paymentId: result.paymentIntent.id }));
          dispatch(increaseStep());
          dispatch(resetCartState());
       }

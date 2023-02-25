@@ -17,22 +17,28 @@ cloudinary.config({
  * @throws {CustomError} Throws an error if image upload fails
  ******************************************************************************/
 module.exports.fileUploader = async (req, res, next) => {
+   //This middleware also used to upload user profile pic.
    try {
-      const file = req.files.image;
-      const result = await cloudinary.uploader.upload(file.tempFilePath, {
-         folder: "products",
-      });
+      if (req.files) {
+         const file = req.files.image;
+         const result = await cloudinary.uploader.upload(file.tempFilePath, {
+            folder: "products",
+         });
 
-      req.image = result.secure_url;
-      req.imageId = result.public_id;
+         req.image = result.secure_url;
+         req.imageId = result.public_id;
 
-      if (!req.image && !req.imageId) {
-         throw new CustomError(400, "Image upload failed!");
+         if (!req.image && !req.imageId) {
+            throw new CustomError(400, "Image upload failed!");
+         }
+
+         if (req.image) {
+            return next();
+         }
+      } else {
+         next()
       }
 
-      if (req.image) {
-         return next();
-      }
    } catch (err) {
       errorResponse(res, err, "UPLOAD MIDDLEWARE");
    }

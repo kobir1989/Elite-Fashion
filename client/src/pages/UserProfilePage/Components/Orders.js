@@ -4,7 +4,6 @@ import Typography from '../../../components/Common/Typography/Typography';
 import styles from "../styles/Orders.module.scss";
 
 const Orders = ({ userOrderData }) => {
-
    return (
       <div>
          <div>
@@ -25,7 +24,9 @@ const Orders = ({ userOrderData }) => {
                   {item.products.map((prod) => (
                      <div className={styles.order_details} key={prod?._id?._id}>
                         <img src={prod?._id?.image} alt="product.png" />
-                        <Typography variant={"body"}>{prod?._id?.title}</Typography>
+                        <div className={styles.product_title}>
+                           <Typography variant={"body"}>{prod?._id?.title}</Typography>
+                        </div>
                         <div className={styles.order_price}>
                            <Typography>
                               Price: {prod?._id?.price} TK.
@@ -38,7 +39,7 @@ const Orders = ({ userOrderData }) => {
                   ))}
                   <div className={styles.order_total}>
                      <Typography variant={"body"} color={"red"}>
-                        Total Amount: TK.
+                        Total Amount: {item?.totalAmount}.00 TK.
                      </Typography>
                   </div>
                </div>

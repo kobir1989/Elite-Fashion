@@ -30,10 +30,10 @@ const userProfileSlice = createSlice({
                products: order.product,
                status: order.orderStatus,
                date: order.createdAt,
-               id: order._id
+               id: order._id,
+               totalAmount: order.totalAmount
             }
          ));
-         console.log(profileData, "ORD")
 
          //User purchase PRoducts
          state.userOrderData = orderArr

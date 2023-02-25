@@ -13,13 +13,13 @@ const orderSchema = new Schema({
                type: Number,
                required: [true, "Quantity is Required"],
             },
-            totalAmount: {
-               type: Number,
-               required: [true, "Total Amount is Required"]
-            },
          },
 
       ]
+   },
+   totalAmount: {
+      type: Number,
+      required: [true, "Total Amount is Required"]
    },
    paymentId: {
       type: String,

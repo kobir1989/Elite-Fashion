@@ -66,7 +66,7 @@ module.exports.updateUserProfile = async (req, res) => {
       user.address = address;
       user.city = city;
       user.image = req.image;
-      user.imageId = req.imageId;
+      user.imageId = req?.imageId;
       await user.save()
 
       return res.status(200).json({

@@ -27,7 +27,7 @@ const tabData = [{ icon: 'person', label: 'Profile' }, { icon: 'love', label: 'W
 const UserProfilePage = () => {
    const [value, setValue] = React.useState(0);
    const [showSideTab, setShowSideTab] = useState(window.innerWidth > 700 ? true : false)
-   const { isLoading, error, userProfileData, shippingDetails, userOrderData, updateSuccess } = useSelector(state => state.userProfile)
+   const { isLoading, error, userProfileData, userOrderData, updateSuccess } = useSelector(state => state.userProfile)
    const dispatch = useDispatch();
    const { id } = useParams()
 
@@ -100,7 +100,7 @@ const UserProfilePage = () => {
                      />
                   </TabPanel>
                   <TabPanel value={value} index={3}>
-                     <Settings />
+                     <Settings resetTabValue={setValue} />
                   </TabPanel>
                </div>
             </div>
