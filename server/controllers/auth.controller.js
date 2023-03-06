@@ -141,7 +141,8 @@ module.exports.adminLogin = async (req, res) => {
 			_id: user._id,
 			name: user.name,
 			role: user.role,
-			email: user.email
+			email: user.email,
+			imageUrl: user.image,
 		};
 		res.cookie("token", token, cookieOptions);
 		res.status(200).json({ success: true, userPayload, token });

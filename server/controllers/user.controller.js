@@ -100,3 +100,42 @@ module.exports.allUserProfiles = async (_req, res) => {
       errorResponse(res, err, "USER-PROFILE");
    };
 };
+
+
+/************************************************************
+ * Update Admin Profile.
+ *@userProfile
+ * @route GET /api/v1/admin/profile/:adminId
+ * @param {string} adminId - The ID of the admin.
+ * @param {string} email - The email of the admin.
+ * @param {string} name - The name of the admin.
+ * @returns {object} success message.
+ * @throws {CustomError} Error if admin not found.
+ ***********************************************************/
+module.exports.updateAdminProfile = async (req, res) => {
+   try {
+      const { email, name } = req.body;
+      console.log(req.body)
+      if (!email || !name) {
+         throw new CustomError(400, "All fields are mandatory")
+      }
+
+      const user = await User.findById({ _id: req.user?._id });
+      if (!user) {
+         throw new CustomError(404, "User not found", "email")
+      }
+      console.log(req.image, "URL")
+      user.email = email;
+      user.name = name;
+      user.image = req.image;
+      user.imageId = req?.imageId;
+      await user.save()
+
+      return res.status(200).json({
+         success: true,
+         message: "Account update successful",
+      });
+   } catch (err) {
+      errorResponse(res, err, "USER-PROFILE-UPDATE")
+   }
+}

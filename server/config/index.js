@@ -15,7 +15,8 @@ const config = {
    GOOGLE_API_CLIENT_SECRET: process.env.GOOGLE_API_CLIENT_SECRET,
    GOOGLE_API_REFRESH_TOKEN: process.env.GOOGLE_API_REFRESH_TOKEN,
    GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI,
-   CLIENT_URL: process.env.CLIENT_URL
+   CLIENT_URL: process.env.CLIENT_URL,
+   ADMIN_APP_URL: process.env.ADMIN_APP_URL
 }
 
 module.exports = config;
