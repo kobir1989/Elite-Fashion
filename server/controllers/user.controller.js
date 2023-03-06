@@ -136,6 +136,6 @@ module.exports.updateAdminProfile = async (req, res) => {
          message: "Account update successful",
       });
    } catch (err) {
-      errorResponse(res, err, "USER-PROFILE-UPDATE")
+      errorResponse(res, err, "ADMIN-PROFILE-UPDATE")
    }
 }
