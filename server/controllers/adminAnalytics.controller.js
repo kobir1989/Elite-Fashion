@@ -31,6 +31,17 @@ module.exports.getAdminAnalyticsData = async (req, res) => {
          Order.countDocuments()
       ]);
 
+      // Get previous day's totalUsers and totalOrders from database
+      const prevDay = dayjs().subtract(1, 'day').startOf('day');
+      const [prevTotalUsers, prevTotalOrders] = await Promise.all([
+         User.countDocuments({ createdAt: { $lt: prevDay } }),
+         Order.countDocuments({ createdAt: { $lt: prevDay } }),
+      ]);
+
+      // Calculate percentage change for totalUsers and totalOrders
+      const totalUsersPercentage = prevTotalUsers !== 0 ? ((totalUsers / prevTotalUsers) - 1) * 100 : 0;
+      const totalOrdersPercentage = prevTotalOrders !== 0 ? ((totalOrders / prevTotalOrders) - 1) * 100 : 0;
+
       const [dailySales, weeklyEarnings, monthlyRevenue, totalRevenue] = await Promise.all([
          Order.find({ createdAt: { $gte: today } }).then(orders =>
             orders.reduce((acc, order) => acc + order.totalAmount, 0)
@@ -69,6 +80,11 @@ module.exports.getAdminAnalyticsData = async (req, res) => {
          }
       });
 
+      // Calculate percentages
+      const dailySalesPercentage = Math.round((dailySales / totalRevenue) * 100);
+      const weeklyEarningsPercentage = Math.round((weeklyEarnings / totalRevenue) * 100);
+      const monthlyRevenuePercentage = Math.round((monthlyRevenue / totalRevenue) * 100);
+
       return res.status(200).json(
          {
             totalUsers,
@@ -77,7 +93,12 @@ module.exports.getAdminAnalyticsData = async (req, res) => {
             weeklyEarnings,
             monthlyRevenue,
             monthlyRevenueArray,
-            totalRevenue
+            totalRevenue,
+            dailySalesPercentage,
+            weeklyEarningsPercentage,
+            monthlyRevenuePercentage,
+            totalUsersPercentage,
+            totalOrdersPercentage
          }
       );
    } catch (err) {

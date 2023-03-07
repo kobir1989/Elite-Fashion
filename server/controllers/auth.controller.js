@@ -263,3 +263,25 @@ exports.resetPassword = async (req, res) => {
 		errorResponse(res, err, 'RESET-PASSWORD-CONTROLLER');
 	}
 };
+
+/*************************************************************************
+Logout controller.
+@route POST /api/v1/auth/logout
+@summary Logs out the user by resetting the token cookie.
+@returns {Object} Returns a JSON object with a success message and null token.
+@throws {Object} errorResponse - Throws an error response object with a 500 status code if an error occurs.
+*****************************************************************************/
+module.exports.logout = async (req, res) => {
+	try {
+		res.cookie("token", null, {
+			expires: new Date(Date.now()),
+			httpOnly: true
+		})
+		res.status(200).json({
+			success: true,
+			token: null
+		})
+	} catch (err) {
+		errorResponse(res, err, "LOGOUT")
+	}
+}
