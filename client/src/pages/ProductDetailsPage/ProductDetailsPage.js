@@ -8,6 +8,8 @@ import BestSellingProduct from "../../components/BestSellingProduct/BestSellingP
 import { fetchBestSellingProducts } from "../../redux/actions/bestSellingAction";
 import ProductDetailsView from './Components/ProductDetailsView';
 import { useDispatch } from "react-redux";
+import Review from './Components/Review';
+import WriteReview from "./Components/WriteReview";
 
 const ProductDetailsPage = () => {
    const dispatch = useDispatch()
@@ -20,12 +22,19 @@ const ProductDetailsPage = () => {
    return (
       <PageLayout>
          <ProductDetailsView />
-         <div className={styles.related_products}>
+         <section className={styles.related_products}>
             <Typography variant={"h3"}>
                Related Products
             </Typography>
             <BestSellingProduct />
-         </div>
+         </section>
+         <section className={styles.review_section}>
+            <Typography variant={"h3"}>
+               Ratings & Reviews
+            </Typography>
+            <Review />
+            <WriteReview />
+         </section>
       </PageLayout >
    )
 };
