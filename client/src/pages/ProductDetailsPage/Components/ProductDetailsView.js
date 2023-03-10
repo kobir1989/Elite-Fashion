@@ -61,79 +61,81 @@ const ProductDetailsView = () => {
                   col={1} />
             }
          </div>
-         <div className={styles.product_info}>
-            {isLoading &&
+         {isLoading ?
+            <div className={styles.skeleton_wrapper}>
                <TextSkeleton
-                  row={8}
-                  width={"100%"}
-                  height={"100%"} />
-            }
-            <div className={styles.text_wrapper}>
-               <Typography variant={"h3"}>{products?.title}</Typography>
-               <Ratings />
-               <Typography variant={"h3"}>&#2547; {products?.price}</Typography>
-               <Typography variant={"body"}>{products?.description}</Typography>
+                  row={10}
+                  height={12} />
             </div>
-            <div className={styles.options}>
-               <SelectOptions
-                  label={"SIZE"}
-                  error={isEmpty ? true : false}
-                  errorMessage={"Color and Size are Required"}
-                  onChange={(e) => { setSize(e.target.value) }}
-                  value={size}
-                  options={[
-                     "SMALL",
-                     "MEDIUM",
-                     "LARGE",
-                     "XL",
-                     "XXL"
-                  ]} />
-               <SelectOptions
-                  onChange={(e) => { setColor(e.target.value) }}
-                  label={"COLOR"}
-                  error={isEmpty ? true : false}
-                  errorMessage={"Color and Size are Required"}
-                  value={color}
-                  options={["BLUE", "RED"]} />
-            </div>
-            <div className={styles.stock}>
-               <Typography variant={"h5"} color={products?.stock > 0 ? "success" : "red"}>
-                  Availability:
-               </Typography>
-               <Typography variant={"h5"} color={products?.stock > 0 ? "success" : "red"}>
-                  {products?.stock > 0 ? "In Stock" : "Out of Stock"}
-               </Typography>
-               {
-                  products?.stock > 0 ? <Icons name={"check"} color={"#116954"} /> : <Icons name={"delete"} color={"#cc2121"} />
-               }
-            </div>
-            <div className={styles.buttons_wrapper}>
-               <ButtonGroup
-                  onRemove={() => { removeHandler(products?._id) }}
-                  onAdd={() => {
-                     cartHandler({
-                        title: products?.title,
-                        imageUrl: products?.image,
-                        price: products?.price,
-                        id: products?._id,
-                        quantity: 1,
-                        color: color,
-                        size: size
-                     })
-                  }}
-                  quantity={findQntt?.quantity}
-               />
-               <div className={styles.checkout_btn_wrapper}>
-                  {findQntt && findQntt.quantity > 0 ?
-                     <Button variant={"primary"}
-                        onClick={checkoutHandler}>
-                        Checkout
-                     </Button>
-                     : <></>
+            :
+            <div className={styles.product_info}>
+               <div className={styles.text_wrapper}>
+                  <Typography variant={"h3"}>{products?.title}</Typography>
+                  <Ratings />
+                  <Typography variant={"h3"}>&#2547; {products?.price}</Typography>
+                  <Typography variant={"body"}>{products?.description}</Typography>
+               </div>
+               <div className={styles.options}>
+                  <SelectOptions
+                     label={"SIZE"}
+                     error={isEmpty ? true : false}
+                     errorMessage={"Color and Size are Required"}
+                     onChange={(e) => { setSize(e.target.value) }}
+                     value={size}
+                     options={[
+                        "SMALL",
+                        "MEDIUM",
+                        "LARGE",
+                        "XL",
+                        "XXL"
+                     ]} />
+                  <SelectOptions
+                     onChange={(e) => { setColor(e.target.value) }}
+                     label={"COLOR"}
+                     error={isEmpty ? true : false}
+                     errorMessage={"Color and Size are Required"}
+                     value={color}
+                     options={["BLUE", "RED"]} />
+               </div>
+               <div className={styles.stock}>
+                  <Typography variant={"h5"} color={products?.stock > 0 ? "success" : "red"}>
+                     Availability:
+                  </Typography>
+                  <Typography variant={"h5"} color={products?.stock > 0 ? "success" : "red"}>
+                     {products?.stock > 0 ? "In Stock" : "Out of Stock"}
+                  </Typography>
+                  {
+                     products?.stock > 0 ? <Icons name={"check"} color={"#116954"} /> : <Icons name={"delete"} color={"#cc2121"} />
                   }
                </div>
+               <div className={styles.buttons_wrapper}>
+                  <ButtonGroup
+                     onRemove={() => { removeHandler(products?._id) }}
+                     onAdd={() => {
+                        cartHandler({
+                           title: products?.title,
+                           imageUrl: products?.image,
+                           price: products?.price,
+                           id: products?._id,
+                           quantity: 1,
+                           color: color,
+                           size: size
+                        })
+                     }}
+                     quantity={findQntt?.quantity}
+                  />
+                  <div className={styles.checkout_btn_wrapper}>
+                     {findQntt && findQntt.quantity > 0 ?
+                        <Button variant={"primary"}
+                           onClick={checkoutHandler}>
+                           Checkout
+                        </Button>
+                        : <></>
+                     }
+                  </div>
+               </div>
             </div>
-         </div>
+         }
       </div>
    )
 }

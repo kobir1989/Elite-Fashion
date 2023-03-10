@@ -27,7 +27,12 @@ const ProductCard = (
                      {discountPercantage}% Off
                   </span>
                }
-               <img src={imageUrl} alt="product.jpg" />
+               <img
+                  loading="lazy"
+                  src={imageUrl}
+                  placeholder="/assets/product-placeholder.webp"
+                  alt="product.jpg"
+               />
                <div className={styles.ratings}>
                   <Ratings />
                </div>

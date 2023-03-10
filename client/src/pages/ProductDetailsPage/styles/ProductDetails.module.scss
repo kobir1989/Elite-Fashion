@@ -91,3 +91,11 @@
 		margin-top: 1rem;
 	}
 }
+.skeleton_wrapper {
+	margin-top: 2rem;
+	width: 100%;
+	@include screens-md {
+		width: 50%;
+		height: 100%;
+	}
+}
