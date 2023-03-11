@@ -3,11 +3,11 @@
 
 .profile_update_form_wrapper {
 	position: relative;
-	padding: 0.5rem;
 	.loading_progress {
 		position: absolute;
-		top: -1.5rem;
+		top: -3.7rem;
 		width: 100%;
+		z-index: 10;
 	}
 	.form_buttons {
 		@include flex-col;

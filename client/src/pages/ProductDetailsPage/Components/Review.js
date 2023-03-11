@@ -3,7 +3,6 @@ import AddReview from './AddReview';
 import ReviewList from './ReviewList';
 import TabPanel from "../../../components/Common/TabPanel/TabPanel";
 import { Tabs, Tab, Box, } from '@mui/material';
-import RatingsCount from './RatingsCount';
 
 function a11yProps(index) {
    return {
@@ -36,10 +35,6 @@ const Review = () => {
                   sx={{ textTransform: "capitalize" }}
                   label="Write a Review" {...a11yProps(1)}
                />
-               <Tab
-                  sx={{ textTransform: "capitalize" }}
-                  label="Ratings" {...a11yProps(2)}
-               />
             </Tabs>
          </Box>
          <TabPanel value={value} index={0}>
@@ -47,9 +42,6 @@ const Review = () => {
          </TabPanel>
          <TabPanel value={value} index={1}>
             <AddReview />
-         </TabPanel>
-         <TabPanel value={value} index={2}>
-            <RatingsCount />
          </TabPanel>
       </Box >
    )

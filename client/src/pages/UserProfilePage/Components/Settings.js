@@ -1,9 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Input from '../../../components/Common/Input/Input';
 import Button from '../../../components/Common/Button/Button';
 import Typography from '../../../components/Common/Typography/Typography';
 import { useSelector, useDispatch } from "react-redux";
-import { setHasError } from "../../../redux/features/userProfileSlice";
+import { setHasError, setUpdateSuccess } from "../../../redux/features/userProfileSlice";
 import { updateUserProfile } from "../../../redux/actions/userProfileAction";
 import toast from 'react-hot-toast';
 import styles from "../styles/Settings.module.scss";
@@ -46,6 +46,10 @@ const Settings = ({ resetTabValue }) => {
          city,
          image
       }));
+
+   };
+   console.log(updateSuccess, "UPD")
+   useEffect(() => {
       if (updateSuccess) {
          toast.dismiss()
          toast.success("Your Account Updated");
@@ -53,13 +57,19 @@ const Settings = ({ resetTabValue }) => {
          setImageUrl("")
          resetTabValue(0)
       }
-   };
+      return () => {
+         dispatch(setUpdateSuccess(false))
+      }
+   }, [updateSuccess])
    return (
       <div className={isLoading ? `${styles.profile_update_form_wrapper} ${styles.loading_on}` : `${styles.profile_update_form_wrapper}`}>
          {isLoading &&
             <div className={styles.loading_progress}>
-               <LinearProgress color='secondary' />
-            </div>}
+               <LinearProgress color='secondary'
+                  sx={{ borderRadius: "8px 8px 0 0" }} />
+            </div>
+         }
+
          <div>
             <Typography variant={"h4"}>Profile Settings</Typography>
          </div>

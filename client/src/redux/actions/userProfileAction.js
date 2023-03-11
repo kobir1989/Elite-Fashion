@@ -4,8 +4,8 @@ import { axiosBaseUrl } from "../../utils/axios.config";
 export const fetchUserInfo = createAsyncThunk(
    "userProfile/fetchUserInfo",
    async ({ id }, { getState, rejectWithValue }) => {
+      const state = getState();
       try {
-         const state = getState()
          const response = await axiosBaseUrl.get(`/user/profile/${id}`, {
             headers: {
                "Content-Type": " application/x-www-form-urlencoded",
@@ -25,7 +25,7 @@ export const updateUserProfile = createAsyncThunk(
    async ({ id, name, phone, address, email, city, image }, { getState, rejectWithValue }) => {
       try {
          const state = getState()
-         const response = await axiosBaseUrl.post(`/user/update/profile/${id}`, {
+         const response = await axiosBaseUrl.put(`/user/update/profile/${id}`, {
             name,
             phone,
             address,

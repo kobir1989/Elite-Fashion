@@ -37,6 +37,9 @@
 		.ratings {
 			@include flex-col;
 			gap: 0.2rem;
+			h5 {
+				text-transform: capitalize;
+			}
 			p {
 				font-size: 0.7rem;
 				font-weight: 500;

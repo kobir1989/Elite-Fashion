@@ -1,24 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../../../components/Common/Button/Button';
 import Typography from '../../../components/Common/Typography/Typography';
 import { motion, AnimatePresence } from 'framer-motion';
 import Rating from '@mui/material/Rating';
 import styles from '../styles/AddReview.module.scss';
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
+import { createReview } from "../../../redux/actions/reviewActions";
 
+//Default Review value
 const defaultValue = {
    comment: "",
-   ratings: 0,
+   rating: 0,
 };
 
 const AddReview = () => {
    const [formValues, setFormValues] = useState(defaultValue);
    const [hasError, setHasError] = useState(null);
-   const { token } = useSelector(state => state.auth)
+   const { token } = useSelector(state => state.auth);
+   const { isLoading, newReview } = useSelector(state => state.review);
    const navigate = useNavigate();
+   const dispatch = useDispatch();
+   const { id } = useParams();
 
+   //onChange Handler
    const handleInputChange = (e) => {
       const { name, value } = e.target;
       setFormValues((prevValues) => ({ ...prevValues, [name]: value }));
@@ -27,6 +33,7 @@ const AddReview = () => {
       }
    };
 
+   //Submit Review Handler
    const submitHandler = (e) => {
       e.preventDefault();
       if (!token) {
@@ -34,18 +41,33 @@ const AddReview = () => {
          toast.error("Login to add Review")
          return navigate("/login")
       }
-      if (formValues.ratings === 0) {
+      if (formValues.rating === 0) {
          return setHasError('Please Add Your Rating 1 to 5');
       }
-      console.log(formValues)
-      setFormValues(
+      dispatch(createReview(
          {
-            comment: "",
-            ratings: 0,
+            comment: formValues.comment,
+            rating: formValues.rating,
+            id
          }
-      )
+      ));
+      console.log(formValues)
+
    };
 
+   //Show Toast Message based on success request
+   useEffect(() => {
+      if (newReview) {
+         toast.dismiss()
+         toast.success("Your Review Will be Published Soon");
+         setFormValues(
+            {
+               comment: "",
+               rating: 0,
+            }
+         )
+      }
+   }, [newReview])
    return (
       <AnimatePresence>
          <motion.div
@@ -69,8 +91,8 @@ const AddReview = () => {
                      aria-required={true}
                      onChange={handleInputChange}
                      sx={{ color: '#cc2121' }}
-                     name="ratings"
-                     value={parseInt(formValues.ratings)}
+                     name="rating"
+                     value={parseInt(formValues.rating)}
                   />
                </div>
                <textarea
@@ -83,8 +105,8 @@ const AddReview = () => {
                   onChange={handleInputChange}
                   className={hasError ? `${styles.error}` : ""}
                />
-               <Button type="submit" variant="primary">
-                  Post Review
+               <Button disabled={isLoading ? true : false} type="submit" variant="primary">
+                  {isLoading ? "Loading..." : " Post Review"}
                </Button>
             </form>
          </motion.div>
