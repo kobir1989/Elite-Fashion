@@ -1,6 +1,4 @@
 import PropTypes from 'prop-types';
-import styles from "../styles/TabPanel.module.scss";
-
 
 const TabPanel = (props) => {
    const { children, value, index, ...other } = props;
@@ -13,7 +11,7 @@ const TabPanel = (props) => {
          {...other}
       >
          {value === index && (
-            <div className={styles.tab_pannel_wrapper}>
+            <div {...other}>
                {children}
             </div>
          )}

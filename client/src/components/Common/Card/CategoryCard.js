@@ -8,7 +8,12 @@ const CategoryCard = ({ imgUrl, title, linkTo }) => {
    return (
       <div className={styles.category_card_wrapper}>
          <div className={styles.image_wrapper}>
-            <img src={imgUrl} alt="category.png" />
+            <img
+               loading="lazy"
+               placeholder="/assets/product-placeholder.webp"
+               src={imgUrl}
+               alt="category.png"
+            />
          </div>
          <div className={styles.card_text_wrapper}>
             <Typography

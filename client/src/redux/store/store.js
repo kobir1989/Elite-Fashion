@@ -15,6 +15,7 @@ import bestSellingReducer from "../features/bestSellingSlice";
 import searchReducer from "../features/searchSlice";
 import forgetPasswordReducer from "../features/forgetPasswordSlice";
 import resetPasswordReducer from "../features/resetPasswordSlice";
+import reviewReducer from "../features/reviewSlice";
 
 const reducers = combineReducers({
    subCategory: subCategoryReducer,
@@ -28,7 +29,8 @@ const reducers = combineReducers({
    bestSelling: bestSellingReducer,
    search: searchReducer,
    forgetPassword: forgetPasswordReducer,
-   resetPassword: resetPasswordReducer
+   resetPassword: resetPasswordReducer,
+   review: reviewReducer,
 
 });
 
@@ -46,6 +48,7 @@ const persistConfig = {
       "search",
       "forgetPassword",
       "resetPassword",
+      "review"
    ]
 }
 const persistedReducer = persistReducer(persistConfig, reducers)

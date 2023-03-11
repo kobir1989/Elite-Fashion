@@ -46,3 +46,9 @@
 		min-height: 50vh;
 	}
 }
+.tab_panel_style {
+	padding: 1.8rem 0.5rem;
+	@include screens-xs {
+		padding: 1.8rem;
+	}
+}

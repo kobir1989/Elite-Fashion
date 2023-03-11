@@ -18,6 +18,7 @@ body {
 	-webkit-font-smoothing: subpixel-antialiased;
 	-moz-osx-font-smoothing: subpixel-antialiased;
 	font-smooth: subpixel-antialiased;
+	overflow-y: scroll !important;
 }
 .slick-dots {
 	width: 4rem;
@@ -39,4 +40,8 @@ body {
 			}
 		}
 	}
+}
+::-webkit-scrollbar {
+	width: 0px;
+	background-color: transparent;
 }

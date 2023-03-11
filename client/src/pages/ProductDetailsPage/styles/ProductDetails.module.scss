@@ -8,7 +8,9 @@
 	@include screens-md {
 		@include flex-row-space-between;
 		align-items: flex-start;
-		margin: 3rem;
+	}
+	@include screens-2xl {
+		margin: 2rem 0;
 	}
 	.img_wrapper {
 		width: 100%;
@@ -87,6 +89,27 @@
 	border-top: 3px solid $light_gray;
 	margin: 6rem 0 4rem 0;
 	text-align: center;
+	h3 {
+		margin-top: 1rem;
+	}
+}
+.skeleton_wrapper {
+	margin-top: 2rem;
+	width: 100%;
+	@include screens-md {
+		width: 50%;
+		height: 100%;
+	}
+}
+.review_section {
+	margin: 5rem 0.7rem 4rem 0.7rem;
+	text-align: center;
+	@include screens-md {
+		margin: 5rem 1.6rem 4rem 1.6rem;
+	}
+	@include screens-2xl {
+		margin: 5rem 0 4rem 0;
+	}
 	h3 {
 		margin-top: 1rem;
 	}

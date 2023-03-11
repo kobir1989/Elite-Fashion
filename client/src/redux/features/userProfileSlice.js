@@ -6,7 +6,7 @@ const initialState = {
    userOrderData: [],
    error: null,
    isLoading: false,
-   updateSuccess: null
+   updateSuccess: false
 };
 
 const userProfileSlice = createSlice({
@@ -16,6 +16,9 @@ const userProfileSlice = createSlice({
       setHasError: (state, action) => {
          state.isLoading = false
          state.error = action.payload
+      },
+      setUpdateSuccess: (state, action) => {
+         state.updateSuccess = action.payload
       }
    },
    extraReducers: (builder) => {
@@ -60,18 +63,21 @@ const userProfileSlice = createSlice({
       // Update profile Post request.
       builder.addCase(updateUserProfile.pending, (state, _action) => {
          state.isLoading = true;
+         state.error = null
+         state.updateSuccess = false;
       });
       builder.addCase(updateUserProfile.fulfilled, (state, action) => {
          state.isLoading = false;
-         state.updateSuccess = action.payload;
+         state.updateSuccess = action.payload.success;
          state.error = null
       });
       builder.addCase(updateUserProfile.rejected, (state, action) => {
          state.error = action.payload;
          state.isLoading = false;
+         state.updateSuccess = false;
       });
    }
 });
 
-export const { setHasError } = userProfileSlice.actions;
+export const { setHasError, setUpdateSuccess } = userProfileSlice.actions;
 export default userProfileSlice.reducer;
