@@ -12,7 +12,7 @@ import ProfileInfo from './Components/ProfileInfo';
 import Orders from './Components/Orders';
 import Settings from './Components/Settings';
 import Button from '../../components/Common/Button/Button';
-import TabPanel from './Components/TabPanel';
+import TabPanel from "../../components/Common/TabPanel/TabPanel";
 import { logout } from "../../redux/features/authSlice";
 
 const a11yProps = (index) => {
@@ -86,7 +86,7 @@ const UserProfilePage = () => {
                   </div>
                }
                <div className={styles.tab_panels}>
-                  <TabPanel value={value} index={0}>
+                  <TabPanel value={value} index={0} className={styles.tab_panel_style}>
                      <ProfileInfo
                         userProfileData={userProfileData}
                         isLoading={isLoading} />
@@ -94,12 +94,12 @@ const UserProfilePage = () => {
                   <TabPanel value={value} index={1}>
                      <WishlistCard showCross={false} />
                   </TabPanel>
-                  <TabPanel value={value} index={2}>
+                  <TabPanel value={value} index={2} className={styles.tab_panel_style}>
                      <Orders
                         userOrderData={userOrderData}
                      />
                   </TabPanel>
-                  <TabPanel value={value} index={3}>
+                  <TabPanel value={value} index={3} className={styles.tab_panel_style}>
                      <Settings resetTabValue={setValue} />
                   </TabPanel>
                </div>

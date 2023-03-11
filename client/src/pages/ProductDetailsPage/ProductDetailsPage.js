@@ -9,7 +9,6 @@ import { fetchBestSellingProducts } from "../../redux/actions/bestSellingAction"
 import ProductDetailsView from './Components/ProductDetailsView';
 import { useDispatch } from "react-redux";
 import Review from './Components/Review';
-import WriteReview from "./Components/WriteReview";
 
 const ProductDetailsPage = () => {
    const dispatch = useDispatch()
@@ -33,7 +32,6 @@ const ProductDetailsPage = () => {
                Ratings & Reviews
             </Typography>
             <Review />
-            <WriteReview />
          </section>
       </PageLayout >
    )

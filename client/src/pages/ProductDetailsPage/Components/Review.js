@@ -1,50 +1,57 @@
-import React from 'react';
-import Ratings from '../../../components/Common/Ratings/Ratings';
-import Typography from '../../../components/Common/Typography/Typography';
-import styles from "../styles/Review.module.scss";
+import React, { useState } from 'react';
+import AddReview from './AddReview';
+import ReviewList from './ReviewList';
+import TabPanel from "../../../components/Common/TabPanel/TabPanel";
+import { Tabs, Tab, Box, } from '@mui/material';
+import RatingsCount from './RatingsCount';
+
+function a11yProps(index) {
+   return {
+      id: `simple-tab-${index}`,
+      'aria-controls': `simple-tabpanel-${index}`,
+   };
+}
 
 const Review = () => {
+   const [value, setValue] = React.useState(0);
+   const handleChange = (event, newValue) => {
+      setValue(newValue);
+   };
    return (
-      <div className={styles.review_main}>
-         <div className={styles.review_row}>
-            <div className={styles.user_img_with_ratings}>
-               <div className={styles.user_img}>
-                  <img src="/assets/user.jpg" alt="user" />
-               </div>
-               <div className={styles.ratings}>
-                  <Typography variant={"h5"}>Kabir Hossain </Typography>
-                  <Ratings />
-                  <Typography variant={"small"}>Last Month</Typography>
-               </div>
-            </div>
-            <div className={styles.comment}>
-               <Typography variant={"small"}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius massa id ut mattis. Facilisis vitae gravida egestas ac account.
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius massa id ut mattis. Facilisis vitae gravida egestas ac account.
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius massa id ut mattis. Facilisis vitae gravida egestas ac account.
-               </Typography>
-            </div>
-         </div>
-         <div className={styles.review_row}>
-            <div className={styles.user_img_with_ratings}>
-               <div className={styles.user_img}>
-                  <img src="/assets/user.jpg" alt="user" />
-               </div>
-               <div className={styles.ratings}>
-                  <Typography variant={"h5"}>Kabir Hossain </Typography>
-                  <Ratings />
-                  <Typography variant={"small"}>Last Month</Typography>
-               </div>
-            </div>
-            <div className={styles.comment}>
-               <Typography variant={"small"}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius massa id ut mattis. Facilisis vitae gravida egestas ac account.
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius massa id ut mattis. Facilisis vitae gravida egestas ac account.
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius massa id ut mattis. Facilisis vitae gravida egestas ac account.
-               </Typography>
-            </div>
-         </div>
-      </div>
+      <Box sx={{ width: '100%', marginTop: "2rem" }}>
+         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs
+               TabIndicatorProps={
+                  {
+                     sx: { backgroundColor: "#cc2121", height: "4px", borderRadius: "8px" }
+                  }} value={value}
+               onChange={handleChange}
+               aria-label="basic tabs example"
+            >
+               <Tab
+                  sx={{ textTransform: "capitalize" }}
+                  label="Reviews" {...a11yProps(0)}
+               />
+               <Tab
+                  sx={{ textTransform: "capitalize" }}
+                  label="Write a Review" {...a11yProps(1)}
+               />
+               <Tab
+                  sx={{ textTransform: "capitalize" }}
+                  label="Ratings" {...a11yProps(2)}
+               />
+            </Tabs>
+         </Box>
+         <TabPanel value={value} index={0}>
+            <ReviewList />
+         </TabPanel>
+         <TabPanel value={value} index={1}>
+            <AddReview />
+         </TabPanel>
+         <TabPanel value={value} index={2}>
+            <RatingsCount />
+         </TabPanel>
+      </Box >
    )
 }
 

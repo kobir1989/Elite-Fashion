@@ -32,5 +32,8 @@
 				outline: unset;
 			}
 		}
+		.error {
+			border: 1px solid $red_main;
+		}
 	}
 }

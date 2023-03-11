@@ -1,10 +1,12 @@
 import React from 'react';
-import Rating from '@mui/material/Rating';
+import { Rating, useMediaQuery, useTheme } from '@mui/material';
 
 const Ratings = ({ value = 4 }) => {
+   const theme = useTheme();
+   const screens = useMediaQuery(theme.breakpoints.down("lg"));
    return (
       <div>
-         <Rating name="read-only" sx={{ color: "#cc2121" }} value={value} readOnly />
+         <Rating size={screens ? "small" : "medium"} name="read-only" sx={{ color: "#cc2121" }} value={value} readOnly />
       </div>
    )
 }

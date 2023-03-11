@@ -1,0 +1,25 @@
+@import "../../../sass/sass-utils/mixins";
+@import "../../../sass/sass-utils/colors";
+
+.rating_wrapper_main {
+	text-align: start;
+	margin-top: 1.5rem;
+	.ratings_count_wrapper {
+		min-height: 15rem;
+		margin-top: 1.5rem;
+		@include flex-row;
+		gap: 5rem;
+		.total_ratings {
+			@include flex-col;
+			align-items: flex-start;
+			gap: 0.5rem;
+			.gray_text {
+				color: $gray;
+			}
+		}
+		.ratings_wrapper {
+			@include flex-row-center;
+			gap: 1rem;
+		}
+	}
+}
