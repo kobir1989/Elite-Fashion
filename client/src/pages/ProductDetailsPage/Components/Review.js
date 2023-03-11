@@ -17,8 +17,17 @@ const Review = () => {
       setValue(newValue);
    };
    return (
-      <Box sx={{ width: '100%', marginTop: "2rem" }}>
-         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box sx={{
+         width: '100%', marginTop: "2rem",
+      }}>
+         <Box sx={(theme) => ({
+            borderBottom: 1, borderColor: 'divider',
+            [theme.breakpoints.down("sm")]: {
+               display: "flex",
+               alignItems: "center",
+               justifyContent: "center"
+            }
+         })}>
             <Tabs
                TabIndicatorProps={
                   {
