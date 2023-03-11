@@ -7,18 +7,19 @@ import { fetchProducts } from "../../redux/actions/productsAction";
 import BestSellingProduct from "../../components/BestSellingProduct/BestSellingProduct";
 import { fetchBestSellingProducts } from "../../redux/actions/bestSellingAction";
 import ProductDetailsView from './Components/ProductDetailsView';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Review from './Components/Review';
 import { fetchReviews } from "../../redux/actions/reviewActions";
 
 const ProductDetailsPage = () => {
+   const { newReview } = useSelector(state => state.review);
    const dispatch = useDispatch()
    const { id } = useParams()
    useEffect(() => {
       dispatch(fetchProducts(`/product/single/${id}`));
       dispatch(fetchBestSellingProducts());
       dispatch(fetchReviews(id))
-   }, [id, dispatch]);
+   }, [id, dispatch, newReview]);
 
    return (
       <PageLayout>

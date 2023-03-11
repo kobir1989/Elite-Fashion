@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { createReview } from "../../../redux/actions/reviewActions";
+import { resetNewReview } from "../../../redux/features/reviewSlice";
 
 //Default Review value
 const defaultValue = {
@@ -66,6 +67,9 @@ const AddReview = () => {
                rating: 0,
             }
          )
+      }
+      return () => {
+         dispatch(resetNewReview(null))
       }
    }, [newReview])
    return (

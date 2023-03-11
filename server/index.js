@@ -12,7 +12,8 @@ const userRoute = require("./routes/user.route");
 const stripeRoute = require("./routes/stripe.route");
 const fileUpload = require("express-fileupload");
 const searchRoute = require("./routes/search.route");
-const adminAnalyticsRoute = require("./routes/adminAnalytics.route")
+const adminAnalyticsRoute = require("./routes/adminAnalytics.route");
+const reviewRoute = require("./routes/review.routes");
 
 app.use(morgan("tiny"));
 app.use(cors({
@@ -39,5 +40,6 @@ app.use("/api/v1", stripeRoute);
 app.use("/api/v1", searchRoute)
 app.use("/api/v1", userRoute);
 app.use("/api/v1", adminAnalyticsRoute);
+app.use("/api/v1", reviewRoute);
 
 module.exports = app;

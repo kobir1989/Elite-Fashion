@@ -11,6 +11,11 @@ const initialState = {
 const reviewSlice = createSlice({
    name: "review",
    initialState,
+   reducers: {
+      resetNewReview: (state, action) => {
+         state.newReview = action.payload
+      }
+   },
    extraReducers: (builder) => {
       //Fetch reviews
       builder.addCase(fetchReviews.pending, (state, _action) => {
@@ -37,7 +42,7 @@ const reviewSlice = createSlice({
       builder.addCase(createReview.fulfilled, (state, action) => {
          state.isLoading = false;
          state.hasError = null;
-         state.newReview = action.payload
+         state.newReview = action.payload.success;
       });
       builder.addCase(createReview.rejected, (state, action) => {
          state.newReview = null;
@@ -47,4 +52,5 @@ const reviewSlice = createSlice({
    }
 });
 
+export const { resetNewReview } = reviewSlice.actions;
 export default reviewSlice.reducer;
