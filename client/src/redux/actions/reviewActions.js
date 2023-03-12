@@ -6,7 +6,7 @@ export const fetchReviews = createAsyncThunk("review/fetchReviews",
    async (id, { getState, rejectWithValue }) => {
       const state = getState()
       try {
-         const response = await axiosBaseUrl.get(`/reviews/all/${id}`,
+         const response = await axiosBaseUrl.get(`/reviews/product/${id}`,
             {
                headers: {
                   "Content-Type": " application/x-www-form-urlencoded",

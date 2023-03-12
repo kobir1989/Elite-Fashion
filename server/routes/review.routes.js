@@ -1,8 +1,17 @@
 const route = require("express").Router();
 const { isAuthenticated } = require("../middlewares/authMiddleware");
-const { getAllReviews, createReview } = require("../controllers/review.controller");
+const {
+   getSingleProductReviews,
+   createReview,
+   getAllReviews,
+   getSingleReview,
+   deleteSingleReview
+} = require("../controllers/review.controller");
 
-route.get("/reviews/all/:productId", getAllReviews);
+route.get("/reviews/product/:productId", getSingleProductReviews);
+route.get("/reviews/all", getAllReviews);
+route.get("/review/details/:reviewId", getSingleReview);
 route.post("/review/create", isAuthenticated, createReview);
+route.delete("/review/delete/:reviewId", isAuthenticated, deleteSingleReview);
 
 module.exports = route;

@@ -19,11 +19,6 @@ const reviewSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "Product",
       required: [true, "Product id is Required"]
-   },
-   status: {
-      type: String,
-      enum: ["PENDING", "PUBLISHED"],
-      default: "PENDING"
    }
 
 },

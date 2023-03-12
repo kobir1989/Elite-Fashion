@@ -2,6 +2,7 @@ import React from 'react';
 import Icons from '../Common/Icons/Icons';
 import styles from "./styles/Footer.module.scss";
 import Typography from "../Common/Typography/Typography";
+import { Link } from "react-router-dom";
 const Footer = () => {
    return (
       <footer>
@@ -53,16 +54,24 @@ const Footer = () => {
                   <li>
                      <div className={styles.social_icons}>
                         <span>
-                           <Icons name={"facebook"} size={"1.5rem"} color={"#fff"} />
+                           <Link to={"https://www.facebook.com/kabir.ritu"}>
+                              <Icons name={"facebook"} size={"1.5rem"} color={"#fff"} />
+                           </Link>
                         </span>
                         <span>
-                           <Icons name={"twitter"} size={"1.5rem"} color={"#fff"} />
+                           <Link to={"#"}>
+                              <Icons name={"twitter"} size={"1.5rem"} color={"#fff"} />
+                           </Link>
                         </span>
                         <span>
-                           <Icons name={"youtube"} size={"1.5rem"} color={"#fff"} />
+                           <Link to={"#"}>
+                              <Icons name={"youtube"} size={"1.5rem"} color={"#fff"} />
+                           </Link>
                         </span>
                         <span>
-                           <Icons name={"instagram"} size={"1.5rem"} color={"#fff"} />
+                           <Link to={"https://www.linkedin.com/in/kabir-hossain-07a69b238/"}>
+                              <Icons name={"instagram"} size={"1.5rem"} color={"#fff"} />
+                           </Link>
                         </span>
                      </div>
                   </li>
