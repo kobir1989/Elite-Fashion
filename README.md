@@ -69,10 +69,10 @@ This project is a web-based eCommerce platform built using MARN Stack. The purpo
 - POST /admin/login: login admin  - This endpoint is used for admin login.
 
 ## API Endpoints User 
-- /api/v1/user/update/profile/:userId - This endpoint is used to update a user's profile with a user ID.
-- /api/v1/admin/update/profile/:adminId  - This endpoint is used to update an admin's profile with an admin ID.
-- /api/v1//user/profile/:userId  - This endpoint is used to get a user's profile with a user ID.
-- /api/v1/user/all/profile   - This endpoint is used to get all the user profiles.
+- PUT /api/v1/user/update/profile/:userId - This endpoint is used to update a user's profile with a user ID.
+- PUT /api/v1/admin/update/profile/:adminId  - This endpoint is used to update an admin's profile with an admin ID.
+- GET /api/v1//user/profile/:userId  - This endpoint is used to get a user's profile with a user ID.
+- GET /api/v1/user/all/profile   - This endpoint is used to get all the user profiles.
 
 ## API Endpoints Products
 - GET /api/v1/:subCategoryId/products  - This endpoint is used to get all products within a subcategory with a subcategory ID.
