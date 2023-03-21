@@ -10,17 +10,23 @@ const mongoose = require("mongoose");
       });
       console.log("Database Connected Successfully");
 
-      app.on("err", (err) => {
-         console.log(err, "Database Error");
-         throw new err();
+      app.on("error", (error) => {
+         console.log(error, "Database Error");
+         throw error;
       });
 
       const onListining = () => {
          console.log(`Server is Up and Running on Port:${config.PORT}`);
       };
-      app.listen(config.PORT, onListining);
-   } catch (err) {
+      const server = app.listen(config.PORT, onListining);
+      const io = require("./helper/socket").init(server);
+      io.on("connection", socket => {
+         console.log("Client Connect")
+      });
+
+
+   } catch (error) {
       console.log("connection failed");
-      throw err;
+      throw error;
    }
 })();
