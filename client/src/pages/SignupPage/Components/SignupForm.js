@@ -3,12 +3,14 @@ import Button from '../../../components/Common/Button/Button';
 import Input from '../../../components/Common/Input/Input';
 import styles from "../styles/SignupPage.module.scss";
 import Icons from '../../../components/Common/Icons/Icons';
+
 const SignupForm = ({
    submitHandler,
    onChangeHandler,
    firstName,
    lastName,
    error,
+   isLoading,
    password,
    email,
    confirmPassword
@@ -26,7 +28,7 @@ const SignupForm = ({
          <form onSubmit={submitHandler} className={styles.signup_form}>
             <div>
                <Input
-                  error={error?.name === "firstName" ? true : false}
+                  error={(error?.name === "firstName") || (error?.name === "name") ? true : false}
                   required={true}
                   type={"text"}
                   label={"First Name"}
@@ -36,13 +38,13 @@ const SignupForm = ({
                   value={firstName}
                   size={"small"}
                   helperText={
-                     error?.name === "firstName" ? error.message : ""
+                     (error?.name === "firstName") ? error.message : ""
                   }
                />
             </div>
             <div>
                <Input
-                  error={error?.name === "lastName" ? true : false}
+                  error={(error?.name === "firstName") ? true : false}
                   required={true}
                   type={"text"}
                   label={"Last Name"}
@@ -52,13 +54,13 @@ const SignupForm = ({
                   value={lastName}
                   size={"small"}
                   helperText={
-                     error?.name === "lastName" ? error.message : ""
+                     (error?.name === "firstName") ? error.message : ""
                   }
                />
             </div>
             <div>
                <Input
-                  error={error?.name === "email" ? true : false}
+                  error={(error?.name === "firstName") || (error?.name === "name") ? true : false}
                   required={true}
                   type={"email"}
                   label={"Email"}
@@ -67,7 +69,7 @@ const SignupForm = ({
                   onChange={onChangeHandler}
                   value={email}
                   size={"small"}
-                  helperText={error?.name === "email" ? error.message : ""}
+                  helperText={(error?.name === "firstName") || (error?.name === "name") ? error.message : ""}
                />
             </div>
             <div className={styles.password_input_wrapper}>
@@ -117,7 +119,7 @@ const SignupForm = ({
                   helperText={error?.name === "confirmPassword" ? error.message : ""}
                />
             </div>
-            <Button variant={"primary"} type={"submit"}>
+            <Button disabled={isLoading} variant={"primary"} type={"submit"}>
                Create Account
             </Button>
             {/* <Button variant={"btn-border-black"} type={"button"}>

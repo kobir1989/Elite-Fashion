@@ -1,0 +1,20 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.banner_wrapper {
+  background-color: #f8f9fa;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.banner_wrapper .banner_text {
+  text-align: center;
+}
+.banner_wrapper .banner_text h4 {
+  margin-bottom: 0.9rem;
+}/*# sourceMappingURL=Banner.module.css.map */

@@ -1,0 +1,15 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.payment_card {
+  height: 3rem;
+}
+
+.payment_btn_wrapper {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}/*# sourceMappingURL=PaymentForm.module.css.map */

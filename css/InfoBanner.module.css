@@ -1,0 +1,61 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.banner_wrapper {
+  margin: 3rem 0;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  .banner_wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}
+@media (min-width: 1536px) {
+  .banner_wrapper {
+    padding: 0;
+  }
+}
+.banner_wrapper .banner_tag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 18rem;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  .banner_wrapper .banner_tag {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    text-align: start;
+  }
+}
+.banner_wrapper .banner_tag svg {
+  font-size: 4rem;
+}
+@media (min-width: 768px) {
+  .banner_wrapper .banner_tag svg {
+    font-size: 6.2rem;
+  }
+}
+@media (min-width: 768px) {
+  .banner_wrapper .banner_tag {
+    max-width: 22rem;
+  }
+}
+.banner_wrapper .banner_tag h4 {
+  margin-bottom: 0.5rem;
+}/*# sourceMappingURL=InfoBanner.module.css.map */

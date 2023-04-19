@@ -1,0 +1,125 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.typography__variant-h1 {
+  font-size: 2.8rem;
+  letter-spacing: 0.06px;
+  font-weight: 500;
+  line-height: 3.5rem;
+  margin: 0;
+  padding: 0;
+}
+@media (min-width: 1022px) {
+  .typography__variant-h1 {
+    font-size: 3.5rem;
+    line-height: 4.8rem;
+  }
+}
+
+.typography__variant-h2 {
+  font-size: 2rem;
+  font-weight: 500;
+}
+@media (min-width: 1022px) {
+  .typography__variant-h2 {
+    font-size: 2.8rem;
+    line-height: 3rem;
+  }
+}
+
+.typography__variant-h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+@media (min-width: 1022px) {
+  .typography__variant-h3 {
+    font-size: 2rem;
+  }
+}
+
+.typography__variant-h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+@media (min-width: 1022px) {
+  .typography__variant-h4 {
+    font-size: 1.3rem;
+  }
+}
+
+.typography__variant-h5 {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+@media (min-width: 1022px) {
+  .typography__variant-h5 {
+    font-size: 1.2rem;
+  }
+}
+
+.typography__variant-h6 {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+@media (min-width: 1022px) {
+  .typography__variant-h6 {
+    font-size: 1rem;
+  }
+}
+
+.typography__variant-subtitle {
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+@media (min-width: 1022px) {
+  .typography__variant-subtitle {
+    font-size: 1.5rem;
+  }
+}
+
+.typography__variant-body {
+  font-size: 0.85rem;
+  color: #727272;
+  letter-spacing: 0.5px;
+  line-height: 1.8rem;
+}
+@media (min-width: 1022px) {
+  .typography__variant-body {
+    font-size: 1rem;
+  }
+}
+
+.typography__variant-small {
+  font-size: 0.68rem;
+  letter-spacing: 0.5px;
+}
+@media (min-width: 1022px) {
+  .typography__variant-small {
+    font-size: 0.85rem;
+  }
+}
+
+.typography__color-primary {
+  color: #212529;
+}
+
+.typography__color-white {
+  color: #fff;
+}
+
+.typography__color-red {
+  color: #cc2121;
+}
+
+.typography__color-success {
+  color: #116954;
+}
+
+.typography__color-paragraph {
+  color: #727272;
+}/*# sourceMappingURL=Typography.css.map */

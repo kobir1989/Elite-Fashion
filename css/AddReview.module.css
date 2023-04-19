@@ -1,0 +1,43 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.review_form {
+  margin-top: 2rem;
+  text-align: left;
+  width: 100%;
+}
+.review_form .ratings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-bottom: 1rem;
+}
+.review_form .ratings p {
+  font-weight: 500;
+}
+.review_form .ratings p span {
+  color: #cc2121;
+  font-size: 1.1rem;
+}
+.review_form form {
+  width: 100%;
+}
+.review_form form textarea {
+  width: 100%;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid #e5e5e5;
+  padding: 1.2rem;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
+}
+.review_form form textarea:focus {
+  border: 1px solid #727272;
+  outline: unset;
+}
+.review_form form .error {
+  border: 1px solid #cc2121;
+}/*# sourceMappingURL=AddReview.module.css.map */

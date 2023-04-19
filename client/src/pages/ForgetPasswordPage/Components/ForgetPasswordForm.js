@@ -40,10 +40,10 @@ const ForgetPasswordForm = (
                   required={true}
                   value={email}
                   onChange={emailChangeHandler}
-                  errorMessage={error ? error.message : ""}
+                  errorMessage={error ? error : ""}
                />
             </div>
-            <Button type={"submit"} variant={"primary"}>
+            <Button disabled={loading} type={"submit"} variant={"primary"}>
                Submit
             </Button>
          </form>

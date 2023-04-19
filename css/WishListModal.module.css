@@ -1,0 +1,24 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.wishlist_wrapper {
+  padding: 1rem;
+  overflow-y: scroll;
+  height: 68vh;
+  width: 85vw;
+}
+@media (min-width: 768px) {
+  .wishlist_wrapper {
+    height: 60vh;
+    width: 60vw;
+  }
+}
+@media (min-width: 1280px) {
+  .wishlist_wrapper {
+    height: 60vh;
+    width: 40vw;
+  }
+}/*# sourceMappingURL=WishListModal.module.css.map */

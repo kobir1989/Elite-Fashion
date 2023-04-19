@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import PageLaout from "../../layouts/PageLayout";
 import AuthFormLayout from '../../layouts/AuthFormLayout';
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { userSignup } from "../../redux/actions/authAction";
 import toast from 'react-hot-toast';
-import { setError } from '../../redux/features/auth/authSlice';
 import SignupForm from './Components/SignupForm';
+import { useSignupMutation } from '../../redux/features/auth/authApi'
 
+//default sign-up state value
 const defaulSignupValue = {
    firstName: "",
    lastName: "",
@@ -19,39 +18,45 @@ const defaulSignupValue = {
 const SignupPage = () => {
    const [inputData, setInputData] = useState(defaulSignupValue);
    const { firstName, lastName, email, password, confirmPassword } = inputData;
-   const { error, loading, userInfo } = useSelector(state => state.auth);
-   const dispatch = useDispatch();
+   const [error, setError] = useState(null)
+   const [signup, { data: signupResponse, isError, isLoading, error: signupError }] = useSignupMutation();
    const navigate = useNavigate()
-   console.log(userInfo, "SSS")
+
+   //onChange handler
    const onChangeHandler = (e) => {
       const { name, value } = e.target;
       setInputData({ ...inputData, [name]: value });
       if (e.target.value !== "") {
-         dispatch(setError(null))
+         setError(null)
       }
    }
 
+   //submit handler
    const submitHandler = (e) => {
       e.preventDefault()
       if (password && confirmPassword) {
          if (password.length < 8) {
-            return dispatch(setError({ name: "password", message: "Password should not be less then 8 Characters!" }));
+            return setError({ name: "password", message: "Password should not be less then 8 Characters!" });
          }
          if (password !== confirmPassword) {
-            return dispatch(setError({ name: "confirmPassword", message: "Password Did not match!" }));
+            return setError({ name: "confirmPassword", message: "Password Did not match!" });
          }
       };
-      dispatch(userSignup(inputData));
+      signup(inputData)
    };
 
+   //catching error and success state to update the UI.
    useEffect(() => {
-      if (userInfo?._id) {
+      if (isError) {
+         setError({ name: signupError?.data?.name, message: signupError?.data?.message })
+      }
+      else if (signupResponse?.token) {
          navigate("/");
          setInputData(defaulSignupValue);
          toast.dismiss()
          toast.success("Welcome! You've successfully signed up")
       }
-   }, [userInfo?._id, navigate])
+   }, [signupResponse?.token, navigate])
 
    return (
       <PageLaout>
@@ -60,13 +65,14 @@ const SignupPage = () => {
             title={"Create Your Account"}
             link={"Login"}
             linkText={"Already"}
-            error={error}
-            loading={loading}>
+            error={error ? true : false}
+            loading={isLoading}>
             <SignupForm submitHandler={submitHandler}
                onChangeHandler={onChangeHandler}
                firstName={firstName}
                lastName={lastName}
                error={error}
+               isLoading={isLoading}
                password={password}
                email={email}
                confirmPassword={confirmPassword} />

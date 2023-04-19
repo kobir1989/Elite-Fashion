@@ -1,0 +1,69 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.page_wrapper {
+  margin: 3.5rem 0 4.5rem 0;
+  padding: 0.8rem;
+  min-height: 80vh;
+  position: relative;
+  background-color: #f8f9fa;
+}
+@media (min-width: 768px) {
+  .page_wrapper {
+    padding: 2rem;
+  }
+}
+.page_wrapper .toggle_btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: -1rem;
+}
+@media (min-width: 768px) {
+  .page_wrapper .toggle_btn {
+    display: none;
+  }
+}
+.page_wrapper .profile_tab_wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.page_wrapper .tabs_list {
+  width: 60%;
+  background-color: #f8f9fa;
+  z-index: 20;
+  position: absolute;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  min-height: 28.5rem;
+  border-radius: 8px;
+}
+@media (min-width: 768px) {
+  .page_wrapper .tabs_list {
+    width: 10rem;
+    position: unset;
+    align-items: flex-start;
+    box-shadow: unset;
+  }
+}
+.page_wrapper .tab_panels {
+  background-color: #fff;
+  width: 100%;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  min-height: 50vh;
+}
+
+.tab_panel_style {
+  padding: 1.8rem 0.5rem;
+}
+@media (min-width: 412px) {
+  .tab_panel_style {
+    padding: 1.8rem;
+  }
+}/*# sourceMappingURL=UserProfilePage.module.css.map */

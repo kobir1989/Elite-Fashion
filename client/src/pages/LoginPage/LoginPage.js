@@ -6,12 +6,11 @@ import Input from '../../components/Common/Input/Input';
 import styles from "./styles/LoginPage.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { Typography } from '@mui/material';
-import { useDispatch, useSelector } from "react-redux";
-import { userLogin } from "../../redux/actions/authAction";
 import toast from 'react-hot-toast';
-import { setError } from "../../redux/features/auth/authSlice";
 import Icons from '../../components/Common/Icons/Icons';
+import { useLoginMutation } from '../../redux/features/auth/authApi'
 
+//default login state value
 const defaultLoginValue = {
    email: "",
    password: ""
@@ -21,40 +20,44 @@ const LoginPage = () => {
    const [loginValue, setLoginValue] = useState(defaultLoginValue);
    const { email, password } = loginValue;
    const [viewPassword, setViewPassword] = useState(false);
-   const navigate = useNavigate();
-   const dispatch = useDispatch();
-   const {
-      loading,
-      error,
-      token
-   } = useSelector(state => state.auth);
+   const [isError, setIsError] = useState(null)
+   const [login, { data: loginResponse, isError: loginError, isLoading, error }] = useLoginMutation()
 
+   const navigate = useNavigate();
+
+   //onChange handler
    const onChangeHandler = (e) => {
       const { name, value } = e.target;
       setLoginValue({ ...loginValue, [name]: value });
       if (e.target.value !== "") {
-         dispatch(setError(null))
+         setIsError(null)
       }
    }
 
+   //submit handler
    const submitHandler = (e) => {
       e.preventDefault();
       if (password.length < 8) {
-         return dispatch(setError({ message: "Incorrect Email or Password" }))
+         return setIsError('Incorrect Email or Password')
       }
-      dispatch(userLogin(loginValue));
+      login(loginValue)
    };
    const toggleViewPassword = () => {
       setViewPassword(!viewPassword)
    }
+
+   //catching error and success state
    useEffect(() => {
-      if (token) {
+      if (loginError) {
+         setIsError(error?.data?.message)
+      }
+      else if (loginResponse?.token) {
          navigate("/");
          toast.dismiss()
          toast.success("Welcome Back");
          setLoginValue(defaultLoginValue);
       }
-   }, [token, navigate])
+   }, [loginResponse?.token, navigate, loginError])
 
    return (
       <PageLayout>
@@ -65,12 +68,12 @@ const LoginPage = () => {
             linkText={"Don't"}
             img={"/assets/women-red.jpg"}
             error={error}
-            loading={loading}>
+            loading={isLoading}>
             <form className={styles.login_form} onSubmit={submitHandler}>
                <div className={styles.email_input_wrapper}>
                   <Input
                      required={true}
-                     error={error ? true : false}
+                     error={isError ? true : false}
                      type={"email"}
                      label={"Email"}
                      size={"small"}
@@ -79,7 +82,7 @@ const LoginPage = () => {
                      value={email}
                      onChange={onChangeHandler}
                      helperText={
-                        error ? error.message : ""
+                        isError ? isError : ""
                      }
                   />
                </div>
@@ -95,7 +98,7 @@ const LoginPage = () => {
                   </div>
                   <Input
                      required={true}
-                     error={error ? true : false}
+                     error={isError ? true : false}
                      type={viewPassword ? "text" : "password"}
                      label={"Password"}
                      full
@@ -104,11 +107,11 @@ const LoginPage = () => {
                      value={password}
                      onChange={onChangeHandler}
                      helperText={
-                        error ? error.message : ""
+                        isError ? isError : ""
                      }
                   />
                </div>
-               <Button variant={"primary"} type={"submit"}>
+               <Button disabled={isLoading} variant={"primary"} type={"submit"}>
                   Login
                </Button>
                {/* <Button variant={"btn-border-black"} type={"button"}>

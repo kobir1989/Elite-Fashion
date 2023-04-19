@@ -1,0 +1,34 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.shipping_details {
+  width: 100%;
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 6px;
+}
+@media (min-width: 768px) {
+  .shipping_details {
+    padding: 2rem;
+  }
+}
+.shipping_details h4 {
+  margin-bottom: 2rem;
+  border-radius: 6px;
+}
+.shipping_details form {
+  background-color: #fff;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+@media (min-width: 768px) {
+  .shipping_details form {
+    padding: 2rem;
+  }
+}
+.shipping_details form button {
+  margin-top: 1rem;
+}/*# sourceMappingURL=ShippingForm.module.css.map */

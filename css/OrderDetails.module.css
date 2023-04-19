@@ -1,0 +1,27 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.order_details {
+  width: 100%;
+  background-color: #f8f9fa;
+  padding: 0.3rem;
+  border-radius: 6px;
+}
+@media (min-width: 768px) {
+  .order_details {
+    padding: 1rem;
+  }
+}
+.order_details h4 {
+  margin-bottom: 2rem;
+  border-radius: 6px;
+}
+
+.btn_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}/*# sourceMappingURL=OrderDetails.module.css.map */

@@ -1,0 +1,45 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.signup_form {
+  display: flex;
+  flex-direction: column;
+}
+.signup_form .password_input_wrapper,
+.signup_form .confirm_password_input_wrapper {
+  position: relative;
+}
+.signup_form .password_input_wrapper .view_password,
+.signup_form .confirm_password_input_wrapper .view_password {
+  position: absolute;
+  right: 0.5rem;
+  top: -0.45rem;
+  z-index: 10;
+}
+@media (min-width: 768px) {
+  .signup_form .password_input_wrapper .view_password,
+  .signup_form .confirm_password_input_wrapper .view_password {
+    right: 0.5rem;
+    top: -0.9rem;
+  }
+}
+.signup_form button {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+@media (min-width: 768px) {
+  .signup_form button {
+    margin-top: 2rem;
+  }
+}
+.signup_form button img {
+  width: 1.2rem;
+  height: 1.2rem;
+}/*# sourceMappingURL=SignupPage.module.css.map */

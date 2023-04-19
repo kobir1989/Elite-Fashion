@@ -12,25 +12,30 @@ import { logout } from "../../redux/features/auth/authSlice";
 import { AnimatePresence, motion } from "framer-motion";
 import { setSubCategoryPage } from "../../redux/features/subCategory/subCategorySlice";
 import { setProductPage } from "../../redux/features/products/productsSlice";
+import { useLogoutRequestQuery } from '../../redux/features/auth/authApi'
 
 const Navbar = () => {
    const [openDropdown, setOpenDropdown] = useState(false);
    const { userInfo } = useSelector(state => state.auth);
    const dropdownRef = useRef(null);
    const { wishListItem, toggleWishList } = useSelector(state => state.wishList);
+   const { refetch } = useLogoutRequestQuery()
    const navigate = useNavigate()
    const dispatch = useDispatch();
    const { quantity } = useSelector(state => state.cart);
 
    const logoutHandler = () => {
-      dispatch(logout())
+      refetch() //send logout request to server 
+      dispatch(logout()) // instant logut, remove token and userPayload data from localStorage.
       navigate("/login")
    }
+
    //Rest product and sub-category page state to 1, every time user navigate to differen category or product page.
    const resetPageState = () => {
       dispatch(setSubCategoryPage(1))
       dispatch(setProductPage(1))
    }
+
    //Handles outside click events, if user click anywhere in the dom openDropdown will be false.
    useEffect(() => {
       const handleClickOutside = (event) => {
@@ -98,7 +103,7 @@ const Navbar = () => {
                      {openDropdown &&
                         <motion.ul
                            initial={{ opacity: 0 }}
-                           animate={{ opacity: 1 }}
+                           animate={{ opacity: 1, transition: { duration: 0.2, ease: "easeInOut" } }}
                            exit={{ opacity: 0 }}
                            className={styles.bgscreen_dropdown}>
                            {!userInfo &&
@@ -120,15 +125,17 @@ const Navbar = () => {
                            {userInfo &&
                               <>
                                  <li className={styles.drop_down_user_info}>
-                                    <img
-                                       src={userInfo?.profilePic || "/assets/user.jpg"}
-                                       alt="profile.png" />
-                                    <div className={styles.user_account}>
-                                       <span className={styles.user_name}>                                    {userInfo?.name}
-                                       </span>
-                                       <span className={styles.user_email}>                                    {userInfo?.email}
-                                       </span>
-                                    </div>
+                                    <Link to={`/user-profile/${userInfo._id}`}>
+                                       <img
+                                          src={userInfo?.profilePic || "/assets/user.jpg"}
+                                          alt="profile.png" />
+                                       <div className={styles.user_account}>
+                                          <span className={styles.user_name}>                                    {userInfo?.name}
+                                          </span>
+                                          <span className={styles.user_email}>                                    {userInfo?.email}
+                                          </span>
+                                       </div>
+                                    </Link>
                                  </li>
                                  <li>
                                     <Link to={`/user-profile/${userInfo._id}`}>

@@ -1,0 +1,36 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.arrow_prev,
+.arrow_next {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+}
+.arrow_prev:hover,
+.arrow_next:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.arrow_next {
+  left: -2rem;
+  top: 50%;
+  border-radius: 12px 0 0 12px;
+}
+.arrow_next button:hover {
+  color: #cc2121;
+}
+
+.arrow_prev {
+  right: -2rem;
+  top: 50%;
+  border-radius: 0 12px 12px 0;
+}
+.arrow_prev button:hover {
+  color: #cc2121;
+}/*# sourceMappingURL=SliderButton.module.css.map */
