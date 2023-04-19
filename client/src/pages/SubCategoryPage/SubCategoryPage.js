@@ -10,7 +10,7 @@ import CategoryCard from '../../components/Common/Card/CategoryCard';
 import CardBanner from '../../components/Common/Banner/CardBanner';
 import styles from "./styles/SubCategoryPage.module.scss";
 import Pagination from "../../components/Pagenation/Pagination";
-import { setSubCategoryPage } from "../../redux/features/subCategorySlice";
+import { setSubCategoryPage } from "../../redux/features/subCategory/subCategorySlice";
 
 const SubCategoryPage = () => {
    const {

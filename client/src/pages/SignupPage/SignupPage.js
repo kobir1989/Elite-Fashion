@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { userSignup } from "../../redux/actions/authAction";
 import toast from 'react-hot-toast';
-import { setError } from '../../redux/features/authSlice';
+import { setError } from '../../redux/features/auth/authSlice';
 import SignupForm from './Components/SignupForm';
 
 const defaulSignupValue = {

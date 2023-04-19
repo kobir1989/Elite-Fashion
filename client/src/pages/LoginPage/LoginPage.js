@@ -9,7 +9,7 @@ import { Typography } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../redux/actions/authAction";
 import toast from 'react-hot-toast';
-import { setError } from "../../redux/features/authSlice";
+import { setError } from "../../redux/features/auth/authSlice";
 import Icons from '../../components/Common/Icons/Icons';
 
 const defaultLoginValue = {

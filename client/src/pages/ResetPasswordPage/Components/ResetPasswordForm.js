@@ -7,7 +7,6 @@ import Icons from '../../../components/Common/Icons/Icons';
 const ResetPasswordForm = (
    {
       error,
-      loading,
       password,
       confirmPassword,
       formSubmitHandler,

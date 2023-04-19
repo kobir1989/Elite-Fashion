@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { postResetPassword } from "../actions/resetPasswordAction"
+import { postResetPassword } from "../../actions/resetPasswordAction"
 
 const initialState = {
    loading: false,

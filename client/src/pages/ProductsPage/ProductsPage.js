@@ -8,7 +8,7 @@ import CardSkeleton from '../../components/Common/Skeleton/CardSkeleton';
 import ProductCard from '../../components/Common/Card/ProductCard';
 import ErrorMessage from '../../components/Common/Error/ErrorMessage';
 import Pagination from '../../components/Pagenation/Pagination';
-import { setProductPage } from "../../redux/features/productsSlice";
+import { setProductPage } from "../../redux/features/products/productsSlice";
 const ProductsPage = () => {
    const { id } = useParams();
    const dispatch = useDispatch();

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchSearchResult } from "../actions/searchAction";
+import { fetchSearchResult } from "../../actions/searchAction";
 
 const initialState = {
    openSearchBox: false,

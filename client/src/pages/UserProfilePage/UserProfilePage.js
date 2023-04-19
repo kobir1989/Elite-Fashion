@@ -13,7 +13,7 @@ import Orders from './Components/Orders';
 import Settings from './Components/Settings';
 import Button from '../../components/Common/Button/Button';
 import TabPanel from "../../components/Common/TabPanel/TabPanel";
-import { logout } from "../../redux/features/authSlice";
+import { logout } from "../../redux/features/auth/authSlice";
 
 const a11yProps = (index) => {
    return {

@@ -4,7 +4,7 @@ import Input from "../Common/Input/Input";
 import Modal from "../Common/Modal/Modal";
 import styles from "./SearchPopup.module.scss";
 import Icons from '../Common/Icons/Icons';
-import { setOpenSearchBox } from "../../redux/features/searchSlice";
+import { setOpenSearchBox } from "../../redux/features/search/searchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSearchResult } from "../../redux/actions/searchAction";
 import Typography from "../Common/Typography/Typography";

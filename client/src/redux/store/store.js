@@ -2,20 +2,20 @@ import { configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
-import thunk from "redux-thunk";
-import subCategoryReducer from '../features/subCategorySlice';
-import authReducer from "../features/authSlice";
-import productReducer from "../features/productsSlice";
-import cartReducer from "../features/cartSlice";
-import wishListReducer from "../features/wishLishSlice";
-import stepsReducer from "../features/stepsSlice";
-import checkoutReducer from "../features/checkoutSlice";
-import userProfileReducer from "../features/userProfileSlice";
-import bestSellingReducer from "../features/bestSellingSlice";
-import searchReducer from "../features/searchSlice";
-import forgetPasswordReducer from "../features/forgetPasswordSlice";
-import resetPasswordReducer from "../features/resetPasswordSlice";
-import reviewReducer from "../features/reviewSlice";
+import subCategoryReducer from '../features/subCategory/subCategorySlice';
+import authReducer from "../features/auth/authSlice";
+import productReducer from "../features/products/productsSlice";
+import cartReducer from "../features/cart/cartSlice";
+import wishListReducer from "../features/wishList/wishLishSlice";
+import stepsReducer from "../features/paymentSteps/stepsSlice";
+import checkoutReducer from "../features/checkout/checkoutSlice";
+import userProfileReducer from "../features/user/userProfileSlice";
+import bestSellingReducer from "../features/bestSellingProducts/bestSellingSlice";
+import searchReducer from "../features/search/searchSlice";
+import forgetPasswordReducer from "../features/auth/forgetPasswordSlice";
+import resetPasswordReducer from "../features/auth/resetPasswordSlice";
+import reviewReducer from "../features/reviews/reviewSlice";
+import { apiSlice } from '../api/apiSlice';
 
 const reducers = combineReducers({
    subCategory: subCategoryReducer,
@@ -31,6 +31,7 @@ const reducers = combineReducers({
    forgetPassword: forgetPasswordReducer,
    resetPassword: resetPasswordReducer,
    review: reviewReducer,
+   [apiSlice.reducerPath]: apiSlice.reducer,
 
 });
 
@@ -51,10 +52,17 @@ const persistConfig = {
       "review"
    ]
 }
+
 const persistedReducer = persistReducer(persistConfig, reducers)
+
+
 const store = configureStore({
    reducer: persistedReducer,
-   middleware: [thunk]
+   middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+         thunk: true,
+         serializableCheck: false,
+      }).concat(apiSlice.middleware),
 });
 
 export default store;

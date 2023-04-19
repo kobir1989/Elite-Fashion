@@ -3,7 +3,7 @@ import Input from '../../../components/Common/Input/Input';
 import Button from '../../../components/Common/Button/Button';
 import Typography from '../../../components/Common/Typography/Typography';
 import { useSelector, useDispatch } from "react-redux";
-import { setHasError, setUpdateSuccess } from "../../../redux/features/userProfileSlice";
+import { setHasError, setUpdateSuccess } from "../../../redux/features/user/userProfileSlice";
 import { updateUserProfile } from "../../../redux/actions/userProfileAction";
 import toast from 'react-hot-toast';
 import styles from "../styles/Settings.module.scss";

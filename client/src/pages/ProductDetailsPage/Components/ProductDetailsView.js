@@ -8,7 +8,7 @@ import TextSkeleton from '../../../components/Common/Skeleton/TextSkeleton';
 import ErrorMessage from '../../../components/Common/Error/ErrorMessage';
 import { useSelector, useDispatch } from "react-redux";
 import styles from "../styles/ProductDetails.module.scss"
-import { addToCart, removeOneFromCart } from "../../../redux/features/cartSlice";
+import { addToCart, removeOneFromCart } from "../../../redux/features/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
 import Ratings from "../../../components/Common/Ratings/Ratings";
 import toast from "react-hot-toast";

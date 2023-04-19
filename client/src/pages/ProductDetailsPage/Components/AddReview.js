@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { createReview } from "../../../redux/actions/reviewActions";
-import { resetNewReview } from "../../../redux/features/reviewSlice";
+import { resetNewReview } from "../../../redux/features/reviews/reviewSlice";
 
 //Default Review value
 const defaultValue = {

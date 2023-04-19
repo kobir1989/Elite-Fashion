@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styles from "./styles/MobileNav.module.scss";
 import Icons from '../Common/Icons/Icons';
-import { setToggleWishList } from "../../redux/features/wishLishSlice";
+import { setToggleWishList } from "../../redux/features/wishList/wishLishSlice";
 import Button from '../Common/Button/Button';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setOpenSearchBox } from "../../redux/features/searchSlice";
+import { setOpenSearchBox } from "../../redux/features/search/searchSlice";
 import { motion, AnimatePresence } from "framer-motion";
 
 const MobileNav = (

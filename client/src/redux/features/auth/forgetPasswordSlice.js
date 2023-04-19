@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { postForgetPassword } from "../actions/forgetPasswordAction";
+import { postForgetPassword } from "../../actions/forgetPasswordAction";
 
 const initialState = {
    loading: false,

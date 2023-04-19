@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { postCheckoutData } from "../actions/checkoutAction"
+import { postCheckoutData } from "../../actions/checkoutAction"
 
 const initialState = {
    error: null,

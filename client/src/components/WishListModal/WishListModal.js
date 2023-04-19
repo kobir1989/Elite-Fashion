@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from "../Common/Modal/Modal";
 import WishlistCard from '../Common/Card/WishlistCard';
-import { setToggleWishList } from "../../redux/features/wishLishSlice";
+import { setToggleWishList } from "../../redux/features/wishList/wishLishSlice";
 import { useDispatch } from "react-redux";
 import styles from "./styles/WishListModal.module.scss";
 

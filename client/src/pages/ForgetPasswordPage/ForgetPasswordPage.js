@@ -3,7 +3,7 @@ import PageLayout from '../../layouts/PageLayout';
 import styles from "./styles/ForgetPasswordPage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { postForgetPassword } from "../../redux/actions/forgetPasswordAction"
-import { setError } from "../../redux/features/authSlice";
+import { setError } from "../../redux/features/auth/authSlice";
 import ForgetPasswordForm from './Components/ForgetPasswordForm';
 import SuccessMessage from './Components/SuccessMessage';
 

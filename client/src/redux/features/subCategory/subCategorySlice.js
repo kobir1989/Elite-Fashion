@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchSubCategory } from "../actions/subCategoryAction";
+import { fetchSubCategory } from "../../actions/subCategoryAction";
 
 const initialState = {
    isLoading: false,

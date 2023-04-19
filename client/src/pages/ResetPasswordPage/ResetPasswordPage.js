@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from 'react-router-dom';
 import { postResetPassword } from "../../redux/actions/resetPasswordAction";
 import toast from "react-hot-toast";
-import { resetPasswordError } from "../../redux/features/resetPasswordSlice";
+import { resetPasswordError } from "../../redux/features/auth/resetPasswordSlice";
+
 const ResetPasswordPage = () => {
    const [password, setPassword] = useState("")
    const [confirmPassword, setConfirmPassword] = useState("")

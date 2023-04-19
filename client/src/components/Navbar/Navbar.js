@@ -4,14 +4,14 @@ import Button from "../Common/Button/Button";
 import styles from "./styles/Navbar.module.scss";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setToggleWishList } from "../../redux/features/wishLishSlice";
+import { setToggleWishList } from "../../redux/features/wishList/wishLishSlice";
 import Typography from '../Common/Typography/Typography';
 import MobileNav from './MobileNav';
-import { setOpenSearchBox } from "../../redux/features/searchSlice";
-import { logout } from "../../redux/features/authSlice";
+import { setOpenSearchBox } from "../../redux/features/search/searchSlice";
+import { logout } from "../../redux/features/auth/authSlice";
 import { AnimatePresence, motion } from "framer-motion";
-import { setSubCategoryPage } from "../../redux/features/subCategorySlice";
-import { setProductPage } from "../../redux/features/productsSlice";
+import { setSubCategoryPage } from "../../redux/features/subCategory/subCategorySlice";
+import { setProductPage } from "../../redux/features/products/productsSlice";
 
 const Navbar = () => {
    const [openDropdown, setOpenDropdown] = useState(false);

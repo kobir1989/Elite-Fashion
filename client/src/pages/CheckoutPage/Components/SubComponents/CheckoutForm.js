@@ -4,8 +4,8 @@ import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
 import { postCheckoutData } from "../../../../redux/actions/checkoutAction";
-import { increaseStep } from "../../../../redux/features/stepsSlice";
-import { resetCartState } from "../../../../redux/features/cartSlice";
+import { increaseStep } from "../../../../redux/features/paymentSteps/stepsSlice";
+import { resetCartState } from "../../../../redux/features/cart/cartSlice";
 
 const CheckoutForm = () => {
    const stripe = useStripe();
