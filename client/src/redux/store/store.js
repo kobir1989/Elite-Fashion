@@ -10,10 +10,7 @@ import wishListReducer from "../features/wishList/wishLishSlice";
 import stepsReducer from "../features/paymentSteps/stepsSlice";
 import checkoutReducer from "../features/checkout/checkoutSlice";
 import userProfileReducer from "../features/user/userProfileSlice";
-import bestSellingReducer from "../features/bestSellingProducts/bestSellingSlice";
 import searchReducer from "../features/search/searchSlice";
-import forgetPasswordReducer from "../features/auth/forgetPasswordSlice";
-import resetPasswordReducer from "../features/auth/resetPasswordSlice";
 import reviewReducer from "../features/reviews/reviewSlice";
 import { apiSlice } from '../api/apiSlice';
 
@@ -26,13 +23,9 @@ const reducers = combineReducers({
    steps: stepsReducer,
    checkout: checkoutReducer,
    userProfile: userProfileReducer,
-   bestSelling: bestSellingReducer,
    search: searchReducer,
-   forgetPassword: forgetPasswordReducer,
-   resetPassword: resetPasswordReducer,
    review: reviewReducer,
    [apiSlice.reducerPath]: apiSlice.reducer,
-
 });
 
 const persistConfig = {
@@ -45,16 +38,12 @@ const persistConfig = {
       "steps",
       "order",
       "userProfile",
-      "bestSelling",
       "search",
-      "forgetPassword",
-      "resetPassword",
       "review"
    ]
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers)
-
 
 const store = configureStore({
    reducer: persistedReducer,

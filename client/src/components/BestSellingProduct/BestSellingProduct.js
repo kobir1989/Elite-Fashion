@@ -5,12 +5,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ProductCard from "../Common/Card/ProductCard";
 import CardSkeleton from '../Common/Skeleton/CardSkeleton';
-import { useSelector } from "react-redux";
 import Typography from '../Common/Typography/Typography';
 import { NextArrow } from '../Common/Button/SliderButton';
 import { PrevArrow } from '../Common/Button/SliderButton';
 import ErrorMessage from "../Common/Error/ErrorMessage";
-
+import { useBestSellingProductsQuery } from '../../redux/features/bestSellingProducts/bestSellingApi'
 
 const settings = {
    // dots: true,
@@ -54,8 +53,7 @@ const settings = {
 };
 
 const BestSellingProduct = ({ title }) => {
-   const { error, isLoading, bestSellingProducts } = useSelector(state => state.bestSelling);
-
+   const { data: bestSellingProduct, isError, isLoading } = useBestSellingProductsQuery()
    return (
       <div className={styles.best_selling_product_wrapper}>
          <div className={styles.best_selling_title}>
@@ -66,7 +64,7 @@ const BestSellingProduct = ({ title }) => {
          <div className={styles.slider_wrapper}>
             <Slider {...settings}>
                {
-                  bestSellingProducts.map((product) => (
+                  !isLoading && !isError && bestSellingProduct?.products?.length ? bestSellingProduct?.products.map((product) => (
                      <div className={styles.best_selling_product_card}
                         key={product?._id}>
                         <ProductCard
@@ -79,7 +77,7 @@ const BestSellingProduct = ({ title }) => {
                         />
                      </div>
                   ))
-               }
+                     : null}
             </Slider>
          </div>
          {isLoading &&
@@ -93,7 +91,7 @@ const BestSellingProduct = ({ title }) => {
             </div>
          }
          <div>
-            {error &&
+            {isError &&
                <ErrorMessage />
             }
          </div>

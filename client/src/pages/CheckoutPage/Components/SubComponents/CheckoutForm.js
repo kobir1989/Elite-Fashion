@@ -3,15 +3,16 @@ import styles from "../../styles/CheckoutForm.module.scss";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
-import { postCheckoutData } from "../../../../redux/actions/checkoutAction";
 import { increaseStep } from "../../../../redux/features/paymentSteps/stepsSlice";
 import { resetCartState } from "../../../../redux/features/cart/cartSlice";
+import { usePostCheckoutMutation } from '../../../../redux/features/checkout/checkoutApi'
 
 const CheckoutForm = () => {
    const stripe = useStripe();
    const elements = useElements();
    const [message, setMessage] = useState(null);
    const [isProcessing, setIsProcessing] = useState(false);
+   const [postCheckout] = usePostCheckoutMutation()
    const dispatch = useDispatch()
    const {
       phone,
@@ -37,14 +38,21 @@ const CheckoutForm = () => {
          // }
       });
 
-      console.log(result, "RESULT")
       if (result.paymentIntent.status === "succeeded") {
-         dispatch(postCheckoutData({ phone, address, city, userId, order, totalAmount, paymentId: result.paymentIntent.id }));
+         postCheckout({ //Save order data to DB
+            phone,
+            address,
+            city,
+            userId,
+            order,
+            totalAmount,
+            paymentId: result.paymentIntent.id
+         })
          dispatch(increaseStep());
          dispatch(resetCartState());
       }
       if (result.paymentIntent.error === "card_error" || result.paymentIntent.error === "validation_error") {
-         setMessage(result.paymentIntent.error.message);
+         setMessage(result?.paymentIntent?.error?.message);
       }
       setIsProcessing(false);
    };

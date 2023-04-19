@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import Typography from '../../components/Common/Typography/Typography';
 import { fetchProducts } from "../../redux/actions/productsAction";
 import BestSellingProduct from "../../components/BestSellingProduct/BestSellingProduct";
-import { fetchBestSellingProducts } from "../../redux/actions/bestSellingAction";
 import ProductDetailsView from './Components/ProductDetailsView';
 import { useDispatch, useSelector } from "react-redux";
 import Review from './Components/Review';
@@ -17,7 +16,6 @@ const ProductDetailsPage = () => {
    const { id } = useParams()
    useEffect(() => {
       dispatch(fetchProducts(`/product/single/${id}`));
-      dispatch(fetchBestSellingProducts());
       dispatch(fetchReviews(id))
    }, [id, dispatch, newReview]);
 
