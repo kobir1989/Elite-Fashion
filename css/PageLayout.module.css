@@ -1,0 +1,17 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.main_wrapper {
+  padding: 3.5rem 0 3rem 0;
+  max-width: 1400px;
+  margin: auto;
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .main_wrapper {
+    padding: 4rem 0 2rem 0;
+  }
+}/*# sourceMappingURL=PageLayout.module.css.map */

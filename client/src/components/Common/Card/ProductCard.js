@@ -5,7 +5,7 @@ import Button from '../Button/Button';
 import Icons from "../Icons/Icons";
 import { Link } from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import { addToWishList } from "../../../redux/features/wishLishSlice";
+import { addToWishList } from "../../../redux/features/wishList/wishLishSlice";
 import Ratings from '../Ratings/Ratings';
 
 const ProductCard = (

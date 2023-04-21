@@ -1,0 +1,46 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.success_message_wrapper {
+  margin: 1rem;
+  padding: 2rem 1rem;
+  border-radius: 8px;
+  text-align: start;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+@media (min-width: 768px) {
+  .success_message_wrapper {
+    padding: 2rem;
+  }
+}
+.success_message_wrapper h4 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+.success_message_wrapper p {
+  line-height: 1.8;
+}
+.success_message_wrapper span {
+  color: #cc2121;
+  font-size: 0.8rem;
+  text-decoration: underline;
+}
+@media (min-width: 768px) {
+  .success_message_wrapper span {
+    font-size: 0.99rem;
+  }
+}
+.success_message_wrapper .back_btn {
+  margin-top: 1rem;
+}
+.success_message_wrapper .back_btn button {
+  padding: 0.6rem 2.2rem;
+}/*# sourceMappingURL=SuccessMessage.module.css.map */

@@ -7,8 +7,8 @@ import Icons from '../../../components/Common/Icons/Icons';
 const ResetPasswordForm = (
    {
       error,
-      loading,
       password,
+      loading,
       confirmPassword,
       formSubmitHandler,
       confirmPasswordHandler,
@@ -33,7 +33,7 @@ const ResetPasswordForm = (
             </div>
             <Input
                error={error ? true : false}
-               errorMessage={error ? error?.message || error : ""}
+               errorMessage={error ? error : ""}
                value={password}
                onChange={passwordHandler}
                required={true}
@@ -55,7 +55,7 @@ const ResetPasswordForm = (
             </div>
             <Input
                error={error ? true : false}
-               errorMessage={error ? error?.message || error : ""}
+               errorMessage={error ? error : ""}
                value={confirmPassword}
                onChange={confirmPasswordHandler}
                required={true}
@@ -65,7 +65,7 @@ const ResetPasswordForm = (
                size={"small"}
                type={toggleConfirmPass ? "text" : "password"} />
          </div>
-         <Button type={"submit"}>Submit</Button>
+         <Button disabled={loading} type={"submit"}>Submit</Button>
       </form>
    )
 }

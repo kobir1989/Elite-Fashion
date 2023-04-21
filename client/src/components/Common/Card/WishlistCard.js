@@ -4,7 +4,7 @@ import Typography from '../Typography/Typography';
 import { Link } from "react-router-dom";
 import Button from '../Button/Button';
 import { useSelector, useDispatch } from "react-redux";
-import { setToggleWishList, removeFromWishList } from "../../../redux/features/wishLishSlice";
+import { setToggleWishList, removeFromWishList } from "../../../redux/features/wishList/wishLishSlice";
 import Icons from '../Icons/Icons';
 
 const WishlistCard = ({ showCross = true }) => {
@@ -58,7 +58,7 @@ const WishlistCard = ({ showCross = true }) => {
                < Typography
                   color={"red"}
                   variant={"body"}>
-                  You don't have any wishlists yet!
+                  Looks like you haven't created any wishlists yet. Why not start now and save your favorite products for later?
                </Typography>
             }
          </div>

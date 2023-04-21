@@ -3,12 +3,12 @@ import styles from "./styles/Pagination.module.scss";
 import Icons from '../Common/Icons/Icons';
 import Button from '../Common/Button/Button';
 
-const Pagination = ({ api, page, paginationHandler }) => {
-   const numberOfPages = Array(api?.totalPage)
+const Pagination = ({ pagination, page, paginationHandler }) => {
+   const numberOfPages = Array(pagination?.totalPage)
       .fill().map((_, index) => index + 1);
    return (
       <div className={styles.pagination_buttons}>
-         {api?.previous &&
+         {pagination?.previous &&
             <Button
                variant={"icon-btn-white"}
                onClick={() => { paginationHandler(1) }}>
@@ -25,7 +25,7 @@ const Pagination = ({ api, page, paginationHandler }) => {
                </div>
             ))
          }
-         {api?.next &&
+         {pagination?.next &&
             <Button
                variant={"icon-btn-white"}
                onClick={() => { paginationHandler(numberOfPages.length) }}>

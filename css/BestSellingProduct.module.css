@@ -1,0 +1,29 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.best_selling_product_wrapper {
+  position: relative;
+}
+.best_selling_product_wrapper .best_selling_title {
+  margin: 3rem 0;
+  text-align: center;
+}
+.best_selling_product_wrapper .slider_wrapper {
+  padding: 0 2.2rem;
+}
+.best_selling_product_wrapper .best_selling_product_card {
+  height: 32rem;
+  padding: 1rem 0.6rem;
+  overflow: hidden;
+}
+.best_selling_product_wrapper .skeleton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}/*# sourceMappingURL=BestSellingProduct.module.css.map */

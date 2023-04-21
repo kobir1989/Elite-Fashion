@@ -8,52 +8,57 @@ import TextSkeleton from '../../../components/Common/Skeleton/TextSkeleton';
 import ErrorMessage from '../../../components/Common/Error/ErrorMessage';
 import { useSelector, useDispatch } from "react-redux";
 import styles from "../styles/ProductDetails.module.scss"
-import { addToCart, removeOneFromCart } from "../../../redux/features/cartSlice";
+import { addToCart, removeOneFromCart } from "../../../redux/features/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
 import Ratings from "../../../components/Common/Ratings/Ratings";
 import toast from "react-hot-toast";
 import ButtonGroup from "../../../components/Common/Button/ButtonGroup";
 
-const ProductDetailsView = () => {
+const ProductDetailsView = ({ product, isError, isLoading }) => {
    const [color, setColor] = useState("")
    const [size, setSize] = useState("")
    const [isEmpty, setIsEmpty] = useState(false)
-   const { userInfo } = useSelector(state => state.auth);
-   const { error, isLoading, products } = useSelector(state => state.product);
+   const { token } = useSelector(state => state.auth);
    const { cartItem } = useSelector(state => state.cart);
-   const findQntt = cartItem.find(qntt => qntt.id === products._id);
+   const findQntt = cartItem.find(qntt => qntt?.id === product?._id);
    const navigate = useNavigate()
    const dispatch = useDispatch();
+
+   //Cart Handler
    const cartHandler = (item) => {
-      if (!userInfo) {
+      if (!token) { //send user back to login page if not logged in 
          toast.dismiss()
          toast.error("Please log in to add items to your cart")
          navigate("/login")
       }
       if (!color || !size) {
-         setIsEmpty(true)
+         setIsEmpty(true) // if color or size not selected there will be a error message
          return
       }
-      if (products?.stock <= 0 || (findQntt && findQntt.quantity >= products.stock)) {
+
+      //if product is not in stock user can't add product to cart
+      if (product?.stock <= 0 || (findQntt && findQntt.quantity >= product.stock)) {
          toast.dismiss()
          return toast.error("This product is currently out of stock")
       }
       dispatch(addToCart(item));
    }
+   //Remove product form cart
    const removeHandler = (id) => {
       dispatch(removeOneFromCart(id))
    }
 
+   //Checkout handler
    const checkoutHandler = () => {
-      if (findQntt.quantity > 0) {
+      if (findQntt.quantity > 0) { //if product length is less then 0 user can not navigate to checkout page. 
          navigate("/cart")
       }
    }
    return (
       <div className={styles.product_page_details_wrapper}>
-         {error && <ErrorMessage />}
+         {isError && <ErrorMessage />}
          <div className={styles.img_wrapper}>
-            <img src={products?.image} alt="" />
+            <img src={product?.image} alt="" />
             {isLoading &&
                <CardSkeleton
                   width={"100%"}
@@ -70,10 +75,10 @@ const ProductDetailsView = () => {
             :
             <div className={styles.product_info}>
                <div className={styles.text_wrapper}>
-                  <Typography variant={"h3"}>{products?.title}</Typography>
+                  <Typography variant={"h3"}>{product?.title}</Typography>
                   <Ratings />
-                  <Typography variant={"h3"}>&#2547; {products?.price}</Typography>
-                  <Typography variant={"body"}>{products?.description}</Typography>
+                  <Typography variant={"h3"}>&#2547; {product?.price}</Typography>
+                  <Typography variant={"body"}>{product?.description}</Typography>
                </div>
                <div className={styles.options}>
                   <SelectOptions
@@ -98,25 +103,25 @@ const ProductDetailsView = () => {
                      options={["BLUE", "RED"]} />
                </div>
                <div className={styles.stock}>
-                  <Typography variant={"h5"} color={products?.stock > 0 ? "success" : "red"}>
+                  <Typography variant={"h5"} color={product?.stock > 0 ? "success" : "red"}>
                      Availability:
                   </Typography>
-                  <Typography variant={"h5"} color={products?.stock > 0 ? "success" : "red"}>
-                     {products?.stock > 0 ? "In Stock" : "Out of Stock"}
+                  <Typography variant={"h5"} color={product?.stock > 0 ? "success" : "red"}>
+                     {product?.stock > 0 ? "In Stock" : "Out of Stock"}
                   </Typography>
                   {
-                     products?.stock > 0 ? <Icons name={"check"} color={"#116954"} /> : <Icons name={"delete"} color={"#cc2121"} />
+                     product?.stock > 0 ? <Icons name={"check"} color={"#116954"} /> : <Icons name={"delete"} color={"#cc2121"} />
                   }
                </div>
                <div className={styles.buttons_wrapper}>
                   <ButtonGroup
-                     onRemove={() => { removeHandler(products?._id) }}
+                     onRemove={() => { removeHandler(product?._id) }}
                      onAdd={() => {
                         cartHandler({
-                           title: products?.title,
-                           imageUrl: products?.image,
-                           price: products?.price,
-                           id: products?._id,
+                           title: product?.title,
+                           imageUrl: product?.image,
+                           price: product?.price,
+                           id: product?._id,
                            quantity: 1,
                            color: color,
                            size: size

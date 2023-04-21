@@ -5,10 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Rating from '@mui/material/Rating';
 import styles from '../styles/AddReview.module.scss';
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { createReview } from "../../../redux/actions/reviewActions";
-import { resetNewReview } from "../../../redux/features/reviewSlice";
+import { useAddReviewMutation, useUppdateReviewMutation } from '../../../redux/features/reviews/reviewsApi'
 
 //Default Review value
 const defaultValue = {
@@ -16,15 +15,14 @@ const defaultValue = {
    rating: 0,
 };
 
-const AddReview = () => {
+const AddReview = ({ setTabValue, getSelectedReview, selectedReviewId }) => {
    const [formValues, setFormValues] = useState(defaultValue);
    const [hasError, setHasError] = useState(null);
    const { token } = useSelector(state => state.auth);
-   const { isLoading, newReview } = useSelector(state => state.review);
+   const [addReview, { isError, isLoading, error, isSuccess }] = useAddReviewMutation()
+   const [updateReview, { isError: updateIsError, isLoading: updateLoading, error: updateError, isSuccess: updateSuccess }] = useUppdateReviewMutation()
    const navigate = useNavigate();
-   const dispatch = useDispatch();
-   const { id } = useParams();
-
+   const { id: productId } = useParams();
    //onChange Handler
    const handleInputChange = (e) => {
       const { name, value } = e.target;
@@ -45,33 +43,50 @@ const AddReview = () => {
       if (formValues.rating === 0) {
          return setHasError('Please Add Your Rating 1 to 5');
       }
-      dispatch(createReview(
-         {
+      if (getSelectedReview?._id) {
+         const data = {
             comment: formValues.comment,
             rating: formValues.rating,
-            id
+            id: productId
          }
-      ));
-      console.log(formValues)
+         //edit review query 
+         updateReview({ reviewId: selectedReviewId, data })
+      } else {
+         // add review query
+         addReview({
+            comment: formValues.comment,
+            rating: formValues.rating,
+            id: productId
+         })
+      }
 
    };
 
-   //Show Toast Message based on success request
+   //Show Toast Message based on success request and show error based on response error.
    useEffect(() => {
-      if (newReview) {
+      if (selectedReviewId) {
+         setFormValues({
+            comment: getSelectedReview?.comment,
+            rating: Number(getSelectedReview?.rating)
+         })
+      }
+      if (isError || updateIsError) {
+         setHasError(error?.data?.message || updateError?.data?.message)
+      }
+      if (isSuccess || updateSuccess) {
          toast.dismiss()
-         toast.success("Your Review Will be Published Soon");
+         toast.success(isSuccess ? "Your Review has been Published" : "Review Updated!");
          setFormValues(
             {
                comment: "",
                rating: 0,
             }
          )
+         setTabValue(0)
       }
-      return () => {
-         dispatch(resetNewReview(null))
-      }
-   }, [newReview])
+      // eslint-disable-next-line 
+   }, [isError, isSuccess, selectedReviewId, updateSuccess, updateIsError])
+
    return (
       <AnimatePresence>
          <motion.div
@@ -109,7 +124,7 @@ const AddReview = () => {
                   onChange={handleInputChange}
                   className={hasError ? `${styles.error}` : ""}
                />
-               <Button disabled={isLoading ? true : false} type="submit" variant="primary">
+               <Button disabled={isLoading || updateLoading} type="submit" variant="primary">
                   {isLoading ? "Loading..." : " Post Review"}
                </Button>
             </form>

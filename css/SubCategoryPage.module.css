@@ -1,0 +1,15 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.discount_banner {
+  display: none;
+}
+@media (min-width: 1022px) {
+  .discount_banner {
+    display: flex;
+    margin-top: 2rem;
+  }
+}/*# sourceMappingURL=SubCategoryPage.module.css.map */

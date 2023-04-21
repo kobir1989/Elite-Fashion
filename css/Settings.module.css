@@ -1,0 +1,48 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.profile_update_form_wrapper {
+  position: relative;
+}
+.profile_update_form_wrapper .loading_progress {
+  position: absolute;
+  top: -3.7rem;
+  width: 100%;
+  z-index: 10;
+}
+.profile_update_form_wrapper .form_buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.profile_update_form_wrapper .form_buttons button {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .profile_update_form_wrapper .form_buttons button {
+    max-width: 15rem;
+  }
+}
+.profile_update_form_wrapper .form_buttons a {
+  font-weight: 400;
+  font-size: 0.9rem;
+  transition: all 0.2s linear;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .profile_update_form_wrapper .form_buttons a {
+    font-size: 1.1rem;
+    text-align: start;
+  }
+}
+.profile_update_form_wrapper .form_buttons a:hover {
+  color: #cc2121;
+  transition: all 0.2s linear;
+}
+
+.loading_on {
+  opacity: 0.5;
+}/*# sourceMappingURL=Settings.module.css.map */

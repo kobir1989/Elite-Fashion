@@ -1,0 +1,76 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+h4 {
+  margin-bottom: 1.5rem;
+}
+
+.order_products {
+  margin-bottom: 1.2rem;
+  border-radius: 6px;
+  border: 1px solid #e5e5e5;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+.order_products .order_date_status {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-weight: 500;
+  padding-bottom: 0.2rem;
+  align-items: center;
+}
+@media (min-width: 768px) {
+  .order_products .order_date_status {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+.order_products img {
+  width: 5rem;
+  height: 6rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+}
+.order_products .order_details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+}
+@media (min-width: 768px) {
+  .order_products .order_details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.order_products .order_details .product_title {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.order_products .order_total {
+  text-align: center;
+  border-top: 1px solid #e5e5e5;
+  padding-top: 0.5rem;
+  font-weight: 500;
+}
+@media (min-width: 768px) {
+  .order_products .order_total {
+    text-align: end;
+  }
+}/*# sourceMappingURL=Orders.module.css.map */

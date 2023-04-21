@@ -6,17 +6,12 @@ import TopCategoriesSection from './Components/TopCategoriesSection';
 import InfoBanner from '../../components/Common/Banner/InfoBanner';
 import Banner from '../../components/Common/Banner/Banner';
 import BestSellingProduct from '../../components/BestSellingProduct/BestSellingProduct';
-import { useDispatch, useSelector } from "react-redux";
-import { fetchBestSellingProducts } from "../../redux/actions/bestSellingAction";
+import { useSelector } from "react-redux";
 import DiscountModal from '../../components/DiscountModal/DiscountModal';
 
 const HomePage = () => {
    const [showPopup, setShowPopup] = useState(true)
    const { userInfo } = useSelector(state => state.auth)
-   const dispatch = useDispatch()
-   useEffect(() => {
-      dispatch(fetchBestSellingProducts())
-   }, [dispatch]);
 
    const discountModalHandler = () => {
       setShowPopup(false)

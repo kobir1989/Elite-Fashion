@@ -1,0 +1,39 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.cart_total {
+  background-color: #e5e5e5;
+  width: 100%;
+  margin: 1.5rem 0;
+  padding: 1.8rem;
+  border-radius: 6px;
+}
+.cart_total h4 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.cart_total .text_red {
+  color: #cc2121;
+}
+
+.amount_description {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+@media (min-width: 768px) {
+  .amount_description {
+    gap: 1.1rem;
+  }
+}
+.amount_description p {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #d4d4d4;
+}/*# sourceMappingURL=TotalAmountView.module.css.map */

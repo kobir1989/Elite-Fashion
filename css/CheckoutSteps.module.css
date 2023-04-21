@@ -1,0 +1,49 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.steps_wrapper {
+  width: 100%;
+}
+@media (min-width: 412px) {
+  .steps_wrapper {
+    max-width: 95%;
+  }
+}
+@media (min-width: 1022px) {
+  .steps_wrapper {
+    max-width: 850px;
+  }
+}
+.steps_wrapper .steps_components {
+  margin-top: 3rem;
+  width: 100%;
+}
+.steps_wrapper .btn_wrapper {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.steps_wrapper .btn_wrapper button {
+  width: 8rem;
+}
+.steps_wrapper .success_message {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  text-align: center;
+  height: 60vh;
+}
+.steps_wrapper .success_message h4 {
+  line-height: 2.5rem;
+  color: #3b3841;
+}
+.steps_wrapper .success_message button {
+  margin-top: 1.5rem;
+}/*# sourceMappingURL=CheckoutSteps.module.css.map */

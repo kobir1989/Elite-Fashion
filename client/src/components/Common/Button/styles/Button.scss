@@ -1,5 +1,5 @@
-@import "../../../../sass/sass-utils/colors";
-@import "../../../../sass/sass-utils/mixins";
+@import '../../../../sass/sass-utils/colors';
+@import '../../../../sass/sass-utils/mixins';
 
 .button {
 	padding: 0.7rem 2rem;
@@ -145,4 +145,9 @@
 		font-weight: 500;
 		border: 1px solid $red_main;
 	}
+}
+button:disabled {
+	background-color: #434b52;
+	color: #dfdcdc;
+	cursor: not-allowed;
 }

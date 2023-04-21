@@ -5,7 +5,7 @@ import OrderDetails from './SubComponents/OrderDetails';
 import Payment from "./SubComponents/Payment";
 import styles from "../styles/CheckoutSteps.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { increaseStep, decreaseStep } from "../../../redux/features/stepsSlice";
+import { increaseStep, decreaseStep } from "../../../redux/features/paymentSteps/stepsSlice";
 import Icons from "../../../components/Common/Icons/Icons";
 import Typography from "../../../components/Common/Typography/Typography";
 import Button from "../../../components/Common/Button/Button";

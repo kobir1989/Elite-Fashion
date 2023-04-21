@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styles from "../styles/ShippingForm.module.scss";
 import Typography from '../../../components/Common/Typography/Typography';
-import { increaseStep } from "../../../redux/features/stepsSlice";
-import { setShipmentDetails, setOrder } from "../../../redux/features/checkoutSlice";
+import { increaseStep } from "../../../redux/features/paymentSteps/stepsSlice";
+import { setShipmentDetails, setOrder } from "../../../redux/features/checkout/checkoutSlice";
 
 const ShippmentForm = () => {
    const { userInfo } = useSelector(state => state.auth);

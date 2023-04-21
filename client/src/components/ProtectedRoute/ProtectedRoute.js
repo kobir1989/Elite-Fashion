@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { Outlet, useLocation, Navigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import { logout } from "../../redux/features/authSlice";
+import { logout } from "../../redux/features/auth/authSlice";
 import toast from "react-hot-toast";
 
 export const ProtectedRoute = ({ children, ...otherProps }) => {

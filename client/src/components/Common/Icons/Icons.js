@@ -36,6 +36,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const icons = {
    search: SearchIcon,
@@ -74,7 +75,8 @@ const icons = {
    eyeClosed: VisibilityOffIcon,
    loveFilled: FavoriteIcon,
    camera: CameraAltIcon,
-   uploadIcon: DriveFolderUploadIcon
+   uploadIcon: DriveFolderUploadIcon,
+   moreOptions: MoreVertIcon
 }
 
 const Icons = React.forwardRef((props, ref) => {

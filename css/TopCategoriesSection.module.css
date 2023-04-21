@@ -1,0 +1,49 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.top_category_wrapper {
+  margin: 3rem 0;
+}
+.top_category_wrapper h3 {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+.top_category_wrapper .category_card_wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
+.top_category_wrapper .category_card_wrapper .img_wrapper {
+  width: 100%;
+  height: 100%;
+}
+.top_category_wrapper .category_card_wrapper .img_wrapper img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  filter: brightness(90%);
+}
+.top_category_wrapper .category_card_wrapper .img_wrapper:hover img {
+  transform: scale(1.2);
+  transition: transform 1s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+  filter: brightness(70%);
+}
+.top_category_wrapper .category_card_wrapper .category_title_wrapper {
+  position: absolute;
+  width: 22rem;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.527);
+  z-index: 10;
+  padding: 2rem 2rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+}/*# sourceMappingURL=TopCategoriesSection.module.css.map */

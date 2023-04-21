@@ -4,7 +4,7 @@ import Typography from '../Typography/Typography';
 import ButtonGroup from "../Button/ButtonGroup";
 import ClearIcon from '@mui/icons-material/Clear';
 import Button from '../Button/Button';
-import { removeFromCart, addToCart, removeOneFromCart } from "../../../redux/features/cartSlice";
+import { removeFromCart, addToCart, removeOneFromCart } from "../../../redux/features/cart/cartSlice";
 import { useDispatch } from 'react-redux';
 
 const CartProductInfoCard = (

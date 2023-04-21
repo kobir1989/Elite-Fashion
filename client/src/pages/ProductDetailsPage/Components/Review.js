@@ -3,6 +3,8 @@ import AddReview from './AddReview';
 import ReviewList from './ReviewList';
 import TabPanel from "../../../components/Common/TabPanel/TabPanel";
 import { Tabs, Tab, Box, } from '@mui/material';
+import { useGetReviewsQuery, useGetSelectedReviewQuery } from '../../../redux/features/reviews/reviewsApi';
+import { useParams } from 'react-router-dom';
 
 function a11yProps(index) {
    return {
@@ -12,10 +14,28 @@ function a11yProps(index) {
 }
 
 const Review = () => {
-   const [value, setValue] = React.useState(0);
+   const [value, setValue] = useState(0);
+   const [skipQuery, setSkipQuery] = useState(true)
+   const [selectedReviewId, setSelectedReviewId] = useState(null)
+   const { id } = useParams()
+   const { data: reviews, isError, isLoading } = useGetReviewsQuery(id)
+   const { data: getSelectedReview } = useGetSelectedReviewQuery(selectedReviewId, {
+      skip: skipQuery,
+      refetchOnMountOrArgChange: true
+   })
+
+   //tab value handler
    const handleChange = (event, newValue) => {
       setValue(newValue);
    };
+
+   //edit review handler
+   const handleEditReveiw = (id) => {
+      setSelectedReviewId(id)
+      setValue(1)
+      setSkipQuery(false)
+   }
+
    return (
       <Box sx={{
          width: '100%', marginTop: "2rem",
@@ -47,10 +67,19 @@ const Review = () => {
             </Tabs>
          </Box>
          <TabPanel value={value} index={0}>
-            <ReviewList />
+            <ReviewList
+               reviews={reviews?.reviews}
+               isLoading={isLoading}
+               isError={isError}
+               handleEditReveiw={handleEditReveiw}
+            />
          </TabPanel>
          <TabPanel value={value} index={1}>
-            <AddReview />
+            <AddReview
+               setTabValue={setValue}
+               getSelectedReview={getSelectedReview?.review}
+               selectedReviewId={selectedReviewId}
+            />
          </TabPanel>
       </Box >
    )

@@ -1,0 +1,58 @@
+/* Breakpoints mobile first approach */
+/* Mixins for media query */
+/*------------------------------*/
+/*  Flex Mixin  */
+/*-------------------------------*/
+/*******************************/
+.review_main {
+  width: 100%;
+  margin-top: 1.5rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.review_main .review_row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: #f5f5f5;
+  padding: 2rem 1rem;
+  border-radius: 4px;
+}
+.review_main .review_row p {
+  line-height: 1.68;
+  letter-spacing: 0.8px;
+}
+.review_main .user_img_with_ratings {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.2rem;
+}
+.review_main .user_img_with_ratings .user_img {
+  width: 4.5rem;
+  height: 4.5rem;
+}
+.review_main .user_img_with_ratings .user_img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 1px solid #e5e5e5;
+  border-radius: 50%;
+}
+.review_main .user_img_with_ratings .ratings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.review_main .user_img_with_ratings .ratings h5 {
+  text-transform: capitalize;
+}
+.review_main .user_img_with_ratings .ratings p {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #727272;
+}/*# sourceMappingURL=ReviewList.module.css.map */

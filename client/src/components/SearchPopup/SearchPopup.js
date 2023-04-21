@@ -4,21 +4,34 @@ import Input from "../Common/Input/Input";
 import Modal from "../Common/Modal/Modal";
 import styles from "./SearchPopup.module.scss";
 import Icons from '../Common/Icons/Icons';
-import { setOpenSearchBox } from "../../redux/features/searchSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchSearchResult } from "../../redux/actions/searchAction";
+import Chip from '@mui/material/Chip';
+import { setOpenSearchBox } from "../../redux/features/search/searchSlice";
+import { useDispatch } from "react-redux";
 import Typography from "../Common/Typography/Typography";
 import { Link } from "react-router-dom";
+import { useGetSearchResultQuery } from '../../redux/features/search/searchApi'
 
 const SearchPopup = () => {
    const [searchValue, setSearchValue] = useState("")
+   const [skipSearch, setSkipSearch] = useState(true)
    const dispatch = useDispatch();
-   const { searchResult, error } = useSelector(state => state.search);
-   // console.log(searchResult, "RESULT")
+   const { data: searchResult, isError } = useGetSearchResultQuery(
+      searchValue,
+      {
+         skip: skipSearch
+      }
+   )
+
+   //search Handler
    const searchHandler = (e) => {
-      dispatch(fetchSearchResult(e.target.value))
       setSearchValue(e.target.value)
+      if (e.target.value !== "") {
+         setSkipSearch(false)
+      } else {
+         setSkipSearch(true)
+      }
    }
+
    return (
       <Modal onClose={() => dispatch(setOpenSearchBox(false))}>
          <div className={styles.search_popup_wrapper}>
@@ -35,7 +48,7 @@ const SearchPopup = () => {
                <Icons name={"search"} color={"#e5e5e5"} />
             </div>
             <div className={styles.search_result_wrapper}>
-               {searchResult && searchResult.length ? searchResult.map((result) => (
+               {!isError && searchResult?.length ? searchResult.map((result) => (
                   <Link to={`/product-details/${result?._id}`}
                      key={result?._id}
                      onClick={() => dispatch(setOpenSearchBox(false))}>
@@ -47,8 +60,44 @@ const SearchPopup = () => {
                         </Typography>
                      </div>
                   </Link>
-               )) : null}
-               {error &&
+               )) : <div className={styles.chip_wrapper}>
+                  <Link to='/product-details/63c0552572476f87875a928b'>
+                     <Chip
+                        icon={<Icons name='search' size='1rem' />}
+                        label="WOMEN'S 'BASIC CREW NECK T-SHIRT'"
+                        clickable={true}
+                     />
+                  </Link>
+                  <Link to='/product-details/63cec974c949f634c5874638'>
+                     <Chip
+                        icon={<Icons name='search' size='1rem' />}
+                        label="Leather Tote Bag"
+                        clickable={true}
+                     />
+                  </Link>
+                  <Link to='/product-details/63cd8eed846e9f3d3b1ca32f'>
+                     <Chip
+                        icon={<Icons name='search' size='1rem' />}
+                        label="Sunglass 'Retro Round Sunglasses'"
+                        clickable={true}
+                     />
+                  </Link>
+                  <Link to='/product-details/63cec846c949f634c5874622'>
+                     <Chip
+                        icon={<Icons name='search' size='1rem' />}
+                        label="Perfume 'TOM FORD NOIR' "
+                        clickable={true} />
+                  </Link>
+                  <Link to='/product-details/63bee4339335b0eb619b0bc2'>
+                     <Chip
+                        icon={<Icons name='search' size='1rem' />}
+                        label="Denim Jacket"
+                        clickable={true}
+                     />
+                  </Link>
+
+               </div>}
+               {isError &&
                   <div className={styles.error_message}>
                      <Typography
                         variant={"body"}

@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PageLayout from '../../layouts/PageLayout';
 import styles from "./styles/UserProfilePage.module.scss";
 import { Tabs, Tab } from '@mui/material';
 import Typography from '../../components/Common/Typography/Typography';
 import Icons from '../../components/Common/Icons/Icons';
-import { useSelector, useDispatch } from "react-redux";
-import { fetchUserInfo } from "../../redux/actions/userProfileAction";
 import { useParams } from "react-router-dom";
 import WishlistCard from '../../components/Common/Card/WishlistCard';
 import ProfileInfo from './Components/ProfileInfo';
@@ -13,7 +11,7 @@ import Orders from './Components/Orders';
 import Settings from './Components/Settings';
 import Button from '../../components/Common/Button/Button';
 import TabPanel from "../../components/Common/TabPanel/TabPanel";
-import { logout } from "../../redux/features/authSlice";
+import { useGetUserProileQuery } from '../../redux/features/user/userProfileApi'
 
 const a11yProps = (index) => {
    return {
@@ -22,22 +20,39 @@ const a11yProps = (index) => {
    };
 }
 
+//Tab static Data 
 const tabData = [{ icon: 'person', label: 'Profile' }, { icon: 'love', label: 'Wishlist' }, { icon: 'bag', label: 'Orders' }, { icon: 'settings', label: 'Settings' }];
 
 const UserProfilePage = () => {
    const [value, setValue] = React.useState(0);
    const [showSideTab, setShowSideTab] = useState(window.innerWidth > 700 ? true : false)
-   const { isLoading, error, userProfileData, userOrderData, updateSuccess } = useSelector(state => state.userProfile)
-   const dispatch = useDispatch();
    const { id } = useParams()
+   const { data: userProfile, isLoading, isError } = useGetUserProileQuery(id)
 
-   useEffect(() => {
-      dispatch(fetchUserInfo({ id }));
-      if (error?.response?.status === 401 || error?.response?.status === 403) {
-         dispatch(logout())
+   //Creating new purchases Array from userProfile api returend data, to use in the user's Orders Tab. 
+   const userOrderHistory = !isLoading && !isError && userProfile?.user?.purchases?.length > 0 ? userProfile?.user?.purchases.map((order) => (
+      {
+         products: order.product,
+         status: order.orderStatus,
+         date: order.createdAt,
+         id: order._id,
+         totalAmount: order.totalAmount
       }
-   }, [id, dispatch, updateSuccess])
+   )) : [];
 
+   //Creating a user profile object from userProfile api retured data. to use in the user profile Tab. 
+   const userProfileData = {
+      name: userProfile?.user?.name,
+      email: userProfile?.user?.email,
+      _id: userProfile?.user?._id,
+      city: userProfile?.user?.city,
+      phone: userProfile?.user?.phone,
+      address: userProfile?.user?.address,
+      profilePic: userProfile?.user?.image
+
+   };
+
+   // Tab handler
    const handleChange = (_event, newValue) => {
       setValue(newValue);
       if (window.innerWidth < 600) {
@@ -86,7 +101,11 @@ const UserProfilePage = () => {
                   </div>
                }
                <div className={styles.tab_panels}>
-                  <TabPanel value={value} index={0} className={styles.tab_panel_style}>
+                  <TabPanel
+                     value={value}
+                     index={0}
+                     className={styles.tab_panel_style}
+                  >
                      <ProfileInfo
                         userProfileData={userProfileData}
                         isLoading={isLoading} />
@@ -94,13 +113,24 @@ const UserProfilePage = () => {
                   <TabPanel value={value} index={1}>
                      <WishlistCard showCross={false} />
                   </TabPanel>
-                  <TabPanel value={value} index={2} className={styles.tab_panel_style}>
+                  <TabPanel
+                     value={value}
+                     index={2}
+                     className={styles.tab_panel_style}
+                  >
                      <Orders
-                        userOrderData={userOrderData}
+                        userOrderData={userOrderHistory}
                      />
                   </TabPanel>
-                  <TabPanel value={value} index={3} className={styles.tab_panel_style}>
-                     <Settings resetTabValue={setValue} />
+                  <TabPanel
+                     value={value}
+                     index={3}
+                     className={styles.tab_panel_style}
+                  >
+                     <Settings
+                        resetTabValue={setValue}
+                        userProfileData={userProfileData}
+                     />
                   </TabPanel>
                </div>
             </div>

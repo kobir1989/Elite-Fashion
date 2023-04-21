@@ -1,8 +1,9 @@
-@import "../../../../sass/sass-utils/colors";
-@import "../../../../sass/sass-utils/mixins";
+@import '../../../../sass/sass-utils/colors';
+@import '../../../../sass/sass-utils/mixins';
 
 .wishList_row {
 	position: relative;
+	padding: 4rem 3rem 3rem 3rem;
 	.modal_content_wrapper {
 		position: relative;
 		margin-top: 2.8rem;
@@ -65,7 +66,7 @@
 		right: -0.2rem;
 	}
 	.message {
-		text-align: center;
+		text-align: start;
 		margin-top: 2rem;
 	}
 	h4 {
