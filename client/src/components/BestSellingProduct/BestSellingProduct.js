@@ -9,7 +9,7 @@ import Typography from '../Common/Typography/Typography';
 import { NextArrow } from '../Common/Button/SliderButton';
 import { PrevArrow } from '../Common/Button/SliderButton';
 import ErrorMessage from "../Common/Error/ErrorMessage";
-import { useBestSellingProductsQuery } from '../../redux/features/bestSellingProducts/bestSellingApi'
+import { useBestSellingProductsQuery } from '../../redux/features/products/productApi'
 
 const settings = {
    // dots: true,

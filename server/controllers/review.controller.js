@@ -15,7 +15,7 @@ module.exports.getSingleProductReviews = async (req, res) => {
    try {
       const { productId } = req.params;
       const reviews = await Review.find({ product: productId }).populate("user", "image name");
-      res.json({ success: true, reviews });
+      res.status(200).json({ success: true, reviews });
    } catch (err) {
       errorResponse(res, err, "SINGLE-PRODUCT-REVIEW");
    }
@@ -40,15 +40,51 @@ module.exports.createReview = async (req, res) => {
       if (!comment || !rating) {
          throw new CustomError(400, "All input fields are mandatory");
       }
-      await Review.create({
+      const review = await Review.create({
          comment,
          rating,
          user: req.user.id,
          product: id,
       });
-      res.json({ success: true, message: "Review added" });
+      res.status(200).json({ success: true, message: "Review added", review });
    } catch (err) {
       errorResponse(res, err, "REVIEW-CREATE");
+   }
+};
+
+/********************************************************************
+ * Update existing review. Only authorized users and admins have access.
+ * @name updateReview
+ * @route POST api/v1/review/update/:reviewId
+ * @param {string} req.body.comment - The comment for the review.
+ * @param {number} req.body.rating - The rating for the review.
+ * @param {Object} req.user - The authenticated user object.
+ * @param {string} req.user.id - The user ID of the authenticated user.
+ * @returns {Object} Returns a JSON object with the following properties:
+ * - success (boolean): Whether the review was successfully created.
+ * - message (string): A success message indicating that the review was added.
+ * - review (Object)
+ * @throws {CustomError} If there's an error creating the review.
+ *********************************************************************/
+module.exports.updateReview = async (req, res) => {
+   try {
+      const { reviewId } = req.params
+      const { comment, rating, id } = req.body;
+      console.log(comment, rating)
+      if (!comment || !rating) {
+         throw new CustomError(400, "All input fields are mandatory");
+      }
+      const review = await Review.findByIdAndUpdate({
+         _id: reviewId
+      }, {
+         comment,
+         rating,
+         user: req.user.id,
+         product: id,
+      });
+      res.status(200).json({ success: true, message: "Review updated", review });
+   } catch (err) {
+      errorResponse(res, err, "REVIEW-UPDATE");
    }
 };
 
@@ -64,7 +100,7 @@ module.exports.createReview = async (req, res) => {
 module.exports.getAllReviews = async (_req, res) => {
    try {
       const reviews = await Review.find().populate("user product", "image name title");
-      res.json({ success: true, reviews });
+      res.status(200).json({ success: true, reviews });
    } catch (err) {
       errorResponse(res, err, "REVIEW-ALL");
    }
@@ -110,7 +146,7 @@ module.exports.deleteSingleReview = async (req, res) => {
       if (!review) {
          throw new CustomError(404, "Review not found!");
       }
-      res.status(200).json({ success: true, message: "Review removed" });
+      res.status(200).json({ success: true, message: "Review removed", review });
    } catch (err) {
       errorResponse(res, err, "DELETE-REVIEW");
    }

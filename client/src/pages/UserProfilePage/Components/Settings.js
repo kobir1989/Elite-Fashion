@@ -3,16 +3,16 @@ import Input from '../../../components/Common/Input/Input';
 import Button from '../../../components/Common/Button/Button';
 import Typography from '../../../components/Common/Typography/Typography';
 import { useSelector, useDispatch } from "react-redux";
-import { setHasError, setUpdateSuccess } from "../../../redux/features/user/userProfileSlice";
-import { updateUserProfile } from "../../../redux/actions/userProfileAction";
+import { setHasError, setUpdateSuccess } from '../../../redux/features/user/userProfileSlice';
+import { updateUserProfile } from '../../../redux/features/user/userProfileApi';
 import toast from 'react-hot-toast';
 import styles from "../styles/Settings.module.scss";
 import { LinearProgress } from '@mui/material';
 import { Link } from "react-router-dom";
 import DragAndDrop from './DragAndDrop';
 
-const Settings = ({ resetTabValue }) => {
-   const { userProfileData, isLoading, error, updateSuccess } = useSelector(state => state.userProfile);
+const Settings = ({ resetTabValue, userProfileData }) => {
+   const { isLoading, error, updateSuccess } = useSelector(state => state.userProfile);
    const [image, setImage] = useState("");
    const [imageUrl, setImageUrl] = useState(userProfileData?.profilePic);
    const [uploadError, setUploadError] = useState(null)
@@ -28,7 +28,8 @@ const Settings = ({ resetTabValue }) => {
       setImage(acceptedFiles[0])
       setImageUrl(URL.createObjectURL(acceptedFiles[0]))
    }, []);
-   // console.log(image, "IMGH")
+
+   //onSubmit Handler
    const submitHandler = (e) => {
       e.preventDefault()
       if (phone.length < 10) {
@@ -48,7 +49,7 @@ const Settings = ({ resetTabValue }) => {
       }));
 
    };
-   console.log(updateSuccess, "UPD")
+
    useEffect(() => {
       if (updateSuccess) {
          toast.dismiss()

@@ -1,25 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosBaseUrl } from "../../utils/axios.config";
 
-export const fetchUserInfo = createAsyncThunk(
-   "userProfile/fetchUserInfo",
-   async ({ id }, { getState, rejectWithValue }) => {
-      const state = getState();
-      try {
-         const response = await axiosBaseUrl.get(`/user/profile/${id}`, {
-            headers: {
-               "Content-Type": " application/x-www-form-urlencoded",
-               "Authorization": `Bearer ${state.auth.token}`
-            }
-         });
-         return response?.data?.user;
-      } catch (error) {
-         // console.log(error.response.status);
-         return rejectWithValue(error);
-      }
-   }
-);
-
 export const updateUserProfile = createAsyncThunk(
    "userProfile/updateUserProfile",
    async ({ id, name, phone, address, email, city, image }, { getState, rejectWithValue }) => {

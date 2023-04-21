@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PageLayout from "../../layouts/PageLayout";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSubCategory } from "../../redux/actions/subCategoryAction";
 import ErrorMessage from '../../components/Common/Error/ErrorMessage';
 import GridViewLayout from '../../layouts/GridViewLayout';
 import CardSkeleton from '../../components/Common/Skeleton/CardSkeleton';
@@ -11,27 +10,19 @@ import CardBanner from '../../components/Common/Banner/CardBanner';
 import styles from "./styles/SubCategoryPage.module.scss";
 import Pagination from "../../components/Pagenation/Pagination";
 import { setSubCategoryPage } from "../../redux/features/subCategory/subCategorySlice";
+import { useGetSubCategoriesQuery } from '../../redux/features/subCategory/subCategoryApi';
 
 const SubCategoryPage = () => {
-   const {
-      isLoading,
-      subCategories,
-      pagination,
-      error,
-      page
-   } = useSelector(state => state.subCategory);
+   const { page } = useSelector(state => state.subCategory);
    const dispatch = useDispatch()
    const { id } = useParams();
-   // console.log(id, "IDDDDDD")
-   useEffect(() => {
-      dispatch(fetchSubCategory(`sub-category/related/${id}?page=${page}&limit=7`))
-   }, [id, page, dispatch])
+   const { data: subCategories, isLoading, isError } = useGetSubCategoriesQuery({ id, page })
 
    const subCategoryPaginationHandler = (pageCount) => {
       dispatch(setSubCategoryPage(pageCount))
       // console.log(pageCount, "PAGE")
    }
-   console.log(isLoading, "LOAD")
+
    return (
       <PageLayout>
          <div className={styles.discount_banner}>
@@ -42,9 +33,9 @@ const SubCategoryPage = () => {
                position={"left"}
                linkTo={"/products/63b993f04548043f8e798be4"} />
          </div>
-         {error && <ErrorMessage />}
+         {isError && <ErrorMessage />}
          <GridViewLayout page={"sub_category"}>
-            {subCategories && subCategories.length ? subCategories.map((subCtg) => (
+            {!isLoading && !isError && subCategories?.subCategory?.length > 0 ? subCategories?.subCategory.map((subCtg) => (
                <CategoryCard
                   title={subCtg?.name}
                   imgUrl={subCtg?.image}
@@ -63,7 +54,7 @@ const SubCategoryPage = () => {
          <Pagination
             page={page}
             paginationHandler={subCategoryPaginationHandler}
-            api={pagination}
+            pagination={subCategories?.pagination}
          />
       </PageLayout>
    )

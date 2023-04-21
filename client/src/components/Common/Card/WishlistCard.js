@@ -58,7 +58,7 @@ const WishlistCard = ({ showCross = true }) => {
                < Typography
                   color={"red"}
                   variant={"body"}>
-                  You don't have any wishlists yet!
+                  Looks like you haven't created any wishlists yet. Why not start now and save your favorite products for later?
                </Typography>
             }
          </div>

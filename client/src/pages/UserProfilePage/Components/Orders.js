@@ -8,7 +8,7 @@ const Orders = ({ userOrderData }) => {
       <div>
          <div>
             <Typography variant={"h4"}>Order History</Typography>
-            {userOrderData && userOrderData.length ? userOrderData.map((item) => (
+            {userOrderData.length > 0 ? userOrderData.map((item) => (
                <div className={styles.order_products} key={item?.id}>
                   <div className={styles.order_date_status}>
                      <Typography variant={"body"}>
@@ -43,7 +43,7 @@ const Orders = ({ userOrderData }) => {
                      </Typography>
                   </div>
                </div>
-            )) : null}
+            )) : <Typography variant='body' color='red'>It looks like you haven't placed any orders yet. Start shopping now and take advantage of our great deals and discounts!</Typography>}
          </div>
       </div>
    )

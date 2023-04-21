@@ -1,5 +1,5 @@
-@import "../../sass/sass-utils/colors";
-@import "../../sass/sass-utils/mixins";
+@import '../../sass/sass-utils/colors';
+@import '../../sass/sass-utils/mixins';
 
 .search_popup_wrapper {
 	height: 25rem;
@@ -58,5 +58,10 @@
 	}
 	.error_message {
 		text-align: center;
+	}
+	.chip_wrapper {
+		@include flex-row;
+		flex-wrap: wrap;
+		gap: 0.7rem;
 	}
 }

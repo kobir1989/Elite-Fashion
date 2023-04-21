@@ -51,6 +51,7 @@ module.exports.userProfile = async (req, res) => {
 module.exports.updateUserProfile = async (req, res) => {
    try {
       const { email, name, phone, address, city } = req.body;
+
       if (!email || !name || !phone || !address || !city) {
          throw new CustomError(400, "All fields are mandatory")
       }

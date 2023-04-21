@@ -11,7 +11,6 @@ import stepsReducer from "../features/paymentSteps/stepsSlice";
 import checkoutReducer from "../features/checkout/checkoutSlice";
 import userProfileReducer from "../features/user/userProfileSlice";
 import searchReducer from "../features/search/searchSlice";
-import reviewReducer from "../features/reviews/reviewSlice";
 import { apiSlice } from '../api/apiSlice';
 
 const reducers = combineReducers({
@@ -24,7 +23,6 @@ const reducers = combineReducers({
    checkout: checkoutReducer,
    userProfile: userProfileReducer,
    search: searchReducer,
-   review: reviewReducer,
    [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
@@ -39,7 +37,6 @@ const persistConfig = {
       "order",
       "userProfile",
       "search",
-      "review"
    ]
 }
 
