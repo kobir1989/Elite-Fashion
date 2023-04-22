@@ -13,7 +13,7 @@ const messagesSchame = new Schema({
     type: Schema.Types.ObjectId,
     ref: "ChatRoom",
   },
-  content: {
+  message: {
     type: String,
     required: [true, "Message are reqired!"],
     trim: true

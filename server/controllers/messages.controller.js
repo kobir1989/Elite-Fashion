@@ -1,20 +1,26 @@
 const Message = require("../models/messages.schama");
+const ChatRoom = require("../models/chatRoom.schema")
 const errorResponse = require("../helper/errorResponse");
 const CustomError = require("../helper/customError")
 
 module.exports.addMessage = async (req, res) => {
   try {
-    const { content, chatRoom, sender, receiver } = req.body;
-    if (!content || !chatRoom || !sender || !receiver) {
+    const { chatRoomId } = req.params;
+    const { message, sender, receiver } = req.body;
+    if (!message || !chatRoomId || !sender || !receiver) {
       throw new CustomError(400, "All the feilds are mandatory", "message")
     };
-    const message = await Message.create({
-      content,
-      chatRoom,
+    const newMessage = await Message.create({
+      message,
+      chatRoom: chatRoomId,
       sender,
       receiver
     })
-    return res.status(201).json({ success: true, message })
+    await ChatRoom.updateOne(
+      { _id: chatRoomId },
+      { $push: { messages: newMessage._id } }
+    );
+    return res.status(201).json({ success: true, newMessage })
   } catch (err) {
     errorResponse(res, err, "ADD-MESSAGE")
   }

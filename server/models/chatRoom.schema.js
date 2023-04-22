@@ -1,9 +1,15 @@
 const { Schema, model } = require("mongoose");
 
 const chatRoomSchema = new Schema({
-  participants: {
-    type: Array,
-    required: [true, "Participants are required!"]
+  admin: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
   messages: [{ type: Schema.Types.ObjectId, ref: "Message" }]
 },
@@ -11,6 +17,7 @@ const chatRoomSchema = new Schema({
     timestamps: true
   }
 );
+
 chatRoomSchema.index({ updatedAt: -1 });
 const ChatRoom = model("ChatRoom", chatRoomSchema);
 module.exports = ChatRoom;

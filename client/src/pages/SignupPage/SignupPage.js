@@ -56,7 +56,8 @@ const SignupPage = () => {
          toast.dismiss()
          toast.success("Welcome! You've successfully signed up")
       }
-   }, [signupResponse?.token, navigate])
+      // eslint-disable-next-line
+   }, [signupResponse?.token, navigate, isError])
 
    return (
       <PageLaout>
