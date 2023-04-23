@@ -29,7 +29,10 @@ module.exports.addMessage = async (req, res) => {
 module.exports.getMessages = async (req, res) => {
   try {
     const { chatRoomId } = req.params;
-    const messages = await Message.find({ chatRoom: chatRoomId })
+    const messages = await Message.find({ chatRoom: chatRoomId }).populate({
+      path: 'sender',
+      select: 'name email image'
+    })
     if (!messages) {
       throw new CustomError(404, "Messages not found!", "Message")
     };

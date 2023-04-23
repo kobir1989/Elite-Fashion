@@ -27,10 +27,21 @@ module.exports.addChatRoom = async (req, res) => {
 
 module.exports.getChatRooms = async (req, res) => {
   try {
-    const chatRooms = await ChatRoom.find();
+    const chatRooms = await ChatRoom.find().populate({
+      path: 'messages',
+      options: {
+        sort: { timestamp: -1 },
+        limit: 1
+      },
+      populate: {
+        path: 'sender',
+        select: 'name email image'
+      }
+    });
     if (!chatRooms) {
       throw new CustomError(400, "No Chat Room found!")
     };
+
     return res.status(200).json({ success: true, chatRooms })
   } catch (err) {
     errorResponse(res, err, "GET-CHAT-ROOMS")

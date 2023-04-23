@@ -45,7 +45,7 @@ const ChatPopup = ({ onCloseHandler }) => {
     }
   }, [chatRoom?._id, isSuccess])
 
-  //Sorting the conversation array to show the latest message. 
+  //Sorting the conversation array to show the latest message
   const sortedMessages = conversation?.messages.slice().sort((a, b) => new Date(b?.createdAt) - new Date(a?.createdAt))
 
   return (
