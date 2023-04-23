@@ -18,11 +18,10 @@ const ChatPopup = ({ onCloseHandler }) => {
     {
       refetchOnMountOrArgChange: true
     });
-  const { data: conversation, isLoading, isError } = useGetConversationQuery(chatRoom?._id, {
+  const { data: conversation, isLoading, isError, isSuccess } = useGetConversationQuery(chatRoom?._id, {
     refetchOnMountOrArgChange: true,
     skip: skipConversation
   })
-
 
   //onSubmit handler
   const handleSubmit = (e) => {
@@ -44,7 +43,11 @@ const ChatPopup = ({ onCloseHandler }) => {
     if (chatRoom?._id) {
       setSkipConversation(false)
     }
-  }, [chatRoom?._id])
+  }, [chatRoom?._id, isSuccess])
+
+  //Sorting the conversation array to show the latest message. 
+  const sortedMessages = conversation?.messages.slice().sort((a, b) => new Date(b?.createdAt) - new Date(a?.createdAt))
+
   return (
     <Modal onClose={onCloseHandler}>
       <div className={styles.chat_modal_wrapper}>
@@ -57,14 +60,9 @@ const ChatPopup = ({ onCloseHandler }) => {
         {/*chat body */}
         <div className={styles.chat_body_container}>
           <div className={styles.conversation_wrapper}>
-            <MessageListItem
-              isSender={false}
-              message="Welcome to Elite Fashion! We're here to help you find what you're looking for and make your shopping experience as smooth as possible. Ask us anything!"
-              time={Date.now()}
-            />
-            {!isError && !isLoading && conversation?.messages?.length > 0 && conversation?.messages.map((message) => (
+            {!isError && !isLoading && sortedMessages?.length > 0 && sortedMessages.map((message) => (
               <MessageListItem
-                isSender={userInfo?._id === message?.sender ? true : false}
+                isSender={userInfo?._id === message?.sender?._id || userInfo?._id === message?.sender ? true : false}
                 message={message?.message}
                 time={message?.createdAt}
                 key={message?._id}

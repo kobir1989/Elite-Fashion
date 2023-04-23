@@ -38,7 +38,6 @@ const PageLayout = (props) => {
    //if userId is available and createChatRoom hsas success response then unskip the chatRoom query. 
    useEffect(() => {
       if (userInfo?._id || isSuccess) {
-         console.log(userInfo?._id, "RUNS")
          setSkipChatRoom(false)
       }
    }, [userInfo?._id, isSuccess])

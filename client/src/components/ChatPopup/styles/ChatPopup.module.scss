@@ -55,9 +55,10 @@
 		padding: 1rem 2rem;
 		.conversation_wrapper {
 			@include flex-col;
+			flex-direction: column-reverse;
 			gap: 1rem;
 			height: 74%;
-			overflow-y: scroll;
+			overflow-y: auto;
 		}
 		.message_form_wrapper {
 			position: absolute;
