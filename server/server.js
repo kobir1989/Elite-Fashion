@@ -19,11 +19,23 @@ const mongoose = require("mongoose");
          console.log(`Server is Up and Running on Port:${config.PORT}`);
       };
       const server = app.listen(config.PORT, onListining);
-      const io = require("./helper/socket").init(server);
-      io.on("connection", socket => {
-         console.log("Client Connect")
-      });
 
+      //Socket.io
+      const io = require("./helper/socket").init(server, {
+         cors: {
+            origin: '*',
+            methods: ['GET', 'POST'],
+            allowedHeaders: ['Content-Type'],
+         }
+      });
+      io.on("connection", socket => {
+         console.log(`User ${socket.id} connected`);
+
+         // Listen for disconnections
+         socket.on('disconnect', () => {
+            console.log(`User ${socket.id} disconnected`);
+         });
+      });
 
    } catch (error) {
       console.log("connection failed");

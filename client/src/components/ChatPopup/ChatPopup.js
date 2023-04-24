@@ -2,51 +2,50 @@ import React, { useEffect, useState } from 'react'
 import Modal from '../Common/Modal/Modal';
 import styles from './styles/ChatPopup.module.scss';
 import Typography from '../Common/Typography/Typography';
-import Icons from '../Common/Icons/Icons';
-import Button from '../Common/Button/Button';
 import MessageListItem from './Components/MessageListItem';
-import { useNewMessageMutation, useGetChatRoomQuery, useGetConversationQuery } from '../../redux/features/chat/chatApi';
+import { useGetChatRoomQuery, useGetConversationQuery } from '../../redux/features/chat/chatApi';
 import { useSelector } from 'react-redux';
+import MessageForm from './Components/MessageForm';
+import { socket } from '../../socket';
 
 const ChatPopup = ({ onCloseHandler }) => {
-  const [skipConversation, setSkipConversation] = useState(true)
-  const [message, setMessage] = useState('');
-  const { userInfo } = useSelector(state => state?.auth)
-  const [newMessage] = useNewMessageMutation()
+  const [skipConversation, setSkipConversation] = useState(true);
+  const [updatedMessages, setUpdatedMessages] = useState([]);
+  const { userInfo } = useSelector(state => state?.auth);
+
+  //chat room query
   const { data: [chatRoom] = [] } = useGetChatRoomQuery(
     { userId: userInfo?._id },
     {
       refetchOnMountOrArgChange: true
     });
+
+  //conversation query
   const { data: conversation, isLoading, isError, isSuccess } = useGetConversationQuery(chatRoom?._id, {
     refetchOnMountOrArgChange: true,
     skip: skipConversation
   })
 
-  //onSubmit handler
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    newMessage(
-      {
-        roomId: chatRoom?._id,
-        data: {
-          message,
-          sender: userInfo?._id,
-          receiver: '63fa2849be7d427bf4c9b164'
-        }
-      }
-    )
-    setMessage('')
-  }
-
+  //if chat room has id property then conversation query will be unSkiped
   useEffect(() => {
     if (chatRoom?._id) {
       setSkipConversation(false)
     }
+    if (isSuccess) {
+      setUpdatedMessages(conversation?.messages)
+    }
   }, [chatRoom?._id, isSuccess])
 
+
+  //Socket real-time chat 
+  useEffect(() => {
+    socket.on('message', (message) => {
+      setUpdatedMessages(prevMsgs => [...prevMsgs, message])
+    })
+  }, [])
+
   //Sorting the conversation array to show the latest message
-  const sortedMessages = conversation?.messages.slice().sort((a, b) => new Date(b?.createdAt) - new Date(a?.createdAt))
+  const sortedMessages = updatedMessages.slice().sort((a, b) => new Date(b?.createdAt) - new Date(a?.createdAt))
 
   return (
     <Modal onClose={onCloseHandler}>
@@ -69,26 +68,10 @@ const ChatPopup = ({ onCloseHandler }) => {
               />
             ))}
           </div>
-          <div className={styles.message_form_wrapper}>
-            <form onSubmit={handleSubmit}>
-              <input
-                type='text'
-                name='message'
-                placeholder='Message'
-                required
-                autoComplete='off'
-                value={message}
-                onChange={(e) => { setMessage(e.target.value) }}
-              />
-              <Button variant='icon-btn-normal' type='submit'>
-                <Icons name='sendIcon' />
-              </Button>
-            </form>
-          </div>
+          <MessageForm roomId={chatRoom?._id} />
         </div>
       </div>
     </Modal>
-
   )
 }
 
