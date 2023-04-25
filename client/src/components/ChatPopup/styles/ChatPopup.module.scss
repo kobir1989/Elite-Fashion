@@ -52,8 +52,8 @@
 	.chat_body_container {
 		width: 100%;
 		height: 100%;
-		padding: 1rem 2rem;
 		.conversation_wrapper {
+			padding: 1rem 2rem;
 			@include flex-col;
 			flex-direction: column-reverse;
 			gap: 1rem;

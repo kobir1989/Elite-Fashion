@@ -44,16 +44,13 @@ const { init } = require("./helper/socket");
          console.log("a user connected.");
          // take userId from user
          socket.on("addUser", (userId) => {
-            console.log(userId, "USER-ID")
             addUser(userId, socket?.id);
             io.emit("getUsers", users);
          });
 
          // send and get message
          socket.on("sendMessage", ({ sender, receiver, message }) => {
-            console.log(receiver, "RECEVER-BODY")
             const user = getUser(receiver)
-            console.log(user?.socketId, "RECEVER")
             io.to(user?.socketId).emit("getMessage", {
                sender,
                message,
