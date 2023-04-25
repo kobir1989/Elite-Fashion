@@ -9,5 +9,6 @@ export const socket = io(URL, {
   agent: false,
   upgrade: false,
   rejectUnauthorized: true,
+
 });
-console.log(socket)
+

@@ -5,6 +5,6 @@ const { isAuthenticated } = require('../middlewares/authMiddleware')
 route.get("/chat-rooms/all", isAuthenticated, getChatRooms);
 route.get("/chat-room/:userId", isAuthenticated, getChatRoomByUserId);
 
-route.post("/create/chat-room", isAuthenticated, addChatRoom);
+route.post("/create/chat-room", addChatRoom);
 
 module.exports = route;

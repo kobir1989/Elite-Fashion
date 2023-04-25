@@ -9,8 +9,6 @@ import MessageForm from './Components/MessageForm';
 import { socket } from '../../socket';
 
 const ChatPopup = ({ onCloseHandler }) => {
-  const [skipConversation, setSkipConversation] = useState(true);
-  const [updatedMessages, setUpdatedMessages] = useState([]);
   const { userInfo } = useSelector(state => state?.auth);
 
   //chat room query
@@ -19,33 +17,23 @@ const ChatPopup = ({ onCloseHandler }) => {
     {
       refetchOnMountOrArgChange: true
     });
-
   //conversation query
-  const { data: conversation, isLoading, isError, isSuccess } = useGetConversationQuery(chatRoom?._id, {
+  const { data: conversation } = useGetConversationQuery(chatRoom?._id, {
     refetchOnMountOrArgChange: true,
-    skip: skipConversation
   })
 
-  //if chat room has id property then conversation query will be unSkiped
+  // listen for incoming messages
   useEffect(() => {
-    if (chatRoom?._id) {
-      setSkipConversation(false)
-    }
-    if (isSuccess) {
-      setUpdatedMessages(conversation?.messages)
-    }
-  }, [chatRoom?._id, isSuccess])
-
-
-  //Socket real-time chat 
-  useEffect(() => {
-    socket.on('message', (message) => {
-      setUpdatedMessages(prevMsgs => [...prevMsgs, message])
-    })
+    socket.on("getMessage", (message) => {
+      console.log(message, 'SOCKET_CLIENT_MESSAGE')
+      conversation.push(message)
+    });
+    // clean up event listener
+    return () => socket.off("getMessage");
   }, [])
 
   //Sorting the conversation array to show the latest message
-  const sortedMessages = updatedMessages.slice().sort((a, b) => new Date(b?.createdAt) - new Date(a?.createdAt))
+  const sortedMessages = conversation?.messages.slice().sort((a, b) => new Date(b?.createdAt) - new Date(a?.createdAt))
 
   return (
     <Modal onClose={onCloseHandler}>
@@ -59,7 +47,7 @@ const ChatPopup = ({ onCloseHandler }) => {
         {/*chat body */}
         <div className={styles.chat_body_container}>
           <div className={styles.conversation_wrapper}>
-            {!isError && !isLoading && sortedMessages?.length > 0 && sortedMessages.map((message) => (
+            {sortedMessages?.length > 0 && sortedMessages.map((message) => (
               <MessageListItem
                 isSender={userInfo?._id === message?.sender?._id || userInfo?._id === message?.sender ? true : false}
                 message={message?.message}

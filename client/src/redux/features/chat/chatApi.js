@@ -12,15 +12,18 @@ export const chatApi = apiSlice.injectEndpoints({
     getChatRoom: builder.query({
       query: ({ userId }) => `/chat-room/${userId}`,
     }),
+
     getConversation: builder.query({
       query: (roomId) => `/messages/${roomId}`
     }),
+
     newMessage: builder.mutation({
       query: ({ roomId, data }) => ({
         url: `/new/message/${roomId}`,
         method: 'POST',
         body: data
       }),
+
       // pessimistic update the cache.
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {

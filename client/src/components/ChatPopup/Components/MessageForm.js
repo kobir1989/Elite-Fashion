@@ -28,7 +28,8 @@ const MessageForm = ({ roomId }) => {
     const data = {
       message,
       sender: userInfo?._id,
-      receiver: '63fa2849be7d427bf4c9b164'
+      receiver: '6447bc104c9e16aa57d722ce',
+      roomId,
     }
     newMessage(
       {
@@ -36,9 +37,9 @@ const MessageForm = ({ roomId }) => {
         data: data
       }
     )
+    socket.emit("sendMessage", data);
     setMessage('')
     setToggleEmoji(false)
-    socket.emit('message', data)
   }
 
 

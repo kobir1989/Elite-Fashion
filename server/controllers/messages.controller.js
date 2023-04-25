@@ -2,7 +2,6 @@ const Message = require("../models/messages.schama");
 const ChatRoom = require("../models/chatRoom.schema")
 const errorResponse = require("../helper/errorResponse");
 const CustomError = require("../helper/customError");
-const io = require("../helper/socket");
 
 module.exports.addMessage = async (req, res) => {
   try {
@@ -21,11 +20,8 @@ module.exports.addMessage = async (req, res) => {
       { _id: chatRoomId },
       { $push: { messages: newMessage._id } }
     );
-    // Send message only to the receiver
-    io.getIo().emit("message", newMessage)
     return res.status(201).json({ success: true, newMessage })
   } catch (err) {
-    console.log(err)
     errorResponse(res, err, "ADD-MESSAGE")
   }
 }
@@ -42,7 +38,6 @@ module.exports.getMessages = async (req, res) => {
     };
     return res.status(200).json({ success: true, messages })
   } catch (err) {
-    console.log(err)
     errorResponse(res, err, "GET-MESSAGES")
   }
 } 
