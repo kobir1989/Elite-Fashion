@@ -37,6 +37,9 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import ChatIcon from '@mui/icons-material/Chat';
+import SendIcon from '@mui/icons-material/Send';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 
 const icons = {
    search: SearchIcon,
@@ -76,7 +79,10 @@ const icons = {
    loveFilled: FavoriteIcon,
    camera: CameraAltIcon,
    uploadIcon: DriveFolderUploadIcon,
-   moreOptions: MoreVertIcon
+   moreOptions: MoreVertIcon,
+   chatIcon: ChatIcon,
+   sendIcon: SendIcon,
+   emoji: SentimentSatisfiedAltIcon
 }
 
 const Icons = React.forwardRef((props, ref) => {

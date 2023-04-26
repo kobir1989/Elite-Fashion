@@ -12,10 +12,13 @@ import { logout } from "../../redux/features/auth/authSlice";
 import { AnimatePresence, motion } from "framer-motion";
 import { setSubCategoryPage } from "../../redux/features/subCategory/subCategorySlice";
 import { setProductPage } from "../../redux/features/products/productsSlice";
-import { useLogoutRequestQuery } from '../../redux/features/auth/authApi'
+import { useLogoutRequestQuery } from '../../redux/features/auth/authApi';
+import { toggleChatModal } from '../../redux/features/chat/chatSlice';
+import { socket } from '../../socket';
 
 const Navbar = () => {
    const [openDropdown, setOpenDropdown] = useState(false);
+   const [isMessage, setIsMessage] = useState(0)
    const { userInfo } = useSelector(state => state.auth);
    const dropdownRef = useRef(null);
    const { wishListItem, toggleWishList } = useSelector(state => state.wishList);
@@ -50,6 +53,17 @@ const Navbar = () => {
          window.removeEventListener('click', handleClickOutside);
       };
    }, [openDropdown]);
+
+   // listen for incoming messages
+   useEffect(() => {
+      socket.on("getMessage", (message) => {
+         if (message) {
+            setIsMessage(prev => prev + 1)
+         }
+      });
+      // clean up event listener
+      return () => socket.off("getMessage");
+   }, [])
 
    return (
       <nav className={styles.nav_wrapper}>
@@ -152,6 +166,15 @@ const Navbar = () => {
                      }
                   </AnimatePresence>
                </div>
+               <div className={styles.chat_popup_button}>
+                  <Button variant={"icon-btn-normal"}
+                     onClick={() => { dispatch(toggleChatModal()) }}>
+                     <Icons name={"chatIcon"} size={"1.5rem"} />
+                     <span className={styles.message_count}>
+                        {isMessage}
+                     </span>
+                  </Button>
+               </div>
                <div className={styles.wish_list_btn_wrapper}>
                   <Button variant={"icon-btn-normal"}
                      onClick={() => { dispatch(setToggleWishList(!toggleWishList)) }}>
@@ -181,10 +204,12 @@ const Navbar = () => {
             quantity={quantity}
             logoutHandler={logoutHandler}
             resetSubCategory={resetPageState}
+            toggleChatModal={toggleChatModal}
+            isMessage={isMessage}
 
          />
          {/*********************************/}
-      </nav>
+      </nav >
    )
 }
 

@@ -70,7 +70,6 @@ module.exports.updateReview = async (req, res) => {
    try {
       const { reviewId } = req.params
       const { comment, rating, id } = req.body;
-      console.log(comment, rating)
       if (!comment || !rating) {
          throw new CustomError(400, "All input fields are mandatory");
       }

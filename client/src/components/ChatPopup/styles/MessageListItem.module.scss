@@ -1,0 +1,64 @@
+@import '../../../sass/sass-utils/colors';
+@import '../../../sass/sass-utils/mixins';
+
+.message_list_wapper_start {
+	width: 100%;
+	@include flex-col;
+	align-items: flex-start;
+	gap: 0.3rem;
+	justify-content: flex-start;
+	text-align: start;
+}
+
+.message_list_wapper_end {
+	width: 100%;
+	@include flex-col;
+	justify-content: flex-end;
+	align-items: flex-end;
+	gap: 0.3rem;
+}
+
+.message_wrapper_red {
+	background-color: rgba(181, 205, 250, 0.4);
+	padding: 0.1rem 1rem;
+	border-radius: 0.8rem 0.8rem 0.8rem 0;
+	max-width: 100%;
+	text-align: start;
+	@include screens-md {
+		max-width: 40%;
+	}
+	p {
+		color: $black_main;
+		font-size: 0.8rem;
+	}
+}
+
+.message_wrapper_blue {
+	background-color: #6463fb;
+	padding: 0.1rem 1rem;
+	border-radius: 0.8rem 0.8rem 0 0.8rem;
+	max-width: 100%;
+	text-align: start;
+	@include screens-md {
+		max-width: 40%;
+	}
+	p {
+		color: $white;
+		font-size: 0.8rem;
+	}
+}
+
+.message_time {
+	max-width: 100%;
+	padding-left: 0.2rem;
+	color: #e1e1e1;
+	@include screens-md {
+		max-width: 40%;
+	}
+	p {
+		font-size: 0.68rem;
+		color: $gray;
+		font-weight: 300;
+		font-family: sans-serif;
+	}
+}

@@ -20,7 +20,6 @@ const ForgetPasswordPage = () => {
    //Form submit Handler
    const formSubmitHandler = (e) => {
       e.preventDefault()
-      console.log(email)
       forgetPassword({ email })
    }
 

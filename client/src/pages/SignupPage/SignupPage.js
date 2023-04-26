@@ -4,7 +4,8 @@ import AuthFormLayout from '../../layouts/AuthFormLayout';
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
 import SignupForm from './Components/SignupForm';
-import { useSignupMutation } from '../../redux/features/auth/authApi'
+import { useSignupMutation } from '../../redux/features/auth/authApi';
+import { useCreateChatRoomMutation } from '../../redux/features/chat/chatApi'
 
 //default sign-up state value
 const defaulSignupValue = {
@@ -20,7 +21,10 @@ const SignupPage = () => {
    const { firstName, lastName, email, password, confirmPassword } = inputData;
    const [error, setError] = useState(null)
    const [signup, { data: signupResponse, isError, isLoading, error: signupError }] = useSignupMutation();
+
    const navigate = useNavigate()
+   const [createChatRoom, { isSuccess }] = useCreateChatRoomMutation()
+
 
    //onChange handler
    const onChangeHandler = (e) => {
@@ -43,6 +47,7 @@ const SignupPage = () => {
          }
       };
       signup(inputData)
+      //Create new chat room for the new user.
    };
 
    //catching error and success state to update the UI.
@@ -55,8 +60,10 @@ const SignupPage = () => {
          setInputData(defaulSignupValue);
          toast.dismiss()
          toast.success("Welcome! You've successfully signed up")
+         createChatRoom({ user: signupResponse?.userPayload?._id, admin: '63fa2849be7d427bf4c9b164' })
       }
-   }, [signupResponse?.token, navigate])
+      // eslint-disable-next-line
+   }, [signupResponse?.token, navigate, isError])
 
    return (
       <PageLaout>

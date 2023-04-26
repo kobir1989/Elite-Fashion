@@ -12,6 +12,7 @@ import checkoutReducer from "../features/checkout/checkoutSlice";
 import userProfileReducer from "../features/user/userProfileSlice";
 import searchReducer from "../features/search/searchSlice";
 import { apiSlice } from '../api/apiSlice';
+import chatReducer from '../features/chat/chatSlice';
 
 const reducers = combineReducers({
    subCategory: subCategoryReducer,
@@ -23,6 +24,7 @@ const reducers = combineReducers({
    checkout: checkoutReducer,
    userProfile: userProfileReducer,
    search: searchReducer,
+   chat: chatReducer,
    [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
@@ -37,6 +39,7 @@ const persistConfig = {
       "order",
       "userProfile",
       "search",
+      "chat"
    ]
 }
 

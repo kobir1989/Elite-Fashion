@@ -1,17 +1,24 @@
 //Socket io implimentation
 const CustomError = require("./customError");
+const socketIo = require("socket.io");
 
 let io;
 
 module.exports = {
-   init: httpServer => {
-      io = require("socket.io")(httpServer)
-      return io
+   init: (server) => {
+      io = socketIo(server, {
+         cors: {
+            origin: '*',
+            methods: ['GET', 'POST'],
+            allowedHeaders: ['Content-Type'],
+         }
+      });
+      return io;
    },
-   getIo: () => {
+   getIO: () => {
       if (!io) {
-         throw new CustomError(404, "Socket.io is not initialized!")
+         throw new CustomError(400, "Socket.IO not initialized!");
       }
       return io;
    }
-}
+};

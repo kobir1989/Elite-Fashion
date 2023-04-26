@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { setOpenSearchBox } from "../../redux/features/search/searchSlice";
 import { motion, AnimatePresence } from "framer-motion";
 
+
 const MobileNav = (
    {
       toggleWishList,
@@ -16,8 +17,8 @@ const MobileNav = (
       quantity,
       logoutHandler,
       resetSubCategory,
-      profilePic
-
+      toggleChatModal,
+      isMessage
    }) => {
 
    const [openMenu, setOpenMenu] = useState(false);
@@ -25,6 +26,15 @@ const MobileNav = (
    return (
       <div className={styles.nav_menu_mobile}>
          <div className={styles.nav_menu_mobile_btn}>
+            <div className={styles.chat_popup_button}>
+               <Button variant={"icon-btn-normal"}
+                  onClick={() => { dispatch(toggleChatModal()) }}>
+                  <Icons name={"chatIcon"} size={"1.5rem"} />
+                  <span className={styles.message_count}>
+                     {isMessage}
+                  </span>
+               </Button>
+            </div>
             <div className={styles.wish_list_btn_wrapper}>
                <Button variant={"icon-btn-normal"}
                   onClick={() => { dispatch(setToggleWishList(!toggleWishList)) }}>

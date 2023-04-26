@@ -60,7 +60,7 @@ const SignupForm = ({
             </div>
             <div>
                <Input
-                  error={(error?.name === "firstName") || (error?.name === "name") ? true : false}
+                  error={(error?.name === "email") || (error?.name === "name") ? true : false}
                   required={true}
                   type={"email"}
                   label={"Email"}
@@ -69,7 +69,7 @@ const SignupForm = ({
                   onChange={onChangeHandler}
                   value={email}
                   size={"small"}
-                  helperText={(error?.name === "firstName") || (error?.name === "name") ? error.message : ""}
+                  helperText={(error?.name === "email") || (error?.name === "name") ? error.message : ""}
                />
             </div>
             <div className={styles.password_input_wrapper}>

@@ -14,6 +14,8 @@ const fileUpload = require("express-fileupload");
 const searchRoute = require("./routes/search.route");
 const adminAnalyticsRoute = require("./routes/adminAnalytics.route");
 const reviewRoute = require("./routes/review.routes");
+const messageRoute = require("./routes/message.route");
+const chatRoomRoute = require("./routes/chatRoom.route");
 
 app.use(morgan("tiny"));
 app.use(cors({
@@ -42,5 +44,8 @@ app.use("/api/v1", searchRoute)
 app.use("/api/v1", userRoute);
 app.use("/api/v1", adminAnalyticsRoute);
 app.use("/api/v1", reviewRoute);
+app.use("/api/v1", messageRoute);
+app.use("/api/v1", chatRoomRoute);
+
 
 module.exports = app;
