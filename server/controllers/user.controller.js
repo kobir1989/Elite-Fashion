@@ -60,7 +60,6 @@ module.exports.updateUserProfile = async (req, res) => {
       if (!user) {
          throw new CustomError(404, "User not found", "email")
       }
-      console.log(req.image, "URL")
       user.email = email;
       user.name = name;
       user.phone = phone;
@@ -116,7 +115,6 @@ module.exports.allUserProfiles = async (_req, res) => {
 module.exports.updateAdminProfile = async (req, res) => {
    try {
       const { email, name } = req.body;
-      console.log(req.body)
       if (!email || !name) {
          throw new CustomError(400, "All fields are mandatory")
       }

@@ -30,7 +30,7 @@ const { init } = require("./helper/socket");
          !users.some((user) => user.id === userId) &&
             users.push({ userId, socketId });
       };
-      console.log(users)
+      // console.log(users)
       const removeUser = (socketId) => {
          users = users.filter((user) => user.socketId !== socketId);
       };
@@ -49,12 +49,13 @@ const { init } = require("./helper/socket");
          });
 
          // send and get message
-         socket.on("sendMessage", ({ sender, receiver, message }) => {
+         socket.on("sendMessage", ({ sender, receiver, message, roomId }) => {
             const user = getUser(receiver)
             io.to(user?.socketId).emit("getMessage", {
                sender,
                message,
                receiver,
+               chatRoom: roomId,
                createdAt: new Date()
             });
          });

@@ -1,5 +1,5 @@
-@import "../../../sass/sass-utils/colors";
-@import "../../../sass//sass-utils/mixins";
+@import '../../../sass/sass-utils/colors';
+@import '../../../sass//sass-utils/mixins';
 
 .nav_wrapper {
 	position: fixed;
@@ -25,8 +25,8 @@
 			height: 4.5rem;
 		}
 		&_logo {
-			width: 10rem;
-			height: 1.9rem;
+			width: 8rem;
+			height: 1.43rem;
 			@include screens-lg {
 				width: 14rem;
 				height: 2.2rem;
@@ -34,6 +34,7 @@
 			img {
 				width: 100%;
 				height: 100%;
+				object-fit: contain;
 			}
 		}
 		&_links {
@@ -58,8 +59,15 @@
 			@include screens-lg {
 				@include flex-row;
 				align-items: center;
-				gap: 1.5rem;
+				justify-content: center;
+				gap: 1.2rem;
+				button {
+					padding: 0;
+					@include flex-col-center;
+					justify-content: center;
+				}
 			}
+
 			.user_profile_btn {
 				position: relative;
 				.bgscreen_dropdown {
@@ -126,7 +134,6 @@
 						width: 100%;
 						color: $gray_text;
 						cursor: pointer;
-						// color: $light_gray;
 						@include flex-row-center;
 						gap: 0.4rem;
 						button {
@@ -153,10 +160,13 @@
 				width: 2rem;
 				height: 2rem;
 				border-radius: 50%;
+				@include flex-col;
+				justify-content: center;
 				p {
 					color: $red_main;
 					text-transform: uppercase;
 					font-weight: 700;
+					line-height: 0.85;
 				}
 			}
 		}
@@ -169,10 +179,9 @@
 	.cart_item_count {
 		color: $white;
 		font-weight: 700;
-		font-size: 0.8rem;
+		font-size: 0.7rem;
 		background-color: $red_main;
-		width: 1.2rem;
-		height: 1.2rem;
+		padding: 0.3rem 0.34rem;
 		border-radius: 12px;
 		@include box-shadow-diffuse;
 		@include flex-col-center;
@@ -180,15 +189,32 @@
 	}
 	.wish_list_count {
 		position: absolute;
-		right: -0.4rem;
+		right: -0.6rem;
 		top: -0.2rem;
+		line-height: 0.7;
 	}
 	.cart_item_count {
 		position: absolute;
-		right: -0.7rem;
-		top: -0.3rem;
+		right: -0.6rem;
+		top: -0.1rem;
+		line-height: 0.7;
 	}
 }
 .active_nav_link {
 	color: $red_main !important;
+}
+
+.chat_popup_button {
+	position: relative;
+	.message_count {
+		position: absolute;
+		right: -0.6rem;
+		top: -0.2rem;
+		background-color: $red_main;
+		padding: 0.3rem;
+		border-radius: 50%;
+		color: $white;
+		line-height: 0.7;
+		font-size: 0.7rem;
+	}
 }

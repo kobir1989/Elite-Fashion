@@ -60,7 +60,6 @@ const SignupPage = () => {
          setInputData(defaulSignupValue);
          toast.dismiss()
          toast.success("Welcome! You've successfully signed up")
-         console.log(signupResponse, "ISER IDDDDD")
          createChatRoom({ user: signupResponse?.userPayload?._id, admin: '63fa2849be7d427bf4c9b164' })
       }
       // eslint-disable-next-line

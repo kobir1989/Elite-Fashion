@@ -14,7 +14,8 @@ export const chatApi = apiSlice.injectEndpoints({
     }),
 
     getConversation: builder.query({
-      query: (roomId) => `/messages/${roomId}`
+      query: (roomId) => `/messages/${roomId}`,
+      providesTags: ['getConversation']
     }),
 
     newMessage: builder.mutation({
@@ -23,18 +24,19 @@ export const chatApi = apiSlice.injectEndpoints({
         method: 'POST',
         body: data
       }),
+      invalidatesTags: ['getConversation']
 
-      // pessimistic update the cache.
-      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        try {
-          const response = await queryFulfilled;
-          dispatch(apiSlice.util.updateQueryData('getConversation', arg.roomId, (draft) => {
-            draft?.messages.push(response?.data?.newMessage)
-          }))
-        } catch (error) {
-          console.log(error)
-        }
-      }
+      // // pessimistic update the cache.
+      // async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      //   try {
+      //     const response = await queryFulfilled;
+      //     dispatch(apiSlice.util.updateQueryData('getConversation', arg.roomId, (draft) => {
+      //       draft?.messages.push(response?.data?.newMessage)
+      //     }))
+      //   } catch (error) {
+      //     console.log(error)
+      //   }
+      // }
     }),
   })
 });

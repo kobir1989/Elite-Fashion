@@ -9,6 +9,7 @@ import MessageForm from './Components/MessageForm';
 import { socket } from '../../socket';
 
 const ChatPopup = ({ onCloseHandler }) => {
+  const [messages, setMessages] = useState([])
   const { userInfo } = useSelector(state => state?.auth);
 
   //chat room query
@@ -18,22 +19,27 @@ const ChatPopup = ({ onCloseHandler }) => {
       refetchOnMountOrArgChange: true
     });
   //conversation query
-  const { data: conversation } = useGetConversationQuery(chatRoom?._id, {
+  const { data: conversation = [], isSuccess, isFetching } = useGetConversationQuery(chatRoom?._id, {
     refetchOnMountOrArgChange: true,
   })
+  useEffect(() => {
+    if (isSuccess || isFetching) {
+      setMessages(conversation?.messages)
+    }
+  }, [isSuccess, isFetching])
 
   // listen for incoming messages
   useEffect(() => {
     socket.on("getMessage", (message) => {
-      console.log(message, 'SOCKET_CLIENT_MESSAGE')
-      conversation.push(message)
+      // console.log(message, 'SOCKET_CLIENT_MESSAGE')
+      setMessages(prevMsg => [...prevMsg, message])
     });
     // clean up event listener
     return () => socket.off("getMessage");
   }, [])
 
   //Sorting the conversation array to show the latest message
-  const sortedMessages = conversation?.messages.slice().sort((a, b) => new Date(b?.createdAt) - new Date(a?.createdAt))
+  const sortedMessages = messages?.length > 0 ? messages.slice().sort((a, b) => new Date(b?.createdAt) - new Date(a?.createdAt)) : null
 
   return (
     <Modal onClose={onCloseHandler}>

@@ -2,6 +2,15 @@ const ChatRoom = require("../models/chatRoom.schema");
 const CustomError = require("../helper/customError");
 const errorResponse = require("../helper/errorResponse");
 
+/*********************************************************
+Add a new chat room.
+@route POST /api/v1/create/chat-room
+@param {string} user.required - Id of the chat room user
+@param {string} admin.required - Id of the chat room admin
+@returns {object} 201 - Success message and chat room object
+@throws {CustomError} 400 - Sender and Receiver Id are Required
+@throws {CustomError} 500 - Internal server error
+***************************************************************/
 module.exports.addChatRoom = async (req, res) => {
   try {
     const { user, admin } = req.body;
@@ -25,6 +34,13 @@ module.exports.addChatRoom = async (req, res) => {
   }
 }
 
+/**********************************************************
+Get all chat rooms.
+@route GET /api/v1/chat-rooms/all
+@returns {object} 200 - Success message and an array of chat room objects
+@throws {CustomError} 400 - No Chat Room found!
+@throws {CustomError} 500 - Internal server error
+***************************************************************/
 module.exports.getChatRooms = async (req, res) => {
   try {
     const chatRooms = await ChatRoom.find().populate({
@@ -41,7 +57,14 @@ module.exports.getChatRooms = async (req, res) => {
   }
 }
 
-
+/**********************************************************
+Get chat room by user ID.
+@route GET /api/v1/chat-room/:userId
+@param {string} userId.required - ID of the user whose chat room is to be fetched
+@returns {object} 200 - Chat room object
+@throws {CustomError} 404 - Chat Room not found!
+@throws {CustomError} 500 - Internal server error
+***************************************************************/
 module.exports.getChatRoomByUserId = async (req, res) => {
   try {
     const { userId } = req.params;

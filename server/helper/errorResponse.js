@@ -6,7 +6,6 @@
 * @Return error message and status code 
 *********************************************************/
 
-//TODO: REMOVE CONTROLLER PARAMETER
 const errorResponse = (res, error, controller) => {
    console.log(`ERROR FROM ${controller} CONTROLLER`);
    return res.status(error.code || 500).json({

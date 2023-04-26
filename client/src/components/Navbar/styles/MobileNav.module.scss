@@ -1,5 +1,5 @@
-@import "../../../sass/sass-utils/colors";
-@import "../../../sass/sass-utils/mixins";
+@import '../../../sass/sass-utils/colors';
+@import '../../../sass/sass-utils/mixins';
 
 .nav_menu_mobile {
 	z-index: 40;
@@ -10,7 +10,16 @@
 		position: relative;
 		@include flex-row;
 		align-items: center;
-		gap: 1.5rem;
+		justify-content: center;
+		gap: 1rem;
+		button {
+			padding: 0;
+			margin: 0;
+			@include flex-row;
+			align-items: center;
+			justify-content: center;
+		}
+
 		.wish_list_count,
 		.cart_item_count {
 			position: absolute;
@@ -89,15 +98,15 @@
 		background-color: $red_main;
 		width: 1rem;
 		height: 1rem;
-		border-radius: 12px;
+		border-radius: 50%;
 		@include box-shadow-diffuse;
 		@include flex-col-center;
 		justify-content: center;
 	}
 	.wish_list_count {
 		position: absolute;
-		right: -0.4rem;
-		top: -0.2rem;
+		right: -0.6rem;
+		top: -0.3rem;
 	}
 	.cart_item_count {
 		position: absolute;
@@ -144,5 +153,22 @@
 		&:hover {
 			color: unset !important;
 		}
+	}
+}
+.chat_popup_button {
+	position: relative;
+	svg {
+		font-size: 1.3rem;
+	}
+	.message_count {
+		position: absolute;
+		right: -0.4rem;
+		top: -0.2rem;
+		background-color: $red_main;
+		padding: 0.21rem;
+		border-radius: 50%;
+		color: $white;
+		line-height: 0.7;
+		font-size: 0.7rem;
 	}
 }

@@ -35,7 +35,6 @@ module.exports.createNewProduct = async (req, res) => {
          category,
          subCategory,
       } = req.body;
-      console.log(req.body)
       if (
          !title ||
          !description ||
