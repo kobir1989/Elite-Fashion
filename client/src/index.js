@@ -10,6 +10,7 @@ import store from './redux/store/store';
 import { Provider } from "react-redux";
 import { Toaster } from 'react-hot-toast';
 import { persistStore } from "redux-persist";
+import { Analytics } from '@vercel/analytics/react'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -39,6 +40,7 @@ root.render(
           }} />
           <PersistGate loading={null} persistor={persistStore(store)}>
             <App />
+            <Analytics />
           </PersistGate>
         </BrowserRouter>
       </Provider>
