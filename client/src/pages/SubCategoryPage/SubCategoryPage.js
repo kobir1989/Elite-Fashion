@@ -20,7 +20,6 @@ const SubCategoryPage = () => {
 
    const subCategoryPaginationHandler = (pageCount) => {
       dispatch(setSubCategoryPage(pageCount))
-      // console.log(pageCount, "PAGE")
    }
 
    return (

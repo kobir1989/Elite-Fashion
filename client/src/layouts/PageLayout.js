@@ -27,7 +27,6 @@ const PageLayout = (props) => {
 
    useEffect(() => {
       socket.on("connect", () => {
-         // console.log(socket.id, "connected");
          socket.emit("addUser", userInfo._id); // emit addUser event with userId
       });
    }, [])
