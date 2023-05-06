@@ -20,8 +20,6 @@ import AddIcon from '@mui/icons-material/Add';
 import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
 import AssignmentReturnOutlinedIcon from '@mui/icons-material/AssignmentReturnOutlined';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import EmailIcon from '@mui/icons-material/Email';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -40,6 +38,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import ChatIcon from '@mui/icons-material/Chat';
 import SendIcon from '@mui/icons-material/Send';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 const icons = {
    search: SearchIcon,
@@ -63,8 +63,6 @@ const icons = {
    card: CreditScoreOutlinedIcon,
    return: AssignmentReturnOutlinedIcon,
    facebook: FacebookIcon,
-   twitter: TwitterIcon,
-   youtube: YouTubeIcon,
    email: EmailIcon,
    phone: LocalPhoneIcon,
    instagram: InstagramIcon,
@@ -82,7 +80,9 @@ const icons = {
    moreOptions: MoreVertIcon,
    chatIcon: ChatIcon,
    sendIcon: SendIcon,
-   emoji: SentimentSatisfiedAltIcon
+   emoji: SentimentSatisfiedAltIcon,
+   linkedIn: LinkedInIcon,
+   gitHub: GitHubIcon
 }
 
 const Icons = React.forwardRef((props, ref) => {
