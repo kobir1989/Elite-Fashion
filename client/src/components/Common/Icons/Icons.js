@@ -39,6 +39,7 @@ import ChatIcon from '@mui/icons-material/Chat';
 import SendIcon from '@mui/icons-material/Send';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 const icons = {
    search: SearchIcon,
@@ -80,7 +81,8 @@ const icons = {
    chatIcon: ChatIcon,
    sendIcon: SendIcon,
    emoji: SentimentSatisfiedAltIcon,
-   linkedIn: LinkedInIcon
+   linkedIn: LinkedInIcon,
+   gitHub: GitHubIcon
 }
 
 const Icons = React.forwardRef((props, ref) => {

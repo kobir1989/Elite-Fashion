@@ -2,7 +2,6 @@ import React from 'react';
 import Icons from '../Common/Icons/Icons';
 import styles from "./styles/Footer.module.scss";
 import Typography from "../Common/Typography/Typography";
-import { Link } from "react-router-dom";
 const Footer = () => {
    return (
       <footer>
@@ -87,6 +86,19 @@ const Footer = () => {
                            >
                               <Icons
                                  name={"instagram"}
+                                 size={"1.5rem"}
+                                 color={"#fff"}
+                              />
+                           </a>
+                        </span>
+                        <span>
+                           <a
+                              href='https://github.com/kobir1989'
+                              target='_blank'
+                              rel='noopenar noreferrer'
+                           >
+                              <Icons
+                                 name={"gitHub"}
                                  size={"1.5rem"}
                                  color={"#fff"}
                               />
