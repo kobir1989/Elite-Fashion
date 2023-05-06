@@ -46,7 +46,8 @@ const Footer = () => {
                <ul>
                   <li>
                      <Icons name={"email"} size={"1.1rem"} />
-                     Kobir.h.ritu@gmail.com</li>
+                     <a href="mailto:Kobir.h.ritu@gmail.com"> Kobir.h.ritu@gmail.com</a>
+                  </li>
                   <li>
                      <Icons name={"phone"} size={"1.1rem"} />
                      +88017XXXXXX
@@ -54,24 +55,42 @@ const Footer = () => {
                   <li>
                      <div className={styles.social_icons}>
                         <span>
-                           <Link to={"https://www.facebook.com/kabir.ritu"}>
-                              <Icons name={"facebook"} size={"1.5rem"} color={"#fff"} />
-                           </Link>
+                           <a
+                              href='https://www.facebook.com/kabir.ritu' target='_blank'
+                              rel='noopenar noreferrer'
+                           >
+                              <Icons
+                                 name={"facebook"}
+                                 size={"1.5rem"}
+                                 color={"#fff"}
+                              />
+                           </a>
                         </span>
                         <span>
-                           <Link to={"#"}>
-                              <Icons name={"twitter"} size={"1.5rem"} color={"#fff"} />
-                           </Link>
+                           <a
+                              href='https://www.linkedin.com/in/kabir-hossain-ritu/'
+                              target='_blank'
+                              rel='noopenar noreferrer'
+                           >
+                              <Icons
+                                 name={"linkedIn"}
+                                 size={"1.5rem"}
+                                 color={"#fff"}
+                              />
+                           </a>
                         </span>
                         <span>
-                           <Link to={"#"}>
-                              <Icons name={"youtube"} size={"1.5rem"} color={"#fff"} />
-                           </Link>
-                        </span>
-                        <span>
-                           <Link to={"https://www.linkedin.com/in/kabir-hossain-07a69b238/"}>
-                              <Icons name={"instagram"} size={"1.5rem"} color={"#fff"} />
-                           </Link>
+                           <a
+                              href='https://www.instagram.com/kh.ritu/?hl=en'
+                              target='_blank'
+                              rel='noopenar noreferrer'
+                           >
+                              <Icons
+                                 name={"instagram"}
+                                 size={"1.5rem"}
+                                 color={"#fff"}
+                              />
+                           </a>
                         </span>
                      </div>
                   </li>
@@ -88,10 +107,10 @@ const Footer = () => {
                   <img src="/assets/visa.png" alt="visa.png" />
                </div>
             </div>
-            <Typography color={"white"} variant={"small"}>Copyright &copy;  2023 | Kabir Hossain
+            <Typography color={"white"} variant={"small"}>Copyright &copy;  {new Date().getFullYear()} | Kabir Hossain
             </Typography>
          </div>
-      </footer>
+      </footer >
    )
 }
 
