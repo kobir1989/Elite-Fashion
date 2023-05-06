@@ -15,11 +15,12 @@ import { setProductPage } from "../../redux/features/products/productsSlice";
 import { useLogoutRequestQuery } from '../../redux/features/auth/authApi';
 import { toggleChatModal } from '../../redux/features/chat/chatSlice';
 import { socket } from '../../socket';
+import { toast } from 'react-hot-toast';
 
 const Navbar = () => {
    const [openDropdown, setOpenDropdown] = useState(false);
    const [isMessage, setIsMessage] = useState(0)
-   const { userInfo } = useSelector(state => state.auth);
+   const { userInfo, token } = useSelector(state => state.auth);
    const dropdownRef = useRef(null);
    const { wishListItem, toggleWishList } = useSelector(state => state.wishList);
    const { refetch } = useLogoutRequestQuery()
@@ -37,6 +38,17 @@ const Navbar = () => {
    const resetPageState = () => {
       dispatch(setSubCategoryPage(1))
       dispatch(setProductPage(1))
+   }
+
+   //toggle chat popup handler 
+   const handleToggleChatModal = () => {
+      if (token) {
+         dispatch(toggleChatModal())
+      } else {
+         navigate('/login')
+         toast.dismiss()
+         toast.error('Please Login to continue!')
+      }
    }
 
    //Handles outside click events, if user click anywhere in the dom openDropdown will be false.
@@ -136,7 +148,7 @@ const Navbar = () => {
                                  </li>
                               </>
                            }
-                           {userInfo &&
+                           {token &&
                               <>
                                  <li className={styles.drop_down_user_info}>
                                     <Link to={`/user-profile/${userInfo._id}`}>
@@ -168,7 +180,7 @@ const Navbar = () => {
                </div>
                <div className={styles.chat_popup_button}>
                   <Button variant={"icon-btn-normal"}
-                     onClick={() => { dispatch(toggleChatModal()) }}>
+                     onClick={handleToggleChatModal}>
                      <Icons name={"chatIcon"} size={"1.5rem"} />
                      <span className={styles.message_count}>
                         {isMessage}

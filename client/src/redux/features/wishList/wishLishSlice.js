@@ -23,7 +23,6 @@ const wishListSlice = createSlice({
          } else {
             return;
          }
-         // console.log(newList, "REDUX ")
 
       },
       removeFromWishList: (state, action) => {
