@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Typography from '../../../components/Common/Typography/Typography';
 import Button from '../../../components/Common/Button/Button';
 import Icons from '../../../components/Common/Icons/Icons';

@@ -22,7 +22,7 @@ const Payment = () => {
          }
       }
       fetchClientSecret()
-   }, []);
+   }, [totalAmount]);
 
    return (
       <>

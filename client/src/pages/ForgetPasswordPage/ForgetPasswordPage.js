@@ -27,7 +27,7 @@ const ForgetPasswordPage = () => {
       if (isError) {
          setError(forgetPasswordError?.data?.message)
       }
-   }, [isError])
+   }, [isError, forgetPasswordError?.data?.message])
    return (
       <PageLayout>
          <div className={styles.forget_password_page_wrapper}>

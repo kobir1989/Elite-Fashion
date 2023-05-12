@@ -26,6 +26,7 @@ const ChatPopup = ({ onCloseHandler }) => {
     if (isSuccess || isFetching) {
       setMessages(conversation?.messages)
     }
+    // eslint-disable-next-line
   }, [isSuccess, isFetching])
 
   // listen for incoming messages

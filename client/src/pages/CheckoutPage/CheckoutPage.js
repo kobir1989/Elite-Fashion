@@ -12,7 +12,7 @@ const Checkout = () => {
       if (quantity <= 0) {
          navigate("/")
       }
-   }, [navigate])
+   }, [navigate, quantity])
    return (
       <PageLayout>
          <div className={styles.main_wrapper}>

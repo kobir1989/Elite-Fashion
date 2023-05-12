@@ -4,7 +4,7 @@ import Button from './Button';
 import styles from "./styles/SliderButton.module.scss";
 
 export const PrevArrow = (props) => {
-   const { className, style, onClick } = props;
+   const { onClick } = props;
    return (
       <div className={styles.arrow_prev} onClick={onClick}>
          <Button variant={"icon-btn-normal"}>
@@ -15,7 +15,7 @@ export const PrevArrow = (props) => {
 };
 
 export const NextArrow = (props) => {
-   const { className, style, onClick } = props;
+   const { onClick } = props;
    return (
       <div className={styles.arrow_next} onClick={onClick}>
          <Button variant={"icon-btn-normal"}>

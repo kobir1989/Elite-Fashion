@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNewMessageMutation } from '../../../redux/features/chat/chatApi';
 import Button from '../../Common/Button/Button';
