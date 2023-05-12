@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from "./styles/HomePage.module.scss";
 import PageLayout from '../../layouts/PageLayout';
 import Hero from './Components/Hero';

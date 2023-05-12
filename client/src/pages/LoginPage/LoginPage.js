@@ -57,7 +57,7 @@ const LoginPage = () => {
          toast.success("Welcome Back");
          setLoginValue(defaultLoginValue);
       }
-   }, [loginResponse?.token, navigate, loginError])
+   }, [loginResponse?.token, navigate, loginError, error?.data?.message])
 
    return (
       <PageLayout>

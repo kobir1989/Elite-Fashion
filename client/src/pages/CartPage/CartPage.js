@@ -4,7 +4,7 @@ import Typography from '../../components/Common/Typography/Typography';
 import Button from '../../components/Common/Button/Button';
 import PageLayout from '../../layouts/PageLayout';
 import styles from "./styles/CartPage.styles.module.scss";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import TotalAmountView from '../../components/TotalAmountView/TotalAmountView';
 import CartProductInfoCard from '../../components/Common/Card/CartProductInfoCard';
 import { toast } from 'react-hot-toast';

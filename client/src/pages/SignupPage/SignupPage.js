@@ -23,7 +23,7 @@ const SignupPage = () => {
    const [signup, { data: signupResponse, isError, isLoading, error: signupError }] = useSignupMutation();
 
    const navigate = useNavigate()
-   const [createChatRoom, { isSuccess }] = useCreateChatRoomMutation()
+   const [createChatRoom] = useCreateChatRoomMutation()
 
 
    //onChange handler

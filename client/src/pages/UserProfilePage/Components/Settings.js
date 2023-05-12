@@ -61,7 +61,7 @@ const Settings = ({ resetTabValue, userProfileData }) => {
       return () => {
          dispatch(setUpdateSuccess(false))
       }
-   }, [updateSuccess])
+   }, [updateSuccess, dispatch, resetTabValue])
    return (
       <div className={isLoading ? `${styles.profile_update_form_wrapper} ${styles.loading_on}` : `${styles.profile_update_form_wrapper}`}>
          {isLoading &&

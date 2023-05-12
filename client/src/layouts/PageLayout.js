@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Navbar from "../components/Navbar/Navbar";
 import Footer from '../components/Footer/Footer';
 import styles from "./styles/PageLayout.module.scss";
@@ -29,7 +29,7 @@ const PageLayout = (props) => {
       socket.on("connect", () => {
          socket.emit("addUser", userInfo._id); // emit addUser event with userId
       });
-   }, [])
+   }, [userInfo?._id])
    return (
       <motion.div
          initial={{ opacity: 0 }}

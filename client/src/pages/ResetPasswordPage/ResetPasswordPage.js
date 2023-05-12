@@ -62,7 +62,7 @@ const ResetPasswordPage = () => {
          toast.success("Password updated! Please Login to continue...")
          navigate("/login")
       }
-   }, [isSuccess, navigate])
+   }, [isSuccess, navigate, isError, resetError?.data?.message])
    return (
       <PageLayout>
          <div className={styles.reset_password_page_wrapper}>
