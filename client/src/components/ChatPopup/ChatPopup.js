@@ -7,6 +7,7 @@ import { useGetChatRoomQuery, useGetConversationQuery } from '../../redux/featur
 import { useSelector } from 'react-redux';
 import MessageForm from './Components/MessageForm';
 import { socket } from '../../socket';
+import TextSkeleton from '../Common/Skeleton/TextSkeleton';
 
 const ChatPopup = ({ onCloseHandler }) => {
   const [messages, setMessages] = useState([])
@@ -19,7 +20,7 @@ const ChatPopup = ({ onCloseHandler }) => {
       refetchOnMountOrArgChange: true
     });
   //conversation query
-  const { data: conversation = [], isSuccess, isFetching } = useGetConversationQuery(chatRoom?._id, {
+  const { data: conversation = [], isLoading, isSuccess, isFetching } = useGetConversationQuery(chatRoom?._id, {
     refetchOnMountOrArgChange: true,
   })
   useEffect(() => {
@@ -33,6 +34,8 @@ const ChatPopup = ({ onCloseHandler }) => {
   useEffect(() => {
     socket.on("getMessage", (message) => {
       // console.log(message, 'SOCKET_CLIENT_MESSAGE')
+      const notification = new Audio('/assets/Notification.mp3');
+      notification.play();
       setMessages(prevMsg => [...prevMsg, message])
     });
     // clean up event listener
@@ -54,6 +57,7 @@ const ChatPopup = ({ onCloseHandler }) => {
         {/*chat body */}
         <div className={styles.chat_body_container}>
           <div className={styles.conversation_wrapper}>
+            {isLoading && <TextSkeleton row={6} height={10} />}
             {sortedMessages?.length > 0 && sortedMessages.map((message) => (
               <MessageListItem
                 isSender={userInfo?._id === message?.sender?._id || userInfo?._id === message?.sender ? true : false}
