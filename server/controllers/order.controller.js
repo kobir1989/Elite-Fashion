@@ -59,7 +59,7 @@ module.exports.createNewOrder = async (req, res) => {
       // Email sender helper function. If the order is successful, the user will receive an email.
       await mailSender(req?.user?.email, text, "Thank You for Shopping with Elite Fashion");
       //Socket io emit event every time user creates new order. so that admin can get a live notification.
-      io.getIo().emit("order_created", order)
+      io.getIO().emit("order_created", order)
       return res.status(200).json({ success: true, message: "Order submitted successfully" });
 
    } catch (err) {

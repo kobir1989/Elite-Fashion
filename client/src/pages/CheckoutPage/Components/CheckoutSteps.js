@@ -15,8 +15,10 @@ const steps = ["Shipping Address", "Confirm Order", "Payment"];
 const CheckoutSteps = () => {
    const dispatch = useDispatch();
    const { activeStep } = useSelector(state => state.steps);
+
    const isCompliteSteps = () => {
       return steps.length === activeStep ? true : false
+
    }
    const nextStepHandler = () => {
       dispatch(increaseStep())
@@ -27,6 +29,7 @@ const CheckoutSteps = () => {
       }
       dispatch(decreaseStep())
    }
+
 
    return (
       <div className={styles.steps_wrapper}>

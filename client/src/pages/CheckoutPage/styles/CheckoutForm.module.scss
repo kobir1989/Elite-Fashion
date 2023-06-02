@@ -1,5 +1,5 @@
-@import "../../../sass/sass-utils/colors";
-@import "../../../sass/sass-utils/mixins";
+@import '../../../sass/sass-utils/colors';
+@import '../../../sass/sass-utils/mixins';
 .checkout_wrapper {
 	@include flex-col-center;
 	justify-content: center;
@@ -72,7 +72,7 @@
 	.spinner:before,
 	.spinner:after {
 		position: absolute;
-		content: "";
+		content: '';
 	}
 
 	.spinner:before {
@@ -117,5 +117,28 @@
 			width: 80vw;
 			min-width: initial;
 		}
+	}
+}
+
+.card_info {
+	padding: 1rem;
+	text-align: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	background-color: #f0c7c7;
+	color: $red_main;
+	border-radius: 8px;
+	border: 1px solid $red_main;
+	margin: 0 2rem 1rem;
+	p {
+		font-size: 0.8rem;
+		font-weight: 600;
+		@include screens-md {
+			font-size: 1rem;
+		}
+	}
+	@include screens-md {
+		margin: 0 0 2rem 0;
 	}
 }

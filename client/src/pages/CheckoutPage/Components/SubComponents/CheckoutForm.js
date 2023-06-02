@@ -4,15 +4,16 @@ import { useStripe, useElements } from "@stripe/react-stripe-js";
 import { PaymentElement } from "@stripe/react-stripe-js";
 import { useDispatch, useSelector } from "react-redux";
 import { increaseStep } from "../../../../redux/features/paymentSteps/stepsSlice";
-import { resetCartState } from "../../../../redux/features/cart/cartSlice";
 import { usePostCheckoutMutation } from '../../../../redux/features/checkout/checkoutApi'
+import { resetCartState } from '../../../../redux/features/cart/cartSlice';
+import Typography from '../../../../components/Common/Typography/Typography';
 
 const CheckoutForm = () => {
    const stripe = useStripe();
    const elements = useElements();
    const [message, setMessage] = useState(null);
    const [isProcessing, setIsProcessing] = useState(false);
-   const [postCheckout] = usePostCheckoutMutation()
+   const [postCheckout, { isSuccess }] = usePostCheckoutMutation()
    const dispatch = useDispatch()
    const {
       phone,
@@ -49,16 +50,29 @@ const CheckoutForm = () => {
             paymentId: result.paymentIntent.id
          })
          dispatch(increaseStep());
-         dispatch(resetCartState());
       }
       if (result.paymentIntent.error === "card_error" || result.paymentIntent.error === "validation_error") {
          setMessage(result?.paymentIntent?.error?.message);
       }
       setIsProcessing(false);
+      if (isSuccess) {
+         dispatch(resetCartState());
+      }
    };
 
    return (
       <div className={styles.checkout_wrapper}>
+         <div className={styles.card_info}>
+            <Typography variant='body' color='red'>
+               ( Card Number: 4242 4242 4242 4242 )
+            </Typography>
+            <Typography variant='body' color='red'>
+               (  Expiration: 10/27 )
+            </Typography>
+            <Typography variant='body' color='red'>
+               (   CVC: 222 )
+            </Typography>
+         </div>
          <form id="payment-form" onSubmit={handleSubmit}>
             <PaymentElement id="payment-element" />
             <button disabled={isProcessing || !stripe || !elements} id="submit">
