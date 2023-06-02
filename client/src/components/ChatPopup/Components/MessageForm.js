@@ -28,7 +28,7 @@ const MessageForm = ({ roomId }) => {
     const data = {
       message,
       sender: userInfo?._id,
-      receiver: '6447bc104c9e16aa57d722ce',
+      receiver: '6476302bd2339459a5f838ca',
       roomId,
     }
     newMessage(
