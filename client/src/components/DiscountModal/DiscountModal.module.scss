@@ -1,21 +1,21 @@
-@import "../../sass/sass-utils/mixins";
+@import '../../sass/sass-utils/mixins';
 .discount_modal {
-	background-image: url("https://res.cloudinary.com/dhkdpjwjm/image/upload/v1678457495/products/sell_lvnpeg_ro45ol.jpg");
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	border-radius: 8px;
-	filter: brightness(95%);
-	position: relative;
-	button {
-		position: absolute;
-		top: 1rem;
-		right: 1rem;
-	}
-	width: 70vw;
-	height: 55vh;
-	@include screens-md {
-		width: 40vw;
-		height: 55vh;
-	}
+  background-image: url('../../../public/assets/discount_cover.webp');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 8px;
+  filter: brightness(95%);
+  position: relative;
+  button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+  width: 70vw;
+  height: 55vh;
+  @include screens-md {
+    width: 40vw;
+    height: 55vh;
+  }
 }
