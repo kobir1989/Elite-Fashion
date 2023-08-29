@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from '../../styles/CheckoutForm.module.scss';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { PaymentElement } from '@stripe/react-stripe-js';
 import { useDispatch, useSelector } from 'react-redux';
 import { increaseStep } from '../../../../redux/features/paymentSteps/stepsSlice';
 import { usePostCheckoutMutation } from '../../../../redux/features/checkout/checkoutApi';
-import { resetCartState } from '../../../../redux/features/cart/cartSlice';
 import Typography from '../../../../components/Common/Typography/Typography';
 
 const CheckoutForm = () => {
@@ -13,7 +12,7 @@ const CheckoutForm = () => {
   const elements = useElements();
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [postCheckout, { isSuccess }] = usePostCheckoutMutation();
+  const [postCheckout] = usePostCheckoutMutation();
   const dispatch = useDispatch();
   const { phone, address, city, userId, order, totalAmount } = useSelector(
     (state) => state.checkout
@@ -57,13 +56,6 @@ const CheckoutForm = () => {
     }
     setIsProcessing(false);
   };
-
-  useEffect(() => {
-    console.log(isSuccess);
-    if (isSuccess || activeStep === 2) {
-      dispatch(resetCartState());
-    }
-  }, [isSuccess, dispatch, activeStep]);
 
   return (
     <div className={styles.checkout_wrapper}>
