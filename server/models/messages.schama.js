@@ -1,28 +1,29 @@
-const { model, Schema } = require("mongoose");
+const { model, Schema } = require('mongoose')
 
-const messagesSchame = new Schema({
-  sender: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
+const messagesSchame = new Schema(
+  {
+    sender: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    receiver: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    chatRoom: {
+      type: Schema.Types.ObjectId,
+      ref: 'ChatRoom'
+    },
+    message: {
+      type: String,
+      required: [true, 'Message are reqired!'],
+      trim: true
+    }
   },
-  receiver: {
-    type: Schema.Types.ObjectId,
-    ref: "User"
-  },
-  chatRoom: {
-    type: Schema.Types.ObjectId,
-    ref: "ChatRoom",
-  },
-  message: {
-    type: String,
-    required: [true, "Message are reqired!"],
-    trim: true
-  }
-},
   {
     timestamps: true
   }
-);
+)
 
-const Message = model("Message", messagesSchame);
-module.exports = Message;
+const Message = model('Message', messagesSchame)
+module.exports = Message

@@ -1,9 +1,11 @@
-const Order = require("../models/order.schema");
-const CustomError = require("../helper/customError");
-const errorResponse = require("../helper/errorResponse");
-const User = require("../models/user.schema");
-const mailSender = require("../helper/mailSender");
-const io = require("../helper/socket");
+const Order = require('../models/order.schema')
+const CustomError = require('../helper/customError')
+const User = require('../models/user.schema')
+const mailSender = require('../helper/mailSender')
+const io = require('../helper/socket')
+const catchAsync = require('../utils/catchAsync')
+const emailTemplate = require('../templates/emailTemplate')
+const ApiFeatures = require('../service/apiFeatures')
 
 /********************************************************
  * @createNewOrder
@@ -18,54 +20,53 @@ const io = require("../helper/socket");
  * @param {string} req.body.checkout.phone - The phone number for the order.
  * @returns {Object} A JSON object indicating the success of the operation and a message.
  ********************************************************/
-module.exports.createNewOrder = async (req, res) => {
-   try {
-      const { checkout } = req.body;
-      const { userId } = req.params
-      if (!checkout.address || !checkout.phone || !checkout.city || !checkout.order) {
-         throw new CustomError(400, "All the fields are mandatory", "Order Validation Error");
-      };
-      const order = await Order.create({
-         product: checkout.order,
-         totalAmount: checkout.totalAmount,
-         city: checkout.city,
-         shippingAddress: checkout.address,
-         user: userId,
-         phoneNumber: checkout.phone,
-         paymentId: checkout.paymentId,
-      });
+module.exports.createNewOrder = catchAsync(async (req, res) => {
+  const { checkout } = req.body
+  const { userId } = req.params
+  if (
+    !checkout.address ||
+    !checkout.phone ||
+    !checkout.city ||
+    !checkout.order
+  ) {
+    throw new CustomError('All the fields are mandatory', 400)
+  }
+  const order = await Order.create({
+    product: checkout.order,
+    totalAmount: checkout.totalAmount,
+    city: checkout.city,
+    shippingAddress: checkout.address,
+    user: userId,
+    phoneNumber: checkout.phone,
+    paymentId: checkout.paymentId
+  })
 
-      // User purchases Array will be updated after creating a new order.
-      await User.findByIdAndUpdate(
-         {
-            _id: userId,
-         },
-         { $push: { purchases: order } },
-         { new: true }
-      );
+  // User purchases Array will be updated after creating a new order.
+  await User.findByIdAndUpdate(
+    {
+      _id: userId
+    },
+    { $push: { purchases: order } },
+    { new: true }
+  )
 
-      // Email Body text
-      const text = `
-      <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f5f5f5; font-family: Arial, sans-serif;">
-      <div style="background-color: #ffffff; padding: 20px; border-radius: 10px;">
-      <h1 style="text-align: center; margin-bottom: 30px; color: #d89b9b;">Thank You for Shopping with Elite Fashion!</h1>
-      <p style="font-size: 18px;">Dear ${req?.user?.name},</p>
-      <p style="font-size: 18px;">We wanted to take a moment to thank you for your recent purchase with Elite Fashion. We appreciate doing business with you and we hope that you are happy with your order.</p>
-      <p style="font-size: 18px;">If you have any questions or concerns about your purchase, please don't hesitate to contact us at support@elitefashion.com.</p>
-      <p style="font-size: 18px;">Thank you again for shopping with us. We hope to see you again soon!</p>
-      </div>
-      </div>`;
+  // Email sender helper function. If the order is successful, the user will receive an email.
+  await mailSender(
+    req?.user?.email,
+    emailTemplate(req?.body?.name),
+    'Thank You for Shopping with Elite Fashion'
+  )
+  //Socket io emit event every time user creates new order. so that admin can get a live notification.
+  io.getIO().emit('order_created', order)
 
-      // Email sender helper function. If the order is successful, the user will receive an email.
-      await mailSender(req?.user?.email, text, "Thank You for Shopping with Elite Fashion");
-      //Socket io emit event every time user creates new order. so that admin can get a live notification.
-      io.getIO().emit("order_created", order)
-      return res.status(200).json({ success: true, message: "Order submitted successfully" });
-
-   } catch (err) {
-      errorResponse(res, err, "CREATE-ORDER");
-   }
-};
+  return res.status(200).json({
+    status: 'success',
+    result: 1,
+    data: {
+      order
+    }
+  })
+})
 
 /********************************************************
 
@@ -76,22 +77,29 @@ module.exports.createNewOrder = async (req, res) => {
 @throws {CustomError} 401 - Access denied
 @throws {CustomError} 400 - No orders found
 *********************************************************/
-module.exports.getAllOrders = async (req, res) => {
-   try {
-      // Only ADMIN has access.
-      if (req.user.role !== "ADMIN") {
-         throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
-      };
-      const order = await Order.find().populate("user", "_id name");
-      if (!order) {
-         throw new CustomError(400, "No orders found")
-      }
-      return res.status(200).json({ success: true, order })
+module.exports.getAllOrders = catchAsync(async (req, res) => {
+  // Only ADMIN has access.
+  if (req.user.role !== 'ADMIN') {
+    throw new CustomError(
+      'Access denied. You are not authorized to access this resource.',
+      401
+    )
+  }
+  const orderApiFeatures = new ApiFeatures(req.query, Order.find())
+    .filter()
+    .limitFields()
+  const paginate = await orderApiFeatures.pagination()
+  const order = await orderApiFeatures.query
 
-   } catch (err) {
-      errorResponse(res, err, "GET-ALL-ORDERS");
-   }
-}
+  return res.status(200).json({
+    status: 'success',
+    result: order.length,
+    ...paginate,
+    data: {
+      order
+    }
+  })
+})
 
 /********************************************************
  * Retrieves a single order by ID.
@@ -103,27 +111,31 @@ module.exports.getAllOrders = async (req, res) => {
  * @throws {CustomError} 400 - No order found.
  * @returns {Object} - The order object.
  *********************************************************/
-module.exports.getSingleOrder = async (req, res) => {
-   try {
-      const { orderId } = req.params;
-      // Only ADMIN has access.
-      if (req.user.role !== "ADMIN") {
-         throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
-      };
-      const order = await Order.findOne({ _id: orderId }).populate({
-         path: "product._id",
-         model: "Product",
-         select: "title price image _id",
-      });
-      if (!order) {
-         throw new CustomError(400, "No order found");
-      }
-      return res.status(200).json({ success: true, order });
-
-   } catch (err) {
-      errorResponse(res, err, "GET-SINGLE-ORDER");
-   }
-}
+module.exports.getSingleOrder = catchAsync(async (req, res) => {
+  const { orderId } = req.params
+  // Only ADMIN has access.
+  if (req.user.role !== 'ADMIN') {
+    throw new CustomError(
+      'Access denied. You are not authorized to access this resource.',
+      401
+    )
+  }
+  const order = await Order.findOne({ _id: orderId }).populate({
+    path: 'product._id',
+    model: 'Product',
+    select: 'title price image _id'
+  })
+  if (!order) {
+    throw new CustomError('No order found', 400)
+  }
+  return res.status(200).json({
+    status: 'success',
+    result: 1,
+    data: {
+      order
+    }
+  })
+})
 
 /********************************************************
 @updateOrderStatus
@@ -138,33 +150,33 @@ module.exports.getSingleOrder = async (req, res) => {
 @returns {object} - A success message if the order status was updated successfully
 @throws {CustomError} - If the authenticated user is not an admin, or if the order ID is invalid
 *********************************************************/
-module.exports.updateOrderStatus = async (req, res) => {
-   try {
-      if (req.user.role !== "ADMIN") {
-         throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
-      };
-      const { orderId } = req.params;
-      const { orderStatus } = req.body;
-      const updatedOrder = await Order.findByIdAndUpdate(
-         { _id: orderId },
-         {
-            orderStatus
-         },
-         { new: true, runValidators: true }
-      );
-      if (!updatedOrder) {
-         throw new CustomError(400, "Invalid order ID");
-      }
-      return res.status(200).json({
-         success: true,
-         message: "Order status updated successfully",
-         updatedOrder
-      })
-   } catch (err) {
-      errorResponse(res, err, "UPDATE-ORDER-STATUS")
-   };
-};
-
+module.exports.updateOrderStatus = catchAsync(async (req, res) => {
+  if (req.user.role !== 'ADMIN') {
+    throw new CustomError(
+      'Access denied. You are not authorized to access this resource.',
+      401
+    )
+  }
+  const { orderId } = req.params
+  const { orderStatus } = req.body
+  const updatedOrder = await Order.findByIdAndUpdate(
+    { _id: orderId },
+    {
+      orderStatus
+    },
+    { new: true, runValidators: true }
+  )
+  if (!updatedOrder) {
+    throw new CustomError('Invalid order ID', 400)
+  }
+  return res.status(201).json({
+    status: 'error',
+    result: 1,
+    data: {
+      updatedOrder
+    }
+  })
+})
 
 // /**********************Currently Not using**********************************
 //  * @getOrderStatus
@@ -184,4 +196,3 @@ module.exports.updateOrderStatus = async (req, res) => {
 //       errorResponse(res, err, "ORDER-STATUS");
 //    };
 // }
-

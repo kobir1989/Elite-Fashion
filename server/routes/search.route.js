@@ -1,6 +1,6 @@
-const route = require("express").Router()
-const { searchController } = require("../controllers/search.controller");
+const route = require('express').Router()
+const { searchController } = require('../controllers/search.controller')
 
-route.get("/search/:key", searchController);
+route.get('/search/:key', searchController)
 
-module.exports = route;
+module.exports = route
