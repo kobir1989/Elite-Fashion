@@ -23,7 +23,7 @@ const forgetPasswordEmailBody = require('../templates/emailTemplate')
  * @throws {CustomError} 400 - Password and Confirm Password does not match
  * @throws {CustomError} 500 - Internal server error
  ***************************************************************/
-exports.signUp = catchAsync(async (req, res) => {
+module.exports.signUp = catchAsync(async (req, res, _next) => {
   const { firstName, lastName, email, password, confirmPassword } = req.body
 
   if (!firstName || !lastName || !email || !password || !confirmPassword) {

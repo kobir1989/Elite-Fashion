@@ -4,8 +4,10 @@
  * @param {function} fn - An asynchronous function that represents an Express route handler.
  * @returns {function} - A new function that handles asynchronous errors and passes them to the Express error handling middleware.
  */
-module.exports.catchAsync = fn => {
+const catchAsync = fn => {
   return (req, res, next) => {
     fn(req, res, next).catch(next)
   }
 }
+
+module.exports = catchAsync

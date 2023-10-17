@@ -1,6 +1,5 @@
 const CustomError = require('../helper/customError')
 const User = require('../models/user.schema')
-const errorResponse = require('../helper/errorResponse')
 const catchAsync = require('../utils/catchAsync')
 
 /************************************************************
@@ -11,30 +10,31 @@ const catchAsync = require('../utils/catchAsync')
  * @returns {object} The user profile.
  * @throws {CustomError} Error if user not found.
  ***********************************************************/
-module.exports.userProfile = async (req, res) => {
-  try {
-    const { _id } = req.user
-    const user = await User.findById({ _id: _id }).populate({
-      path: 'purchases',
-      populate: {
-        path: 'product._id',
-        model: 'Product',
-        select: 'title price image createdAt',
-        options: {
-          name: 'items'
-        }
+module.exports.userProfile = catchAsync(async (req, res) => {
+  const { _id } = req.user
+  const user = await User.findById({ _id: _id }).populate({
+    path: 'purchases',
+    populate: {
+      path: 'product._id',
+      model: 'Product',
+      select: 'title price image createdAt',
+      options: {
+        name: 'items'
       }
-    })
-
-    user.password = undefined
-    if (!user) {
-      throw new CustomError(400, 'User not found')
     }
-    return res.status(200).json({ success: true, user })
-  } catch (err) {
-    errorResponse(res, err, 'USER-PROFILE')
+  })
+
+  user.password = undefined
+  if (!user) {
+    throw new CustomError('User not found', 400)
   }
-}
+  return res.status(200).json({
+    status: 'success',
+    data: {
+      user
+    }
+  })
+})
 
 /*************************************************************************
  * Update user profile for the logged in user.
@@ -49,35 +49,33 @@ module.exports.userProfile = async (req, res) => {
  * @returns {object} Success message.
  * @throws {CustomError} Error if any of the fields are missing or user not found.
  **************************************************************************/
-module.exports.updateUserProfile = async (req, res) => {
-  try {
-    const { email, name, phone, address, city } = req.body
+module.exports.updateUserProfile = catchAsync(async (req, res) => {
+  const { email, name, phone, address, city } = req.body
 
-    if (!email || !name || !phone || !address || !city) {
-      throw new CustomError(400, 'All fields are mandatory')
-    }
-
-    const user = await User.findById({ _id: req.user?._id })
-    if (!user) {
-      throw new CustomError(404, 'User not found', 'email')
-    }
-    user.email = email
-    user.name = name
-    user.phone = phone
-    user.address = address
-    user.city = city
-    user.image = req.image
-    user.imageId = req?.imageId
-    await user.save()
-
-    return res.status(200).json({
-      success: true,
-      message: 'Account update successful'
-    })
-  } catch (err) {
-    errorResponse(res, err, 'USER-PROFILE-UPDATE')
+  if (!email || !name || !phone || !address || !city) {
+    throw new CustomError('All fields are mandatory', 400)
   }
-}
+
+  const user = await User.findById({ _id: req.user?._id })
+  if (!user) {
+    throw new CustomError('User not found', 'email', 404)
+  }
+  user.email = email
+  user.name = name
+  user.phone = phone
+  user.address = address
+  user.city = city
+  user.image = req.image
+  user.imageId = req?.imageId
+  await user.save()
+
+  return res.status(201).json({
+    status: 'success',
+    data: {
+      user
+    }
+  })
+})
 
 /**********************************************************************
  * Retrieve all user profiles for the admin user.
