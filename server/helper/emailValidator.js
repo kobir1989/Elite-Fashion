@@ -5,12 +5,12 @@
  * @Return boolen
  *********************************************************/
 
-const isValidEmail = (email) => {
-   const regx = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-   if (email.match(regx)) {
-      return true;
-   }
-   return false;
+const isValidEmail = email => {
+  const regx = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+  if (email.match(regx)) {
+    return true
+  }
+  return false
 }
 
-module.exports = isValidEmail;
+module.exports = isValidEmail

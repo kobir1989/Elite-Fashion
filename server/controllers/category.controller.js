@@ -1,6 +1,6 @@
-const CustomError = require("../helper/customError");
-const Category = require("../models/category.schema");
-const errorResponse = require("../helper/errorResponse");
+const CustomError = require('../helper/customError')
+const Category = require('../models/category.schema')
+const errorResponse = require('../helper/errorResponse')
 
 /*************************************************************************
  * Create a new category. Only admins are authorized to create categories.
@@ -18,34 +18,36 @@ const errorResponse = require("../helper/errorResponse");
  * @throws {CustomError} If the user is not an admin or if the title is missing.
  ****************************************************************************/
 module.exports.createCategory = async (req, res) => {
-	try {
-		//only ADMIN has access.
-		if (req.user.role !== "ADMIN") {
-			throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
-		};
+  try {
+    //only ADMIN has access.
+    if (req.user.role !== 'ADMIN') {
+      throw new CustomError(
+        401,
+        'Access denied. You are not authorized to access this resource.'
+      )
+    }
 
-		const { title } = req.body;
-		console.log(title)
+    const { title } = req.body
+    console.log(title)
 
-		if (!title) {
-			throw new CustomError(400, "All the fields are mandatory");
-		}
-		const category = await Category.create({
-			name: title,
-			image: req.image,
-			imageId: req.imageId
-		});
-		console.log(category)
-		return res.status(200).json({
-			success: true,
-			message: "New Category added"
-		});
-
-	} catch (err) {
-		console.log(err)
-		errorResponse(res, err, "CREATE-CATEGORY");
-	}
-};
+    if (!title) {
+      throw new CustomError(400, 'All the fields are mandatory')
+    }
+    const category = await Category.create({
+      name: title,
+      image: req.image,
+      imageId: req.imageId
+    })
+    console.log(category)
+    return res.status(200).json({
+      success: true,
+      message: 'New Category added'
+    })
+  } catch (err) {
+    console.log(err)
+    errorResponse(res, err, 'CREATE-CATEGORY')
+  }
+}
 
 /******************************************************************************
  * Edit existing sub-category. Only Admins are authorized to edit.
@@ -63,44 +65,49 @@ module.exports.createCategory = async (req, res) => {
  * @throws {CustomError} If the user is not authorized or if the category does not exist
  ******************************************************************************/
 module.exports.editCategory = async (req, res) => {
-	try {
-		// Only Admins have access.
-		if (req.user.role !== "ADMIN") {
-			throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
-		};
+  try {
+    // Only Admins have access.
+    if (req.user.role !== 'ADMIN') {
+      throw new CustomError(
+        401,
+        'Access denied. You are not authorized to access this resource.'
+      )
+    }
 
-		const { categoryId } = req.params;
-		const { title: name, imageId } = req.body;
+    const { categoryId } = req.params
+    const { title: name, imageId } = req.body
 
-		if (!name) {
-			throw new CustomError(400, "All fields are mandatory");
-		};
+    if (!name) {
+      throw new CustomError(400, 'All fields are mandatory')
+    }
 
-		const updateCategory = await Category.findByIdAndUpdate(
-			{
-				_id: categoryId
-			},
-			{
-				name, image: req.image, imageId
-			},
-			{
-				new: true,
-				runValidators: true
-			});
+    const updateCategory = await Category.findByIdAndUpdate(
+      {
+        _id: categoryId
+      },
+      {
+        name,
+        image: req.image,
+        imageId
+      },
+      {
+        new: true,
+        runValidators: true
+      }
+    )
 
-		if (!updateCategory) {
-			throw new CustomError(400, "Category does not exist");
-		}
+    if (!updateCategory) {
+      throw new CustomError(400, 'Category does not exist')
+    }
 
-		return res.status(200).json({
-			success: true,
-			message: "Category updated successfully",
-		});
-
-	} catch (err) {
-		errorResponse(res, err, "EDIT-CATEGORY");
-	}
-};
+    return res.status(200).json({
+      success: true,
+      message: 'Category updated successfully'
+    })
+  } catch (err) {
+    errorResponse(res, err, 'EDIT-CATEGORY')
+  }
+}
 
 /********************************************************
  * @deleteCategory
@@ -110,21 +117,24 @@ module.exports.editCategory = async (req, res) => {
  * @return {Object} A JSON object with a success property indicating if the category was removed successfully, and a message property containing a success message.
  *********************************************************/
 module.exports.removeCategory = async (req, res) => {
-	try {
-		//only ADMIN has access.
-		if (req.user.role !== "ADMIN") {
-			throw new CustomError(401, "Access denied. You are not authorized to access this resource.");
-		};
-		const { categoryId } = req.params;
-		await Category.findByIdAndRemove({ _id: categoryId });
-		return res.status(200).json({
-			success: true,
-			message: "Category Removed Successfully",
-		});
-	} catch (err) {
-		errorResponse(res, err, "REMOVE-CATEGORY")
-	}
-};
+  try {
+    //only ADMIN has access.
+    if (req.user.role !== 'ADMIN') {
+      throw new CustomError(
+        401,
+        'Access denied. You are not authorized to access this resource.'
+      )
+    }
+    const { categoryId } = req.params
+    await Category.findByIdAndRemove({ _id: categoryId })
+    return res.status(200).json({
+      success: true,
+      message: 'Category Removed Successfully'
+    })
+  } catch (err) {
+    errorResponse(res, err, 'REMOVE-CATEGORY')
+  }
+}
 
 /********************************************************
  * @getAllCategories
@@ -133,14 +143,13 @@ module.exports.removeCategory = async (req, res) => {
  * @returns {Array} - An array of categories
  *********************************************************/
 module.exports.getAllCategories = async (_req, res) => {
-	try {
-		const allCategories = await Category.find();
-		return res.status(200).json({ success: true, allCategories });
-	} catch (err) {
-		errorResponse(res, err, "GET-ALL-CATEGORIES");
-	}
-};
-
+  try {
+    const allCategories = await Category.find()
+    return res.status(200).json({ success: true, allCategories })
+  } catch (err) {
+    errorResponse(res, err, 'GET-ALL-CATEGORIES')
+  }
+}
 
 /********************************************************
  * @getSingleCategory
@@ -150,16 +159,14 @@ module.exports.getAllCategories = async (_req, res) => {
  * @Return {Object} - single category Object
  *********************************************************/
 module.exports.getSingleCategory = async (req, res) => {
-	try {
-		const { categoryId } = req.params;
-		const singleCategory = await Category.findById(
-			{
-				_id: categoryId
-			});
+  try {
+    const { categoryId } = req.params
+    const singleCategory = await Category.findById({
+      _id: categoryId
+    })
 
-		return res.status(200).json({ success: true, singleCategory });
-
-	} catch (err) {
-		errorResponse(res, err, "GET-SINGLE CATEGORY")
-	}
-};
+    return res.status(200).json({ success: true, singleCategory })
+  } catch (err) {
+    errorResponse(res, err, 'GET-SINGLE CATEGORY')
+  }
+}

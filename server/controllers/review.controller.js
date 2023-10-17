@@ -1,6 +1,6 @@
-const Review = require("../models/review.schema");
-const CustomError = require("../helper/customError");
-const errorResponse = require("../helper/errorResponse");
+const Review = require('../models/review.schema')
+const CustomError = require('../helper/customError')
+const errorResponse = require('../helper/errorResponse')
 
 /*************************************************************************
  * Get all the reviews and ratings for a specific product based on the product id.
@@ -12,14 +12,17 @@ const errorResponse = require("../helper/errorResponse");
  * @throws {CustomError} If there's an error fetching the data from the database.
  *****************************************************************************/
 module.exports.getSingleProductReviews = async (req, res) => {
-   try {
-      const { productId } = req.params;
-      const reviews = await Review.find({ product: productId }).populate("user", "image name");
-      res.status(200).json({ success: true, reviews });
-   } catch (err) {
-      errorResponse(res, err, "SINGLE-PRODUCT-REVIEW");
-   }
-};
+  try {
+    const { productId } = req.params
+    const reviews = await Review.find({ product: productId }).populate(
+      'user',
+      'image name'
+    )
+    res.status(200).json({ success: true, reviews })
+  } catch (err) {
+    errorResponse(res, err, 'SINGLE-PRODUCT-REVIEW')
+  }
+}
 
 /********************************************************************
  * Create a new review. Only authorized users and admins have access.
@@ -35,22 +38,22 @@ module.exports.getSingleProductReviews = async (req, res) => {
  * @throws {CustomError} If there's an error creating the review.
  *********************************************************************/
 module.exports.createReview = async (req, res) => {
-   try {
-      const { comment, rating, id } = req.body;
-      if (!comment || !rating) {
-         throw new CustomError(400, "All input fields are mandatory");
-      }
-      const review = await Review.create({
-         comment,
-         rating,
-         user: req.user.id,
-         product: id,
-      });
-      res.status(200).json({ success: true, message: "Review added", review });
-   } catch (err) {
-      errorResponse(res, err, "REVIEW-CREATE");
-   }
-};
+  try {
+    const { comment, rating, id } = req.body
+    if (!comment || !rating) {
+      throw new CustomError(400, 'All input fields are mandatory')
+    }
+    const review = await Review.create({
+      comment,
+      rating,
+      user: req.user.id,
+      product: id
+    })
+    res.status(200).json({ success: true, message: 'Review added', review })
+  } catch (err) {
+    errorResponse(res, err, 'REVIEW-CREATE')
+  }
+}
 
 /********************************************************************
  * Update existing review. Only authorized users and admins have access.
@@ -67,25 +70,28 @@ module.exports.createReview = async (req, res) => {
  * @throws {CustomError} If there's an error creating the review.
  *********************************************************************/
 module.exports.updateReview = async (req, res) => {
-   try {
-      const { reviewId } = req.params
-      const { comment, rating, id } = req.body;
-      if (!comment || !rating) {
-         throw new CustomError(400, "All input fields are mandatory");
+  try {
+    const { reviewId } = req.params
+    const { comment, rating, id } = req.body
+    if (!comment || !rating) {
+      throw new CustomError(400, 'All input fields are mandatory')
+    }
+    const review = await Review.findByIdAndUpdate(
+      {
+        _id: reviewId
+      },
+      {
+        comment,
+        rating,
+        user: req.user.id,
+        product: id
       }
-      const review = await Review.findByIdAndUpdate({
-         _id: reviewId
-      }, {
-         comment,
-         rating,
-         user: req.user.id,
-         product: id,
-      });
-      res.status(200).json({ success: true, message: "Review updated", review });
-   } catch (err) {
-      errorResponse(res, err, "REVIEW-UPDATE");
-   }
-};
+    )
+    res.status(200).json({ success: true, message: 'Review updated', review })
+  } catch (err) {
+    errorResponse(res, err, 'REVIEW-UPDATE')
+  }
+}
 
 /******************************************************************
  * Get all the reviews and ratings for all products.
@@ -97,13 +103,16 @@ module.exports.updateReview = async (req, res) => {
  * @throws {CustomError} If there's an error fetching the data from the database.
  ************************************************************************/
 module.exports.getAllReviews = async (_req, res) => {
-   try {
-      const reviews = await Review.find().populate("user product", "image name title");
-      res.status(200).json({ success: true, reviews });
-   } catch (err) {
-      errorResponse(res, err, "REVIEW-ALL");
-   }
-};
+  try {
+    const reviews = await Review.find().populate(
+      'user product',
+      'image name title'
+    )
+    res.status(200).json({ success: true, reviews })
+  } catch (err) {
+    errorResponse(res, err, 'REVIEW-ALL')
+  }
+}
 
 /****************************************************************************
 Get single review and ratings for a specific product based on product ID.
@@ -115,20 +124,20 @@ review (Object): The review object with user, product, and rating details.
 @throws {CustomError} If there's an error fetching the data from the database.
 ******************************************************************************/
 module.exports.getSingleReview = async (req, res) => {
-   try {
-      const { reviewId } = req.params;
-      const review = await Review.findById(reviewId).populate(
-         "user product",
-         "image name title"
-      );
-      if (!review) {
-         throw new CustomError(404, "Review not found!");
-      }
-      res.status(200).json({ success: true, review });
-   } catch (err) {
-      errorResponse(res, err, "SINGLE-REVIEW");
-   }
-};
+  try {
+    const { reviewId } = req.params
+    const review = await Review.findById(reviewId).populate(
+      'user product',
+      'image name title'
+    )
+    if (!review) {
+      throw new CustomError(404, 'Review not found!')
+    }
+    res.status(200).json({ success: true, review })
+  } catch (err) {
+    errorResponse(res, err, 'SINGLE-REVIEW')
+  }
+}
 /****************************************************************************
 Delete a single review based on review ID.
 @name deleteSingleReview
@@ -139,14 +148,14 @@ message (string): A message indicating that the review has been removed.
 @throws {CustomError} If there's an error fetching the data from the database.
 ******************************************************************************/
 module.exports.deleteSingleReview = async (req, res) => {
-   try {
-      const { reviewId } = req.params;
-      const review = await Review.findByIdAndRemove({ _id: reviewId });
-      if (!review) {
-         throw new CustomError(404, "Review not found!");
-      }
-      res.status(200).json({ success: true, message: "Review removed", review });
-   } catch (err) {
-      errorResponse(res, err, "DELETE-REVIEW");
-   }
-};
+  try {
+    const { reviewId } = req.params
+    const review = await Review.findByIdAndRemove({ _id: reviewId })
+    if (!review) {
+      throw new CustomError(404, 'Review not found!')
+    }
+    res.status(200).json({ success: true, message: 'Review removed', review })
+  } catch (err) {
+    errorResponse(res, err, 'DELETE-REVIEW')
+  }
+}

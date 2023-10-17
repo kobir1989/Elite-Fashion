@@ -6,10 +6,10 @@
  *********************************************************/
 
 class CustomError extends Error {
-   constructor(code, message, name = "name") {
-      super(message);
-      this.code = code;
-      this.name = name
-   }
+  constructor(code, message, name = 'name') {
+    super(message)
+    this.code = code
+    this.name = name
+  }
 }
-module.exports = CustomError;
+module.exports = CustomError

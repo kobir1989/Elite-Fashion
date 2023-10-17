@@ -1,32 +1,32 @@
-const { model, Schema } = require("mongoose");
+const { model, Schema } = require('mongoose')
 
-const reviewSchema = new Schema({
-   comment: {
+const reviewSchema = new Schema(
+  {
+    comment: {
       type: String,
-      required: [true, "Review are required"],
-      trim: true,
-   },
-   rating: {
+      required: [true, 'Review are required'],
+      trim: true
+    },
+    rating: {
       type: String,
-      require: [true, "Ratings are required"],
-   },
-   user: {
+      require: [true, 'Ratings are required']
+    },
+    user: {
       type: Schema.Types.ObjectId,
-      ref: "User",
-      required: [true, "User id is Required"]
-   },
-   product: {
+      ref: 'User',
+      required: [true, 'User id is Required']
+    },
+    product: {
       type: Schema.Types.ObjectId,
-      ref: "Product",
-      required: [true, "Product id is Required"]
-   }
+      ref: 'Product',
+      required: [true, 'Product id is Required']
+    }
+  },
+  {
+    timestamps: true
+  }
+)
 
-},
-   {
-      timestamps: true
-   }
-);
+const Review = model('Review', reviewSchema)
 
-const Review = model("Review", reviewSchema);
-
-module.exports = Review;
+module.exports = Review

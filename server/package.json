@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "start:prod": "NODE_ENV=production nodemon server.js"
+    "start:prod": "cross-env NODE_ENV=production nodemon server.js",
+    "lint": "eslint **/*.js",
+    "prettier": "prettier --write .",
+    "fix-all": "npm run lint -- --fix && npm run prettier"
   },
   "author": "Kabir",
   "license": "ISC",
@@ -27,5 +30,11 @@
     "nodemon": "^2.0.20",
     "socket.io": "^4.6.1",
     "stripe": "^11.10.0"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint": "^8.51.0",
+    "prettier": "^3.0.3"
   }
 }

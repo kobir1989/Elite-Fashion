@@ -1,42 +1,27 @@
-const route = require("express").Router();
+const route = require('express').Router()
 const {
-   createNewOrder,
-   getAllOrders,
-   getOrderStatus,
-   updateOrderStatus,
-   getSingleOrder
-} = require("../controllers/order.controller");
+  createNewOrder,
+  getAllOrders,
+  updateOrderStatus,
+  getSingleOrder
+} = require('../controllers/order.controller')
 
-const {
-   isAuthenticated,
-} = require("../middlewares/authMiddleware");
+const { isAuthenticated } = require('../middlewares/authMiddleware')
 
-const { updateStock } = require("../middlewares/updateStock.middleware")
+const { updateStock } = require('../middlewares/updateStock.middleware')
 
-route.get(
-   "/orders/all",
-   isAuthenticated,
-   getAllOrders
-);
+route.get('/orders/all', isAuthenticated, getAllOrders)
 
-route.get(
-   "/order/single/:orderId",
-   isAuthenticated,
-   getSingleOrder
-);
+route.get('/order/single/:orderId', isAuthenticated, getSingleOrder)
 
 route.post(
-   "/order/create/:userId",
-   isAuthenticated,
-   updateStock,
-   createNewOrder
-);
+  '/order/create/:userId',
+  isAuthenticated,
+  updateStock,
+  createNewOrder
+)
 
-route.put(
-   "/order/update/status/:orderId",
-   isAuthenticated,
-   updateOrderStatus
-);
+route.put('/order/update/status/:orderId', isAuthenticated, updateOrderStatus)
 
 // /***Currently Not using***
 // route.get(
@@ -45,4 +30,4 @@ route.put(
 //    getOrderStatus
 // );
 
-module.exports = route;
+module.exports = route

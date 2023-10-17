@@ -1,5 +1,5 @@
-const dotenv = require('dotenv');
-dotenv.config();
+const dotenv = require('dotenv')
+dotenv.config()
 
 const config = {
   PORT: process.env.PORT,
@@ -16,7 +16,7 @@ const config = {
   GOOGLE_API_REFRESH_TOKEN: process.env.GOOGLE_API_REFRESH_TOKEN,
   GOOGLE_REDIRECT_URI: process.env.GOOGLE_REDIRECT_URI,
   CLIENT_URL: process.env.CLIENT_URL,
-  ADMIN_APP_URL: process.env.ADMIN_APP_URL,
-};
+  ADMIN_APP_URL: process.env.ADMIN_APP_URL
+}
 
-module.exports = config;
+module.exports = config

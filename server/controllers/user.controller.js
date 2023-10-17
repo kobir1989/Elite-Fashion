@@ -1,6 +1,6 @@
-const CustomError = require("../helper/customError");
-const User = require("../models/user.schema");
-const errorResponse = require("../helper/errorResponse");
+const CustomError = require('../helper/customError')
+const User = require('../models/user.schema')
+const errorResponse = require('../helper/errorResponse')
 
 /************************************************************
  * Retrieve user profile for the logged in user.
@@ -11,29 +11,29 @@ const errorResponse = require("../helper/errorResponse");
  * @throws {CustomError} Error if user not found.
  ***********************************************************/
 module.exports.userProfile = async (req, res) => {
-   try {
-      const { _id } = req.user;
-      const user = await User.findById({ _id: _id }).populate({
-         path: "purchases",
-         populate: {
-            path: "product._id",
-            model: "Product",
-            select: "title price image createdAt",
-            options: {
-               name: "items"
-            }
-         }
-      });
-
-      user.password = undefined;
-      if (!user) {
-         throw new CustomError(400, "User not found");
+  try {
+    const { _id } = req.user
+    const user = await User.findById({ _id: _id }).populate({
+      path: 'purchases',
+      populate: {
+        path: 'product._id',
+        model: 'Product',
+        select: 'title price image createdAt',
+        options: {
+          name: 'items'
+        }
       }
-      return res.status(200).json({ success: true, user });
-   } catch (err) {
-      errorResponse(res, err, "USER-PROFILE");
-   };
-};
+    })
+
+    user.password = undefined
+    if (!user) {
+      throw new CustomError(400, 'User not found')
+    }
+    return res.status(200).json({ success: true, user })
+  } catch (err) {
+    errorResponse(res, err, 'USER-PROFILE')
+  }
+}
 
 /*************************************************************************
  * Update user profile for the logged in user.
@@ -49,33 +49,33 @@ module.exports.userProfile = async (req, res) => {
  * @throws {CustomError} Error if any of the fields are missing or user not found.
  **************************************************************************/
 module.exports.updateUserProfile = async (req, res) => {
-   try {
-      const { email, name, phone, address, city } = req.body;
+  try {
+    const { email, name, phone, address, city } = req.body
 
-      if (!email || !name || !phone || !address || !city) {
-         throw new CustomError(400, "All fields are mandatory")
-      }
+    if (!email || !name || !phone || !address || !city) {
+      throw new CustomError(400, 'All fields are mandatory')
+    }
 
-      const user = await User.findById({ _id: req.user?._id });
-      if (!user) {
-         throw new CustomError(404, "User not found", "email")
-      }
-      user.email = email;
-      user.name = name;
-      user.phone = phone;
-      user.address = address;
-      user.city = city;
-      user.image = req.image;
-      user.imageId = req?.imageId;
-      await user.save()
+    const user = await User.findById({ _id: req.user?._id })
+    if (!user) {
+      throw new CustomError(404, 'User not found', 'email')
+    }
+    user.email = email
+    user.name = name
+    user.phone = phone
+    user.address = address
+    user.city = city
+    user.image = req.image
+    user.imageId = req?.imageId
+    await user.save()
 
-      return res.status(200).json({
-         success: true,
-         message: "Account update successful",
-      });
-   } catch (err) {
-      errorResponse(res, err, "USER-PROFILE-UPDATE")
-   }
+    return res.status(200).json({
+      success: true,
+      message: 'Account update successful'
+    })
+  } catch (err) {
+    errorResponse(res, err, 'USER-PROFILE-UPDATE')
+  }
 }
 
 /**********************************************************************
@@ -86,21 +86,20 @@ module.exports.updateUserProfile = async (req, res) => {
  * @throws {CustomError} Error if no users found.
  **********************************************************************/
 module.exports.allUserProfiles = async (_req, res) => {
-   try {
-      //excludes the user with the role "ADMIN",
-      let filterQuery = {};
-      filterQuery = { role: { $ne: "ADMIN" } };
+  try {
+    //excludes the user with the role "ADMIN",
+    let filterQuery = {}
+    filterQuery = { role: { $ne: 'ADMIN' } }
 
-      const user = await User.find(filterQuery).select("-password").exec();
-      if (!user) {
-         throw new CustomError(400, "User not found");
-      }
-      return res.status(200).json({ success: true, user });
-   } catch (err) {
-      errorResponse(res, err, "USER-PROFILE");
-   };
-};
-
+    const user = await User.find(filterQuery).select('-password').exec()
+    if (!user) {
+      throw new CustomError(400, 'User not found')
+    }
+    return res.status(200).json({ success: true, user })
+  } catch (err) {
+    errorResponse(res, err, 'USER-PROFILE')
+  }
+}
 
 /************************************************************
  * Update Admin Profile.
@@ -113,28 +112,28 @@ module.exports.allUserProfiles = async (_req, res) => {
  * @throws {CustomError} Error if admin not found.
  ***********************************************************/
 module.exports.updateAdminProfile = async (req, res) => {
-   try {
-      const { email, name } = req.body;
-      if (!email || !name) {
-         throw new CustomError(400, "All fields are mandatory")
-      }
+  try {
+    const { email, name } = req.body
+    if (!email || !name) {
+      throw new CustomError(400, 'All fields are mandatory')
+    }
 
-      const user = await User.findById({ _id: req.user?._id });
-      if (!user) {
-         throw new CustomError(404, "User not found", "email")
-      }
-      console.log(req.image, "URL")
-      user.email = email;
-      user.name = name;
-      user.image = req.image;
-      user.imageId = req?.imageId;
-      await user.save()
+    const user = await User.findById({ _id: req.user?._id })
+    if (!user) {
+      throw new CustomError(404, 'User not found', 'email')
+    }
+    console.log(req.image, 'URL')
+    user.email = email
+    user.name = name
+    user.image = req.image
+    user.imageId = req?.imageId
+    await user.save()
 
-      return res.status(200).json({
-         success: true,
-         message: "Account update successful",
-      });
-   } catch (err) {
-      errorResponse(res, err, "ADMIN-PROFILE-UPDATE")
-   }
+    return res.status(200).json({
+      success: true,
+      message: 'Account update successful'
+    })
+  } catch (err) {
+    errorResponse(res, err, 'ADMIN-PROFILE-UPDATE')
+  }
 }

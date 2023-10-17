@@ -1,6 +1,6 @@
-const Product = require("../models/product.schema");
-const CustomError = require("../helper/customError");
-const errorResponse = require("../helper/errorResponse");
+const Product = require('../models/product.schema')
+const CustomError = require('../helper/customError')
+const errorResponse = require('../helper/errorResponse')
 
 /********************************************************
  * @searchController
@@ -10,23 +10,25 @@ const errorResponse = require("../helper/errorResponse");
  * @returns {Array} - Array of matching products.
  *********************************************************/
 module.exports.searchController = async (req, res) => {
-   try {
-      const { key } = req.params;
+  try {
+    const { key } = req.params
 
-      if (!key) {
-         throw new CustomError(400, "Invalid search key provided.");
-      }
+    if (!key) {
+      throw new CustomError(400, 'Invalid search key provided.')
+    }
 
-      const result = await Product.find({
-         "$or": [
-            {
-               title: { $regex: key, $options: "i" }
-            }
-         ]
-      }).sort({ title: 1 }).limit(4);
+    const result = await Product.find({
+      $or: [
+        {
+          title: { $regex: key, $options: 'i' }
+        }
+      ]
+    })
+      .sort({ title: 1 })
+      .limit(4)
 
-      res.status(200).json(result);
-   } catch (err) {
-      errorResponse(req, err, "SEARCH-CONTROLLER");
-   }
-};
+    res.status(200).json(result)
+  } catch (err) {
+    errorResponse(req, err, 'SEARCH-CONTROLLER')
+  }
+}
