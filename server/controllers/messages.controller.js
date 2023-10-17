@@ -1,7 +1,8 @@
 const Message = require('../models/messages.schama')
 const ChatRoom = require('../models/chatRoom.schema')
-const errorResponse = require('../helper/errorResponse')
 const CustomError = require('../helper/customError')
+const catchAsync = require('../utils/catchAsync')
+const ApiFeatures = require('../service/apiFeatures')
 
 /**********************************************************
 Add a message to a chat room.
@@ -14,28 +15,31 @@ Add a message to a chat room.
 @throws {CustomError} 400 - All the fields are mandatory
 @throws {CustomError} 500 - Internal server error
 ***************************************************************/
-module.exports.addMessage = async (req, res) => {
-  try {
-    const { chatRoomId } = req.params
-    const { message, sender, receiver } = req.body
-    if (!message || !chatRoomId || !sender || !receiver) {
-      throw new CustomError(400, 'All the feilds are mandatory', 'message')
-    }
-    const newMessage = await Message.create({
-      message,
-      chatRoom: chatRoomId,
-      sender,
-      receiver
-    })
-    await ChatRoom.updateOne(
-      { _id: chatRoomId },
-      { $push: { messages: newMessage._id } }
-    )
-    return res.status(201).json({ success: true, newMessage })
-  } catch (err) {
-    errorResponse(res, err, 'ADD-MESSAGE')
+module.exports.addMessage = catchAsync(async (req, res) => {
+  const { chatRoomId } = req.params
+  const { message, sender, receiver } = req.body
+  if (!message || !chatRoomId || !sender || !receiver) {
+    throw new CustomError('All the feilds are mandatory', 400)
   }
-}
+  const newMessage = await Message.create({
+    message,
+    chatRoom: chatRoomId,
+    sender,
+    receiver
+  })
+  await ChatRoom.updateOne(
+    { _id: chatRoomId },
+    { $push: { messages: newMessage._id } }
+  )
+
+  return res.status(201).json({
+    status: 'success',
+    result: 1,
+    data: {
+      newMessage
+    }
+  })
+})
 
 /*************************************************************************
  * Retrieves all messages for a given chat room.
@@ -45,18 +49,24 @@ module.exports.addMessage = async (req, res) => {
  * @throws {CustomError} 404 - Messages not found.
  * @throws {CustomError} 500 - Internal server error.
  *************************************************************************/
-module.exports.getMessages = async (req, res) => {
-  try {
-    const { chatRoomId } = req.params
-    const messages = await Message.find({ chatRoom: chatRoomId }).populate({
-      path: 'sender',
-      select: 'name email image'
-    })
-    if (!messages) {
-      throw new CustomError(404, 'Messages not found!', 'Message')
-    }
-    return res.status(200).json({ success: true, messages })
-  } catch (err) {
-    errorResponse(res, err, 'GET-MESSAGES')
+module.exports.getMessages = catchAsync(async (req, res) => {
+  const chatApiFeatures = new ApiFeatures(req.query, Message.find())
+    .filter()
+    .limitFields()
+    .populate({ path: 'sender', select: 'name email image' })
+
+  const paginate = await chatApiFeatures.paginate()
+  const messages = await chatApiFeatures.query
+
+  if (!messages) {
+    throw new CustomError(404, 'Messages not found!', 'Message')
   }
-}
+  return res.status(200).json({
+    status: 'success',
+    result: messages.length,
+    ...paginate,
+    data: {
+      messages
+    }
+  })
+})

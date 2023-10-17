@@ -18,9 +18,7 @@ class ApiFeatures {
     // Replace gte|gt|lte|lt with  $gte $gt $lte $lt
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`)
     // query database to find the match with the filtered options
-    this.query = this.query
-      .find(JSON.parse(queryStr))
-      .populate('subCategory category', '_id name')
+    this.query = this.query.find(JSON.parse(queryStr))
     return this
   }
 

@@ -1,7 +1,7 @@
 const Product = require('../models/product.schema')
 const CustomError = require('../helper/customError')
-const errorResponse = require('../helper/errorResponse')
 const ApiFeatures = require('../service/apiFeatures')
+const catchAsync = require('../utils/catchAsync')
 
 /********************************************************
  * @createNewProduct
@@ -20,59 +20,58 @@ const ApiFeatures = require('../service/apiFeatures')
  * @returns {Object} A success message
  * @throws {CustomError} If the user is not authorized or if any of the required fields is missing.
  *********************************************************/
-module.exports.createNewProduct = async (req, res) => {
-  try {
-    //only ADMIN has access.
-    if (req.user.role !== 'ADMIN') {
-      throw new CustomError(
-        401,
-        'Access denied. You are not authorized to access this resource.'
-      )
-    }
-    const {
-      title,
-      description,
-      price,
-      sellPrice,
-      productCost,
-      stock,
-      category,
-      subCategory
-    } = req.body
-    if (
-      !title ||
-      !description ||
-      !price ||
-      !sellPrice ||
-      !productCost ||
-      !stock ||
-      !category ||
-      !subCategory
-    ) {
-      throw new CustomError(400, 'All the fields are mandatory', 'all')
-    }
-
-    await Product.create({
-      title,
-      description,
-      price,
-      sellPrice,
-      productCost,
-      stock,
-      image: req.image,
-      imageId: req.imageId,
-      category,
-      subCategory
-    })
-
-    return res.status(200).json({
-      success: true,
-      message: 'New Product added'
-    })
-  } catch (err) {
-    errorResponse(res, err, 'CREATE-NEW-PRODUCT')
+module.exports.createNewProduct = catchAsync(async (req, res) => {
+  //only ADMIN has access.
+  if (req.user.role !== 'ADMIN') {
+    throw new CustomError(
+      'Access denied. You are not authorized to access this resource.',
+      401
+    )
   }
-}
+  const {
+    title,
+    description,
+    price,
+    sellPrice,
+    productCost,
+    stock,
+    category,
+    subCategory
+  } = req.body
+  if (
+    !title ||
+    !description ||
+    !price ||
+    !sellPrice ||
+    !productCost ||
+    !stock ||
+    !category ||
+    !subCategory
+  ) {
+    throw new CustomError('All the fields are mandatory', 400)
+  }
+
+  const newProduct = await Product.create({
+    title,
+    description,
+    price,
+    sellPrice,
+    productCost,
+    stock,
+    image: req.image,
+    imageId: req.imageId,
+    category,
+    subCategory
+  })
+
+  return res.status(201).json({
+    status: 'success',
+    result: 1,
+    data: {
+      newProduct
+    }
+  })
+})
 
 /********************************************************
  * @editProduct
@@ -91,73 +90,71 @@ module.exports.createNewProduct = async (req, res) => {
  * @param {string} req.imageId - The updated image ID of the product
  * @returns {object} The updated product and a success message
  *********************************************************/
-module.exports.editProduct = async (req, res) => {
-  try {
-    //only ADMIN has access.
-    if (req.user.role !== 'ADMIN') {
-      throw new CustomError(
-        401,
-        'Access denied. You are not authorized to access this resource.'
-      )
-    }
-    const { productId } = req.params
-    const {
+module.exports.editProduct = catchAsync(async (req, res) => {
+  //only ADMIN has access.
+  if (req.user.role !== 'ADMIN') {
+    throw new CustomError(
+      'Access denied. You are not authorized to access this resource.',
+      401
+    )
+  }
+  const { productId } = req.params
+  const {
+    title,
+    description,
+    price,
+    sellPrice,
+    productCost,
+    stock,
+    category,
+    subCategory
+  } = req.body
+
+  if (
+    !title ||
+    !description ||
+    !price ||
+    !sellPrice ||
+    !productCost ||
+    !stock ||
+    !category ||
+    !subCategory
+  ) {
+    throw new CustomError('All the fields are mandatory', 400)
+  }
+  const updateProduct = await Product.findByIdAndUpdate(
+    {
+      _id: productId
+    },
+    {
       title,
       description,
       price,
       sellPrice,
       productCost,
+      image: req.image,
+      imageId: req.imageId,
       stock,
       category,
       subCategory
-    } = req.body
-
-    if (
-      !title ||
-      !description ||
-      !price ||
-      !sellPrice ||
-      !productCost ||
-      !stock ||
-      !category ||
-      !subCategory
-    ) {
-      throw new CustomError(400, 'All the fields are mandatory')
+    },
+    {
+      new: true,
+      runValidators: true
     }
-    const updateProduct = await Product.findByIdAndUpdate(
-      {
-        _id: productId
-      },
-      {
-        title,
-        description,
-        price,
-        sellPrice,
-        productCost,
-        image: req.image,
-        imageId: req.imageId,
-        stock,
-        category,
-        subCategory
-      },
-      {
-        new: true,
-        runValidators: true
-      }
-    )
-    if (!updateProduct) {
-      throw new CustomError(400, 'Update product failed, please try again')
-    }
-
-    return res.status(200).json({
-      success: true,
-      message: 'Product updated successfully'
-    })
-  } catch (err) {
-    console.log(err)
-    errorResponse(res, err, 'EDIT-PRODUCT')
+  )
+  if (!updateProduct) {
+    throw new CustomError('Update product failed, please try again', 400)
   }
-}
+
+  return res.status(201).json({
+    status: 'success',
+    result: 1,
+    data: {
+      updateProduct
+    }
+  })
+})
 
 /********************************************************
  * @deleteProduct
@@ -166,83 +163,30 @@ module.exports.editProduct = async (req, res) => {
  * @param {string} productId - The ID of the product to delete.
  * @returns {object} - A success message indicating that the product has been deleted.
  *********************************************************/
-module.exports.deleteProduct = async (req, res) => {
-  try {
-    // Only ADMIN has access.
-    if (req.user.role !== 'ADMIN') {
-      throw new CustomError(
-        401,
-        'Access denied. You are not authorized to access this resource.'
-      )
-    }
-
-    const { productId } = req.params
-    const deleteProduct = await Product.findByIdAndRemove({ _id: productId })
-
-    if (!deleteProduct) {
-      throw new CustomError(400, 'Product delete failed')
-    }
-
-    return res.status(200).json({
-      success: true,
-      message: 'Product deleted successfully'
-    })
-  } catch (err) {
-    errorResponse(res, err, 'DELETE-PRODUCT')
+module.exports.deleteProduct = catchAsync(async (req, res) => {
+  // Only ADMIN has access.
+  if (req.user.role !== 'ADMIN') {
+    throw new CustomError(
+      'Access denied. You are not authorized to access this resource.',
+      401
+    )
   }
-}
 
-/******************************************************
-Retrieves products based on the provided page number and limit,
-and then sends the resulting data back to the client as a JSON response.
-@route GET /api/v1/:subCategoryId/product?page=1&limit=12
-@param {Object} req - Express request object
-@param {Object} res - Express response object
-@throws {CustomError} 400 - Page, Limit, and Sub Category ID are required
-@returns {Object} - Products Array
-******************************************************/
-module.exports.getProductsByLimits = async (req, res) => {
-  try {
-    const { page, limit } = req.query
-    const { subCategoryId } = req.params
+  const { productId } = req.params
+  const deletedProduct = await Product.findByIdAndRemove({ _id: productId })
 
-    // Check if required query parameters are present
-    if (!page || !limit || !subCategoryId) {
-      throw new CustomError(400, 'Page, Limit and Sub Category Id are required')
-    }
-
-    const startIndex = (page - 1) * limit
-    const endIndex = page * limit
-
-    // Get the total count of products in the subcategory
-    const totalCount = await Product.countDocuments({
-      subCategory: subCategoryId
-    })
-
-    // Retrieve products based on the query parameters
-    const products = await Product.find({ subCategory: subCategoryId })
-      .select('-sold -productCost')
-      .limit(limit)
-      .skip(startIndex)
-      .exec()
-
-    // Set pagination information
-    const totalPage = Math.ceil(totalCount / limit)
-    const next =
-      endIndex < totalCount ? { page: parseInt(page) + 1, limit: limit } : null
-    const previous =
-      startIndex > 0 ? { page: parseInt(page) - 1, limit: limit } : null
-
-    // Send the response
-    return res.status(200).json({
-      success: true,
-      products,
-      pagination: { totalPage, next, previous }
-    })
-  } catch (err) {
-    errorResponse(res, err, 'GET-PAGINATED-PRODUCTS')
+  if (!deletedProduct) {
+    throw new CustomError('Product delete failed', 400)
   }
-}
+
+  return res.status(201).json({
+    status: 'success',
+    result: 1,
+    data: {
+      deletedProduct
+    }
+  })
+})
 
 /********************************************************
  * @getAllProducts
@@ -251,31 +195,26 @@ module.exports.getProductsByLimits = async (req, res) => {
  * @throws {CustomError} 500 - Server error
  * @returns {Object} Products array
  ********************************************************/
-module.exports.getAllProducts = async (req, res) => {
-  try {
-    const productsApiFeatures = new ApiFeatures(
-      req.query,
-      Product.find(),
-      Product
-    )
-      .filter()
-      .limitFields()
-    const paginate = await productsApiFeatures.pagination()
-    const products = await productsApiFeatures.query
+module.exports.getAllProducts = catchAsync(async (req, res) => {
+  const productsApiFeatures = new ApiFeatures(
+    req.query,
+    Product.find(),
+    Product
+  )
+    .filter()
+    .limitFields()
+  const paginate = await productsApiFeatures.pagination()
+  const products = await productsApiFeatures.query
 
-    res.status(200).json({
-      status: 'success',
-      results: products.length,
-      ...paginate,
-      data: {
-        products
-      }
-    })
-  } catch (err) {
-    console.log(err)
-    errorResponse(res, err, 'GET-ALL-PRODUCTS')
-  }
-}
+  res.status(200).json({
+    status: 'success',
+    results: products.length,
+    ...paginate,
+    data: {
+      products
+    }
+  })
+})
 
 /********************************************************
  * Retrieves a single product based on the provided product ID and then sends the resulting data back to the client as a JSON response.
@@ -284,23 +223,25 @@ module.exports.getAllProducts = async (req, res) => {
  * @throws {CustomError} 400 - Product ID is required
  * @returns {object} - Product object
  *********************************************************/
-module.exports.getSingleProducts = async (req, res) => {
-  try {
-    const { productId } = req.params
+module.exports.getSingleProducts = catchAsync(async (req, res) => {
+  const { productId } = req.params
 
-    if (!productId) {
-      throw new CustomError(400, 'Product ID is required')
-    }
-
-    const products = await Product.findById(productId)
-      .populate('category subCategory', '_id name')
-      .exec()
-
-    return res.status(200).json({ success: true, products })
-  } catch (err) {
-    errorResponse(res, err, 'GET-SINGLE_PRODUCT')
+  if (!productId) {
+    throw new CustomError('Product ID is required', 400)
   }
-}
+
+  const product = await Product.findById(productId)
+    .populate('category subCategory', '_id name')
+    .exec()
+
+  return res.status(200).json({
+    status: 'success',
+    result: product.length,
+    data: {
+      product
+    }
+  })
+})
 
 /********************************************************
  * @getBestSellingProducts
@@ -308,11 +249,13 @@ module.exports.getSingleProducts = async (req, res) => {
  * @description Retrieves the best-selling products and sends them back to the client as a JSON response.
  * @returns {Object} - Products Array with a limit of 12
  *********************************************************/
-module.exports.getBestSellingProducts = async (_req, res) => {
-  try {
-    const products = await Product.aggregate([{ $sample: { size: 12 } }])
-    return res.status(200).json({ success: true, products })
-  } catch (err) {
-    errorResponse(res, err, 'GET-BEST-SELLING-PRODUCT')
-  }
-}
+module.exports.getBestSellingProducts = catchAsync(async (_req, res) => {
+  const products = await Product.aggregate([{ $sample: { size: 12 } }])
+  return res.status(200).json({
+    status: 'success',
+    result: products.length,
+    data: {
+      products
+    }
+  })
+})

@@ -16,6 +16,8 @@ const adminAnalyticsRoute = require('./routes/adminAnalytics.route')
 const reviewRoute = require('./routes/review.routes')
 const messageRoute = require('./routes/message.route')
 const chatRoomRoute = require('./routes/chatRoom.route')
+const globalErrorHandler = require('./controllers/error.controller')
+const CustomError = require('./helper/customError')
 
 app.use(morgan('tiny'))
 app.use(
@@ -48,5 +50,13 @@ app.use('/api/v1', adminAnalyticsRoute)
 app.use('/api/v1', reviewRoute)
 app.use('/api/v1', messageRoute)
 app.use('/api/v1', chatRoomRoute)
+
+// Catch All Routes
+app.all('*', (req, _res, next) => {
+  next(new CustomError(`Can't find ${req.originalUrl} on This server!`, 404))
+})
+
+// Global Error Handler
+app.use(globalErrorHandler)
 
 module.exports = app

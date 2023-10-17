@@ -1,6 +1,7 @@
 const CustomError = require('../helper/customError')
 const User = require('../models/user.schema')
 const errorResponse = require('../helper/errorResponse')
+const catchAsync = require('../utils/catchAsync')
 
 /************************************************************
  * Retrieve user profile for the logged in user.
@@ -85,21 +86,23 @@ module.exports.updateUserProfile = async (req, res) => {
  * @returns {object} The user profiles for all non-admin users.
  * @throws {CustomError} Error if no users found.
  **********************************************************************/
-module.exports.allUserProfiles = async (_req, res) => {
-  try {
-    //excludes the user with the role "ADMIN",
-    let filterQuery = {}
-    filterQuery = { role: { $ne: 'ADMIN' } }
+module.exports.allUserProfiles = catchAsync(async (_req, res) => {
+  //excludes the user with the role "ADMIN",
+  let filterQuery = {}
+  filterQuery = { role: { $ne: 'ADMIN' } }
 
-    const user = await User.find(filterQuery).select('-password').exec()
-    if (!user) {
-      throw new CustomError(400, 'User not found')
-    }
-    return res.status(200).json({ success: true, user })
-  } catch (err) {
-    errorResponse(res, err, 'USER-PROFILE')
+  const user = await User.find(filterQuery).select('-password').exec()
+  if (!user) {
+    throw new CustomError('User not found', 400)
   }
-}
+  return res.status(200).json({
+    status: 'success',
+    result: 1,
+    data: {
+      user
+    }
+  })
+})
 
 /************************************************************
  * Update Admin Profile.
@@ -111,29 +114,27 @@ module.exports.allUserProfiles = async (_req, res) => {
  * @returns {object} success message.
  * @throws {CustomError} Error if admin not found.
  ***********************************************************/
-module.exports.updateAdminProfile = async (req, res) => {
-  try {
-    const { email, name } = req.body
-    if (!email || !name) {
-      throw new CustomError(400, 'All fields are mandatory')
-    }
-
-    const user = await User.findById({ _id: req.user?._id })
-    if (!user) {
-      throw new CustomError(404, 'User not found', 'email')
-    }
-    console.log(req.image, 'URL')
-    user.email = email
-    user.name = name
-    user.image = req.image
-    user.imageId = req?.imageId
-    await user.save()
-
-    return res.status(200).json({
-      success: true,
-      message: 'Account update successful'
-    })
-  } catch (err) {
-    errorResponse(res, err, 'ADMIN-PROFILE-UPDATE')
+module.exports.updateAdminProfile = catchAsync(async (req, res) => {
+  const { email, name } = req.body
+  if (!email || !name) {
+    throw new CustomError('All fields are mandatory', 400)
   }
-}
+
+  const user = await User.findById({ _id: req.user?._id })
+  if (!user) {
+    throw new CustomError('User not found', 404)
+  }
+  user.email = email
+  user.name = name
+  user.image = req.image
+  user.imageId = req?.imageId
+  await user.save()
+
+  return res.status(201).json({
+    status: 'success',
+    result: 1,
+    data: {
+      user
+    }
+  })
+})

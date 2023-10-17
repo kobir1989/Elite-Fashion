@@ -6,10 +6,14 @@
  *********************************************************/
 
 class CustomError extends Error {
-  constructor(code, message, name = 'name') {
+  constructor(message, statusCode) {
     super(message)
-    this.code = code
-    this.name = name
+
+    this.statusCode = statusCode
+    this.status = `${statusCode}`.startsWith('4') ? 'fail' : 'error'
+    this.isOperational = true
+
+    Error.captureStackTrace(this, this.constructor)
   }
 }
 module.exports = CustomError

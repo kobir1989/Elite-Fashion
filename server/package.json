@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "start:prod": "cross-env NODE_ENV=production nodemon server.js",
+    "start:prod": "NODE_ENV=production nodemon server.js",
     "lint": "eslint **/*.js",
     "prettier": "prettier --write .",
     "fix-all": "npm run lint -- --fix && npm run prettier"
