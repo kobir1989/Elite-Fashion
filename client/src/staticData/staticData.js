@@ -28,5 +28,5 @@ export const emojiArray = [
   { name: 'Neutral Face', code: '😐' },
   { name: 'Flushed Face', code: '😳' },
   { name: 'Weary Face', code: '😩' },
-  { name: 'Sleeping Face', code: '😴' },
-];
+  { name: 'Sleeping Face', code: '😴' }
+]

@@ -2,37 +2,37 @@
 @import '../../../sass/sass-utils/colors';
 
 .emoji_container {
-	width: 90%;
-	padding: 1rem;
-	margin: auto;
-	min-height: 25vh;
-	background-color: $white;
-	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-	border: 1px solid #e1e1e1;
-	border-radius: 4px;
-	margin-bottom: -0.2rem;
-	@include flex-row-center;
-	justify-content: center;
-	flex-wrap: wrap;
-	gap: 0.5rem;
-	@include screens-lg {
-		width: 60%;
-	}
-	button {
-		padding: 0;
-		margin: 0;
-		background: unset;
-		border: unset;
-		font-size: 1.4em;
-		cursor: pointer;
-		transform: scale(1);
-		transition: all 0.1s ease-in-out;
-		&:hover {
-			transform: scale(1.1);
-			transition: all 0.1s ease-in-out;
-		}
-		@include screens-lg {
-			font-size: 1.7rem;
-		}
-	}
+  width: 90%;
+  padding: 1rem;
+  margin: auto;
+  min-height: 25vh;
+  background-color: $white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+  margin-bottom: -0.2rem;
+  @include flex-row-center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  @include screens-lg {
+    width: 60%;
+  }
+  button {
+    padding: 0;
+    margin: 0;
+    background: unset;
+    border: unset;
+    font-size: 1.4em;
+    cursor: pointer;
+    transform: scale(1);
+    transition: all 0.1s ease-in-out;
+    &:hover {
+      transform: scale(1.1);
+      transition: all 0.1s ease-in-out;
+    }
+    @include screens-lg {
+      font-size: 1.7rem;
+    }
+  }
 }

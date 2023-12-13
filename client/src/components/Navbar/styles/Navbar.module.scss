@@ -2,219 +2,221 @@
 @import '../../../sass//sass-utils/mixins';
 
 .nav_wrapper {
-	position: fixed;
-	z-index: 25;
-	width: 100%;
-	padding: 0 1rem;
-	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-	@include flex-row-space-between;
-	align-items: center;
-	background-color: #ffffffec;
-	-webkit-backdrop-filter: blur(5px);
-	backdrop-filter: blur(5px);
-	@include screens-lg {
-		display: block;
-		padding: 0;
-	}
-	.nav {
-		@include flex-row-space-between;
-		align-items: center;
-		height: 4rem;
-		@include screens-lg {
-			margin: 0 4rem;
-			height: 4.5rem;
-		}
-		&_logo {
-			width: 8rem;
-			height: 1.43rem;
-			@include screens-lg {
-				width: 14rem;
-				height: 2.2rem;
-			}
-			img {
-				width: 100%;
-				height: 100%;
-				object-fit: contain;
-			}
-		}
-		&_links {
-			display: none;
-			@include screens-lg {
-				font-size: 1rem;
-				font-weight: 500;
-				letter-spacing: 0.5px;
-				text-transform: uppercase;
-				color: $gray_text;
-				@include flex-row;
-				gap: 2.2rem;
-				a {
-					&:hover {
-						color: $red_main;
-					}
-				}
-			}
-		}
-		&_buttons {
-			display: none;
-			@include screens-lg {
-				@include flex-row;
-				align-items: center;
-				justify-content: center;
-				gap: 1.2rem;
-				button {
-					padding: 0;
-					@include flex-col-center;
-					justify-content: center;
-				}
-			}
+  position: fixed;
+  z-index: 25;
+  width: 100%;
+  padding: 0 1rem;
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  @include flex-row-space-between;
+  align-items: center;
+  background-color: #ffffffec;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  @include screens-lg {
+    display: block;
+    padding: 0;
+  }
+  .nav {
+    @include flex-row-space-between;
+    align-items: center;
+    height: 4rem;
+    @include screens-lg {
+      margin: 0 4rem;
+      height: 4.5rem;
+    }
+    &_logo {
+      width: 8rem;
+      height: 1.43rem;
+      @include screens-lg {
+        width: 14rem;
+        height: 2.2rem;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+    &_links {
+      display: none;
+      @include screens-lg {
+        font-size: 1rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: $gray_text;
+        @include flex-row;
+        gap: 2.2rem;
+        a {
+          &:hover {
+            color: $red_main;
+          }
+        }
+      }
+    }
+    &_buttons {
+      display: none;
+      @include screens-lg {
+        @include flex-row;
+        align-items: center;
+        justify-content: center;
+        gap: 1.2rem;
+        button {
+          padding: 0;
+          @include flex-col-center;
+          justify-content: center;
+        }
+      }
 
-			.user_profile_btn {
-				position: relative;
-				.bgscreen_dropdown {
-					position: absolute;
-					background-color: $white;
-					z-index: 10;
-					@include flex-col-center;
-					justify-content: flex-start;
-					gap: 1.5rem;
-					left: 50%;
-					top: 3rem;
-					transform: translate(-50%);
-					max-width: 18rem;
-					max-height: 14rem;
-					@include box-shadow-diffuse;
-					padding: 1.5rem;
-					border-radius: 4px;
-					.drop_down_user_info {
-						img {
-							width: 3rem;
-							height: 3rem;
-							border-radius: 50%;
-							filter: brightness(95%);
-						}
-						@include flex-row;
-						text-align: left;
-						gap: 0.6rem;
-						width: 100%;
-						border-bottom: 1px solid $light_gray;
-						padding-bottom: 1.5rem;
-						.user_account {
-							@include flex-col;
-							gap: 0.4rem;
-						}
-						.user_name {
-							text-transform: capitalize;
-							background-color: unset;
-							font-size: 1rem;
-							border-radius: unset;
-							padding: 0;
-							width: 100%;
-							height: unset;
-							font-weight: 600;
-							&:hover {
-								color: unset !important;
-							}
-						}
-						.user_email {
-							text-transform: lowercase;
-							font-size: 0.8rem;
-							font-weight: 400;
-							padding: 0;
-							width: 100%;
-							&:hover {
-								color: unset !important;
-							}
-						}
-					}
-					li {
-						font-size: 0.8rem;
-						letter-spacing: 0.5px;
-						text-transform: uppercase;
-						font-weight: 400;
-						width: 100%;
-						color: $gray_text;
-						cursor: pointer;
-						@include flex-row-center;
-						gap: 0.4rem;
-						button {
-							@include flex-row;
-						}
-						&:hover {
-							color: $red_main;
-						}
-						a {
-							@include flex-row;
-							align-items: center;
-							gap: 0.4rem;
-						}
-						svg {
-							padding: 0;
-							margin: 0;
-						}
-					}
-				}
-			}
-			.user_name {
-				background-color: $light_gray;
-				padding: 0.5rem 0.7rem;
-				width: 2rem;
-				height: 2rem;
-				border-radius: 50%;
-				@include flex-col;
-				justify-content: center;
-				p {
-					color: $red_main;
-					text-transform: uppercase;
-					font-weight: 700;
-					line-height: 0.85;
-				}
-			}
-		}
-	}
+      .user_profile_btn {
+        position: relative;
+        .bgscreen_dropdown {
+          position: absolute;
+          background-color: $white;
+          z-index: 10;
+          @include flex-col-center;
+          justify-content: flex-start;
+          gap: 1.5rem;
+          left: 50%;
+          top: 3rem;
+          transform: translate(-50%);
+          max-width: 18rem;
+          max-height: 14rem;
+          @include box-shadow-diffuse;
+          padding: 1.5rem;
+          border-radius: 4px;
+          .drop_down_user_info {
+            img {
+              width: 3rem;
+              height: 3rem;
+              border-radius: 50%;
+              filter: brightness(95%);
+            }
+            @include flex-row;
+            text-align: left;
+            gap: 0.6rem;
+            width: 100%;
+            border-bottom: 1px solid $light_gray;
+            padding-bottom: 1.5rem;
+            .user_account {
+              @include flex-col;
+              gap: 0.4rem;
+            }
+            .user_name {
+              text-transform: capitalize;
+              background-color: unset;
+              font-size: 1rem;
+              border-radius: unset;
+              padding: 0;
+              width: 100%;
+              height: unset;
+              font-weight: 600;
+              &:hover {
+                color: unset !important;
+              }
+            }
+            .user_email {
+              text-transform: lowercase;
+              font-size: 0.8rem;
+              font-weight: 400;
+              padding: 0;
+              width: 100%;
+              &:hover {
+                color: unset !important;
+              }
+            }
+          }
+          li {
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 400;
+            width: 100%;
+            color: $gray_text;
+            cursor: pointer;
+            @include flex-row-center;
+            gap: 0.4rem;
+            button {
+              @include flex-row;
+            }
+            &:hover {
+              color: $red_main;
+            }
+            a {
+              @include flex-row;
+              align-items: center;
+              gap: 0.4rem;
+            }
+            svg {
+              padding: 0;
+              margin: 0;
+            }
+          }
+        }
+      }
+      .user_name {
+        background-color: $light_gray;
+        padding: 0.5rem 0.7rem;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        @include flex-col;
+        justify-content: center;
+        p {
+          color: $red_main;
+          text-transform: uppercase;
+          font-weight: 700;
+          line-height: 0.85;
+        }
+      }
+    }
+  }
 }
 .wish_list_btn_wrapper,
 .cart_item_link_wrapper {
-	position: relative;
-	.wish_list_count,
-	.cart_item_count {
-		color: $white;
-		font-weight: 700;
-		font-size: 0.7rem;
-		background-color: $red_main;
-		padding: 0.3rem 0.34rem;
-		border-radius: 12px;
-		@include box-shadow-diffuse;
-		@include flex-col-center;
-		justify-content: center;
-	}
-	.wish_list_count {
-		position: absolute;
-		right: -0.6rem;
-		top: -0.2rem;
-		line-height: 0.7;
-	}
-	.cart_item_count {
-		position: absolute;
-		right: -0.6rem;
-		top: -0.1rem;
-		line-height: 0.7;
-	}
+  position: relative;
+  .wish_list_count,
+  .cart_item_count {
+    color: $white;
+    font-weight: 700;
+    font-size: 0.7rem;
+    background-color: $red_main;
+    padding: 0.3rem 0.34rem;
+    border-radius: 12px;
+    @include box-shadow-diffuse;
+    @include flex-col-center;
+    justify-content: center;
+  }
+  .wish_list_count {
+    position: absolute;
+    right: -0.6rem;
+    top: -0.2rem;
+    line-height: 0.7;
+  }
+  .cart_item_count {
+    position: absolute;
+    right: -0.6rem;
+    top: -0.1rem;
+    line-height: 0.7;
+  }
 }
 .active_nav_link {
-	color: $red_main !important;
+  color: $red_main !important;
 }
 
 .chat_popup_button {
-	position: relative;
-	.message_count {
-		position: absolute;
-		right: -0.6rem;
-		top: -0.2rem;
-		background-color: $red_main;
-		padding: 0.3rem;
-		border-radius: 50%;
-		color: $white;
-		line-height: 0.7;
-		font-size: 0.7rem;
-	}
+  position: relative;
+  .message_count {
+    position: absolute;
+    right: -0.6rem;
+    top: -0.2rem;
+    background-color: $red_main;
+    padding: 0.3rem;
+    border-radius: 50%;
+    color: $white;
+    line-height: 0.7;
+    font-size: 0.7rem;
+  }
 }

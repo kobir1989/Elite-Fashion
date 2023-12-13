@@ -1,92 +1,92 @@
-@import "../../../sass//sass-utils/colors";
-@import "../../../sass//sass-utils/mixins";
+@import '../../../sass//sass-utils/colors';
+@import '../../../sass//sass-utils/mixins';
 
 .upload_wrapper {
-	position: relative;
-	width: 100%;
-	height: 16rem;
-	background-color: $body;
-	border-radius: 6px;
-	margin-bottom: 2rem;
-	@include flex-col-center;
-	justify-content: space-around;
-	padding: 0.8rem 0.4rem;
-	.drag_error {
-		background-color: #fd8e8ed3;
-		position: absolute;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		border-radius: 6px;
-		@include flex-row-center;
-		justify-content: center;
-		p {
-			background-color: $body;
-			padding: 0.4rem 1.2rem;
-			border-radius: 6px;
-			color: $red_main;
-		}
-	}
-	.drag_active {
-		position: absolute;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		background-color: #181818d3;
-		border-radius: 6px;
-		@include flex-row-center;
-		justify-content: center;
-		p {
-			background-color: $body;
-			padding: 0.4rem 1.2rem;
-			border-radius: 6px;
-		}
-	}
-	.upload_body {
-		@include flex-col-center;
-		justify-content: center;
-		width: 100%;
-		gap: 1rem;
-	}
-	.with_border {
-		@include flex-row;
-		align-items: center;
-		justify-content: center;
-		gap: 0.7rem;
-		&::before {
-			content: "";
-			width: 4rem;
-			border: 1px solid #d3d8e09a;
-		}
-		&::after {
-			content: "";
-			width: 4rem;
-			border: 1px solid #d3d8e09a;
-		}
-	}
-	button {
-		@include flex-row-center;
-		gap: 0.3rem;
-		padding: 0.4rem 1.2rem;
-	}
+  position: relative;
+  width: 100%;
+  height: 16rem;
+  background-color: $body;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+  @include flex-col-center;
+  justify-content: space-around;
+  padding: 0.8rem 0.4rem;
+  .drag_error {
+    background-color: #fd8e8ed3;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    @include flex-row-center;
+    justify-content: center;
+    p {
+      background-color: $body;
+      padding: 0.4rem 1.2rem;
+      border-radius: 6px;
+      color: $red_main;
+    }
+  }
+  .drag_active {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #181818d3;
+    border-radius: 6px;
+    @include flex-row-center;
+    justify-content: center;
+    p {
+      background-color: $body;
+      padding: 0.4rem 1.2rem;
+      border-radius: 6px;
+    }
+  }
+  .upload_body {
+    @include flex-col-center;
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+  }
+  .with_border {
+    @include flex-row;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    &::before {
+      content: '';
+      width: 4rem;
+      border: 1px solid #d3d8e09a;
+    }
+    &::after {
+      content: '';
+      width: 4rem;
+      border: 1px solid #d3d8e09a;
+    }
+  }
+  button {
+    @include flex-row-center;
+    gap: 0.3rem;
+    padding: 0.4rem 1.2rem;
+  }
 }
 .imageError {
-	width: 100%;
-	height: 100%;
-	border: 1px solid $red_main;
+  width: 100%;
+  height: 100%;
+  border: 1px solid $red_main;
 }
 .uploaded_img {
-	position: relative;
-	width: 5rem;
-	height: 5rem;
-	img {
-		width: 5rem;
-		height: 5rem;
-		border-radius: 50%;
-	}
-	svg {
-		position: absolute;
-		right: 0.2rem;
-		top: 0.5rem;
-	}
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+  img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+  }
+  svg {
+    position: absolute;
+    right: 0.2rem;
+    top: 0.5rem;
+  }
 }

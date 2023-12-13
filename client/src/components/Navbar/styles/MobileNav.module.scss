@@ -2,173 +2,173 @@
 @import '../../../sass/sass-utils/mixins';
 
 .nav_menu_mobile {
-	z-index: 40;
-	@include screens-lg {
-		display: none;
-	}
-	&_btn {
-		position: relative;
-		@include flex-row;
-		align-items: center;
-		justify-content: center;
-		gap: 1rem;
-		button {
-			padding: 0;
-			margin: 0;
-			@include flex-row;
-			align-items: center;
-			justify-content: center;
-		}
+  z-index: 40;
+  @include screens-lg {
+    display: none;
+  }
+  &_btn {
+    position: relative;
+    @include flex-row;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    button {
+      padding: 0;
+      margin: 0;
+      @include flex-row;
+      align-items: center;
+      justify-content: center;
+    }
 
-		.wish_list_count,
-		.cart_item_count {
-			position: absolute;
-			top: -0.2rem;
-			color: $white;
-			font-weight: 700;
-			font-size: 0.7rem;
-			background-color: $red_main;
-			width: 1rem;
-			height: 1rem;
-			border-radius: 50%;
-			margin: auto;
-		}
-	}
-	&_dropdown {
-		width: 65%;
-		padding: 2rem;
-		position: fixed;
-		top: 0;
-		left: 0;
-		background-color: $white;
-		max-width: 18rem;
-		height: 100vh;
-		.close_icon {
-			position: absolute;
-			right: 4%;
-			top: 1%;
-		}
-		&_search {
-			margin: 2rem 0;
-			width: 100%;
-			button {
-				width: 100%;
-				@include flex-row-center;
-				justify-content: space-between;
-			}
-		}
-		&_links {
-			margin-top: 3rem;
-			@include flex-col;
-			gap: 1.8rem;
-			li {
-				font-size: 0.9rem;
-				letter-spacing: 0.5px;
-				text-transform: uppercase;
-				padding: 0.5rem 0.8rem;
-				border-radius: 4px;
-				background-color: $body;
-				cursor: pointer;
-				transition: all 0.2s linear;
-				&:hover {
-					color: $red_main;
-					transform: translateX(5px);
-					transition: all 0.2s linear;
-				}
-			}
-		}
-	}
+    .wish_list_count,
+    .cart_item_count {
+      position: absolute;
+      top: -0.2rem;
+      color: $white;
+      font-weight: 700;
+      font-size: 0.7rem;
+      background-color: $red_main;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 50%;
+      margin: auto;
+    }
+  }
+  &_dropdown {
+    width: 65%;
+    padding: 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: $white;
+    max-width: 18rem;
+    height: 100vh;
+    .close_icon {
+      position: absolute;
+      right: 4%;
+      top: 1%;
+    }
+    &_search {
+      margin: 2rem 0;
+      width: 100%;
+      button {
+        width: 100%;
+        @include flex-row-center;
+        justify-content: space-between;
+      }
+    }
+    &_links {
+      margin-top: 3rem;
+      @include flex-col;
+      gap: 1.8rem;
+      li {
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        padding: 0.5rem 0.8rem;
+        border-radius: 4px;
+        background-color: $body;
+        cursor: pointer;
+        transition: all 0.2s linear;
+        &:hover {
+          color: $red_main;
+          transform: translateX(5px);
+          transition: all 0.2s linear;
+        }
+      }
+    }
+  }
 }
 .nav_backdrop {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100vh;
-	background-color: $back_drop;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: $back_drop;
 }
 .wish_list_btn_wrapper,
 .cart_item_link_wrapper {
-	position: relative;
-	.wish_list_count,
-	.cart_item_count {
-		color: $white;
-		font-weight: 700;
-		font-size: 0.7rem;
-		background-color: $red_main;
-		width: 1rem;
-		height: 1rem;
-		border-radius: 50%;
-		@include box-shadow-diffuse;
-		@include flex-col-center;
-		justify-content: center;
-	}
-	.wish_list_count {
-		position: absolute;
-		right: -0.6rem;
-		top: -0.3rem;
-	}
-	.cart_item_count {
-		position: absolute;
-		right: -0.7rem;
-		top: -0.3rem;
-	}
+  position: relative;
+  .wish_list_count,
+  .cart_item_count {
+    color: $white;
+    font-weight: 700;
+    font-size: 0.7rem;
+    background-color: $red_main;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    @include box-shadow-diffuse;
+    @include flex-col-center;
+    justify-content: center;
+  }
+  .wish_list_count {
+    position: absolute;
+    right: -0.6rem;
+    top: -0.3rem;
+  }
+  .cart_item_count {
+    position: absolute;
+    right: -0.7rem;
+    top: -0.3rem;
+  }
 }
 .drop_down_user_info {
-	img {
-		width: 3rem;
-		height: 3rem;
-		border-radius: 50%;
-		filter: brightness(95%);
-	}
-	@include flex-row;
-	text-align: left;
-	gap: 0.6rem;
-	width: 100%;
-	border-bottom: 1px solid $light_gray;
-	padding-bottom: 1.5rem;
-	.user_account {
-		@include flex-col;
-		gap: 0.4rem;
-	}
-	.user_name {
-		text-transform: capitalize;
-		background-color: unset;
-		font-size: 1rem;
-		border-radius: unset;
-		padding: 0;
-		width: 100%;
-		height: unset;
-		font-weight: 600;
-		&:hover {
-			color: unset !important;
-		}
-	}
-	.user_email {
-		text-transform: lowercase;
-		font-size: 0.8rem;
-		font-weight: 400;
-		padding: 0;
-		width: 100%;
-		&:hover {
-			color: unset !important;
-		}
-	}
+  img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    filter: brightness(95%);
+  }
+  @include flex-row;
+  text-align: left;
+  gap: 0.6rem;
+  width: 100%;
+  border-bottom: 1px solid $light_gray;
+  padding-bottom: 1.5rem;
+  .user_account {
+    @include flex-col;
+    gap: 0.4rem;
+  }
+  .user_name {
+    text-transform: capitalize;
+    background-color: unset;
+    font-size: 1rem;
+    border-radius: unset;
+    padding: 0;
+    width: 100%;
+    height: unset;
+    font-weight: 600;
+    &:hover {
+      color: unset !important;
+    }
+  }
+  .user_email {
+    text-transform: lowercase;
+    font-size: 0.8rem;
+    font-weight: 400;
+    padding: 0;
+    width: 100%;
+    &:hover {
+      color: unset !important;
+    }
+  }
 }
 .chat_popup_button {
-	position: relative;
-	svg {
-		font-size: 1.3rem;
-	}
-	.message_count {
-		position: absolute;
-		right: -0.4rem;
-		top: -0.2rem;
-		background-color: $red_main;
-		padding: 0.21rem;
-		border-radius: 50%;
-		color: $white;
-		line-height: 0.7;
-		font-size: 0.7rem;
-	}
+  position: relative;
+  svg {
+    font-size: 1.3rem;
+  }
+  .message_count {
+    position: absolute;
+    right: -0.4rem;
+    top: -0.2rem;
+    background-color: $red_main;
+    padding: 0.21rem;
+    border-radius: 50%;
+    color: $white;
+    line-height: 0.7;
+    font-size: 0.7rem;
+  }
 }

@@ -1,70 +1,70 @@
-@import "../../../sass/sass-utils/colors";
-@import "../../../sass/sass-utils/mixins";
+@import '../../../sass/sass-utils/colors';
+@import '../../../sass/sass-utils/mixins';
 
 footer {
-	background-color: $black_main;
-	padding: 4rem 1rem;
-	@include flex-col;
-	justify-content: center;
-	align-items: center;
-	gap: 2.5rem;
-	@include screens-md {
-		padding: 4rem 2rem;
-	}
+  background-color: $black_main;
+  padding: 4rem 1rem;
+  @include flex-col;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  @include screens-md {
+    padding: 4rem 2rem;
+  }
 }
 .footer {
-	@include flex-row-space-between;
-	flex-wrap: wrap;
-	align-items: flex-start;
-	gap: 2rem;
-	max-width: 1500px;
-	margin: auto;
-	width: 100%;
+  @include flex-row-space-between;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 2rem;
+  max-width: 1500px;
+  margin: auto;
+  width: 100%;
 
-	.divider {
-		display: none;
-		@include screens-lg {
-			display: block;
-			border-left: 1px solid $gray_text;
-			width: 1px;
-			height: 11rem;
-		}
-	}
+  .divider {
+    display: none;
+    @include screens-lg {
+      display: block;
+      border-left: 1px solid $gray_text;
+      width: 1px;
+      height: 11rem;
+    }
+  }
 
-	&_service_wrapper,
-	&_company_wrapper,
-	&_help_wrapper,
-	&_contract_wrapper {
-		@include flex-col;
-		gap: 1rem;
-		min-width: 10rem;
-		ul {
-			@include flex-col;
-			gap: 1rem;
-			li {
-				letter-spacing: 0.3px;
-				color: $light_gray;
-				@include flex-row-center;
-				font-size: 0.75rem;
-				gap: 0.5rem;
-				@include screens-lg {
-					font-size: 0.9rem;
-				}
-			}
-		}
-	}
+  &_service_wrapper,
+  &_company_wrapper,
+  &_help_wrapper,
+  &_contract_wrapper {
+    @include flex-col;
+    gap: 1rem;
+    min-width: 10rem;
+    ul {
+      @include flex-col;
+      gap: 1rem;
+      li {
+        letter-spacing: 0.3px;
+        color: $light_gray;
+        @include flex-row-center;
+        font-size: 0.75rem;
+        gap: 0.5rem;
+        @include screens-lg {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
 }
 
 .payment_logo {
-	@include flex-row-center;
-	justify-content: center;
-	gap: 1.2rem;
-	img {
-		width: 2.5rem;
-		height: 2.5rem;
-	}
+  @include flex-row-center;
+  justify-content: center;
+  gap: 1.2rem;
+  img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 }
 .social_icons {
-	@include flex-row;
-	gap: 1.2rem;
+  @include flex-row;
+  gap: 1.2rem;
 }

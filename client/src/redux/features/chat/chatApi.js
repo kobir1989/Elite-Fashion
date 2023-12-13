@@ -1,20 +1,20 @@
-import { apiSlice } from '../../api/apiSlice';
+import { apiSlice } from '../../api/apiSlice'
 
 export const chatApi = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     createChatRoom: builder.mutation({
-      query: (data) => ({
+      query: data => ({
         url: '/create/chat-room',
         method: 'POST',
         body: data
       })
     }),
     getChatRoom: builder.query({
-      query: ({ userId }) => `/chat-room/${userId}`,
+      query: ({ userId }) => `/chat-room/${userId}`
     }),
 
     getConversation: builder.query({
-      query: (roomId) => `/messages/${roomId}`,
+      query: roomId => `/messages/${roomId}`,
       providesTags: ['getConversation']
     }),
 
@@ -37,13 +37,13 @@ export const chatApi = apiSlice.injectEndpoints({
       //     console.log(error)
       //   }
       // }
-    }),
+    })
   })
-});
+})
 
 export const {
   useCreateChatRoomMutation,
   useNewMessageMutation,
   useGetChatRoomQuery,
   useGetConversationQuery
-} = chatApi;
+} = chatApi

@@ -1,10 +1,10 @@
-@import "../../../sass/sass-utils/colors";
-@import "../../../sass/sass-utils/mixins";
+@import '../../../sass/sass-utils/colors';
+@import '../../../sass/sass-utils/mixins';
 
 .discount_banner {
-	display: none;
-	@include screens-lg {
-		display: flex;
-		margin-top: 2rem;
-	}
+  display: none;
+  @include screens-lg {
+    display: flex;
+    margin-top: 2rem;
+  }
 }

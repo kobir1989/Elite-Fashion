@@ -1,1 +1,1 @@
-export const isAuth = (obj) => typeof obj === "object" && obj !== null;
+export const isAuth = obj => typeof obj === 'object' && obj !== null

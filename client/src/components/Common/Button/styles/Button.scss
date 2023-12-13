@@ -2,152 +2,152 @@
 @import '../../../../sass/sass-utils/mixins';
 
 .button {
-	padding: 0.7rem 2rem;
-	letter-spacing: 0.5px;
-	font-size: 0.8rem;
-	cursor: pointer;
-	&:hover {
-		@include box-shadow-diffuse;
-		transition: all 0.2s linear;
-	}
-	@include screens-md {
-		padding: 0.8rem 2rem;
-		letter-spacing: 0.5px;
-		font-size: 1rem;
-	}
+  padding: 0.7rem 2rem;
+  letter-spacing: 0.5px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  &:hover {
+    @include box-shadow-diffuse;
+    transition: all 0.2s linear;
+  }
+  @include screens-md {
+    padding: 0.8rem 2rem;
+    letter-spacing: 0.5px;
+    font-size: 1rem;
+  }
 }
 //Black background
 .primary {
-	background-color: $black_main;
-	border: unset;
-	color: $light_gray;
-	font-weight: 500;
-	border-radius: 4px;
-	&:hover {
-		color: $white;
-	}
+  background-color: $black_main;
+  border: unset;
+  color: $light_gray;
+  font-weight: 500;
+  border-radius: 4px;
+  &:hover {
+    color: $white;
+  }
 }
 //Hover background - Red
 .white {
-	background-color: $white;
-	border: unset;
-	color: $black_main;
-	font-weight: 500;
-	border-radius: 8px;
-	transition: all 0.3s linear;
-	&:hover {
-		background-color: $red_main;
-		color: $white;
-		border: unset;
-		transform: translateY(0.1rem);
-		transition: all 0.2s linear;
-	}
+  background-color: $white;
+  border: unset;
+  color: $black_main;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.3s linear;
+  &:hover {
+    background-color: $red_main;
+    color: $white;
+    border: unset;
+    transform: translateY(0.1rem);
+    transition: all 0.2s linear;
+  }
 }
 //Background black rounded
 .rounded {
-	background-color: $black_main;
-	color: $white;
-	border: unset;
-	border-radius: 2.2rem;
-	font-weight: 300;
+  background-color: $black_main;
+  color: $white;
+  border: unset;
+  border-radius: 2.2rem;
+  font-weight: 300;
 }
 
 //White background black-border
 .btn-border-black {
-	background-color: $white;
-	color: $black_main;
-	border-radius: 4px;
-	border: 1px solid $dark_gray;
-	font-weight: 400;
-	padding: 0.6rem 1.9rem;
-	transition: all 0.4s linear;
-	&:hover {
-		background-color: $black_main;
-		color: $white;
-		transition: all 0.4s linear;
-	}
+  background-color: $white;
+  color: $black_main;
+  border-radius: 4px;
+  border: 1px solid $dark_gray;
+  font-weight: 400;
+  padding: 0.6rem 1.9rem;
+  transition: all 0.4s linear;
+  &:hover {
+    background-color: $black_main;
+    color: $white;
+    transition: all 0.4s linear;
+  }
 }
 
 //Balck background squre small btn
 .btn-black-small {
-	background-color: $black_main;
-	color: $white;
-	border-radius: 4px;
-	font-weight: 300;
-	padding: 0.2rem 0.9rem;
-	font-size: 0.9rem;
-	color: $light_gray;
-	&:hover {
-		background-color: $black_main;
-		color: $white;
-	}
+  background-color: $black_main;
+  color: $white;
+  border-radius: 4px;
+  font-weight: 300;
+  padding: 0.2rem 0.9rem;
+  font-size: 0.9rem;
+  color: $light_gray;
+  &:hover {
+    background-color: $black_main;
+    color: $white;
+  }
 }
 
 // Icons Squre white banckground hover - background red
 .icon-btn-white {
-	background-color: $white;
-	color: $black_main;
-	border-radius: 4px;
-	border: 1px solid $light_gray;
-	font-weight: 300;
-	padding: 0.5rem 0.9rem;
-	transition: all 0.2s linear;
-	&:hover {
-		background-color: $red_main;
-		color: $white;
-		transition: all 0.2s linear;
-	}
+  background-color: $white;
+  color: $black_main;
+  border-radius: 4px;
+  border: 1px solid $light_gray;
+  font-weight: 300;
+  padding: 0.5rem 0.9rem;
+  transition: all 0.2s linear;
+  &:hover {
+    background-color: $red_main;
+    color: $white;
+    transition: all 0.2s linear;
+  }
 }
 // No background
 .icon-btn-normal {
-	background-color: unset;
-	color: $gray_text;
-	border: unset;
-	font-weight: 300;
-	padding: 0.2rem;
-	&:hover {
-		background-color: unset;
-		box-shadow: unset;
-		color: $red_main;
-	}
+  background-color: unset;
+  color: $gray_text;
+  border: unset;
+  font-weight: 300;
+  padding: 0.2rem;
+  &:hover {
+    background-color: unset;
+    box-shadow: unset;
+    color: $red_main;
+  }
 }
 
 //White background banner btn
 .small-white {
-	background-color: unset;
-	color: $black_main;
-	border: 1px solid $light_gray;
-	font-weight: 300;
-	padding: 0.6rem 1.2rem;
-	font-size: 0.9rem;
-	border-radius: 4px;
-	transition: all 0.3s linear;
-	&:hover {
-		color: $red_main;
-		background-color: $red_main;
-		border: 1px solid $red_main;
-		color: $white;
-		transition: all 0.3s linear;
-	}
+  background-color: unset;
+  color: $black_main;
+  border: 1px solid $light_gray;
+  font-weight: 300;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  transition: all 0.3s linear;
+  &:hover {
+    color: $red_main;
+    background-color: $red_main;
+    border: 1px solid $red_main;
+    color: $white;
+    transition: all 0.3s linear;
+  }
 }
 
 //Transparent banckground banner btn
 .small-banner {
-	background-color: rgba(253, 252, 250, 0.226);
+  background-color: rgba(253, 252, 250, 0.226);
 
-	color: $white;
-	border: 1px solid $white;
-	font-weight: 400;
-	padding: 0.6rem 1.2rem;
-	font-size: 0.9rem;
-	border-radius: 4px;
-	&:hover {
-		font-weight: 500;
-		border: 1px solid $red_main;
-	}
+  color: $white;
+  border: 1px solid $white;
+  font-weight: 400;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  &:hover {
+    font-weight: 500;
+    border: 1px solid $red_main;
+  }
 }
 button:disabled {
-	background-color: #434b52;
-	color: #dfdcdc;
-	cursor: not-allowed;
+  background-color: #434b52;
+  color: #dfdcdc;
+  cursor: not-allowed;
 }

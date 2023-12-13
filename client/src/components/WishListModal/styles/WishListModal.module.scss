@@ -1,16 +1,16 @@
-@import "../../../sass/sass-utils/mixins";
+@import '../../../sass/sass-utils/mixins';
 
 .wishlist_wrapper {
-	padding: 1rem;
-	overflow-y: scroll;
-	height: 68vh;
-	width: 85vw;
-	@include screens-md {
-		height: 60vh;
-		width: 60vw;
-	}
-	@include screens-xl {
-		height: 60vh;
-		width: 40vw;
-	}
+  padding: 1rem;
+  overflow-y: scroll;
+  height: 68vh;
+  width: 85vw;
+  @include screens-md {
+    height: 60vh;
+    width: 60vw;
+  }
+  @include screens-xl {
+    height: 60vh;
+    width: 40vw;
+  }
 }

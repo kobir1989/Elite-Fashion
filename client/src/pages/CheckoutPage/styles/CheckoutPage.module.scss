@@ -1,10 +1,10 @@
-@import "../../../sass/sass-utils/colors";
-@import "../../../sass/sass-utils/mixins";
+@import '../../../sass/sass-utils/colors';
+@import '../../../sass/sass-utils/mixins';
 
 .main_wrapper {
-	width: 100%;
-	min-height: 65vh;
-	margin: 3rem 0;
-	@include flex-col-center;
-	justify-content: center;
+  width: 100%;
+  min-height: 65vh;
+  margin: 3rem 0;
+  @include flex-col-center;
+  justify-content: center;
 }

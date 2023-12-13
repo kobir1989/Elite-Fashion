@@ -1,46 +1,46 @@
-import React from 'react';
-import { Stepper, Step, StepLabel } from '@mui/material';
-import ShippmentForm from './ShippmentForm';
-import OrderDetails from './SubComponents/OrderDetails';
-import Payment from './SubComponents/Payment';
-import styles from '../styles/CheckoutSteps.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react'
+import { Stepper, Step, StepLabel } from '@mui/material'
+import ShippmentForm from './ShippmentForm'
+import OrderDetails from './SubComponents/OrderDetails'
+import Payment from './SubComponents/Payment'
+import styles from '../styles/CheckoutSteps.module.scss'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   increaseStep,
-  decreaseStep,
-} from '../../../redux/features/paymentSteps/stepsSlice';
-import Icons from '../../../components/Common/Icons/Icons';
-import Typography from '../../../components/Common/Typography/Typography';
-import Button from '../../../components/Common/Button/Button';
-import { resetCartState } from '../../../redux/features/cart/cartSlice';
+  decreaseStep
+} from '../../../redux/features/paymentSteps/stepsSlice'
+import Icons from '../../../components/Common/Icons/Icons'
+import Typography from '../../../components/Common/Typography/Typography'
+import Button from '../../../components/Common/Button/Button'
+import { resetCartState } from '../../../redux/features/cart/cartSlice'
 
-const steps = ['Shipping Address', 'Confirm Order', 'Payment'];
+const steps = ['Shipping Address', 'Confirm Order', 'Payment']
 
 const CheckoutSteps = () => {
-  const dispatch = useDispatch();
-  const { activeStep } = useSelector((state) => state.steps);
+  const dispatch = useDispatch()
+  const { activeStep } = useSelector(state => state.steps)
 
   const isCompliteSteps = () => {
-    return steps.length === activeStep ? true : false;
-  };
+    return steps.length === activeStep ? true : false
+  }
   const nextStepHandler = () => {
-    dispatch(increaseStep());
-  };
+    dispatch(increaseStep())
+  }
   const backHandler = () => {
     if (activeStep <= 0) {
-      return;
+      return
     }
-    dispatch(decreaseStep());
-  };
+    dispatch(decreaseStep())
+  }
 
   const handleSuccessPayment = () => {
-    window.location.href = `https://elite-fashion.vercel.app/`;
-    dispatch(resetCartState());
-  };
+    window.location.href = `https://elite-fashion.vercel.app/`
+    dispatch(resetCartState())
+  }
   return (
     <div className={styles.steps_wrapper}>
       <Stepper activeStep={activeStep}>
-        {steps.map((label) => (
+        {steps.map(label => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
           </Step>
@@ -68,6 +68,6 @@ const CheckoutSteps = () => {
         </div>
       )}
     </div>
-  );
-};
-export default CheckoutSteps;
+  )
+}
+export default CheckoutSteps

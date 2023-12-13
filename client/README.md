@@ -1,4 +1,4 @@
-# Elite-Fashion Client [Live](https://elite-fashion.vercel.app/) 
+# Elite-Fashion Client [Live](https://elite-fashion.vercel.app/)
 
 This project is a web-based eCommerce platform built using MARN Stack. The purpose of this project is to showcase my skills as a full-stack developer and demonstrate my ability to build complex web applications.
 
@@ -15,9 +15,9 @@ This project is a web-based eCommerce platform built using MARN Stack. The purpo
 - Wishlist: Users can add products to their wishlist for future reference.
 - User profile page: A dedicated user profile page where users can see their wishlist and order history, and even upload a profile picture.
 - Email confirmation: After completing a purchase, users receive an email confirmation for their records.
-- An admin [Dashboard](https://elite-fashion-admin.vercel.app/) application is already running on the same server. 
+- An admin [Dashboard](https://elite-fashion-admin.vercel.app/) application is already running on the same server.
 
-## Installation 
+## Installation
 
 ### To install and run this project locally, follow these steps:
 
@@ -43,13 +43,13 @@ This project is a web-based eCommerce platform built using MARN Stack. The purpo
 - react-hot-toast: A lightweight toast notification library for React.
 - stripe: a payment processing platform used for handling payments.
 
-
 ## Contributing
 
 ### Contributions to this project are welcome. To contribute, follow the steps below:
+
 - Fork the project repository to your own GitHub account.
 - Clone the forked repository to your local machine.
 - Create a new branch for your changes.
 - Make your changes to the project code.
 - Commit your changes and push them to your forked repository.
-- Open a pull request on the original project repository. 
+- Open a pull request on the original project repository.

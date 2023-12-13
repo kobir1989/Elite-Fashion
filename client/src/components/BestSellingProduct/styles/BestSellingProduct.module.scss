@@ -1,24 +1,24 @@
-@import "../../../sass/sass-utils/colors";
-@import "../../../sass/sass-utils/mixins";
+@import '../../../sass/sass-utils/colors';
+@import '../../../sass/sass-utils/mixins';
 
 .best_selling_product_wrapper {
-	position: relative;
-	.best_selling_title {
-		margin: 3rem 0;
-		text-align: center;
-	}
-	.slider_wrapper {
-		padding: 0 2.2rem;
-	}
-	.best_selling_product_card {
-		height: 32rem;
-		padding: 1rem 0.6rem;
-		overflow: hidden;
-	}
-	.skeleton {
-		@include flex-row-center;
-		gap: 1rem;
-		justify-content: center;
-		flex-wrap: wrap;
-	}
+  position: relative;
+  .best_selling_title {
+    margin: 3rem 0;
+    text-align: center;
+  }
+  .slider_wrapper {
+    padding: 0 2.2rem;
+  }
+  .best_selling_product_card {
+    height: 32rem;
+    padding: 1rem 0.6rem;
+    overflow: hidden;
+  }
+  .skeleton {
+    @include flex-row-center;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }

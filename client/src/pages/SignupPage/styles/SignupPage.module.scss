@@ -1,33 +1,33 @@
 @import '../../../sass/sass-utils/colors';
 @import '../../../sass/sass-utils/mixins';
 .signup_form {
-	.password_input_wrapper,
-	.confirm_password_input_wrapper {
-		position: relative;
-		.view_password {
-			position: absolute;
-			right: 0.5rem;
-			top: -0.45rem;
-			z-index: 10;
-			@include screens-md {
-				right: 0.5rem;
-				top: -0.9rem;
-			}
-		}
-	}
+  .password_input_wrapper,
+  .confirm_password_input_wrapper {
+    position: relative;
+    .view_password {
+      position: absolute;
+      right: 0.5rem;
+      top: -0.45rem;
+      z-index: 10;
+      @include screens-md {
+        right: 0.5rem;
+        top: -0.9rem;
+      }
+    }
+  }
 
-	@include flex-col;
-	button {
-		margin-top: 1.5rem;
-		@include screens-md {
-			margin-top: 2rem;
-		}
-		@include flex-row-center;
-		justify-content: center;
-		gap: 0.4rem;
-		img {
-			width: 1.2rem;
-			height: 1.2rem;
-		}
-	}
+  @include flex-col;
+  button {
+    margin-top: 1.5rem;
+    @include screens-md {
+      margin-top: 2rem;
+    }
+    @include flex-row-center;
+    justify-content: center;
+    gap: 0.4rem;
+    img {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+  }
 }

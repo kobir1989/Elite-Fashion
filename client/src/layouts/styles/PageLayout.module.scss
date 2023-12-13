@@ -1,30 +1,30 @@
 @import '../../sass/sass-utils/mixins';
 
 .chat_icon_wrapper {
-	display: none;
-	@include screens-2xl {
-		display: unset;
-		position: fixed;
-		bottom: 5%;
-		right: 3%;
-		transition: all 0.1s ease-in-out;
-		z-index: 10;
-		&:hover {
-			transform: translateY(-0.1rem);
-			svg {
-				color: #cc2121e3;
-				transition: all 0.1s ease-in-out;
-			}
-			transition: all 0.1s ease-in-out;
-		}
-	}
+  display: none;
+  @include screens-2xl {
+    display: unset;
+    position: fixed;
+    bottom: 5%;
+    right: 3%;
+    transition: all 0.1s ease-in-out;
+    z-index: 10;
+    &:hover {
+      transform: translateY(-0.1rem);
+      svg {
+        color: #cc2121e3;
+        transition: all 0.1s ease-in-out;
+      }
+      transition: all 0.1s ease-in-out;
+    }
+  }
 }
 .main_wrapper {
-	padding: 3.5rem 0 3rem 0;
-	max-width: 1400px;
-	margin: auto;
-	overflow: hidden;
-	@include screens-md {
-		padding: 4rem 0 2rem 0;
-	}
+  padding: 3.5rem 0 3rem 0;
+  max-width: 1400px;
+  margin: auto;
+  overflow: hidden;
+  @include screens-md {
+    padding: 4rem 0 2rem 0;
+  }
 }

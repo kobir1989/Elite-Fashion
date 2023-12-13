@@ -1,73 +1,73 @@
-import React, { useEffect, useState } from 'react';
-import PageLayout from '../../layouts/PageLayout';
-import AuthFormLayout from '../../layouts/AuthFormLayout';
-import Button from '../../components/Common/Button/Button';
-import Input from '../../components/Common/Input/Input';
-import styles from './styles/LoginPage.module.scss';
-import { Link, useNavigate } from 'react-router-dom';
-import { Typography } from '@mui/material';
-import toast from 'react-hot-toast';
-import Icons from '../../components/Common/Icons/Icons';
-import { useLoginMutation } from '../../redux/features/auth/authApi';
+import React, { useEffect, useState } from 'react'
+import PageLayout from '../../layouts/PageLayout'
+import AuthFormLayout from '../../layouts/AuthFormLayout'
+import Button from '../../components/Common/Button/Button'
+import Input from '../../components/Common/Input/Input'
+import styles from './styles/LoginPage.module.scss'
+import { Link, useNavigate } from 'react-router-dom'
+import { Typography } from '@mui/material'
+import toast from 'react-hot-toast'
+import Icons from '../../components/Common/Icons/Icons'
+import { useLoginMutation } from '../../redux/features/auth/authApi'
 
 //default login state value
 const defaultLoginValue = {
   email: '',
-  password: '',
-};
+  password: ''
+}
 
 const LoginPage = () => {
-  const [loginValue, setLoginValue] = useState(defaultLoginValue);
-  const { email, password } = loginValue;
-  const [viewPassword, setViewPassword] = useState(false);
-  const [isError, setIsError] = useState(null);
+  const [loginValue, setLoginValue] = useState(defaultLoginValue)
+  const { email, password } = loginValue
+  const [viewPassword, setViewPassword] = useState(false)
+  const [isError, setIsError] = useState(null)
   const [
     login,
-    { data: loginResponse, isError: loginError, isLoading, error },
-  ] = useLoginMutation();
+    { data: loginResponse, isError: loginError, isLoading, error }
+  ] = useLoginMutation()
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   //onChange handler
-  const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-    setLoginValue({ ...loginValue, [name]: value });
+  const onChangeHandler = e => {
+    const { name, value } = e.target
+    setLoginValue({ ...loginValue, [name]: value })
     if (e.target.value !== '') {
-      setIsError(null);
+      setIsError(null)
     }
-  };
+  }
 
   //submit handler
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const submitHandler = e => {
+    e.preventDefault()
     if (password.length < 8) {
-      return setIsError('Incorrect Email or Password');
+      return setIsError('Incorrect Email or Password')
     }
-    login(loginValue);
-  };
+    login(loginValue)
+  }
   const toggleViewPassword = () => {
-    setViewPassword(!viewPassword);
-  };
+    setViewPassword(!viewPassword)
+  }
 
   //catching error and success state
   useEffect(() => {
     if (loginError) {
-      setIsError(error?.data?.message);
+      setIsError(error?.data?.message)
     } else if (loginResponse?.token) {
-      navigate('/');
-      toast.dismiss();
-      toast.success('Welcome Back');
-      setLoginValue(defaultLoginValue);
+      navigate('/')
+      toast.dismiss()
+      toast.success('Welcome Back')
+      setLoginValue(defaultLoginValue)
     }
-  }, [loginResponse?.token, navigate, loginError, error?.data?.message]);
+  }, [loginResponse?.token, navigate, loginError, error?.data?.message])
 
   // Guest Login handler
   const handleGuestLogin = () => {
     login({
       email: 'ritu198928@gmail.com',
-      password: '12345678',
-    });
-  };
+      password: '12345678'
+    })
+  }
 
   return (
     <PageLayout>
@@ -137,7 +137,7 @@ const LoginPage = () => {
         </div>
       </AuthFormLayout>
     </PageLayout>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage

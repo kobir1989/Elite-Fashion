@@ -1,38 +1,38 @@
-@import "../../../sass/sass-utils/mixins";
-@import "../../../sass/sass-utils/colors";
+@import '../../../sass/sass-utils/mixins';
+@import '../../../sass/sass-utils/colors';
 
 .steps_wrapper {
-	width: 100%;
-	@include screens-xs {
-		max-width: 95%;
-	}
-	@include screens-lg {
-		max-width: 850px;
-	}
-	.steps_components {
-		margin-top: 3rem;
-		width: 100%;
-	}
-	.btn_wrapper {
-		margin-top: 2rem;
-		@include flex-row-space-between;
-		button {
-			width: 8rem;
-		}
-	}
-	.success_message {
-		max-width: 600px;
-		@include flex-col-center;
-		justify-content: center;
-		margin: auto;
-		text-align: center;
-		height: 60vh;
-		h4 {
-			line-height: 2.5rem;
-			color: $dark_gray;
-		}
-		button {
-			margin-top: 1.5rem;
-		}
-	}
+  width: 100%;
+  @include screens-xs {
+    max-width: 95%;
+  }
+  @include screens-lg {
+    max-width: 850px;
+  }
+  .steps_components {
+    margin-top: 3rem;
+    width: 100%;
+  }
+  .btn_wrapper {
+    margin-top: 2rem;
+    @include flex-row-space-between;
+    button {
+      width: 8rem;
+    }
+  }
+  .success_message {
+    max-width: 600px;
+    @include flex-col-center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    height: 60vh;
+    h4 {
+      line-height: 2.5rem;
+      color: $dark_gray;
+    }
+    button {
+      margin-top: 1.5rem;
+    }
+  }
 }

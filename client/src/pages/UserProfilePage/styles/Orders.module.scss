@@ -1,59 +1,59 @@
-@import "../../../sass/sass-utils/colors";
-@import "../../../sass/sass-utils/mixins";
+@import '../../../sass/sass-utils/colors';
+@import '../../../sass/sass-utils/mixins';
 h4 {
-	margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 .order_products {
-	margin-bottom: 1.2rem;
-	border-radius: 6px;
-	border: 1px solid $light_gray;
-	padding: 1.5rem;
-	@include flex-col;
-	gap: 1.8rem;
+  margin-bottom: 1.2rem;
+  border-radius: 6px;
+  border: 1px solid $light_gray;
+  padding: 1.5rem;
+  @include flex-col;
+  gap: 1.8rem;
 
-	.order_date_status {
-		@include flex-col-space-between;
-		font-weight: 500;
-		padding-bottom: 0.2rem;
-		align-items: center;
-		// border-bottom: 1px solid $light_gray;
-		@include screens-md {
-			@include flex-row-space-between;
-		}
-	}
-	img {
-		width: 5rem;
-		height: 6rem;
-		border: 1px solid $light_gray;
-		border-radius: 4px;
-	}
-	.order_details {
-		@include flex-col-space-between;
-		align-items: center;
-		padding: 1rem;
-		gap: 1rem;
-		border: 1px solid $light_gray;
-		border-radius: 8px;
-		@include screens-md {
-			@include flex-row-space-between;
-			align-items: center;
-			// padding: 0.8rem 0;
-		}
-		.product_title {
-			display: -webkit-box;
-			-webkit-line-clamp: 1;
-			-webkit-box-orient: vertical;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-	}
-	.order_total {
-		text-align: center;
-		border-top: 1px solid $light_gray;
-		padding-top: 0.5rem;
-		font-weight: 500;
-		@include screens-md {
-			text-align: end;
-		}
-	}
+  .order_date_status {
+    @include flex-col-space-between;
+    font-weight: 500;
+    padding-bottom: 0.2rem;
+    align-items: center;
+    // border-bottom: 1px solid $light_gray;
+    @include screens-md {
+      @include flex-row-space-between;
+    }
+  }
+  img {
+    width: 5rem;
+    height: 6rem;
+    border: 1px solid $light_gray;
+    border-radius: 4px;
+  }
+  .order_details {
+    @include flex-col-space-between;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+    border: 1px solid $light_gray;
+    border-radius: 8px;
+    @include screens-md {
+      @include flex-row-space-between;
+      align-items: center;
+      // padding: 0.8rem 0;
+    }
+    .product_title {
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  .order_total {
+    text-align: center;
+    border-top: 1px solid $light_gray;
+    padding-top: 0.5rem;
+    font-weight: 500;
+    @include screens-md {
+      text-align: end;
+    }
+  }
 }

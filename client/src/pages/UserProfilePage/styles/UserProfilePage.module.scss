@@ -1,54 +1,54 @@
-@import "../../../sass/sass-utils/colors";
-@import "../../../sass/sass-utils/mixins";
+@import '../../../sass/sass-utils/colors';
+@import '../../../sass/sass-utils/mixins';
 
 .page_wrapper {
-	margin: 3.5rem 0 4.5rem 0;
-	padding: 0.8rem;
-	min-height: 80vh;
-	position: relative;
-	background-color: $body;
-	@include screens-md {
-		padding: 2rem;
-	}
-	.toggle_btn {
-		@include flex-row-center;
-		justify-content: center;
-		margin-top: -1rem;
-		@include screens-md {
-			display: none;
-		}
-	}
-	.profile_tab_wrapper {
-		@include flex-row;
-		gap: 2rem;
-		margin-top: 3rem;
-	}
-	.tabs_list {
-		width: 60%;
-		background-color: $body;
-		z-index: 20;
-		position: absolute;
-		@include box-shadow-soft;
-		min-height: 28.5rem;
-		border-radius: 8px;
-		@include screens-md {
-			width: 10rem;
-			position: unset;
-			align-items: flex-start;
-			box-shadow: unset;
-		}
-	}
-	.tab_panels {
-		background-color: $white;
-		width: 100%;
-		border-radius: 6px;
-		@include box-shadow-sm;
-		min-height: 50vh;
-	}
+  margin: 3.5rem 0 4.5rem 0;
+  padding: 0.8rem;
+  min-height: 80vh;
+  position: relative;
+  background-color: $body;
+  @include screens-md {
+    padding: 2rem;
+  }
+  .toggle_btn {
+    @include flex-row-center;
+    justify-content: center;
+    margin-top: -1rem;
+    @include screens-md {
+      display: none;
+    }
+  }
+  .profile_tab_wrapper {
+    @include flex-row;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .tabs_list {
+    width: 60%;
+    background-color: $body;
+    z-index: 20;
+    position: absolute;
+    @include box-shadow-soft;
+    min-height: 28.5rem;
+    border-radius: 8px;
+    @include screens-md {
+      width: 10rem;
+      position: unset;
+      align-items: flex-start;
+      box-shadow: unset;
+    }
+  }
+  .tab_panels {
+    background-color: $white;
+    width: 100%;
+    border-radius: 6px;
+    @include box-shadow-sm;
+    min-height: 50vh;
+  }
 }
 .tab_panel_style {
-	padding: 1.8rem 0.5rem;
-	@include screens-xs {
-		padding: 1.8rem;
-	}
+  padding: 1.8rem 0.5rem;
+  @include screens-xs {
+    padding: 1.8rem;
+  }
 }

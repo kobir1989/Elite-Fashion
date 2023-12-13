@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
-  showChatModal: false,
+  showChatModal: false
 }
 
 const chatSlice = createSlice({
@@ -9,9 +9,9 @@ const chatSlice = createSlice({
   reducers: {
     toggleChatModal: (state, _action) => {
       state.showChatModal = !state.showChatModal
-    },
+    }
   }
 })
 
-export const { toggleChatModal } = chatSlice.actions;
-export default chatSlice.reducer;
+export const { toggleChatModal } = chatSlice.actions
+export default chatSlice.reducer

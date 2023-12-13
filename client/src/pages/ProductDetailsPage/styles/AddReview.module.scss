@@ -1,39 +1,39 @@
-@import "../../../sass/sass-utils/colors";
-@import "../../../sass/sass-utils/mixins";
+@import '../../../sass/sass-utils/colors';
+@import '../../../sass/sass-utils/mixins';
 
 .review_form {
-	margin-top: 2rem;
-	text-align: left;
-	width: 100%;
-	.ratings {
-		@include flex-col;
-		gap: 0.2rem;
-		margin-bottom: 1rem;
-		p {
-			font-weight: 500;
-			span {
-				color: $red_main;
-				font-size: 1.1rem;
-			}
-		}
-	}
-	form {
-		width: 100%;
-		textarea {
-			width: 100%;
-			margin-bottom: 1rem;
-			border-radius: 4px;
-			border: 1px solid $light_gray;
-			padding: 1.2rem;
-			font-size: 1rem;
-			font-family: "Roboto", sans-serif;
-			&:focus {
-				border: 1px solid $gray_text;
-				outline: unset;
-			}
-		}
-		.error {
-			border: 1px solid $red_main;
-		}
-	}
+  margin-top: 2rem;
+  text-align: left;
+  width: 100%;
+  .ratings {
+    @include flex-col;
+    gap: 0.2rem;
+    margin-bottom: 1rem;
+    p {
+      font-weight: 500;
+      span {
+        color: $red_main;
+        font-size: 1.1rem;
+      }
+    }
+  }
+  form {
+    width: 100%;
+    textarea {
+      width: 100%;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+      border: 1px solid $light_gray;
+      padding: 1.2rem;
+      font-size: 1rem;
+      font-family: 'Roboto', sans-serif;
+      &:focus {
+        border: 1px solid $gray_text;
+        outline: unset;
+      }
+    }
+    .error {
+      border: 1px solid $red_main;
+    }
+  }
 }

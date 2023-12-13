@@ -1,14 +1,13 @@
-import io from 'socket.io-client';
+/* eslint-disable no-undef */
+import io from 'socket.io-client'
 
 const URL = process.env.REACT_APP_URL_SOCKET
 export const socket = io(URL, {
   reconnectionDelay: 1000,
   reconnection: true,
   reconnectionAttemps: 10,
-  transports: ["websocket"],
+  transports: ['websocket'],
   agent: false,
   upgrade: false,
-  rejectUnauthorized: true,
-
-});
-
+  rejectUnauthorized: true
+})

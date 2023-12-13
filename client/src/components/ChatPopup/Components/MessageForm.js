@@ -1,52 +1,49 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useNewMessageMutation } from '../../../redux/features/chat/chatApi';
-import Button from '../../Common/Button/Button';
-import Icons from '../../Common/Icons/Icons';
-import styles from '../styles/MessageForm.module.scss';
-import Emoji from './Emoji';
-import { AnimatePresence, motion } from 'framer-motion';
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useNewMessageMutation } from '../../../redux/features/chat/chatApi'
+import Button from '../../Common/Button/Button'
+import Icons from '../../Common/Icons/Icons'
+import styles from '../styles/MessageForm.module.scss'
+import Emoji from './Emoji'
+import { AnimatePresence, motion } from 'framer-motion'
 import { socket } from '../../../socket'
 
 const MessageForm = ({ roomId }) => {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState('')
   const { userInfo } = useSelector(state => state?.auth)
   const [newMessage] = useNewMessageMutation()
-  const [toggleEmoji, setToggleEmoji] = useState(false);
+  const [toggleEmoji, setToggleEmoji] = useState(false)
 
   //Emoji select handler
-  const handleEmojiSelect = (emojiCode) => {
-    setMessage((text) => text + emojiCode);
-  };
+  const handleEmojiSelect = emojiCode => {
+    setMessage(text => text + emojiCode)
+  }
 
   const handleEmoji = () => {
     setToggleEmoji(!toggleEmoji)
   }
   //onSubmit handler
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault()
     const data = {
       message,
       sender: userInfo?._id,
       receiver: '6476302bd2339459a5f838ca',
-      roomId,
+      roomId
     }
-    newMessage(
-      {
-        roomId,
-        data: data
-      }
-    )
-    socket.emit("sendMessage", data);
+    newMessage({
+      roomId,
+      data: data
+    })
+    socket.emit('sendMessage', data)
     setMessage('')
     setToggleEmoji(false)
   }
 
-
   return (
     <div className={styles.message_form_wrapper}>
       <AnimatePresence>
-        {toggleEmoji &&
+        {toggleEmoji && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -55,7 +52,7 @@ const MessageForm = ({ roomId }) => {
           >
             <Emoji onEmojiSelect={handleEmojiSelect} />
           </motion.div>
-        }
+        )}
       </AnimatePresence>
 
       <form onSubmit={handleSubmit}>
@@ -66,7 +63,9 @@ const MessageForm = ({ roomId }) => {
           required
           autoComplete='off'
           value={message}
-          onChange={(e) => { setMessage(e.target.value) }}
+          onChange={e => {
+            setMessage(e.target.value)
+          }}
         />
         <div className={styles.emoji_icon_button}>
           <Button variant='icon-btn-normal' onClick={handleEmoji}>
@@ -81,4 +80,4 @@ const MessageForm = ({ roomId }) => {
   )
 }
 
-export default MessageForm;
+export default MessageForm

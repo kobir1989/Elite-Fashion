@@ -1,19 +1,19 @@
-import { apiSlice } from '../../api/apiSlice';
+import { apiSlice } from '../../api/apiSlice'
 
 export const reviewsApi = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     //fetch all the reviews related to single product, based on product id.
     getReviews: builder.query({
-      query: (id) => `/reviews/product/${id}`,
-      providesTags: ['getReviews'],
+      query: id => `/reviews/product/${id}`,
+      providesTags: ['getReviews']
     }),
     //fetch single review
     getSelectedReview: builder.query({
-      query: (id) => `/review/details/${id}`,
+      query: id => `/review/details/${id}`
     }),
     //Create new review
     addReview: builder.mutation({
-      query: (data) => ({
+      query: data => ({
         url: '/review/create',
         method: 'POST',
         body: data
@@ -30,14 +30,13 @@ export const reviewsApi = apiSlice.injectEndpoints({
       invalidatesTags: ['getReviews']
     }),
     deleteReview: builder.mutation({
-      query: (id) => ({
+      query: id => ({
         url: `/review/delete/${id}`,
-        method: 'DELETE',
+        method: 'DELETE'
       }),
       invalidatesTags: ['getReviews']
     })
-  }),
-
+  })
 })
 
 export const {
@@ -46,4 +45,4 @@ export const {
   useDeleteReviewMutation,
   useGetSelectedReviewQuery,
   useUppdateReviewMutation
-} = reviewsApi;
+} = reviewsApi

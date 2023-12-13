@@ -1,14 +1,14 @@
-@import "../../../../sass/sass-utils/colors";
-@import "../../../../sass/sass-utils/mixins";
+@import '../../../../sass/sass-utils/colors';
+@import '../../../../sass/sass-utils/mixins';
 .banner_wrapper {
-	background-color: $body;
-	padding: 2rem;
-	@include flex-col-center;
-	gap: 1rem;
-	.banner_text {
-		text-align: center;
-		h4 {
-			margin-bottom: 0.9rem;
-		}
-	}
+  background-color: $body;
+  padding: 2rem;
+  @include flex-col-center;
+  gap: 1rem;
+  .banner_text {
+    text-align: center;
+    h4 {
+      margin-bottom: 0.9rem;
+    }
+  }
 }

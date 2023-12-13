@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+ npm run fix:all
+# fix:all will trigger "prettier" and "lint" command from package.json/script before any commit.

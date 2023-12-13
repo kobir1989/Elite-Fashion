@@ -1,39 +1,39 @@
-import React, { useState } from 'react';
-import styles from '../../styles/CheckoutForm.module.scss';
-import { useStripe, useElements } from '@stripe/react-stripe-js';
-import { PaymentElement } from '@stripe/react-stripe-js';
-import { useDispatch, useSelector } from 'react-redux';
-import { increaseStep } from '../../../../redux/features/paymentSteps/stepsSlice';
-import { usePostCheckoutMutation } from '../../../../redux/features/checkout/checkoutApi';
-import Typography from '../../../../components/Common/Typography/Typography';
+import React, { useState } from 'react'
+import styles from '../../styles/CheckoutForm.module.scss'
+import { useStripe, useElements } from '@stripe/react-stripe-js'
+import { PaymentElement } from '@stripe/react-stripe-js'
+import { useDispatch, useSelector } from 'react-redux'
+import { increaseStep } from '../../../../redux/features/paymentSteps/stepsSlice'
+import { usePostCheckoutMutation } from '../../../../redux/features/checkout/checkoutApi'
+import Typography from '../../../../components/Common/Typography/Typography'
 
 const CheckoutForm = () => {
-  const stripe = useStripe();
-  const elements = useElements();
-  const [message, setMessage] = useState(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [postCheckout] = usePostCheckoutMutation();
-  const dispatch = useDispatch();
+  const stripe = useStripe()
+  const elements = useElements()
+  const [message, setMessage] = useState(null)
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [postCheckout] = usePostCheckoutMutation()
+  const dispatch = useDispatch()
   const { phone, address, city, userId, order, totalAmount } = useSelector(
-    (state) => state.checkout
-  );
-  const { activeStep } = useSelector((state) => state.steps);
-  console.log(activeStep);
+    state => state.checkout
+  )
+  const { activeStep } = useSelector(state => state.steps)
+  console.log(activeStep)
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async e => {
+    e.preventDefault()
     if (!stripe || !elements) {
-      return;
+      return
     }
-    setIsProcessing(true);
+    setIsProcessing(true)
     //Stripe Confirm Payment
     const result = await stripe.confirmPayment({
       elements,
-      redirect: 'if_required',
+      redirect: 'if_required'
       // confirmParams: {
       //    return_url: window.location.href = `${window.location.origin}/payment-success`
       // }
-    });
+    })
 
     if (result.paymentIntent.status === 'succeeded') {
       postCheckout({
@@ -44,18 +44,18 @@ const CheckoutForm = () => {
         userId,
         order,
         totalAmount,
-        paymentId: result.paymentIntent.id,
-      });
-      dispatch(increaseStep());
+        paymentId: result.paymentIntent.id
+      })
+      dispatch(increaseStep())
     }
     if (
       result.paymentIntent.error === 'card_error' ||
       result.paymentIntent.error === 'validation_error'
     ) {
-      setMessage(result?.paymentIntent?.error?.message);
+      setMessage(result?.paymentIntent?.error?.message)
     }
-    setIsProcessing(false);
-  };
+    setIsProcessing(false)
+  }
 
   return (
     <div className={styles.checkout_wrapper}>
@@ -80,7 +80,7 @@ const CheckoutForm = () => {
         {message && <div id='payment-message'>{message}</div>}
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default CheckoutForm;
+export default CheckoutForm

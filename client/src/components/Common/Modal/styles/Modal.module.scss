@@ -1,23 +1,23 @@
-@import "../../../../sass/sass-utils/colors";
-@import "../../../../sass/sass-utils/mixins";
+@import '../../../../sass/sass-utils/colors';
+@import '../../../../sass/sass-utils/mixins';
 
 .backdrop {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100vh;
-	background-color: $back_drop;
-	z-index: 60;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: $back_drop;
+  z-index: 60;
 }
 
 .overlay {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background: $white;
-	border-radius: 8px;
-	z-index: 100;
-	@include box-shadow-diffuse;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: $white;
+  border-radius: 8px;
+  z-index: 100;
+  @include box-shadow-diffuse;
 }
