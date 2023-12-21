@@ -17,8 +17,6 @@ const CheckoutForm = () => {
   const { phone, address, city, userId, order, totalAmount } = useSelector(
     state => state.checkout
   )
-  const { activeStep } = useSelector(state => state.steps)
-  console.log(activeStep)
 
   const handleSubmit = async e => {
     e.preventDefault()

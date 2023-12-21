@@ -1,5 +1,6 @@
 import { apiSlice } from '../../api/apiSlice'
-import { loggedIn } from './authSlice'
+import { setUserPayload } from './authSlice'
+import Cookies from 'js-cookie'
 
 export const authApi = apiSlice.injectEndpoints({
   endpoints: builder => ({
@@ -13,12 +14,8 @@ export const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
           const response = await queryFulfilled
-          dispatch(
-            loggedIn({
-              token: response?.data?.token,
-              userPayload: response?.data?.userPayload
-            })
-          )
+          Cookies.set('jwt', response.data.token, { expires: 2, secure: true })
+          dispatch(setUserPayload({ userPayload: response?.data?.userPayload }))
         } catch (error) {
           //  console.log(error)
         }
@@ -35,12 +32,8 @@ export const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
           const response = await queryFulfilled
-          dispatch(
-            loggedIn({
-              token: response?.data?.token,
-              userPayload: response?.data?.userPayload
-            })
-          )
+          Cookies.set('jwt', response.data.token, { expires: 2, secure: true })
+          dispatch(setUserPayload({ userPayload: response?.data?.userPayload }))
         } catch (error) {
           //  console.log(error)
         }

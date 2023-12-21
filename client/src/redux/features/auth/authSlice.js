@@ -1,24 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit'
+import Cookies from 'js-cookie'
 
+// Initial State
 const initialState = {
-  userInfo: null,
-  token: null
+  userInfo: null
 }
 
+// Auth Slice
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    loggedIn: (state, action) => {
-      state.token = action.payload.token
+    setUserPayload: (state, action) => {
       state.userInfo = action.payload.userPayload
     },
     logout: (state, _action) => {
       state.userInfo = null
-      state.token = null
+      Cookies.remove('jwt')
     }
   }
 })
 
+// auth Selector
+export const selectAuth = state => state.auth
+
 export default authSlice.reducer
-export const { setError, logout, loggedIn } = authSlice.actions
+export const { setError, logout, setUserPayload } = authSlice.actions

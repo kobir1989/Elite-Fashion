@@ -53,11 +53,13 @@ const SubCategoryPage = () => {
           : null}
         {isLoading && <CardSkeleton col={7} width={'100%'} height={'100%'} />}
       </GridViewLayout>
-      <Pagination
-        page={page}
-        paginationHandler={subCategoryPaginationHandler}
-        pagination={subCategories?.pagination}
-      />
+      {!isError && !isLoading && (
+        <Pagination
+          page={page}
+          paginationHandler={subCategoryPaginationHandler}
+          pagination={subCategories?.pagination}
+        />
+      )}
     </PageLayout>
   )
 }

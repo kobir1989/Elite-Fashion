@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setOpenSearchBox } from '../../redux/features/search/searchSlice'
 import { motion, AnimatePresence } from 'framer-motion'
+import { isAuth } from '../../helpers/isAuth.helper'
 
 const MobileNav = ({
   toggleWishList,
@@ -131,7 +132,7 @@ const MobileNav = ({
                     LIFESTYLE
                   </Link>
                 </li>
-                {userInfo && (
+                {isAuth() && (
                   <>
                     <li>
                       <Link to={`/user-profile/${userInfo._id}`}>Account</Link>
@@ -139,7 +140,7 @@ const MobileNav = ({
                     <li onClick={logoutHandler}>logout</li>
                   </>
                 )}
-                {!userInfo && (
+                {!isAuth() && (
                   <>
                     <li>
                       <Link to='/login'>login</Link>

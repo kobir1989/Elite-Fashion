@@ -21,6 +21,7 @@ const LoginPage = () => {
   const { email, password } = loginValue
   const [viewPassword, setViewPassword] = useState(false)
   const [isError, setIsError] = useState(null)
+  // Login Mutation
   const [
     login,
     { data: loginResponse, isError: loginError, isLoading, error }
@@ -45,6 +46,7 @@ const LoginPage = () => {
     }
     login(loginValue)
   }
+  // view password
   const toggleViewPassword = () => {
     setViewPassword(!viewPassword)
   }
@@ -57,6 +59,7 @@ const LoginPage = () => {
       navigate('/')
       toast.dismiss()
       toast.success('Welcome Back')
+      // reset state
       setLoginValue(defaultLoginValue)
     }
   }, [loginResponse?.token, navigate, loginError, error?.data?.message])

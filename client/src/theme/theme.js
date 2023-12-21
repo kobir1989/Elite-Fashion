@@ -1,19 +1,9 @@
 import { createTheme } from '@mui/material/styles'
+import { palette } from './palette'
 
 export const theme = createTheme({
   palette: {
-    primary: {
-      main: '#212529',
-      light: '#3b3841'
-    },
-    secondary: {
-      main: '#727272',
-      light: '#e5e5e5'
-    },
-    error: {
-      main: '#cc2121',
-      light: '#ff7979'
-    }
+    ...palette
   },
   breakpoints: {
     values: {

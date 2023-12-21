@@ -45,11 +45,13 @@ const ProductsPage = () => {
           <CardSkeleton col={12} text={true} width={'100%'} height={'28rem'} />
         )}
       </ProductsLayout>
-      <Pagination
-        page={page}
-        paginationHandler={productPaginationHandler}
-        api={products?.pagination}
-      />
+      {!isError && !isLoading && (
+        <Pagination
+          page={page}
+          paginationHandler={productPaginationHandler}
+          api={products?.pagination}
+        />
+      )}
     </PageLayout>
   )
 }

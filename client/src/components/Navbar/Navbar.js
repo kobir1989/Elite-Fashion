@@ -8,7 +8,7 @@ import { setToggleWishList } from '../../redux/features/wishList/wishLishSlice'
 import Typography from '../Common/Typography/Typography'
 import MobileNav from './MobileNav'
 import { setOpenSearchBox } from '../../redux/features/search/searchSlice'
-import { logout } from '../../redux/features/auth/authSlice'
+import { logout, selectAuth } from '../../redux/features/auth/authSlice'
 import { AnimatePresence, motion } from 'framer-motion'
 import { setSubCategoryPage } from '../../redux/features/subCategory/subCategorySlice'
 import { setProductPage } from '../../redux/features/products/productsSlice'
@@ -16,17 +16,18 @@ import { useLogoutRequestQuery } from '../../redux/features/auth/authApi'
 import { toggleChatModal } from '../../redux/features/chat/chatSlice'
 import { socket } from '../../socket'
 import { toast } from 'react-hot-toast'
+import { isAuth } from '../../helpers/isAuth.helper'
 
 const Navbar = () => {
   const [openDropdown, setOpenDropdown] = useState(false)
   const [isMessage, setIsMessage] = useState(0)
-  const { userInfo, token } = useSelector(state => state.auth)
   const dropdownRef = useRef(null)
   const { wishListItem, toggleWishList } = useSelector(state => state.wishList)
   const { refetch } = useLogoutRequestQuery()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { quantity } = useSelector(state => state.cart)
+  const { userInfo } = useSelector(selectAuth)
 
   const logoutHandler = () => {
     refetch() //send logout request to server
@@ -34,7 +35,7 @@ const Navbar = () => {
     navigate('/login')
   }
 
-  //Rest product and sub-category page state to 1, every time user navigate to differen category or product page.
+  //Reset product and sub-category page state to 1, every time user navigate to differen category or product page.
   const resetPageState = () => {
     dispatch(setSubCategoryPage(1))
     dispatch(setProductPage(1))
@@ -42,7 +43,7 @@ const Navbar = () => {
 
   //toggle chat popup handler
   const handleToggleChatModal = () => {
-    if (token) {
+    if (isAuth()) {
       dispatch(toggleChatModal())
     } else {
       navigate('/login')
@@ -134,7 +135,7 @@ const Navbar = () => {
                 setOpenDropdown(!openDropdown)
               }}
             >
-              {userInfo ? (
+              {isAuth() ? (
                 <div className={styles.user_name} ref={dropdownRef}>
                   <Typography variant={'small'}>
                     {userInfo?.name.slice(0, 1)}
@@ -155,7 +156,7 @@ const Navbar = () => {
                   exit={{ opacity: 0 }}
                   className={styles.bgscreen_dropdown}
                 >
-                  {!userInfo && (
+                  {!isAuth() && (
                     <>
                       <li>
                         <Link to='/login'>
@@ -171,7 +172,7 @@ const Navbar = () => {
                       </li>
                     </>
                   )}
-                  {token && (
+                  {isAuth() && (
                     <>
                       <li className={styles.drop_down_user_info}>
                         <Link to={`/user-profile/${userInfo._id}`}>
